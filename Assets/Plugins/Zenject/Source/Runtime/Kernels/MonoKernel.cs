@@ -7,8 +7,8 @@ namespace Zenject
 {
     public abstract class MonoKernel : MonoBehaviour
     {
-        [InjectLocal]
-        TickableManager _tickableManager = null;
+        //[InjectLocal]
+        //TickableManager _tickableManager = null;
 
         [InjectLocal]
         InitializableManager _initializableManager = null;
@@ -39,32 +39,32 @@ namespace Zenject
             }
         }
 
-        public virtual void Update()
-        {
-            // Don't spam the log every frame if initialization fails and leaves it as null
-            if (_tickableManager != null)
-            {
-                _tickableManager.Update();
-            }
-        }
+        //public virtual void Update()
+        //{
+        //    // Don't spam the log every frame if initialization fails and leaves it as null
+        //    if (_tickableManager != null)
+        //    {
+        //        _tickableManager.Update();
+        //    }
+        //}
 
-        public virtual void FixedUpdate()
-        {
-            // Don't spam the log every frame if initialization fails and leaves it as null
-            if (_tickableManager != null)
-            {
-                _tickableManager.FixedUpdate();
-            }
-        }
+        //public virtual void FixedUpdate()
+        //{
+        //    // Don't spam the log every frame if initialization fails and leaves it as null
+        //    if (_tickableManager != null)
+        //    {
+        //        _tickableManager.FixedUpdate();
+        //    }
+        //}
 
-        public virtual void LateUpdate()
-        {
-            // Don't spam the log every frame if initialization fails and leaves it as null
-            if (_tickableManager != null)
-            {
-                _tickableManager.LateUpdate();
-            }
-        }
+        //public virtual void LateUpdate()
+        //{
+        //    // Don't spam the log every frame if initialization fails and leaves it as null
+        //    if (_tickableManager != null)
+        //    {
+        //        _tickableManager.LateUpdate();
+        //    }
+        //}
 
         public virtual void OnDestroy()
         {

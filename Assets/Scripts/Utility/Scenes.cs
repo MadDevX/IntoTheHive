@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public static class Scenes
+[CreateAssetMenu(menuName = "GameResources/Scenes")]
+public class Scenes : ScriptableObject
 {
-    public static SceneReference Menu;
-    public static SceneReference Main;
+    public SceneReference Menu;
+    public SceneReference Main;
 }

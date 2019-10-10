@@ -96,15 +96,15 @@ namespace Zenject
                 return;
             }
 
-            try
-            {
-                _kernel.Tick();
-            }
-            catch (Exception e)
-            {
-                Log.ErrorException(e);
-                _fatalError = e;
-            }
+            //try
+            //{
+            //    _kernel.Tick();
+            //}
+            //catch (Exception e)
+            //{
+            //    Log.ErrorException(e);
+            //    _fatalError = e;
+            //}
 
             // We might also consider only calling Repaint when changes occur
             Repaint();
