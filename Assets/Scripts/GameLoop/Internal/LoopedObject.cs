@@ -9,7 +9,7 @@ namespace GameLoop.Internal
         protected TLoop _gameLoop;
         protected IRelay _relay;
 
-        protected bool DefaultSubscribe { get; } = true;
+        protected virtual bool DefaultSubscribe { get; } = true;
         private bool _isSubscribed = false;
 
         [Inject]
