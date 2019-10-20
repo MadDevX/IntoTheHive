@@ -4,6 +4,8 @@
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
+Server/Data
+Server/Logs
 
 # Visual Studio cache directory
 .vs/
@@ -34,3 +36,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Project settings for DarkRift Server Plugins
+!IntoTheHivePlugins/IntoTheHivePlugins.csproj

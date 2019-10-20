@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DarkRift">
+      <HintPath>..\Assets\DarkRift\DarkRift\Plugins\DarkRift.dll</HintPath>
+    </Reference>
+    <Reference Include="DarkRift.Server">
+      <HintPath>..\Assets\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="$(ProjectDir)UpdatePluginDLL.bat &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Assets\DarkRift\DarkRift\Plugins&quot; &quot;$(SolutionDir)Server\Plugins&quot;" />
+  </Target>
+
+</Project>
