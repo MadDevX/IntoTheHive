@@ -15,4 +15,9 @@ public static class Extensions
         v.y = (sin * tx) + (cos * ty);
         return v;
     }
+
+    public static int ToMask(this int i)
+    {
+        return 1 << i;
+    }
 }
