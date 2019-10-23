@@ -18,9 +18,10 @@ public class PlayerInput : UpdatableObject
 
     public override void OnUpdate(float deltaTime)
     {
-        _controlState.Horizontal = Input.GetAxis("Horizontal");
-        _controlState.Vertical = Input.GetAxis("Vertical");
-        _controlState.PrimaryAction = Input.GetButton("PrimaryAction");
+        _controlState.Horizontal = Input.GetAxis(nameof(_controlState.Horizontal));
+        _controlState.Vertical = Input.GetAxis(nameof(_controlState.Vertical));
+        _controlState.PrimaryAction = Input.GetButton(nameof(_controlState.PrimaryAction));
+        _controlState.SecondaryAction = Input.GetButton(nameof(_controlState.SecondaryAction));
         _controlState.Direction = (_mainCamera.ScreenToWorldPoint(Input.mousePosition) - _transform.position).normalized;
     }
 }

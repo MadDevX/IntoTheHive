@@ -6,8 +6,8 @@ public static class Extensions
 {
     public static Vector2 Rotate(this Vector2 v, float degrees)
     {
-        float sin = Mathf.Sin(-degrees * Mathf.Deg2Rad);
-        float cos = Mathf.Cos(-degrees * Mathf.Deg2Rad);
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
 
         float tx = v.x;
         float ty = v.y;

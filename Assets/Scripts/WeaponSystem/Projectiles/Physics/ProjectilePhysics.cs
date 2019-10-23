@@ -8,12 +8,13 @@ using UnityEngine;
 public class ProjectilePhysics : MonoFixedUpdatableObject
 {
     public event Action<Collider2D> OnCollisionEnter;
-    public Vector2 Velocity { get; set; } = new Vector2(40.0f, 40.0f);
+    public Vector2 Velocity { get; set; }
+    public Vector2 Position { get => transform.position; set => transform.position = value; }
     public float Radius { get; set; } = 0.125f;
 
     public bool IsPiercing { get; set; } = false;
 
-    private RaycastHit2D[] _hits = new RaycastHit2D[1]; //what about piercing AND fast projectiles? TODO: check hit count
+    private RaycastHit2D[] _hits = new RaycastHit2D[2]; //what about piercing AND fast projectiles? TODO: check hit count
     private Collider2D _prevCol = null;
     private Vector3 _translateVector = Vector3.zero;
     private int _hitMask;
@@ -28,38 +29,54 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
     public override void OnFixedUpdate(float deltaTime)
     {
         var velMag = Velocity.magnitude;
-        Vector2 basePos = transform.position;
-        var count = Physics2D.CircleCastNonAlloc(basePos, Radius, Velocity, _hits, velMag * deltaTime, _hitMask);
-
         float remainingDist = velMag * deltaTime;
 
-        if (count == 0) //Reset prev collision (enables tidy implementation of bouncing/piercing bullets)
+        Vector2 currentPos = transform.position;
+
+        bool canStop = false;
+        int i = 0;
+
+        //TODO: upgrade collision algorithm or strip it off unnecessary calculations
+        while (canStop == false && i < 10)
         {
-            _prevCol = null;
-        }
-        else if(_prevCol != _hits[0].collider) //Only OnCollisionEnter should be useful gameplay-wise
-        {
-            var hit = _hits[0];
-            var col = hit.collider;
-            _prevCol = col;
-            OnCollisionEnter?.Invoke(col);
-            
-            if(IsPiercing == false)
+            i++;
+            if (i == 5) Debug.LogError("Probably endless loop");
+            var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, velMag * deltaTime, _hitMask);
+
+            if (count == 0) //Reset prev collision (enables tidy implementation of bouncing/piercing bullets)
             {
-                var posDiff = (basePos - hit.point).magnitude;
-                var correctionDist = posDiff - Radius;
-                remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
-                Velocity = ReflectionVector(Velocity, hit.normal);
-                basePos = Vector3.MoveTowards(basePos, hit.point, correctionDist);
+                _prevCol = null;
+                canStop = true;
+            }
+            else if (_prevCol != _hits[0].collider || (count == 2 && _prevCol != _hits[1].collider)) //Only OnCollisionEnter should be useful gameplay-wise
+            {
+                int j = _prevCol != _hits[0].collider ? 0 : 1;
+                if (j == 1) Debug.Log("gotem");
+                var hit = _hits[j];
+                var col = hit.collider;
+                _prevCol = col;
+                OnCollisionEnter?.Invoke(col);
+
+                if (IsPiercing == false)
+                {
+                    var posDiff = (currentPos - hit.point).magnitude;
+                    var correctionDist = posDiff - Radius;
+                    remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
+                    Velocity = ReflectionVector(Velocity, hit.normal);
+                    currentPos = Vector3.MoveTowards(currentPos, hit.point, correctionDist);
+                }
+            }
+            else
+            {
+                canStop = true;
             }
         }
-        Vector3 endPos = basePos + Vector2.ClampMagnitude((Velocity * deltaTime), remainingDist); //Reflections ideally should be made in while loop
-        transform.position = endPos;
+        transform.position = currentPos + Vector2.ClampMagnitude((Velocity * deltaTime), remainingDist);
     }
 
     private Vector2 ReflectionVector(Vector2 towardsProjectile, Vector2 surfaceNormal)
     {
         var angle = Vector2.SignedAngle(towardsProjectile, surfaceNormal);
-        return towardsProjectile.Rotate(180.0f - 2.0f * angle);
+        return towardsProjectile.Rotate(2.0f * angle - 180.0f);
     }
 }

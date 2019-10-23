@@ -1,5 +1,8 @@
-﻿public interface IWeapon
+﻿using UnityEngine;
+
+public interface IWeapon
 {
-    void Shoot();
+    bool Shoot(Vector2 position, float rotation, Vector2 offset);
+    void ReleaseTrigger();
     void Reload();
 }

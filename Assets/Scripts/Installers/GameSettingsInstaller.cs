@@ -6,9 +6,13 @@ using Zenject;
 [CreateAssetMenu(menuName = "GameResources/GameSettings")]
 public class GameSettingsInstaller : ScriptableObjectInstaller
 {
-    [SerializeField] private CharacterMovement.Settings _charSettings;
+    [SerializeField] private CharacterMovement.Settings _charMovementSettings;
+    [SerializeField] private CharacterShooting.Settings _charShootingSettings;
+    [SerializeField] private PlaceholderWeapon.Settings _placeholderWeaponSettings;
     public override void InstallBindings()
     {
-        Container.BindInstance(_charSettings).AsSingle();
+        Container.BindInstance(_charMovementSettings).AsSingle();
+        Container.BindInstance(_charShootingSettings).AsSingle();
+        Container.BindInstance(_placeholderWeaponSettings).AsSingle();
     }
 }

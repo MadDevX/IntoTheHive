@@ -49,7 +49,7 @@ public class CharacterMovement : FixedUpdatableObject
 
     private float CalculateSpeedBonus()
     {
-        return _controlState.PrimaryAction ? _settings.speedMult * _settings.baseSpeed : _settings.baseSpeed; 
+        return _controlState.SecondaryAction ? _settings.speedMult * _settings.baseSpeed : _settings.baseSpeed; 
     }
 
     [System.Serializable]
