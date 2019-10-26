@@ -16,7 +16,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
 
     private RaycastHit2D[] _hits = new RaycastHit2D[2]; //what about piercing AND fast projectiles? TODO: check hit count
     private Collider2D _prevCol = null;
-    private Vector3 _translateVector = Vector3.zero;
+    private Vector2 _zeroVector = Vector2.zero;
     private int _hitMask;
 
     private void Awake()
@@ -51,18 +51,21 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
             else if (_prevCol != _hits[0].collider || (count == 2 && _prevCol != _hits[1].collider)) //Only OnCollisionEnter should be useful gameplay-wise
             {
                 int j = _prevCol != _hits[0].collider ? 0 : 1;
-                if (j == 1) Debug.Log("gotem");
+                //if (j == 1) Debug.Log("gotem");
                 var hit = _hits[j];
                 var col = hit.collider;
                 _prevCol = col;
                 OnCollisionEnter?.Invoke(col);
-
                 if (IsPiercing == false)
                 {
                     var posDiff = (currentPos - hit.point).magnitude;
                     var correctionDist = posDiff - Radius;
                     remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
-                    Velocity = ReflectionVector(Velocity, hit.normal);
+                    var hitRb = hit.rigidbody;
+                    var baseVel = _zeroVector;
+                    if (hitRb != null) baseVel = hitRb.velocity;
+                    Velocity = ReflectionVector((Velocity - baseVel), hit.normal) + baseVel;
+                    Debug.Log(hit.normal);
                     currentPos = Vector3.MoveTowards(currentPos, hit.point, correctionDist);
                 }
             }

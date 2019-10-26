@@ -18,5 +18,5 @@ MonoBehaviour:
   _charShootingSettings:
     weaponOffset: {x: 0, y: 0.75}
   _placeholderWeaponSettings:
-    velocity: 15
-    timeToLive: 3
+    velocity: 2
+    timeToLive: 10
