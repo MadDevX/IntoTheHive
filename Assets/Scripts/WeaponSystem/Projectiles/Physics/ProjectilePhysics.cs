@@ -14,7 +14,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
 
     public bool IsPiercing { get; set; } = false;
 
-    private RaycastHit2D[] _hits = new RaycastHit2D[2]; //what about piercing AND fast projectiles? TODO: check hit count
+    private RaycastHit2D[] _hits = new RaycastHit2D[5]; //what about piercing AND fast projectiles? TODO: check hit count
     private Collider2D _prevCol = null;
     private Vector2 _zeroVector = Vector2.zero;
     private int _hitMask;
@@ -28,6 +28,18 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
 
     public override void OnFixedUpdate(float deltaTime)
     {
+        if (IsPiercing)
+        {
+            TriggerBehaviour(deltaTime);
+        }
+        else
+        {
+            CollisionBehaviour(deltaTime);
+        }
+    }
+
+    private void CollisionBehaviour(float deltaTime)
+    {
         var velMag = Velocity.magnitude;
         float remainingDist = velMag * deltaTime;
 
@@ -40,7 +52,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
         while (canStop == false && i < 10)
         {
             i++;
-            if (i == 5) Debug.LogError("Probably endless loop");
+            if (i == 10) Debug.LogError("Probably endless loop");
             var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, velMag * deltaTime, _hitMask);
 
             if (count == 0) //Reset prev collision (enables tidy implementation of bouncing/piercing bullets)
@@ -48,26 +60,25 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
                 _prevCol = null;
                 canStop = true;
             }
-            else if (_prevCol != _hits[0].collider || (count == 2 && _prevCol != _hits[1].collider)) //Only OnCollisionEnter should be useful gameplay-wise
+            else if (_prevCol != _hits[0].collider || (count >= 2)) //Only OnCollisionEnter should be useful gameplay-wise
             {
-                int j = _prevCol != _hits[0].collider ? 0 : 1;
-                //if (j == 1) Debug.Log("gotem");
+                int j;
+                for(j = 0; j < count; j++)
+                {
+                    if (Vector2.Dot(_hits[j].normal, Velocity) <= 0.0f && _prevCol != _hits[j].collider) break;
+                }
                 var hit = _hits[j];
                 var col = hit.collider;
                 _prevCol = col;
                 OnCollisionEnter?.Invoke(col);
-                if (IsPiercing == false)
-                {
-                    var posDiff = (currentPos - hit.point).magnitude;
-                    var correctionDist = posDiff - Radius;
-                    remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
-                    var hitRb = hit.rigidbody;
-                    var baseVel = _zeroVector;
-                    if (hitRb != null) baseVel = hitRb.velocity;
-                    Velocity = ReflectionVector((Velocity - baseVel), hit.normal) + baseVel;
-                    Debug.Log(hit.normal);
-                    currentPos = Vector3.MoveTowards(currentPos, hit.point, correctionDist);
-                }
+                var posDiff = (currentPos - hit.point).magnitude;
+                var correctionDist = posDiff - Radius;
+                remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
+                var hitRb = hit.rigidbody;
+                var baseVel = _zeroVector;
+                if (hitRb != null) baseVel = hitRb.velocity;
+                Velocity = ReflectionVector((Velocity - baseVel), hit.normal) + baseVel;
+                currentPos = Vector3.MoveTowards(currentPos, hit.point, correctionDist);
             }
             else
             {
@@ -77,7 +88,29 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
         transform.position = currentPos + Vector2.ClampMagnitude((Velocity * deltaTime), remainingDist);
     }
 
-    private Vector2 ReflectionVector(Vector2 towardsProjectile, Vector2 surfaceNormal)
+    private void TriggerBehaviour(float deltaTime)
+    {
+        var velMag = Velocity.magnitude;
+        float remainingDist = velMag * deltaTime;
+
+        Vector2 currentPos = transform.position;
+
+        var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, velMag * deltaTime, _hitMask);
+
+        if (_hits[0].collider != _prevCol)
+        {
+            _prevCol = _hits[0].collider;
+            for (int i = 0; i < count; i++)
+            {
+                OnCollisionEnter?.Invoke(_hits[i].collider); //For visual effects maybe forward RaycastHit instead of Collider?
+                Debug.Log(_hits[i].collider.name);
+            }
+        }
+        transform.position = currentPos + Vector2.ClampMagnitude((Velocity * deltaTime), remainingDist);
+
+    }
+
+    private static Vector2 ReflectionVector(Vector2 towardsProjectile, Vector2 surfaceNormal)
     {
         var angle = Vector2.SignedAngle(towardsProjectile, surfaceNormal);
         return towardsProjectile.Rotate(2.0f * angle - 180.0f);

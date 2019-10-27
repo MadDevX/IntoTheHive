@@ -24,6 +24,7 @@ public struct ProjectileSpawnParameters
 public class Projectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable
 {
     [SerializeField] private ProjectilePhysics _rb;
+    [SerializeField] private TrailRenderer _trail;
 
     private IMemoryPool _pool;
     private float _ttl = 1.0f;
@@ -45,6 +46,7 @@ public class Projectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParamete
         _rb.Velocity = Vector2.up.Rotate(parameters.rotation) * parameters.velocity;
         _ttl = parameters.ttl;
         _pool = pool;
+        _trail.Clear();
     }
 
     public override void OnUpdate(float deltaTime)
