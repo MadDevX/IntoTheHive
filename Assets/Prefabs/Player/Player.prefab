@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 4656559682471812277}
   - component: {fileID: 4656559682471812276}
   - component: {fileID: 1254469886}
+  - component: {fileID: 562093153655815228}
+  - component: {fileID: 2397560382487110123}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -56,6 +58,7 @@ MonoBehaviour:
   - {fileID: 4656559682471812266}
   - {fileID: 506730734958106846}
   - {fileID: 4656559682471812267}
+  - {fileID: 2397560382487110123}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -85,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 4656559682471812276}
+  _characterFacade: {fileID: 562093153655815228}
 --- !u!114 &4656559682471812267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +150,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &562093153655815228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656559682471812272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e17da3861f7fc4b8674f6702874ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 0
+--- !u!114 &2397560382487110123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656559682471812272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dc1e4e33d79774da261ba3c589679d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSenderSettings:
+    moveEps: 0
+    rotationEps: 0
 --- !u!1 &4656559682613055192
 GameObject:
   m_ObjectHideFlags: 0

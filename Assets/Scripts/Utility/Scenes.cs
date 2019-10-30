@@ -6,5 +6,8 @@ using UnityEngine;
 public class Scenes : ScriptableObject
 {
     public SceneReference Menu;
-    public SceneReference Main;
+    public SceneReference ConnectionScreen;
+    public SceneReference Lobby;
+    public SceneReference Level;
+    public SceneReference Hub;
 }

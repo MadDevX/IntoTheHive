@@ -6,6 +6,7 @@ using Zenject;
 public class CharacterInstaller : MonoInstaller
 {
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private CharacterFacade _characterFacade;
 
     public override void InstallBindings()
     {
@@ -20,7 +21,7 @@ public class CharacterInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CharacterRotation>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterShooting>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterEquipment>().AsSingle();
-
+        
         Container.Bind<ControlState>().AsSingle();
     }
 
@@ -28,6 +29,7 @@ public class CharacterInstaller : MonoInstaller
     {
         Container.Bind<Rigidbody2D>().FromInstance(_rb).AsSingle();
         Container.Bind<Transform>().FromInstance(transform).AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterFacade>().FromInstance(_characterFacade).AsSingle();
     }
 
     private void InstallWeapon() //fast solution - delete as soon as possible

@@ -28,4 +28,5 @@ public class ControlState
     /// Vector representing the direction which character should be facing.
     /// </summary>
     public Vector2 Direction { get; set; } = Vector2.up;
+    public Vector2 Position { get; set; } = Vector2.zero;
 }

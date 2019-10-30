@@ -13,8 +13,17 @@ MonoBehaviour:
   m_Name: Scenes
   m_EditorClassIdentifier: 
   Menu:
-    sceneAsset: {fileID: 0}
-    scenePath: 
-  Main:
+    sceneAsset: {fileID: 102900000, guid: cf9b8ba200be01342834aec842c99434, type: 3}
+    scenePath: Assets/Scenes/MainMenu.unity
+  ConnectionScreen:
+    sceneAsset: {fileID: 102900000, guid: dc6548b93f7033f44b67a3ebe056256f, type: 3}
+    scenePath: Assets/Scenes/ConnectionMenu.unity
+  Lobby:
+    sceneAsset: {fileID: 102900000, guid: 6956954464a74394bbdab6f87dad8e18, type: 3}
+    scenePath: Assets/Scenes/Lobby.unity
+  Level:
     sceneAsset: {fileID: 102900000, guid: 371d223c4e2030c428762b8af1ffe315, type: 3}
-    scenePath: Assets/Scenes/TestingGrounds.unity
+    scenePath: Assets/Scenes/Level.unity
+  Hub:
+    sceneAsset: {fileID: 102900000, guid: 767d8cebf4f182747893818a86bce07a, type: 3}
+    scenePath: Assets/Scenes/Hub.unity

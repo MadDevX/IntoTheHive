@@ -7,6 +7,9 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     [SerializeField] private ProjectileFacade _projectilePrefab;
     [SerializeField] private ProjectileFacade _rayProjectilePrefab;
     [SerializeField] private LineVFX _lineVFX;
+    [SerializeField] private CharacterFacade _playerPrefab;
+    [SerializeField] private CharacterFacade _networkedCharacterPrefab;
+    [SerializeField] private CharacterFacade _AIPrefab;
 
     public override void InstallBindings()
     {
@@ -28,6 +31,15 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
 
+        BindMonoPrefabPool<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory, CharacterPool>
+            (Identifiers.AI, 10, _AIPrefab, "AI");
+
+        BindMonoPrefabPool<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory, CharacterPool>
+            (Identifiers.Network, 4, _networkedCharacterPrefab, "Characters");
+
+        BindMonoPrefabPool<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory, CharacterPool>
+            (Identifiers.Player, 1, _playerPrefab, "Players");
+        
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Bullet).To<RigidProjectileMultiFactory>().AsSingle();
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Ray).To<RayProjectileMultiFactory>().AsSingle();
     }
@@ -91,5 +103,9 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     public class RayProjectileMultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade> //TODO: possibly move into separate file and define multiple factories for every projectile prefab (rigid, ray, etc)
     {
         public RayProjectileMultiFactory([Inject(Id = Identifiers.Ray)] ProjectileFacade.Factory factory) : base(factory) { }
+    }
+
+    public class CharacterPool : MonoPoolableMemoryPool<CharacterSpawnParameters, IMemoryPool, CharacterFacade>
+    {
     }
 }
