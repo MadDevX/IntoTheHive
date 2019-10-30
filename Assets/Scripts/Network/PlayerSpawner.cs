@@ -9,9 +9,9 @@ public class PlayerSpawner : MonoBehaviour
     [Tooltip("The DarkRift client to communicate on.")]
     UnityClient client;
 
-    //Should be Character.Factory
+    //Should be Character.Factory 
+    //FACTORY should have a parameter of unityclient which will allow for message handling in networked character
     //private Projectile.Factory _projectileFactory;
-    
 
     void Awake()
     {
