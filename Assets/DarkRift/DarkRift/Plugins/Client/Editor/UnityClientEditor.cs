@@ -54,8 +54,13 @@ namespace DarkRift.Client.Unity
             
             try
             {
-                client.Address = IPAddress.Parse(address);
-                EditorUtility.SetDirty(client);
+                var newAddress = IPAddress.Parse(address);
+                if (client.Address.Equals(newAddress) == false)
+                {
+                    Debug.Log("Update address");
+                    client.Address = newAddress;
+                    EditorUtility.SetDirty(client);
+                }
             }
             catch (FormatException)
             {
