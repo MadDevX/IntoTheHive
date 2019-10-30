@@ -6,5 +6,6 @@ public class NetworkedReceiverInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<MessageReceiver>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedCharacterMovement>().AsSingle();
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterShooting>().AsSingle();
     }
 }
