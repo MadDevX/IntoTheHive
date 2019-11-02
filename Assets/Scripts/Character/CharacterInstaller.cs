@@ -7,7 +7,7 @@ public class CharacterInstaller : MonoInstaller
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private CharacterFacade _characterFacade;
-    // TODO MG : assing reference in installer
+
     public override void InstallBindings()
     {
         InstallComponents();

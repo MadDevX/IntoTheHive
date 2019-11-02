@@ -1,4 +1,5 @@
-﻿using DarkRift;
+﻿using Cinemachine;
+using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
 using System;
@@ -8,12 +9,15 @@ using Zenject;
 
 public class CharacterSpawner : MonoBehaviour, IInitializable, IDisposable
 {
-
+    //Separate this to CharacterSpawner and NetworkHandler? to separate message handling from spawning players 
     private UnityClient _client;
+
+    private CinemachineVirtualCamera _camera;
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
     private CharacterFacade.Factory _AIfactory;
     private Projectile.Factory _projectileFactory;
+
     private Dictionary<ushort, CharacterFacade> _characters;
 
     [Inject]
@@ -22,10 +26,12 @@ public class CharacterSpawner : MonoBehaviour, IInitializable, IDisposable
         [Inject(Id = Identifiers.Network)] CharacterFacade.Factory networkFactory,
         [Inject(Id = Identifiers.AI)] CharacterFacade.Factory AIFactory,
         [Inject(Id = Identifiers.Player)] CharacterFacade.Factory playerFactory,
-        Projectile.Factory projectileFactory
+        Projectile.Factory projectileFactory,
+        CinemachineVirtualCamera camera
         )
     {
         _client = client;
+        _camera = camera;
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _AIfactory = AIFactory;
@@ -40,7 +46,9 @@ public class CharacterSpawner : MonoBehaviour, IInitializable, IDisposable
 
     public void Initialize()
     {
-        _playerFactory.Create(new CharacterSpawnParameters(0, new PlaceholderWeapon(_projectileFactory,new PlaceholderWeapon.Settings()), new Vector2(0, 0)));
+        CharacterFacade playerCharacter = _playerFactory.Create(new CharacterSpawnParameters());
+        _camera.Follow = playerCharacter.transform;
+        _camera.LookAt = playerCharacter.transform;
         _client.MessageReceived += HandleMessage;
     }
 
@@ -49,6 +57,26 @@ public class CharacterSpawner : MonoBehaviour, IInitializable, IDisposable
         using (Message message = e.GetMessage())
         {
             if (message.Tag == Tags.SpawnCharacter) HandleSpawn(sender,e);
+            if (message.Tag == Tags.DespawnCharacter) HandleDespawn(sender, e);
+        }
+    }
+
+    private void HandleDespawn(object sender, MessageReceivedEventArgs e)
+    {
+        using (Message message = e.GetMessage())
+        {
+            using (DarkRiftReader reader = message.GetReader())
+            {
+                // TODO check message size 
+                ushort clientID = reader.ReadUInt16();
+
+                if (_characters.ContainsKey(clientID) == true)
+                {
+                    var character = _characters[clientID];
+                    _characters.Remove(clientID);
+                    character.Dispose();                    
+                }
+            }
         }
     }
 
@@ -58,24 +86,19 @@ public class CharacterSpawner : MonoBehaviour, IInitializable, IDisposable
         {
             using (DarkRiftReader reader = message.GetReader())
             {
-                // check message size 
+                // TODO  check message size 
 
-                // message reading
+                // TODO message reading
                 ushort clientID = reader.ReadUInt16();
-                IWeapon weapon = null; //some WeaponReading
-
-                // message handling 
 
                 if (_characters.ContainsKey(clientID) == false)
                 {
                     // Generate Spawn coordinates 
-                    // Should the position be generated on the server or by the client 
+                    // Should the position be generated on the server or by the client?
                     // (Probably server, he can ensure that all characters do not collide)
-                    Vector2 position = new Vector2(0, 0);
 
-                    CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters(clientID, new PlaceholderWeapon(_projectileFactory, new PlaceholderWeapon.Settings()), position);
+                    CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
                     CharacterFacade characterFacade = _networkFactory.Create(spawnParameters);
-
                     _characters.Add(clientID, characterFacade);
 
                 }
