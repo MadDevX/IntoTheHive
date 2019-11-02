@@ -13,7 +13,7 @@ public class PlayerSpawner : MonoBehaviour
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
     private CharacterFacade.Factory _AIfactory;
-    private Dictionary<ushort, CharacterFacade> _characters
+    private Dictionary<ushort, CharacterFacade> _characters;
 
 
     public PlayerSpawner(
