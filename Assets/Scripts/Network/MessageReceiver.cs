@@ -1,24 +1,31 @@
 ﻿using DarkRift.Client;
 using DarkRift.Client.Unity;
 
+//Class which handles message receiving for networked characters
 public class MessageReceiver
 {
-    UnityClient _client;
-    NetworkedCharacterMovement _networkedCharacterMovement;
-    NetworkedCharacterShooting _networkedCharacterShooting;
+    public ushort ClientId { get; set; }
+    public NetworkedCharacterInput _networkedCharacterMovement;
+    public NetworkedCharacterShooting _networkedCharacterShooting;
+    private UnityClient _networkManager;
+
 
     // placeholder class for message handling
-    public MessageReceiver(UnityClient client, NetworkedCharacterMovement networkedCharacterMovement, NetworkedCharacterShooting networkedCharacterShooting)
+    public MessageReceiver(
+        UnityClient client,
+        NetworkedCharacterInput networkedCharacterMovement,
+        NetworkedCharacterShooting networkedCharacterShooting)
     {
-        _client = client;
+        _networkManager = client;
         _networkedCharacterMovement = networkedCharacterMovement;
         _networkedCharacterShooting = networkedCharacterShooting;
 
-        _client.MessageReceived += HandleMessage;
+        _networkManager.MessageReceived += HandleMessage;
     }
 
     private void HandleMessage(object sender, MessageReceivedEventArgs e)
     {
+        
         throw new System.NotImplementedException();
     }
 }
