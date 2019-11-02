@@ -1,5 +1,6 @@
 ﻿using DarkRift.Client;
 using DarkRift.Client.Unity;
+using UnityEngine;
 
 //Class which handles message receiving for networked characters
 public class MessageReceiver
@@ -25,7 +26,7 @@ public class MessageReceiver
 
     private void HandleMessage(object sender, MessageReceivedEventArgs e)
     {
-        
-        throw new System.NotImplementedException();
+        Debug.Log("message received");
+       // throw new System.NotImplementedException();
     }
 }
