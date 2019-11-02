@@ -5,7 +5,7 @@ using Zenject;
 
 public struct CharacterSpawnParameters
 {
-
+    // To be filled
 }
 
 public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable
@@ -15,7 +15,7 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
 
     public CharacterFacade()
     {
-        
+        // To be filled
     }
 
     public void Dispose()
