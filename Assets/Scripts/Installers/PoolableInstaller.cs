@@ -8,7 +8,7 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     [SerializeField] private Projectile _projectilePrefab;
     [SerializeField] private CharacterFacade _playerPrefab;
     [SerializeField] private CharacterFacade _networkedCharacterPrefab;
-    [SerializeField] private CharacterFacade _AIPrefab; 
+    [SerializeField] private CharacterFacade _AIPrefab;
 
     public override void InstallBindings()
     {
@@ -21,18 +21,18 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
             FromComponentInNewPrefab(_projectilePrefab).
             UnderTransformGroup("Projectiles"));
 
-        ////TODO check if factory binding is correct ("FromSubContainerResolve") and the following methods "Bynew contextPrefabs"
-        //Container.BindFactory<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory>().
-        //   WithId(Identifiers.Network).
-        //   FromPoolableMemoryPool<CharacterSpawnParameters, CharacterFacade, CharacterPool>           
-        //   (x => x.WithInitialSize(10).
-        //   ExpandByDoubling().
-        //   FromSubContainerResolve().
-        //   ByNewContextPrefab(_AIPrefab).
-        //   UnderTransformGroup("AI"));
+        //TODO check if factory binding is correct ("FromSubContainerResolve") and the following methods "Bynew contextPrefabs"
+        Container.BindFactory<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory>().
+           WithId(Identifiers.AI).
+           FromPoolableMemoryPool<CharacterSpawnParameters, CharacterFacade, CharacterPool>
+           (x => x.WithInitialSize(4).
+           ExpandByDoubling().
+           FromSubContainerResolve().
+           ByNewContextPrefab(_AIPrefab).
+           UnderTransformGroup("AI"));
 
         Container.BindFactory<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory>().
-          WithId(Identifiers.AI).
+          WithId(Identifiers.Network).
           FromPoolableMemoryPool<CharacterSpawnParameters, CharacterFacade, CharacterPool>
           (x => x.WithInitialSize(4).
           ExpandByDoubling().

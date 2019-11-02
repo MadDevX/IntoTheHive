@@ -33,6 +33,7 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
 
     public void Dispose()
     {
+        if(_pool != null)
         _pool.Despawn(this);
     }
 
