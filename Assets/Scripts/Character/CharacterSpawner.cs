@@ -1,16 +1,20 @@
-﻿using System;
+﻿using Cinemachine;
+using DarkRift;
+using DarkRift.Client;
+using DarkRift.Client.Unity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class CharacterSpawner : IInitializable, IDisposable
 {
+    
+    private CinemachineVirtualCamera _camera;
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
     private CharacterFacade.Factory _AIfactory;
     private Projectile.Factory _projectileFactory;
-    private CameraManager _cameraManager;
-    private NetworkedCharacterSpawner _networkedCharacterSpawner;
 
     private Dictionary<ushort, CharacterFacade> _characters;
 
@@ -19,50 +23,40 @@ public class CharacterSpawner : IInitializable, IDisposable
         [Inject(Id = Identifiers.Network)] CharacterFacade.Factory networkFactory,
         [Inject(Id = Identifiers.AI)] CharacterFacade.Factory AIFactory,
         [Inject(Id = Identifiers.Player)] CharacterFacade.Factory playerFactory,
-        NetworkedCharacterSpawner networkedCharacterSpawner,
-        CameraManager cameraManager,
-        Projectile.Factory projectileFactory
+        Projectile.Factory projectileFactory,
+        CinemachineVirtualCamera camera
         )
     {
-        _projectileFactory = projectileFactory;
+        _camera = camera;
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _AIfactory = AIFactory;
-
-        _cameraManager = cameraManager;
-        _networkedCharacterSpawner = networkedCharacterSpawner;
+        _projectileFactory = projectileFactory;
         _characters = new Dictionary<ushort, CharacterFacade>();
-
-    }
-
-
-    public void Initialize()
-    {
-        _networkedCharacterSpawner.PlayerSpawned += Spawn;
-        _networkedCharacterSpawner.PlayerDespawned += Despawn;
     }
 
     public void Dispose()
     {
-        _networkedCharacterSpawner.PlayerSpawned -= Spawn;
-        _networkedCharacterSpawner.PlayerDespawned -= Despawn;
+        //Add dispose Handling
+    }
+
+    public void Initialize()
+    {
     }
 
     //isLocal corresponds to whether the client to be spawned is Local or not
-    public void Spawn(CharacterSpawnParameters spawnParameters)
+    public void Spawn(ushort clientID, bool isLocal, CharacterSpawnParameters spawnParameters)
     {
-        ushort clientID = spawnParameters.SenderId;
-        bool isLocal = spawnParameters.IsLocal;
         if (_characters.ContainsKey(clientID) == false)
         {
-            // TODO MG : Generate Spawn coordinates 
+            // Generate Spawn coordinates 
             // Should the position be generated on the server or by the client?
             // (Probably server, he can ensure that all characters do not collide)
-
-            if (isLocal)
+            
+            if(isLocal)
             {
                 CharacterFacade characterFacade = _playerFactory.Create(spawnParameters);
-                _cameraManager.SetCameraToPlayerCharacter(characterFacade);
+                _camera.Follow = characterFacade.transform;
                 _characters.Add(clientID, characterFacade);
             }
             else
@@ -71,23 +65,6 @@ public class CharacterSpawner : IInitializable, IDisposable
                 _characters.Add(clientID, characterFacade);
             }
         }
-    }
-
-    public void SpawnAI(CharacterSpawnParameters spawnParameters)
-    {
-        ushort clientID = spawnParameters.SenderId;
-        bool isLocal = spawnParameters.IsLocal;
-        if (_characters.ContainsKey(clientID) == false)
-        {
-            // TODO MG : Generate Spawn coordinates 
-            // Should the position be generated on the server or by the client?
-            // (Probably server, he can ensure that all characters do not collide)
-
-            CharacterFacade AICharacterFacade = _AIfactory.Create(spawnParameters);
-            _characters.Add(clientID, AICharacterFacade);
-        }
-
-        
     }
 
     public void Despawn(ushort clientID)
