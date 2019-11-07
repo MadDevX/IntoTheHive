@@ -5,7 +5,7 @@ public class NetworkedReceiverInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<MessageReceiver>().AsSingle();
-        Container.BindInterfacesAndSelfTo<NetworkedCharacterMovement>().AsSingle();
-        Container.BindInterfacesAndSelfTo<NetworkedCharacterShooting>().AsSingle();
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterInput>().AsSingle();
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterEquipment>().AsSingle();
     }
 }

@@ -65,7 +65,6 @@ class GlobalMessageHandler: IInitializable, IDisposable
                     CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
                     _characterSpawner.Spawn(clientID, isLocal, spawnParameters);
                 }
-                // TODO message reading
             }
         }
     }

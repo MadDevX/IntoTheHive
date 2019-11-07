@@ -1,4 +1,6 @@
-﻿using DarkRift.Client;
+﻿using System;
+using DarkRift;
+using DarkRift.Client;
 using DarkRift.Client.Unity;
 using UnityEngine;
 
@@ -6,8 +8,8 @@ using UnityEngine;
 public class MessageReceiver
 {
     public ushort ClientId { get; set; }
-    public NetworkedCharacterInput _networkedCharacterMovement;
-    public NetworkedCharacterShooting _networkedCharacterShooting;
+    public NetworkedCharacterInput _networkedCharacterInput;
+    public NetworkedCharacterEquipment _networkedCharacterEquipment;
     private UnityClient _networkManager;
 
 
@@ -15,18 +17,73 @@ public class MessageReceiver
     public MessageReceiver(
         UnityClient client,
         NetworkedCharacterInput networkedCharacterMovement,
-        NetworkedCharacterShooting networkedCharacterShooting)
+        NetworkedCharacterEquipment networkedCharacterShooting
+        )
     {
         _networkManager = client;
-        _networkedCharacterMovement = networkedCharacterMovement;
-        _networkedCharacterShooting = networkedCharacterShooting;
-
-        _networkManager.MessageReceived += HandleMessage;
+        _networkedCharacterInput = networkedCharacterMovement;
+        _networkedCharacterEquipment = networkedCharacterShooting;
+        _networkManager.MessageReceived += MessageReceivedHandler;
     }
 
-    private void HandleMessage(object sender, MessageReceivedEventArgs e)
+    private void MessageReceivedHandler(object sender, MessageReceivedEventArgs e)
     {
-        Debug.Log("message received");
-       // throw new System.NotImplementedException();
+        using (Message message = e.GetMessage())
+        {
+            if(message.Tag == Tags.UpdateCharacterState)
+            {
+                HandleUpdateState(message);
+            }
+            if(message.Tag == Tags.UpdateCharacterEquipment)
+            {
+                HandleUpdateEquipment(message);
+            }
+        }
+    }
+
+    private void HandleUpdateState(Message message)
+    {
+        // TODO MG check message size 
+        using (DarkRiftReader reader = message.GetReader())
+        {
+            ushort clientId = reader.ReadUInt16();
+            if(clientId == this.ClientId)
+            {
+                float vertical = reader.ReadSingle();
+                float horizontal = reader.ReadSingle();
+                bool primaryAction = reader.ReadBoolean();
+                bool secondaryAction = reader.ReadBoolean();
+
+                float directionX = reader.ReadSingle();
+                float directionY = reader.ReadSingle();
+                Vector2 direction = new Vector2(directionX, directionY);
+
+                float positionX = reader.ReadSingle();
+                float positionY = reader.ReadSingle();
+                Vector2 position = new Vector2(positionX, positionY);
+
+                _networkedCharacterInput.SetAxes(vertical, horizontal);
+                _networkedCharacterInput.SetActions(primaryAction,secondaryAction);
+                _networkedCharacterInput.SetDirection(direction);
+                _networkedCharacterInput.SetPosition(position);
+            }    
+        }
+    }
+    private void HandleUpdateEquipment(Message message)
+    {
+        // TODO MG check message size 
+        using (DarkRiftReader reader = message.GetReader())
+        {
+            ushort clientId = reader.ReadUInt16();
+            if (clientId == this.ClientId)
+            {
+                // TODO How to store data about weapons
+                // do something with NetworkedCharacterEquipment
+                // read content
+                object arguments = null;
+                _networkedCharacterEquipment.CreateWeapon(arguments);
+
+            }
+        }
     }
 }

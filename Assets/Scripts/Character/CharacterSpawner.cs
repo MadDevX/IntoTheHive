@@ -42,11 +42,6 @@ public class CharacterSpawner : IInitializable, IDisposable
 
     public void Initialize()
     {
-        // Ideally this should just send a message to the server and after determining spawn location it should then spawn the player
-        // TODO MG change this to spawn only after message from the server (if this client is not the server)
-        // this will require boolean which will determine whose client is the server application)
-        // CharacterFacade playerCharacter = _playerFactory.Create(new CharacterSpawnParameters());
-        //Send info to the server that the player character was spawned at (x,y)
     }
 
     //isLocal corresponds to whether the client to be spawned is Local or not
@@ -63,7 +58,6 @@ public class CharacterSpawner : IInitializable, IDisposable
                 CharacterFacade characterFacade = _playerFactory.Create(spawnParameters);
                 _camera.Follow = characterFacade.transform;
                 _characters.Add(clientID, characterFacade);
-
             }
             else
             {
