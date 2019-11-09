@@ -5,13 +5,15 @@ using Zenject;
 
 public struct CharacterSpawnParameters
 {
-    // To be filled
+    public ushort Id;
+    //What additional info should this contain?
 }
 
 public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable
 {
     
     private IMemoryPool _pool;
+    public ushort Id;
 
     public CharacterFacade()
     {
@@ -31,6 +33,7 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
 
     public void OnSpawned(CharacterSpawnParameters parameters, IMemoryPool pool)
     {
+        Id = parameters.Id;
         _pool = pool;
     }
 
