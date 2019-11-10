@@ -25,7 +25,7 @@ public class Projectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParamete
 {
     [SerializeField] private ProjectilePhysics _rb;
     [SerializeField] private TrailRenderer _trail;
-    public Pipeline PhasePipeline { get; }
+    public PhasePipeline Pipeline { get; } = new PhasePipeline();
 
     private IMemoryPool _pool;
     private float _ttl = 1.0f;
@@ -63,7 +63,7 @@ public class Projectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParamete
     {
     }
 
-    public class Pipeline : EventStateMachine<ProjectilePhases>
+    public class PhasePipeline : EventStateMachine<ProjectilePhases>
     {
     }
 }

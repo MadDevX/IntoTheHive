@@ -19,4 +19,7 @@ MonoBehaviour:
     weaponOffset: {x: 0, y: 0.75}
   _placeholderWeaponSettings:
     velocity: 15
-    timeToLive: 2
+    timeToLive: 4
+  _aiTargetScannerSettings:
+    scanDelay: 1
+    scanRadius: 4

@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class PlaceholderWeapon : IWeapon
 {
     private Projectile.Factory _projectileFactory;
     private Settings _settings;
+    private List<IModule> _modules = new List<IModule>();
+    private IFactory<ProjectileSpawnParameters, Projectile> Factory { get; set; }
 
     private bool _wasSqueezed = false;
 
