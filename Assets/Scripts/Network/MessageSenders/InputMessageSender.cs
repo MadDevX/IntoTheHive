@@ -32,11 +32,11 @@ class InputMessageSender : UpdatableObject
     public override void OnUpdate(float deltaTime)
     {
         // Add RotationChange Detection / fire detection 
-        float moveDifference = (_controlState.Position - _previousPosition).magnitude;
-        float rotationDifference = (_controlState.Direction - _previousRotation).magnitude;
+        float moveDifference = (_controlState.Position - _previousPosition).sqrMagnitude;
+        float rotationDifference = (_controlState.Direction - _previousRotation).sqrMagnitude;
 
-        if (moveDifference >= _settings.moveEps
-           || rotationDifference >= _settings.rotationEps
+        if (moveDifference >= _settings.moveEps * _settings.moveEps
+           || rotationDifference >= _settings.rotationEps * _settings.rotationEps
            || _controlState.PrimaryAction != _previousPAction
            || _controlState.SecondaryAction != _previousSAction)
         {

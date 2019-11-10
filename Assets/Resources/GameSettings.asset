@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _charMovementSettings:
+    positionEps: 0.1
     baseSpeed: 4
     speedMult: 1.5
+    correctionLerpFactor: 0.1
   _charShootingSettings:
     weaponOffset: {x: 0, y: 0.75}
   _placeholderWeaponSettings:
     velocity: 15
     timeToLive: 2
+  _inputSenderSettings:
+    moveEps: 0.001
+    rotationEps: 0.1

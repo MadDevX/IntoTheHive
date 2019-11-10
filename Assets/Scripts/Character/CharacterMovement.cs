@@ -31,10 +31,28 @@ public class CharacterMovement : FixedUpdatableObject
         _settings = settings;
     }
 
+    public override void Initialize()
+    {
+        base.Initialize();
+        _controlState.Position = _rb.position;
+    }
+
     public override void OnFixedUpdate(float deltaTime)
     {
         UpdateMovementVersor(deltaTime);
+        CorrectPosition(deltaTime);
         Move(deltaTime);
+    }
+
+    private void CorrectPosition(float deltaTime)
+    {
+        var positionDifference = (_rb.position-_controlState.Position).sqrMagnitude;
+
+        if (positionDifference >= _settings.positionEps * _settings.positionEps)
+        {
+            _rb.MovePosition(Vector2.Lerp(_rb.position, _controlState.Position,_settings.correctionLerpFactor));
+        }
+        
     }
 
     private void UpdateMovementVersor(float deltaTime)
@@ -55,8 +73,10 @@ public class CharacterMovement : FixedUpdatableObject
     [System.Serializable]
     public class Settings
     {
+        public float positionEps;
         public float baseSpeed;
         public float speedMult;
+        public float correctionLerpFactor;
     }
 
 }

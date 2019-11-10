@@ -20,7 +20,7 @@ namespace GameLoop.Internal
         }
 
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             if (DefaultSubscribe)
             {
@@ -34,7 +34,7 @@ namespace GameLoop.Internal
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (DefaultSubscribe)
             {

@@ -1,11 +1,13 @@
 ﻿using System;
 using DarkRift;
 using UnityEngine;
+using Zenject;
 
-public class NetworkedCharacterInput
+public class NetworkedCharacterInput : IInitializable, IDisposable
 {
     private ControlState _controlState;
     private CharacterFacade _characterFacade;
+    private NetworkRelay _networkRelay;
 
     public NetworkedCharacterInput(
         ControlState controlState,
@@ -14,13 +16,21 @@ public class NetworkedCharacterInput
     {
         _controlState = controlState;
         _characterFacade = characterFacade;
+        _networkRelay = relay;
+    }
 
-        relay.Subscribe(Tags.UpdateCharacterState, ParseMessage);
+    public void Initialize()
+    {
+        _networkRelay.Subscribe(Tags.UpdateCharacterState, ParseMessage);
+    }
+
+    public void Dispose()
+    {
+        _networkRelay.Unsubscribe(Tags.UpdateCharacterState, ParseMessage);
     }
 
     public void ParseMessage(Message message)
     {
-        Debug.Log("received message"); 
         using (DarkRiftReader reader = message.GetReader())
         {
 
