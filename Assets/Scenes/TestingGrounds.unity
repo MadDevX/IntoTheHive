@@ -1048,7 +1048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 1583554198}
-  _virtualCamera: {fileID: 0}
+  _virtualCamera: {fileID: 422250767}
 --- !u!114 &1954509278
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ServerPlugins
 {
-    public class ExamplePlugin : Plugin
+    public class CommunicationServerPlugin : Plugin
     {
         private Dictionary<int, IClient> _clients;
 
@@ -14,12 +14,13 @@ namespace ServerPlugins
 
         public override Version Version => new Version(1, 0, 0);
 
-        public ExamplePlugin(PluginLoadData pluginLoadData) : base(pluginLoadData)
+        public CommunicationServerPlugin(PluginLoadData pluginLoadData) : base(pluginLoadData)
         {
             _clients = new Dictionary<int, IClient>();
 
             ClientManager.ClientConnected += HandleClientConnected;
             ClientManager.ClientDisconnected += HandleClientDisconnected;
+            
         }
 
         private void HandleClientDisconnected(object sender, ClientDisconnectedEventArgs e)
@@ -27,6 +28,7 @@ namespace ServerPlugins
             if(_clients.ContainsKey(e.Client.ID))
             {
                 _clients.Remove(e.Client.ID);
+                e.Client.MessageReceived -= Client_MessageReceived;
                 var clients = ClientManager.GetAllClients().Where(client => client != e.Client);
 
                 using (DarkRiftWriter playerDisconnected = DarkRiftWriter.Create())
@@ -52,6 +54,7 @@ namespace ServerPlugins
             // When changing the boolean value corresponding to wheter the the cleintId is locac should be removed
             // Separate message with client's own id could be sent separately
             _clients.Add(e.Client.ID, e.Client);
+            e.Client.MessageReceived += Client_MessageReceived;
 
             //Write spawn message
             using (DarkRiftWriter newPlayerconnected = DarkRiftWriter.Create())
@@ -89,6 +92,33 @@ namespace ServerPlugins
             }
 
 
+        }
+
+        private void Client_MessageReceived(object sender, MessageReceivedEventArgs e)
+        {
+            using (Message message = e.GetMessage())
+            {
+                if(message.Tag == Tags.UpdateCharacterState)
+                {
+                    BroadcastToOtherClients(message,e);
+                }
+
+                if (message.Tag == Tags.UpdateCharacterEquipment)
+                {
+                    BroadcastToOtherClients(message, e);
+                }
+            }
+        }
+
+        private void BroadcastToOtherClients(Message message, MessageReceivedEventArgs e)
+        {
+            var clients = ClientManager.GetAllClients().Where(client => client != e.Client);
+            foreach (IClient client in clients)
+            {
+                client.SendMessage(message, e.SendMode);
+
+                Console.WriteLine("Forwarded to "+client.ID);
+            }
         }
     }
 }

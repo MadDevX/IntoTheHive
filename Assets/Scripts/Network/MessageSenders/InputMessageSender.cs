@@ -82,7 +82,7 @@ class InputMessageSender : UpdatableObject
     [System.Serializable]
     public class Settings
     {
-        public float moveEps = 0.1f;
+        public float moveEps = 0.001f;
         public float rotationEps = 0.1f;
     }
 
