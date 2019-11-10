@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
+using UnityEngine;
 using Zenject;
 
 public class NetworkRelay: IInitializable, IDisposable
@@ -39,6 +40,7 @@ public class NetworkRelay: IInitializable, IDisposable
 
     private void HandleMessage(object sender, MessageReceivedEventArgs e)
     {
+        Debug.Log("received message");
         using (Message message = e.GetMessage())
         {
             ushort tag = message.Tag;

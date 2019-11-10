@@ -15,11 +15,12 @@ public class NetworkedCharacterInput
         _controlState = controlState;
         _characterFacade = characterFacade;
 
-        relay.Subscribe(Tags.DespawnCharacter, ParseMessage);
+        relay.Subscribe(Tags.UpdateCharacterState, ParseMessage);
     }
 
     public void ParseMessage(Message message)
     {
+        Debug.Log("received message"); 
         using (DarkRiftReader reader = message.GetReader())
         {
 
