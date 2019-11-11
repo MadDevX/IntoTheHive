@@ -95,6 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2250bf8921b607f4f84671b828251ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectile: {fileID: 4662591845878964660}
+  isPiercing: 0
 --- !u!114 &4662591845878964660
 MonoBehaviour:
   m_ObjectHideFlags: 0

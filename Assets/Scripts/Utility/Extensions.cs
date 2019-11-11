@@ -16,6 +16,11 @@ public static class Extensions
         return v;
     }
 
+    public static float Rotation(this Vector2 v)
+    {
+        return Vector2.SignedAngle(Vector2.up, v);
+    }
+
     public static int ToMask(this int i)
     {
         return 1 << i;

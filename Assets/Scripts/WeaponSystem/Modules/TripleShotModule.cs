@@ -6,41 +6,59 @@ using Zenject;
 public class TripleShot : IModule
 {
     public int Priority => 0;
+    private IWeapon _weapon;
+    private Factory _factory = new Factory();
+
+    public void AttachToWeapon(IWeapon weapon)
+    {
+        if (_weapon != null)
+        {
+            Debug.LogError("mod already attached!");
+        }
+        else
+        {
+            _weapon = weapon;
+            _factory.DecoratedFactory = weapon.Factory;
+            weapon.Factory = _factory;
+        }
+    }
+
+    public void DetachFromWeapon(IWeapon weapon)
+    {
+        if (_weapon == null)
+        {
+            Debug.LogError("mod alread detached!");
+        }
+        else
+        {
+            weapon.Factory = _factory.DecoratedFactory;
+            _weapon = null;
+        }
+    }
+
+    public void RemoveFromProjectile(Projectile projectile)
+    {
+    }
 
     public void DecorateProjectile(Projectile projectile)
     {
-        throw new System.NotImplementedException();
     }
 
-    public void Initialize(Weapon weapon)
+    public class Factory : IFactory<ProjectileSpawnParameters, Projectile[]>
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void Initialize()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public class Factory : IFactory<ProjectileSpawnParameters, Projectile>
-    {
-        private IFactory<ProjectileSpawnParameters, Projectile> _decoratedFactory;
+        private List<Projectile> _objects = new List<Projectile>();
         private float _spreadAngle = 30.0f;
-        public Factory(IFactory<ProjectileSpawnParameters, Projectile> decoratedFactory)
+        public IFactory<ProjectileSpawnParameters, Projectile[]> DecoratedFactory { get; set; }
+        public Projectile[] Create(ProjectileSpawnParameters param)
         {
-            _decoratedFactory = decoratedFactory;
-        }
-
-        //check this shit out
-        public /*List<*/Projectile/*>*/ Create(ProjectileSpawnParameters param)
-        {
+            _objects.Clear();
             var initRotation = param.rotation;
-            var mainProjectile = _decoratedFactory.Create(param);
+            _objects.AddRange(DecoratedFactory.Create(param));
             param.rotation = initRotation + _spreadAngle;
-            _decoratedFactory.Create(param);
+            _objects.AddRange(DecoratedFactory.Create(param));
             param.rotation = initRotation - _spreadAngle;
-            _decoratedFactory.Create(param);
-            return mainProjectile;
+            _objects.AddRange(DecoratedFactory.Create(param));
+            return _objects.ToArray();
         }
     }
 }

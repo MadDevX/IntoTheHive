@@ -7,17 +7,21 @@ using UnityEngine;
 //MonoUpdatables will come in handy either way, so why not both
 public class ProjectilePhysics : MonoFixedUpdatableObject
 {
-    public event Action<Collider2D> OnCollisionEnter;
+    [SerializeField] private Projectile _projectile;
+
+    public event Action<Projectile, RaycastHit2D, int> OnCollisionEnter;
     public Vector2 Velocity { get; set; }
     public Vector2 Position { get => transform.position; set => transform.position = value; }
     public float Radius { get; set; } = 0.125f;
 
-    public bool IsPiercing { get; set; } = false;
+    public bool isPiercing = false;
+    public int RemainingCollisions { get; set; } = 0;
 
     private RaycastHit2D[] _hits = new RaycastHit2D[5]; //what about piercing AND fast projectiles? TODO: check hit count
     private Collider2D _prevCol = null;
     private Vector2 _zeroVector = Vector2.zero;
     private int _hitMask;
+    private const float CORRECTION_EPS = 0.001f;
 
     private void Awake()
     {
@@ -28,7 +32,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
 
     public override void OnFixedUpdate(float deltaTime)
     {
-        if (IsPiercing)
+        if (isPiercing)
         {
             TriggerBehaviour(deltaTime);
         }
@@ -70,15 +74,17 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
                 var hit = _hits[j];
                 var col = hit.collider;
                 _prevCol = col;
-                OnCollisionEnter?.Invoke(col);
                 var posDiff = (currentPos - hit.point).magnitude;
-                var correctionDist = posDiff - Radius;
+                var correctionDist = posDiff - Radius - CORRECTION_EPS; //so that previous collisions won't be taken into consideration by raycast (eliminate slight overlap)
                 remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
                 var hitRb = hit.rigidbody;
                 var baseVel = _zeroVector;
                 if (hitRb != null) baseVel = hitRb.velocity;
                 Velocity = ReflectionVector((Velocity - baseVel), hit.normal) + baseVel;
                 currentPos = Vector3.MoveTowards(currentPos, hit.point, correctionDist);
+                RemainingCollisions--;
+                transform.position = currentPos;
+                OnCollisionEnter?.Invoke(_projectile, hit, RemainingCollisions);
             }
             else
             {
@@ -95,14 +101,18 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
 
         Vector2 currentPos = transform.position;
 
-        var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, velMag * deltaTime, _hitMask);
-
-        if (_hits[0].collider != _prevCol)
+        var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, remainingDist, _hitMask);
+        if(count == 0)
+        {
+            _prevCol = null;
+        }
+        else if (_hits[0].collider != _prevCol)
         {
             _prevCol = _hits[0].collider;
             for (int i = 0; i < count; i++)
             {
-                OnCollisionEnter?.Invoke(_hits[i].collider); //For visual effects maybe forward RaycastHit instead of Collider?
+                RemainingCollisions--;
+                OnCollisionEnter?.Invoke(_projectile, _hits[i], RemainingCollisions); //For visual effects maybe forward RaycastHit instead of Collider?
                 Debug.Log(_hits[i].collider.name);
             }
         }

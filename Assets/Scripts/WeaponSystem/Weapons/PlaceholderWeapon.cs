@@ -1,21 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class PlaceholderWeapon : IWeapon
 {
-    private Projectile.Factory _projectileFactory;
     private Settings _settings;
+
     private List<IModule> _modules = new List<IModule>();
-    private IFactory<ProjectileSpawnParameters, Projectile> Factory { get; set; }
+    public IFactory<ProjectileSpawnParameters, Projectile[]> Factory { get; set; }
 
     private bool _wasSqueezed = false;
 
-    public PlaceholderWeapon(Projectile.Factory projectileFactory, Settings settings)
+    public event Action<List<IModule>> OnWeaponRefreshed;
+
+    public PlaceholderWeapon([Inject(Id = Identifiers.Bullet)] IFactory<ProjectileSpawnParameters, Projectile[]> projectileFactory, Settings settings)
     {
-        _projectileFactory = projectileFactory;
+        Factory = projectileFactory;
         _settings = settings;
+        AttachModule(new TripleSpawnOnDestroyModule(Factory));
     }
 
     public void ReleaseTrigger()
@@ -34,9 +38,47 @@ public class PlaceholderWeapon : IWeapon
         {
             _wasSqueezed = true;
             var spawnPos = position + offset.Rotate(rotation);
-            _projectileFactory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive));
+            Factory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive, _modules));
         }
         return true;
+    }
+
+    public void AttachModule(IModule module)
+    {
+        ResetWeapon();
+        _modules.Add(module);
+        RefreshWeapon();
+    }
+
+    public void DetachModule(IModule module)
+    {
+        ResetWeapon();
+        _modules.Remove(module);
+        RefreshWeapon();
+    }
+
+    private void ResetWeapon()
+    {
+        for(int i = _modules.Count-1; i >= 0; i--)
+        {
+            _modules[i].DetachFromWeapon(this);
+        }
+    }
+
+    private void RefreshWeapon()
+    {
+        _modules.Sort(CompareModules);
+        for(int i = 0; i < _modules.Count; i++)
+        {
+            _modules[i].AttachToWeapon(this);
+        }
+
+        OnWeaponRefreshed?.Invoke(_modules);
+    }
+
+    private int CompareModules(IModule a, IModule b)
+    {
+        return a.Priority.CompareTo(b.Priority);
     }
 
     [System.Serializable]

@@ -9,6 +9,16 @@ public interface IModule
     /// </summary>
     int Priority { get; }
     void DecorateProjectile(Projectile projectile);
+    void RemoveFromProjectile(Projectile projectile);
 
-    void Initialize();
+    void AttachToWeapon(IWeapon weapon);
+    void DetachFromWeapon(IWeapon weapon);
+}
+
+public enum Priorities
+{
+    Essential,
+    Overriding,
+    Dependant,
+    Additive
 }
