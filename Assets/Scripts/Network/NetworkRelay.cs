@@ -25,6 +25,8 @@ public class NetworkRelay: IInitializable, IDisposable
         _messageHandlers.Add(Tags.SpawnCharacter, new List<Action<Message>>());
         _messageHandlers.Add(Tags.UpdateCharacterEquipment, new List<Action<Message>>());
         _messageHandlers.Add(Tags.UpdateCharacterState, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.ChangeScene, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.GameStarted, new List<Action<Message>>());
 
     }
 

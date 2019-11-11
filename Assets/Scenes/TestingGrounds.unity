@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -807,60 +807,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1846843658
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1846843660}
-  - component: {fileID: 1846843659}
-  m_Layer: 0
-  m_Name: NetworkManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1846843659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846843658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d2b44c570cb28644b8762e0b13e7c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  address: 127.0.0.1
-  port: 4296
-  ipVersion: 0
-  autoConnect: 1
-  invokeFromDispatcher: 1
-  sniffData: 0
-  maxCachedWriters: 2
-  maxCachedReaders: 2
-  maxCachedMessages: 8
-  maxCachedSocketAsyncEventArgs: 32
-  maxCachedActionDispatcherTasks: 16
---- !u!4 &1846843660
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846843658}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1908489808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,10 +1004,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1954509274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b70d19c1cee2a144c973204927a59502, type: 3}
+  m_Script: {fileID: 11500000, guid: dea27912db57837439cdec29cfcf7660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _client: {fileID: 1846843659}
 --- !u!1 &2110054448
 GameObject:
   m_ObjectHideFlags: 3

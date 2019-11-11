@@ -8,5 +8,10 @@ public enum Identifiers
 {
     Player,
     Network,
-    AI
+    AI,
+    JoinServerButton,
+    CreateServerButton,
+    IpInputField,
+    PortInputField,
+    PLACEHOLDER
 }
