@@ -10,7 +10,20 @@ public class AITargetScanner : FixedUpdatableObject
     private Rigidbody2D _rb;
     private Settings _settings;
 
-    public Transform Target { get; set; }
+    public Transform Target
+    {
+        get => _target;
+        set
+        {
+            if (value != _target)
+            {
+                _target = value;
+                OnTargetChanged?.Invoke(value);
+            }
+        }
+    }
+    public event Action<Transform> OnTargetChanged;
+    private Transform _target;
 
     private float _timer = 0.0f;
 
@@ -41,9 +54,11 @@ public class AITargetScanner : FixedUpdatableObject
             {
                 Target = player.transform;
                 Debug.Log($"Found target: {Target.name}");
-                break;
+                return;
             }
         }
+
+        Target = null;
     }
 
     [System.Serializable]
