@@ -13,13 +13,11 @@ public enum Identifiers
     ConnetionMenuCreateServerButton,
     ConnetionMenuIpInputField,
     ConnetionMenuPortInputField,
-    LobbyStartGameButton,
     ConnetionMenuBackButton,
     MainMenuSinglePlayerButton,
     MainMenuMultiplayerButton,
     MainMenuQuitButton,
-    LobbyClientReadyButton,
-    LobbyHostReadyButton,
-    LobbyClientLeaveButton,
-    LobbyHostLeaveButton
+    LobbyStartGameButton,
+    LobbyReadyButton,
+    LobbyLeaveButton
 }

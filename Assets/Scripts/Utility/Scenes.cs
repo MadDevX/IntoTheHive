@@ -7,8 +7,7 @@ public class Scenes : ScriptableObject
 {
     public SceneReference Menu;
     public SceneReference ConnectionScreen;
-    public SceneReference LobbyClient;
-    public SceneReference LobbyHost;
+    public SceneReference Lobby;
     public SceneReference Level;
     public SceneReference Hub;
 }

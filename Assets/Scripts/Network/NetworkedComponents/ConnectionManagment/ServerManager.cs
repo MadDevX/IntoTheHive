@@ -3,6 +3,7 @@ using DarkRift.Server.Unity;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using UnityEngine;
 
 public class ServerManager: IDisposable
 {
@@ -27,6 +28,8 @@ public class ServerManager: IDisposable
     public void CloseServer()
     {
         _server.Close();
+        
+        Debug.Log("Server is not closing properly");
     }
 
     public void JoinAsHost()

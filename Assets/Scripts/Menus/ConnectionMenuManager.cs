@@ -60,15 +60,16 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         _serverManager.JoinAsHost();
         // TODO MG: change this maybe to via a message when connected to a server
         _clientInfo.Status = ClientStatus.Host;
-        _sceneMessageSender.SendSceneChanged("LobbyClient", true); // Send message to load Lobby Client
-        SceneManager.LoadScene("LobbyHost"); // Load LobbyHost
+        _sceneMessageSender.SendSceneChanged("Lobby", true); // Send message to load Lobby Client
+        SceneManager.LoadScene("Lobby"); // Load LobbyHost
     }
 
     public void JoinButtonClicked()
     {
-        _initializer.JoinServer();
+        //_initializer.JoinServer();
         // TODO MG: change this maybe to via a message when connected to a server
         _clientInfo.Status = ClientStatus.Client;
+        SceneManager.LoadScene("Lobby");
     }
 
     public void BackButtonClicker()
