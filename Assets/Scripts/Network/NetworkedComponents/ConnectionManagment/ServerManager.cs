@@ -2,9 +2,9 @@
 using DarkRift.Server.Unity;
 using System;
 using System.Collections.Generic;
-using Zenject;
+using System.Net;
 
-public class ServerManager:IDisposable
+public class ServerManager: IDisposable
 {
     private XmlUnityServer _server;
     private UnityClient _client;
@@ -27,6 +27,14 @@ public class ServerManager:IDisposable
     public void CloseServer()
     {
         _server.Close();
+    }
+
+    public void JoinAsHost()
+    {
+        // TODO MG extract this data from configuration file
+        IPAddress serverAddress = IPAddress.Parse("127.0.0.1");
+        int port = 4296;
+        _client.Connect(serverAddress,port,DarkRift.IPVersion.IPv4);
     }
 
     public void Dispose()

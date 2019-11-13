@@ -11,29 +11,36 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     private Button _joinButton;
     private Button _backButton;
 
+    private ClientInfo _clientInfo;
     private ServerManager _serverManager;
     private NetworkedSceneManager _networkedSceneManager;
+    private ChangeSceneMessageSender _sceneMessageSender;
     private NetworkedClientInitializer _initializer;
 
-    public ConnectionMenuManager (
+    public ConnectionMenuManager(
         [Inject(Id = Identifiers.ConnetionMenuCreateServerButton)] Button serverButton,
         [Inject(Id = Identifiers.ConnetionMenuJoinServerButton)] Button joinButton,
         [Inject(Id = Identifiers.ConnetionMenuBackButton)] Button backButton,
-        ServerManager serverManager,
+        NetworkedClientInitializer connectionInitializer,
         NetworkedSceneManager networkedSceneManager,
-        NetworkedClientInitializer connectionInitializer
-        )
+        ChangeSceneMessageSender sceneMessageSender,
+        ServerManager serverManager,
+        ClientInfo clientInfo)
     {
         _serverButton = serverButton;
         _joinButton = joinButton;
         _backButton = backButton;
+
+        _clientInfo = clientInfo;
         _serverManager = serverManager;
+        _sceneMessageSender = sceneMessageSender;
         _networkedSceneManager = networkedSceneManager;
         _initializer = connectionInitializer;
     }
 
     public void Initialize()
     {
+        _clientInfo.Status = ClientStatus.None;
         _serverButton.onClick.AddListener(ServerButtonClicked);
         _joinButton.onClick.AddListener(JoinButtonClicked);
         _backButton.onClick.AddListener(BackButtonClicker);
@@ -50,23 +57,23 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     public void ServerButtonClicked()
     {
         _serverManager.CreateServer();
-        // TODO MG make this JoinServer independent of the input fields
-        _initializer.JoinServer();
-        // TODO MG
-        // load this scene throguht networkedSceneManager
-        // SceneManager.LoadScene(1);
+        _serverManager.JoinAsHost();
+        // TODO MG: change this maybe to via a message when connected to a server
+        _clientInfo.Status = ClientStatus.Host;
+        _sceneMessageSender.SendSceneChanged("LobbyClient", true); // Send message to load Lobby Client
+        SceneManager.LoadScene("LobbyHost"); // Load LobbyHost
     }
 
     public void JoinButtonClicked()
     {
         _initializer.JoinServer();
-        // load this scene throguht networkedSceneManager
-        //SceneManager.LoadScene(1);
+        // TODO MG: change this maybe to via a message when connected to a server
+        _clientInfo.Status = ClientStatus.Client;
     }
 
     public void BackButtonClicker()
     {
-        SceneManager.LoadScene(0,LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu");
     }
 
 
