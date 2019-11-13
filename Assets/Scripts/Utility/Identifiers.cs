@@ -9,9 +9,17 @@ public enum Identifiers
     Player,
     Network,
     AI,
-    JoinServerButton,
-    CreateServerButton,
-    IpInputField,
-    PortInputField,
-    PLACEHOLDER
+    ConnetionMenuJoinServerButton,
+    ConnetionMenuCreateServerButton,
+    ConnetionMenuIpInputField,
+    ConnetionMenuPortInputField,
+    LobbyStartGameButton,
+    ConnetionMenuBackButton,
+    MainMenuSinglePlayerButton,
+    MainMenuMultiplayerButton,
+    MainMenuQuitButton,
+    LobbyClientReadyButton,
+    LobbyHostReadyButton,
+    LobbyClientLeaveButton,
+    LobbyHostLeaveButton
 }
