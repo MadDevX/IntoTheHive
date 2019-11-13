@@ -13,6 +13,7 @@ public class GlobalNetworkInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<UnityClient>().FromInstance(_client).AsSingle();
+        Container.Bind<ClientInfo>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkRelay>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedSceneManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<ChangeSceneMessageSender>().AsSingle();
