@@ -12,10 +12,11 @@ public class ChangeSceneMessageSender
         _client = client;
     }
 
-    public void SendSceneChanged(ushort sceneBuildIndex)
+    public void SendSceneChanged(ushort sceneBuildIndex, bool clientsOnly)
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
+            writer.Write(clientsOnly);
             writer.Write(sceneBuildIndex);
 
             using (Message message = Message.Create(Tags.ChangeScene, writer))
@@ -25,28 +26,22 @@ public class ChangeSceneMessageSender
         }
     }
 
-    public void SendSceneChanged(string sceneName)
+    public void SendSceneChanged(string sceneName, bool clientsOnly)
     {
         var scene = SceneManager.GetSceneByName(sceneName);
-        SendSceneChanged((ushort)scene.buildIndex);
+        SendSceneChanged((ushort)scene.buildIndex, clientsOnly);
     }
-
-    public void SendSceneChangedClientsOnly(ushort sceneBuildIndex)
+    
+    public void SendSceneReady()
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
-            writer.Write(sceneBuildIndex);
+            writer.Write(_client.Client.ID);
 
-            using (Message message = Message.Create(Tags.ChangeSceneClientsOnly, writer))
+            using (Message message = Message.Create(Tags.SceneReady, writer))
             {
                 _client.SendMessage(message, SendMode.Reliable);
             }
         }
-    }
-
-    public void SendSceneChangedClientsOnly(string sceneName)
-    {
-        var scene = SceneManager.GetSceneByName(sceneName);
-        SendSceneChangedClientsOnly((ushort)scene.buildIndex);
     }
 }

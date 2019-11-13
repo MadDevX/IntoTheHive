@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
-using UnityEngine;
 using Zenject;
 
 public class NetworkRelay: IInitializable, IDisposable
@@ -27,7 +26,8 @@ public class NetworkRelay: IInitializable, IDisposable
         _messageHandlers.Add(Tags.UpdateCharacterState, new List<Action<Message>>());
         _messageHandlers.Add(Tags.ChangeScene, new List<Action<Message>>());
         _messageHandlers.Add(Tags.GameStarted, new List<Action<Message>>());
-
+        _messageHandlers.Add(Tags.SceneReady, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.ChangeSceneClientsOnly, new List<Action<Message>>());
     }
 
     public void Initialize()
