@@ -13,21 +13,25 @@ public class ConnectionMenuManager : IInitializable, IDisposable
 
     private ServerManager _serverManager;
     private NetworkedSceneManager _networkedSceneManager;
+    private ChangeSceneMessageSender _sceneMessageSender;
     private NetworkedClientInitializer _initializer;
 
-    public ConnectionMenuManager (
+    public ConnectionMenuManager(
         [Inject(Id = Identifiers.ConnetionMenuCreateServerButton)] Button serverButton,
         [Inject(Id = Identifiers.ConnetionMenuJoinServerButton)] Button joinButton,
         [Inject(Id = Identifiers.ConnetionMenuBackButton)] Button backButton,
-        ServerManager serverManager,
+        NetworkedClientInitializer connectionInitializer,
         NetworkedSceneManager networkedSceneManager,
-        NetworkedClientInitializer connectionInitializer
+        ChangeSceneMessageSender sceneMessageSender,
+        ServerManager serverManager
         )
     {
         _serverButton = serverButton;
         _joinButton = joinButton;
         _backButton = backButton;
+
         _serverManager = serverManager;
+        _sceneMessageSender = sceneMessageSender;
         _networkedSceneManager = networkedSceneManager;
         _initializer = connectionInitializer;
     }
@@ -50,11 +54,9 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     public void ServerButtonClicked()
     {
         _serverManager.CreateServer();
-        // TODO MG make this JoinServer independent of the input fields
-        _initializer.JoinServer();
-        // TODO MG
-        // load this scene throguht networkedSceneManager
-        // SceneManager.LoadScene(1);
+        _serverManager.JoinAsHost();
+        _sceneMessageSender.SendSceneChangedClientsOnly(3); // Send message to load Lobby Client
+        SceneManager.LoadScene(4); // Load LobbyHost
     }
 
     public void JoinButtonClicked()

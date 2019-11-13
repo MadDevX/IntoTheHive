@@ -6,5 +6,6 @@
     public static readonly ushort UpdateCharacterEquipment = 3;
     public static readonly ushort PlayerJoined = 4;
     public static readonly ushort ChangeScene = 5;
-    public static readonly ushort GameStarted = 6;
+    public static readonly ushort ChangeSceneClientsOnly = 6;
+    public static readonly ushort GameStarted = 7;
 }
