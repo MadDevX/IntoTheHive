@@ -17,9 +17,11 @@ public class PlaceholderWeapon : IWeapon
 
     public PlaceholderWeapon([Inject(Id = Identifiers.Bullet)] IFactory<ProjectileSpawnParameters, Projectile[]> projectileFactory, Settings settings)
     {
-        Factory = projectileFactory;
+        var fac = new TripleShot.Factory();
+        fac.DecoratedFactory = projectileFactory;
+        Factory = fac;
         _settings = settings;
-        AttachModule(new TripleSpawnOnDestroyModule(Factory));
+        AttachModule(new TripleSpawnOnDestroyModule(projectileFactory));
     }
 
     public void ReleaseTrigger()

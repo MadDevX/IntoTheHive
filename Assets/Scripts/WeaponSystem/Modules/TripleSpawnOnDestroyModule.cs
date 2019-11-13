@@ -24,7 +24,10 @@ public class TripleSpawnOnDestroyModule : IModule
         else
         {
             _weapon = weapon;
-            _factory = weapon.Factory;
+            if (_factory == null)
+            {
+                _factory = weapon.Factory;
+            }
         }
     }
 
@@ -42,6 +45,10 @@ public class TripleSpawnOnDestroyModule : IModule
         else
         {
             _weapon = null;
+            if(_factory == weapon.Factory)
+            {
+                _factory = null;
+            }
         }
     }
 
