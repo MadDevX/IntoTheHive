@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/ConnectionMenu.unity
     guid: dc6548b93f7033f44b67a3ebe056256f
   - enabled: 1
-    path: Assets/Scenes/LobbyClient.unity
-    guid: 150b105498b9a054f925c6c8c72aee2d
-  - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 6956954464a74394bbdab6f87dad8e18
   - enabled: 1

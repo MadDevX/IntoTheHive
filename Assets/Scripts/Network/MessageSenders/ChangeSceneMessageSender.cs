@@ -1,5 +1,7 @@
-﻿using DarkRift;
+﻿using System;
+using DarkRift;
 using DarkRift.Client.Unity;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ChangeSceneMessageSender
@@ -12,11 +14,10 @@ public class ChangeSceneMessageSender
         _client = client;
     }
 
-    public void SendSceneChanged(ushort sceneBuildIndex, bool clientsOnly)
+    public void SendSceneChanged(ushort sceneBuildIndex)
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
-            writer.Write(clientsOnly);
             writer.Write(sceneBuildIndex);
 
             using (Message message = Message.Create(Tags.ChangeScene, writer))
@@ -26,10 +27,10 @@ public class ChangeSceneMessageSender
         }
     }
 
-    public void SendSceneChanged(string sceneName, bool clientsOnly)
+    public void SendSceneChanged(string sceneName)
     {
         var scene = SceneManager.GetSceneByName(sceneName);
-        SendSceneChanged((ushort)scene.buildIndex, clientsOnly);
+        SendSceneChanged((ushort)scene.buildIndex);
     }
     
     public void SendSceneReady()
@@ -40,6 +41,32 @@ public class ChangeSceneMessageSender
 
             using (Message message = Message.Create(Tags.SceneReady, writer))
             {
+                _client.SendMessage(message, SendMode.Reliable);
+            }
+        }
+    }
+
+    public void SendApplyHostScene(ushort id, ushort sceneIndex)
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(id);
+            writer.Write(sceneIndex);
+            using (Message message = Message.Create(Tags.ApplyHostScene, writer))
+            {
+                _client.SendMessage(message, SendMode.Reliable);
+            }
+        }
+    }
+
+    public void RequestHostScene()
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(_client.ID);
+            using (Message message = Message.Create(Tags.RequestHostScene, writer))
+            {
+                Debug.Log("Sent request");
                 _client.SendMessage(message, SendMode.Reliable);
             }
         }

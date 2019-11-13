@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
+//TODO MG: Should this menu be split into ConnectionMenuManager and NetworkedMenuManager??
 public class ConnectionMenuManager : IInitializable, IDisposable
 {
     private Button _serverButton;
@@ -56,25 +57,60 @@ public class ConnectionMenuManager : IInitializable, IDisposable
 
     public void ServerButtonClicked()
     {
+        // 1. Server is created
         _serverManager.CreateServer();
+        // 2. JoinedServerAsX is subscribed to clientInfo.StatusChanged
+        _clientInfo.statusChanged += JoinedServerAsHost;
+        // 3. Client joins the server
         _serverManager.JoinAsHost();
-        // TODO MG: change this maybe to via a message when connected to a server
-        _clientInfo.Status = ClientStatus.Host;
-        _sceneMessageSender.SendSceneChanged("Lobby", true); // Send message to load Lobby Client
-        SceneManager.LoadScene("Lobby"); // Load LobbyHost
+        // 4. Server sends us connectionInfo message
+        // 5. ClientInfo updates its status
+        // 6. JoinedServerAsX fires
+        // 7. Scene is loaded and the event is unsubscribed
     }
 
     public void JoinButtonClicked()
     {
-        //_initializer.JoinServer();
-        // TODO MG: change this maybe to via a message when connected to a server
-        _clientInfo.Status = ClientStatus.Client;
-        SceneManager.LoadScene("Lobby");
+        // 1. Subscribe to ClientInfo status update
+        _clientInfo.statusChanged += JoinedServerAsClient;
+        // 2. Join the server
+        _initializer.JoinServer();
+        // 3. Get the client status
+        // 4. Send request for scene update
+        // 5. Handle the response in Networked Scene Manager
     }
 
     public void BackButtonClicker()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private void JoinedServerAsHost(ushort status)
+    {
+        if (status == ClientStatus.Host)
+        {
+            _sceneMessageSender.SendSceneChanged(2);
+        }
+        else
+        {
+            Debug.Log("Server setup unsuccessful.Try again");
+            _serverManager.CloseServer();
+        }
+        _clientInfo.statusChanged -= JoinedServerAsHost;
+    }
+
+    private void JoinedServerAsClient(ushort status)
+    {
+        if (status == ClientStatus.Client)
+        {
+            //Handler to the response exists in Networked SceneManager
+            _sceneMessageSender.RequestHostScene();
+        }
+        else
+        {
+            Debug.Log("Unable to join the server. Try again");
+        }
+        _clientInfo.statusChanged -= JoinedServerAsClient;
     }
 
 

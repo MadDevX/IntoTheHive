@@ -11,4 +11,7 @@
     public static readonly ushort GameStarted = 7;
     public static readonly ushort SceneReady = 8;
     public static readonly ushort ConnectionInfo = 9;
+
+    public static readonly ushort RequestHostScene = 10;
+    public static readonly ushort ApplyHostScene = 11;
 }
