@@ -55,20 +55,18 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     {
         _serverManager.CreateServer();
         _serverManager.JoinAsHost();
-        _sceneMessageSender.SendSceneChangedClientsOnly(3); // Send message to load Lobby Client
-        SceneManager.LoadScene(4); // Load LobbyHost
+        _sceneMessageSender.SendSceneChanged("LobbyClient", true); // Send message to load Lobby Client
+        SceneManager.LoadScene("LobbyHost"); // Load LobbyHost
     }
 
     public void JoinButtonClicked()
     {
         _initializer.JoinServer();
-        // load this scene throguht networkedSceneManager
-        //SceneManager.LoadScene(1);
     }
 
     public void BackButtonClicker()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("MainMenu");
     }
 
 
