@@ -16,7 +16,7 @@ MonoBehaviour:
     baseSpeed: 4
     speedMult: 1.5
   _charShootingSettings:
-    weaponOffset: {x: 0, y: 0.75}
+    weaponOffset: {x: 0, y: 0.65}
   _placeholderWeaponSettings:
     velocity: 15
     timeToLive: 4

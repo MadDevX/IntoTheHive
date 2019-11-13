@@ -52,9 +52,10 @@ public class TripleSpawnOnDestroyModule : IModule
 
     private void OnProjectileDestroyed(ProjectilePipelineParameters param)
     {
-        var baseRotation = param.physics.Velocity.Rotation();
-        var spawnParam = new ProjectileSpawnParameters(param.projectile.Position, baseRotation, param.physics.Velocity.magnitude, 3.0f, null);
-        _factory.Create(spawnParam); //TODO: memory pool spawn overlap? check if it's a bug aight
+        var velocity = param.rb.velocity;
+        var baseRotation = velocity.Rotation();
+        var spawnPos = param.projectile.Position + Vector2.ClampMagnitude(velocity, Constants.COLLISION_CORRECTION_EPS);
+        var spawnParam = new ProjectileSpawnParameters(spawnPos, baseRotation, velocity.magnitude, 3.0f, null);
         _factory.Create(spawnParam);
         spawnParam.rotation = baseRotation + _spreadAngle;
         _factory.Create(spawnParam);

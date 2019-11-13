@@ -26,36 +26,30 @@ public struct ProjectileSpawnParameters
 public struct ProjectilePipelineParameters
 {
     public Projectile projectile;
-    public ProjectilePhysics physics;
+    public Rigidbody2D rb;
     //TODO: collision information (CastHit)
-    public ProjectilePipelineParameters(Projectile projectile, ProjectilePhysics physics)
+    public ProjectilePipelineParameters(Projectile projectile, Rigidbody2D rb)
     {
         this.projectile = projectile;
-        this.physics = physics;
+        this.rb = rb;
     }
 }
 
 public class Projectile : MonoBehaviour, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable
 {
-    [SerializeField] private ProjectilePhysics _rb;
+    [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private TrailRenderer _trail;
+    [SerializeField] private Collider2D _collider;
+    public event Action<Projectile, Collider2D, int> OnCollisionEnter;
     public PhasePipeline Pipeline { get; } = new PhasePipeline();
-    public event Action<Projectile, RaycastHit2D, int> OnCollisionEnter
-    {
-        add
-        {
-            _rb.OnCollisionEnter += value;
-        }
-        remove
-        {
-            _rb.OnCollisionEnter -= value;
-        }
-    }
+
     private List<IModule> _currentModules = new List<IModule>();
     private IMemoryPool _pool;
 
-    public Vector2 Position => _rb.Position;
+    public Vector2 Position => _rb.position;
+    public bool IsPiercing { get => _collider.isTrigger; set => _collider.isTrigger = value; }
     public int CollisionLimit { get; set; } = 0;
+    private int _remainingCollisions;
 
     public ProjectilePipelineParameters PipelineParameters = new ProjectilePipelineParameters();
 
@@ -71,27 +65,28 @@ public class Projectile : MonoBehaviour, IPoolable<ProjectileSpawnParameters, IM
 
     public void Dispose()
     {
+        Pipeline.SetState(ProjectilePhases.Destroy, PipelineParameters);
         _pool.Despawn(this);
     }
 
     public void OnDespawned()
     {
+        //DO NOT USE Factory.Create within OnDespawned because object is not fully returned to pool and but already can be used by next Create instruction
         _pool = null;
-        Pipeline.SetState(ProjectilePhases.Destroy, PipelineParameters);
-        _rb.Velocity = Vector2.zero;
+        _rb.velocity = Vector2.zero;
         DisposeModules();
     }
 
     public void OnSpawned(ProjectileSpawnParameters parameters, IMemoryPool pool)
     {
-        _rb.Position = parameters.position;
-        _rb.Velocity = Vector2.up.Rotate(parameters.rotation) * parameters.velocity;
-        _rb.RemainingCollisions = CollisionLimit;
+        transform.position = parameters.position;
+        _rb.velocity = Vector2.up.Rotate(parameters.rotation) * parameters.velocity;
+        _remainingCollisions = CollisionLimit;
         _pool = pool;
         _trail.Clear();
 
         PipelineParameters.projectile = this;
-        PipelineParameters.physics = _rb;
+        PipelineParameters.rb = _rb;
 
         if (parameters.modules != null)
         {
@@ -116,6 +111,18 @@ public class Projectile : MonoBehaviour, IPoolable<ProjectileSpawnParameters, IM
         {
             _currentModules[i].RemoveFromProjectile(this);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _remainingCollisions--;
+        OnCollisionEnter?.Invoke(this, collision.collider, _remainingCollisions);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _remainingCollisions--;
+        OnCollisionEnter?.Invoke(this, collision, _remainingCollisions);
     }
 
     public class Factory : PlaceholderFactory<ProjectileSpawnParameters, Projectile>

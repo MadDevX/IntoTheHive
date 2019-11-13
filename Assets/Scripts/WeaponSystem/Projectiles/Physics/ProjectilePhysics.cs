@@ -10,8 +10,8 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
     [SerializeField] private Projectile _projectile;
 
     public event Action<Projectile, RaycastHit2D, int> OnCollisionEnter;
-    public Vector2 Velocity { get; set; }
-    public Vector2 Position { get => transform.position; set => transform.position = value; }
+    public Vector2 velocity { get; set; }
+    public Vector2 position { get => transform.position; set => transform.position = value; }
     public float Radius { get; set; } = 0.125f;
 
     public bool isPiercing = false;
@@ -21,7 +21,6 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
     private Collider2D _prevCol = null;
     private Vector2 _zeroVector = Vector2.zero;
     private int _hitMask;
-    private const float CORRECTION_EPS = 0.001f;
 
     private void Awake()
     {
@@ -44,7 +43,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
 
     private void CollisionBehaviour(float deltaTime)
     {
-        var velMag = Velocity.magnitude;
+        var velMag = velocity.magnitude;
         float remainingDist = velMag * deltaTime;
 
         Vector2 currentPos = transform.position;
@@ -57,7 +56,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
         {
             i++;
             if (i == 10) Debug.LogError("Probably endless loop");
-            var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, velMag * deltaTime, _hitMask);
+            var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, velocity, _hits, velMag * deltaTime, _hitMask);
 
             if (count == 0) //Reset prev collision (enables tidy implementation of bouncing/piercing bullets)
             {
@@ -69,18 +68,18 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
                 int j;
                 for(j = 0; j < count; j++)
                 {
-                    if (Vector2.Dot(_hits[j].normal, Velocity) <= 0.0f && _prevCol != _hits[j].collider) break;
+                    if (Vector2.Dot(_hits[j].normal, velocity) <= 0.0f && _prevCol != _hits[j].collider) break;
                 }
                 var hit = _hits[j];
                 var col = hit.collider;
                 _prevCol = col;
                 var posDiff = (currentPos - hit.point).magnitude;
-                var correctionDist = posDiff - Radius - CORRECTION_EPS; //so that previous collisions won't be taken into consideration by raycast (eliminate slight overlap)
+                var correctionDist = posDiff - Radius - Constants.COLLISION_CORRECTION_EPS; //so that previous collisions won't be taken into consideration by raycast (eliminate slight overlap)
                 remainingDist = Math.Max(remainingDist - correctionDist, 0.0f);
                 var hitRb = hit.rigidbody;
                 var baseVel = _zeroVector;
                 if (hitRb != null) baseVel = hitRb.velocity;
-                Velocity = ReflectionVector((Velocity - baseVel), hit.normal) + baseVel;
+                velocity = Extensions.ReflectionVector((velocity - baseVel), hit.normal) + baseVel;
                 currentPos = Vector3.MoveTowards(currentPos, hit.point, correctionDist);
                 RemainingCollisions--;
                 transform.position = currentPos;
@@ -91,17 +90,17 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
                 canStop = true;
             }
         }
-        transform.position = currentPos + Vector2.ClampMagnitude((Velocity * deltaTime), remainingDist);
+        transform.position = currentPos + Vector2.ClampMagnitude((velocity * deltaTime), remainingDist);
     }
 
     private void TriggerBehaviour(float deltaTime)
     {
-        var velMag = Velocity.magnitude;
+        var velMag = velocity.magnitude;
         float remainingDist = velMag * deltaTime;
 
         Vector2 currentPos = transform.position;
 
-        var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, Velocity, _hits, remainingDist, _hitMask);
+        var count = Physics2D.CircleCastNonAlloc(currentPos, Radius, velocity, _hits, remainingDist, _hitMask);
         if(count == 0)
         {
             _prevCol = null;
@@ -116,13 +115,7 @@ public class ProjectilePhysics : MonoFixedUpdatableObject
                 Debug.Log(_hits[i].collider.name);
             }
         }
-        transform.position = currentPos + Vector2.ClampMagnitude((Velocity * deltaTime), remainingDist);
+        transform.position = currentPos + Vector2.ClampMagnitude((velocity * deltaTime), remainingDist);
 
-    }
-
-    private static Vector2 ReflectionVector(Vector2 towardsProjectile, Vector2 surfaceNormal)
-    {
-        var angle = Vector2.SignedAngle(towardsProjectile, surfaceNormal);
-        return towardsProjectile.Rotate(2.0f * angle - 180.0f);
     }
 }

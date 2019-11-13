@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4662591845878964658}
   - component: {fileID: 4662591845878964657}
-  - component: {fileID: 4662591845878964659}
   - component: {fileID: 4662591845878964660}
   - component: {fileID: -101312800552486544}
-  m_Layer: 0
+  - component: {fileID: -4160453905937915547}
+  - component: {fileID: -7885466966783890785}
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,20 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4662591845878964659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4662591845878964656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2250bf8921b607f4f84671b828251ded, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectile: {fileID: 4662591845878964660}
-  isPiercing: 0
 --- !u!114 &4662591845878964660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,8 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8337d5b8c9b29e84286586de76505b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 4662591845878964659}
+  _rb: {fileID: -4160453905937915547}
   _trail: {fileID: -101312800552486544}
+  _collider: {fileID: 0}
 --- !u!96 &-101312800552486544
 TrailRenderer:
   serializedVersion: 2
@@ -216,3 +204,40 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!50 &-4160453905937915547
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662591845878964656}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!58 &-7885466966783890785
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662591845878964656}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 3849171856af2bf4e83eac66d9eb81b8, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.125

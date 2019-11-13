@@ -15,7 +15,7 @@ public static class DefaultProjectileModule
         projectile.OnCollisionEnter -= DestroyAfterCollisions;
     }
 
-    private static void DestroyAfterCollisions(Projectile projectile, RaycastHit2D hit, int remainingCollisions)
+    private static void DestroyAfterCollisions(Projectile projectile, Collider2D hit, int remainingCollisions)
     {
         if(remainingCollisions < 0)
         {
