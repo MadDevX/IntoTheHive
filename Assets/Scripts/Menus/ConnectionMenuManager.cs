@@ -66,7 +66,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
 
     public void BackButtonClicker()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
 
 
