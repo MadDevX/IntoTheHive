@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class HostLobbyInstaller : MonoInstaller
+public class LobbyInstaller : MonoInstaller
 {
     [SerializeField] private Button _startGameButton;
     [SerializeField] private Button _readyButton;
@@ -16,10 +16,10 @@ public class HostLobbyInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInstance(_startGameButton).WithId(Identifiers.LobbyStartGameButton);
-        Container.BindInstance(_readyButton).WithId(Identifiers.LobbyHostReadyButton);
-        Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyHostLeaveButton);
+        Container.BindInstance(_readyButton).WithId(Identifiers.LobbyReadyButton);
+        Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyLeaveButton);
 
-        Container.BindInterfacesAndSelfTo<HostLobbyManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LobbyManager>().AsSingle();
     }
 }
 
