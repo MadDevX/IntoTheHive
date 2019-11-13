@@ -17,8 +17,8 @@ public class NetworkedClientInitializer
     private int port;
 
     public NetworkedClientInitializer(
-        [Inject(Id = Identifiers.IpInputField)] InputField ipAddressInputField,
-        [Inject(Id = Identifiers.PortInputField)] InputField portNumberInputField,
+        [Inject(Id = Identifiers.ConnetionMenuIpInputField)] InputField ipAddressInputField,
+        [Inject(Id = Identifiers.ConnetionMenuPortInputField)] InputField portNumberInputField,
         UnityClient client)
     {
         _ipAddressInputField = ipAddressInputField;
