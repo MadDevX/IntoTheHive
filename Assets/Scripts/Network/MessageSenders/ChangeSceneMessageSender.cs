@@ -1,7 +1,5 @@
-﻿using System;
-using DarkRift;
+﻿using DarkRift;
 using DarkRift.Client.Unity;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ChangeSceneMessageSender
@@ -52,21 +50,20 @@ public class ChangeSceneMessageSender
         {
             writer.Write(id);
             writer.Write(sceneIndex);
-            using (Message message = Message.Create(Tags.ApplyHostScene, writer))
+            using (Message message = Message.Create(Tags.LoadLobby, writer))
             {
                 _client.SendMessage(message, SendMode.Reliable);
             }
         }
     }
 
-    public void RequestHostScene()
+    public void PlayerJoinedMessage()
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(_client.ID);
-            using (Message message = Message.Create(Tags.RequestHostScene, writer))
+            using (Message message = Message.Create(Tags.PlayerJoined, writer))
             {
-                Debug.Log("Sent request");
                 _client.SendMessage(message, SendMode.Reliable);
             }
         }

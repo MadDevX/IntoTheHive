@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
+
+//Divide this class
 public class HostManager: IInitializable, IDisposable
 {
     private NetworkRelay _relay;
     private NetworkedSceneManager _sceneManager;
     private ChangeSceneMessageSender _sceneMessageSender;
-
-
 
     public HostManager(
         NetworkRelay relay,
@@ -27,17 +27,22 @@ public class HostManager: IInitializable, IDisposable
     {
         // TODO MG use request Host Scene as message that anounces arrival to lobby or make a new message
         // TODO MG change requestHostScene to "PlayerJoined" and ApplyHostScene to "LobbyStateUpdate"
-        _relay.Subscribe(Tags.RequestHostScene, HandleRequestHostScene);
+        _relay.Subscribe(Tags.PlayerJoined, HandlePlayerJoined);
         _relay.Subscribe(Tags.SceneReady, HandleSceneReady);
     }
 
     public void Dispose()
     {
-        _relay.Unsubscribe(Tags.RequestHostScene, HandleRequestHostScene);
+        _relay.Unsubscribe(Tags.PlayerJoined, HandlePlayerJoined);
         _relay.Unsubscribe(Tags.SceneReady, HandleSceneReady);
     }
 
-    private void HandleRequestHostScene(Message message)
+    public void LoadNextLevel()
+    {
+        // Send next level message to everybody in the form of SceneChangedMessage
+    }
+
+    private void HandlePlayerJoined(Message message)
     {
         Debug.Log("Request for the host scene handled");
         ushort id;

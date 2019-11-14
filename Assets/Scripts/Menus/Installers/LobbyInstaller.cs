@@ -19,7 +19,7 @@ public class LobbyInstaller : MonoInstaller
         Container.BindInstance(_readyButton).WithId(Identifiers.LobbyReadyButton);
         Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyLeaveButton);
 
-        Container.BindInterfacesAndSelfTo<LobbyManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LobbyMenuManager>().AsSingle();
     }
 }
 

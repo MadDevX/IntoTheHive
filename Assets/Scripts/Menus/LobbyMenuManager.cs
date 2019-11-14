@@ -1,35 +1,41 @@
-﻿using System;
-using UnityEngine;
+﻿using DarkRift.Client.Unity;
+using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
-public class LobbyManager: IInitializable, IDisposable
+public class LobbyMenuManager: IInitializable, IDisposable
 {
     private Button _startGameButton;
     private Button _readyButton;
     private Button _leaveLobbyButton;
 
+    private UnityClient _client;
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
+    private HostManager _hostManager;
 
-    public LobbyManager(
+    public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
         Button startGameButton,
         [Inject(Id = Identifiers.LobbyReadyButton)]
         Button readyButton,
         [Inject(Id = Identifiers.LobbyLeaveButton)]
         Button leaveButton,
+        UnityClient client,
         ClientInfo clientInfo,
-        ServerManager serverManager 
+        HostManager hostManager,
+        ServerManager serverManager
         )
     {
         _startGameButton = startGameButton;
         _readyButton = readyButton;
         _leaveLobbyButton = leaveButton;
 
+        _client = client;
         _clientInfo = clientInfo;
         _serverManager = serverManager;
+        _hostManager = hostManager;
     }
 
     public void Initialize()
@@ -42,7 +48,6 @@ public class LobbyManager: IInitializable, IDisposable
         {
             DisableHostFunctionality();
         }
-
     }
 
     public void Dispose()
@@ -54,12 +59,12 @@ public class LobbyManager: IInitializable, IDisposable
 
     public void StartGame()
     {
-        Debug.Log("start");
+        _hostManager.LoadNextLevel();
     }
 
     public void SetReadyStatus()
     {
-        Debug.Log("ready");
+        //_playerManager.SetReady();
     }
 
     public void LeaveLobby()
@@ -73,7 +78,7 @@ public class LobbyManager: IInitializable, IDisposable
 
         if (_clientInfo.Status == ClientStatus.Client)
         {
-            //disconnect from server
+            _client.Disconnect();    
         }
 
         SceneManager.LoadScene("ConnectionMenu");
