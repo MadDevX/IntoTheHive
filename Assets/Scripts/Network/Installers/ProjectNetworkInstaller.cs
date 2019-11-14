@@ -1,12 +1,8 @@
 ﻿using DarkRift.Client.Unity;
-using DarkRift.Server.Unity;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-//Make Fields from this class not destroy on load except Network Initializer
-public class GlobalNetworkInstaller : MonoInstaller
+public class ProjectNetworkInstaller : MonoInstaller
 {
     [SerializeField] private UnityClient _client;
 

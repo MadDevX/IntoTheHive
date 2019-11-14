@@ -29,13 +29,13 @@ public class NetworkedSceneManager: IInitializable,IDisposable
     public void Initialize()
     {
         _relay.Subscribe(Tags.ChangeScene, ParseChangeSceneMessage);
-        _relay.Subscribe(Tags.ApplyHostScene, ParseApplyHostSceneMessage);
+        _relay.Subscribe(Tags.LoadLobby, ParseLoadLobbyMessage);
     }
 
     public void Dispose()
     {
         _relay.Unsubscribe(Tags.ChangeScene, ParseChangeSceneMessage);
-        _relay.Unsubscribe(Tags.ApplyHostScene, ParseApplyHostSceneMessage);
+        _relay.Unsubscribe(Tags.LoadLobby, ParseLoadLobbyMessage);
     }
 
     private void ParseChangeSceneMessage(Message message)
@@ -56,9 +56,8 @@ public class NetworkedSceneManager: IInitializable,IDisposable
         _messageSender.SendSceneReady();
     }
 
-    private void ParseApplyHostSceneMessage(Message message)
+    private void ParseLoadLobbyMessage(Message message)
     {
-        Debug.Log("applying scene");
         int sceneBuildIndex;
         using (DarkRiftReader reader = message.GetReader())
         {

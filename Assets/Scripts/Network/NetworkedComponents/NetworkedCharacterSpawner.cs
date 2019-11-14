@@ -1,5 +1,4 @@
 ﻿using DarkRift;
-using DarkRift.Client;
 using DarkRift.Client.Unity;
 using System;
 using Zenject;

@@ -104,7 +104,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         if (status == ClientStatus.Client)
         {
             //Handler to the response exists in Networked SceneManager
-            _sceneMessageSender.RequestHostScene();
+            _sceneMessageSender.PlayerJoinedMessage();
         }
         else
         {

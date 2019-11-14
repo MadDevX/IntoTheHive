@@ -20,7 +20,6 @@ public class NetworkRelay: IInitializable, IDisposable
         // USE Event subscription
         _messageHandlers = new Dictionary<ushort, List<Action<Message>>>();
         _messageHandlers.Add(Tags.DespawnCharacter, new List<Action<Message>>());
-        _messageHandlers.Add(Tags.PlayerJoined, new List<Action<Message>>());
         _messageHandlers.Add(Tags.SpawnCharacter, new List<Action<Message>>());
         _messageHandlers.Add(Tags.UpdateCharacterEquipment, new List<Action<Message>>());
         _messageHandlers.Add(Tags.UpdateCharacterState, new List<Action<Message>>());
@@ -28,8 +27,8 @@ public class NetworkRelay: IInitializable, IDisposable
         _messageHandlers.Add(Tags.GameStarted, new List<Action<Message>>());
         _messageHandlers.Add(Tags.SceneReady, new List<Action<Message>>());
         _messageHandlers.Add(Tags.ConnectionInfo, new List<Action<Message>>());
-        _messageHandlers.Add(Tags.RequestHostScene, new List<Action<Message>>());
-        _messageHandlers.Add(Tags.ApplyHostScene, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.PlayerJoined, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.LoadLobby, new List<Action<Message>>());
     }
 
     public void Initialize()
