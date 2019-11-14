@@ -5,8 +5,6 @@ using UnityEngine;
 public enum ProjectilePhases
 {
     Created,
-    Shot,
-    Travel,
     Hit,
     Destroy
 }

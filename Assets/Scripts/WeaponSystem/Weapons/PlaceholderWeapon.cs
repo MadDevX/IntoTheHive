@@ -21,6 +21,7 @@ public class PlaceholderWeapon : IWeapon
         fac.DecoratedFactory = projectileFactory;
         Factory = fac;
         _settings = settings;
+        AttachModule(new SineTravelModule());
         AttachModule(new TripleSpawnOnDestroyModule(projectileFactory));
     }
 

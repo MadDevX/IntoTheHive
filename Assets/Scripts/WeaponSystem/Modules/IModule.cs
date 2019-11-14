@@ -11,8 +11,8 @@ public interface IModule
     void DecorateProjectile(Projectile projectile);
     void RemoveFromProjectile(Projectile projectile);
 
-    void AttachToWeapon(IWeapon weapon);
-    void DetachFromWeapon(IWeapon weapon);
+    bool AttachToWeapon(IWeapon weapon);
+    bool DetachFromWeapon(IWeapon weapon);
 }
 
 public enum Priorities

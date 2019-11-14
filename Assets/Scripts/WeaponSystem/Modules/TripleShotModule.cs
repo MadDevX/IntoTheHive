@@ -3,45 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class TripleShot : IModule
+public class TripleShot : BaseModule
 {
-    public int Priority => 0;
-    private IWeapon _weapon;
+    public override int Priority => 0;
     private Factory _factory = new Factory();
 
-    public void AttachToWeapon(IWeapon weapon)
+    public override bool AttachToWeapon(IWeapon weapon)
     {
-        if (_weapon != null)
+        if (base.AttachToWeapon(weapon))
         {
-            Debug.LogError("mod already attached!");
-        }
-        else
-        {
-            _weapon = weapon;
             _factory.DecoratedFactory = weapon.Factory;
             weapon.Factory = _factory;
-        }
-    }
-
-    public void DetachFromWeapon(IWeapon weapon)
-    {
-        if (_weapon == null)
-        {
-            Debug.LogError("mod alread detached!");
+            return true;
         }
         else
         {
-            weapon.Factory = _factory.DecoratedFactory;
-            _weapon = null;
+            return false;
         }
     }
 
-    public void RemoveFromProjectile(Projectile projectile)
+    public override bool DetachFromWeapon(IWeapon weapon)
     {
-    }
-
-    public void DecorateProjectile(Projectile projectile)
-    {
+        if (base.DetachFromWeapon(weapon))
+        {
+            weapon.Factory = _factory.DecoratedFactory;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public class Factory : IFactory<ProjectileSpawnParameters, Projectile[]>

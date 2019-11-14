@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class TripleSpawnOnDestroyModule : IModule
+public class TripleSpawnOnDestroyModule : BaseModule
 {
-    public int Priority => 1;
+    public override int Priority => 1;
+
     private float _spreadAngle = 30.0f;
-    private IWeapon _weapon;
     private IFactory<ProjectileSpawnParameters, Projectile[]> _factory;
 
     public TripleSpawnOnDestroyModule(IFactory<ProjectileSpawnParameters, Projectile[]> factory)
@@ -15,44 +15,44 @@ public class TripleSpawnOnDestroyModule : IModule
         _factory = factory;
     }
 
-    public void AttachToWeapon(IWeapon weapon)
+    public override bool AttachToWeapon(IWeapon weapon)
     {
-        if (_weapon != null)
+        if (base.AttachToWeapon(weapon))
         {
-            Debug.LogError("mod already attached!");
-        }
-        else
-        {
-            _weapon = weapon;
             if (_factory == null)
             {
                 _factory = weapon.Factory;
             }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public void DecorateProjectile(Projectile projectile)
+    public override bool DetachFromWeapon(IWeapon weapon)
+    {
+        if (base.DetachFromWeapon(weapon))
+        {
+            if (_factory == weapon.Factory)
+            {
+                _factory = null;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void DecorateProjectile(Projectile projectile)
     {
         projectile.Pipeline.SubscribeToInit(ProjectilePhases.Destroy, OnProjectileDestroyed);
     }
 
-    public void DetachFromWeapon(IWeapon weapon)
-    {
-        if(_weapon == null)
-        {
-            Debug.LogError("mod already detached!");
-        }
-        else
-        {
-            _weapon = null;
-            if(_factory == weapon.Factory)
-            {
-                _factory = null;
-            }
-        }
-    }
-
-    public void RemoveFromProjectile(Projectile projectile)
+    public override void RemoveFromProjectile(Projectile projectile)
     {
         projectile.Pipeline.UnsubscribeFromInit(ProjectilePhases.Destroy, OnProjectileDestroyed);
     }

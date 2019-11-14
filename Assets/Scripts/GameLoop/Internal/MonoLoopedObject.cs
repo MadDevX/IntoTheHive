@@ -22,7 +22,7 @@ namespace GameLoop.Internal
             _gameLoop = gameLoop;
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             if (DefaultSubscribe)
             {
@@ -30,7 +30,7 @@ namespace GameLoop.Internal
             }
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (DefaultSubscribe)
             {

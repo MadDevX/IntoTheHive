@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for default projectile behaviours: <para/>
+/// <br>Destroy after collision, </br>
+/// <br>Destroy after time (not yet implemented)</br>
+/// </summary>
 public static class DefaultProjectileModule
 {
     public static void DecorateProjectile(Projectile projectile)
