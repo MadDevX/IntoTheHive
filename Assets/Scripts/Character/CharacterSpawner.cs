@@ -77,4 +77,22 @@ public class CharacterSpawner : IInitializable, IDisposable
         }
     }
 
+    public void InitiateSpawn()
+    {
+
+        Debug.Log("Spawn Initiated");
+        PrepareSpawnPositions();
+        SpawnAll();
+
+    }
+
+    private void PrepareSpawnPositions()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void SpawnAll()
+    {
+        throw new NotImplementedException();
+    }
 }
