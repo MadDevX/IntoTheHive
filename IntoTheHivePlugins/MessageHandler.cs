@@ -39,6 +39,15 @@ public class MessageHandler
             if(message.Tag == Tags.PlayerJoined)
                 _plugin.BroadcastToHost(message, e);
 
+            if (message.Tag == Tags.IsPlayerReady)
+                _plugin.BroadcastToHost(message, e);
+
+            if (message.Tag == Tags.RequestUpdateLobby)
+                _plugin.BroadcastToHost(message, e);
+
+            if (message.Tag == Tags.UpdateLobby)
+                _plugin.BroadcastToAllClients(message, e);
+
             if (message.Tag == Tags.LoadLobby)
             {
                 using (DarkRiftReader reader = message.GetReader())

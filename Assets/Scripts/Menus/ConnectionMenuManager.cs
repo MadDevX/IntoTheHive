@@ -1,5 +1,4 @@
-﻿using DarkRift.Client.Unity;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,17 +13,21 @@ public class ConnectionMenuManager : IInitializable, IDisposable
 
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
+    private LobbyMessageSender _lobbyMessageSender;
+    private NetworkedClientInitializer _initializer;
     private NetworkedSceneManager _networkedSceneManager;
     private ChangeSceneMessageSender _sceneMessageSender;
-    private NetworkedClientInitializer _initializer;
+    private GlobalHostPlayerManager _globalHostPlayerManager;
 
     public ConnectionMenuManager(
         [Inject(Id = Identifiers.ConnetionMenuCreateServerButton)] Button serverButton,
         [Inject(Id = Identifiers.ConnetionMenuJoinServerButton)] Button joinButton,
         [Inject(Id = Identifiers.ConnetionMenuBackButton)] Button backButton,
         NetworkedClientInitializer connectionInitializer,
+        GlobalHostPlayerManager globalHostPlayerManager,
         NetworkedSceneManager networkedSceneManager,
         ChangeSceneMessageSender sceneMessageSender,
+        LobbyMessageSender lobbyMessageSender,
         ServerManager serverManager,
         ClientInfo clientInfo)
     {
@@ -34,8 +37,10 @@ public class ConnectionMenuManager : IInitializable, IDisposable
 
         _clientInfo = clientInfo;
         _serverManager = serverManager;
+        _lobbyMessageSender = lobbyMessageSender;
         _sceneMessageSender = sceneMessageSender;
         _networkedSceneManager = networkedSceneManager;
+        _globalHostPlayerManager = globalHostPlayerManager;
         _initializer = connectionInitializer;
     }
 
@@ -60,7 +65,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         // 1. Server is created
         _serverManager.CreateServer();
         // 2. JoinedServerAsX is subscribed to clientInfo.StatusChanged
-        _clientInfo.statusChanged += JoinedServerAsHost;
+        _clientInfo.StatusChanged += JoinedServerAsHost;
         // 3. Client joins the server
         _serverManager.JoinAsHost();
         // 4. Server sends us connectionInfo message
@@ -72,7 +77,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     public void JoinButtonClicked()
     {
         // 1. Subscribe to ClientInfo status update
-        _clientInfo.statusChanged += JoinedServerAsClient;
+        _clientInfo.StatusChanged += JoinedServerAsClient;
         // 2. Join the server
         _initializer.JoinServer();
         // 3. Get the client status
@@ -89,14 +94,16 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     {
         if (status == ClientStatus.Host)
         {
-            _sceneMessageSender.SendSceneChanged(2);
+            // TODO MG: send a message 
+            //_sceneMessageSender.SendSceneChanged(2);
+            _lobbyMessageSender.PlayerJoinedMessage();
         }
         else
         {
             Debug.Log("Server setup unsuccessful.Try again");
             _serverManager.CloseServer();
         }
-        _clientInfo.statusChanged -= JoinedServerAsHost;
+        _clientInfo.StatusChanged -= JoinedServerAsHost;
     }
 
     private void JoinedServerAsClient(ushort status)
@@ -104,13 +111,15 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         if (status == ClientStatus.Client)
         {
             //Handler to the response exists in Networked SceneManager
-            _sceneMessageSender.PlayerJoinedMessage();
+            _lobbyMessageSender.PlayerJoinedMessage();
+            //TODO MG why is LobbyMessageSender in Connecton Menu?
+            //TODO MG MOVE THIS TO ANOTHER CLASS OR RENAME THE CLASS
         }
         else
         {
             Debug.Log("Unable to join the server. Try again");
         }
-        _clientInfo.statusChanged -= JoinedServerAsClient;
+        _clientInfo.StatusChanged -= JoinedServerAsClient;
     }
 
 

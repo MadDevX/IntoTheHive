@@ -10,7 +10,7 @@ public class ClientInfo: IInitializable, IDisposable
     public UnityClient Client;
     public ushort Status = ClientStatus.None;
 
-    public event Action<ushort> statusChanged;
+    public event Action<ushort> StatusChanged;
 
     private NetworkRelay _relay;
 
@@ -42,7 +42,7 @@ public class ClientInfo: IInitializable, IDisposable
             if(Status == ClientStatus.None)
             {
                 Status = status;
-                statusChanged?.Invoke(Status);
+                StatusChanged?.Invoke(Status);
             }
             
         }

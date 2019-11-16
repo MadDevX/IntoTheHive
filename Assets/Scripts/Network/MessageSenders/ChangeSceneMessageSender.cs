@@ -43,29 +43,4 @@ public class ChangeSceneMessageSender
             }
         }
     }
-
-    public void SendApplyHostScene(ushort id, ushort sceneIndex)
-    {
-        using (DarkRiftWriter writer = DarkRiftWriter.Create())
-        {
-            writer.Write(id);
-            writer.Write(sceneIndex);
-            using (Message message = Message.Create(Tags.LoadLobby, writer))
-            {
-                _client.SendMessage(message, SendMode.Reliable);
-            }
-        }
-    }
-
-    public void PlayerJoinedMessage()
-    {
-        using (DarkRiftWriter writer = DarkRiftWriter.Create())
-        {
-            writer.Write(_client.ID);
-            using (Message message = Message.Create(Tags.PlayerJoined, writer))
-            {
-                _client.SendMessage(message, SendMode.Reliable);
-            }
-        }
-    }
 }

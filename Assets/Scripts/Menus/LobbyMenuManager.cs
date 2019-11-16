@@ -1,5 +1,6 @@
 ﻿using DarkRift.Client.Unity;
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
@@ -13,7 +14,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private UnityClient _client;
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
-    private HostManager _hostManager;
+    private HostLobbyManager _hostManager;
 
     public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
@@ -24,7 +25,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
         Button leaveButton,
         UnityClient client,
         ClientInfo clientInfo,
-        HostManager hostManager,
+        HostLobbyManager hostManager,
         ServerManager serverManager
         )
     {
@@ -44,10 +45,14 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _readyButton.onClick.AddListener(SetReadyStatus);
         _leaveLobbyButton.onClick.AddListener(LeaveLobby);
 
+        _startGameButton.interactable = false;
         if(_clientInfo.Status != ClientStatus.Host)
         {
             DisableHostFunctionality();
         }
+
+        _hostManager.AllPlayersReady += StartGameButtonSetActive;
+
     }
 
     public void Dispose()
@@ -55,16 +60,6 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _startGameButton.onClick.RemoveListener(StartGame);
         _readyButton.onClick.RemoveListener(SetReadyStatus);
         _leaveLobbyButton.onClick.RemoveListener(LeaveLobby);
-    }
-
-    public void StartGame()
-    {
-        _hostManager.LoadNextLevel();
-    }
-
-    public void SetReadyStatus()
-    {
-        //_playerManager.SetReady();
     }
 
     public void LeaveLobby()
@@ -78,10 +73,22 @@ public class LobbyMenuManager: IInitializable, IDisposable
 
         if (_clientInfo.Status == ClientStatus.Client)
         {
-            _client.Disconnect();    
+            _client.Disconnect();
         }
 
         SceneManager.LoadScene("ConnectionMenu");
+    }
+
+    public void StartGame()
+    {
+        //_hostManager.SendSceneChangedWithResponse();
+        Debug.Log("Started The game"); 
+    }
+
+    public void SetReadyStatus()
+    {
+        _hostManager.SetPlayerReady();
+        //_playerManager.SetReady();
     }
 
     private void DisableHostFunctionality()
@@ -89,5 +96,10 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _startGameButton.gameObject.SetActive(false);
     }
 
+    private void StartGameButtonSetActive(bool isActive)
+    {
+        _startGameButton.interactable = isActive;
+        //_startGameButton.gameObject.SetActive(isActive);
+    }
 
 }

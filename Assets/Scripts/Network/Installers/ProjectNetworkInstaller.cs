@@ -11,8 +11,8 @@ public class ProjectNetworkInstaller : MonoInstaller
         Container.Bind<UnityClient>().FromInstance(_client).AsSingle();
         Container.BindInterfacesAndSelfTo<ClientInfo>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkRelay>().AsSingle();
-        Container.BindInterfacesAndSelfTo<HostManager>().AsSingle();        
         Container.BindInterfacesAndSelfTo<NetworkedSceneManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<ChangeSceneMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
     }
 }

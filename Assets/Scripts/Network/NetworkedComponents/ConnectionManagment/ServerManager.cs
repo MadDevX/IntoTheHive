@@ -9,7 +9,6 @@ public class ServerManager: IDisposable
 {
     private XmlUnityServer _server;
     private UnityClient _client;
-    private Dictionary<ushort, bool> _readiedPlayers;
 
     public ServerManager(
         XmlUnityServer server,
@@ -17,7 +16,6 @@ public class ServerManager: IDisposable
     {
         _server = server;
         _client = client;
-        _readiedPlayers = new Dictionary<ushort, bool>();
     }
 
     public void CreateServer()

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -19,7 +14,12 @@ public class LobbyInstaller : MonoInstaller
         Container.BindInstance(_readyButton).WithId(Identifiers.LobbyReadyButton);
         Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyLeaveButton);
 
+        Container.BindInterfacesAndSelfTo<LobbyState>().AsSingle();
         Container.BindInterfacesAndSelfTo<LobbyMenuManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LobbyMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<HostLobbyManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ClientLobbyManager>().AsSingle();
+        
     }
 }
 

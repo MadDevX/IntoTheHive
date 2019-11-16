@@ -28,7 +28,11 @@ public class NetworkRelay: IInitializable, IDisposable
         _messageHandlers.Add(Tags.SceneReady, new List<Action<Message>>());
         _messageHandlers.Add(Tags.ConnectionInfo, new List<Action<Message>>());
         _messageHandlers.Add(Tags.PlayerJoined, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.UpdateLobby, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.RequestUpdateLobby, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.PlayerDisconnected, new List<Action<Message>>());
         _messageHandlers.Add(Tags.LoadLobby, new List<Action<Message>>());
+        _messageHandlers.Add(Tags.IsPlayerReady, new List<Action<Message>>());
     }
 
     public void Initialize()
