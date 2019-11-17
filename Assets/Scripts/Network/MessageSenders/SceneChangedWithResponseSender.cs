@@ -2,6 +2,7 @@
 using DarkRift.Client.Unity;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 public class SceneChangedWithResponseSender : IInitializable, IDisposable
@@ -36,6 +37,7 @@ public class SceneChangedWithResponseSender : IInitializable, IDisposable
 
     public void SendSceneChangedWithResponse(int buildIndex)
     {
+        
         ResetDictionary();
 
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
@@ -46,6 +48,7 @@ public class SceneChangedWithResponseSender : IInitializable, IDisposable
             using (Message message = Message.Create(Tags.ChangeSceneWithReply, writer))
             {
                 _client.SendMessage(message, SendMode.Reliable);
+                Debug.Log("Sent a message");
             }
         }
     }
@@ -62,6 +65,7 @@ public class SceneChangedWithResponseSender : IInitializable, IDisposable
 
     private void HandleSceneReady(Message message)
     {
+        Debug.Log("Handle Scene ready");
         using (DarkRiftReader reader = message.GetReader())
         {
             //check size 
@@ -90,6 +94,7 @@ public class SceneChangedWithResponseSender : IInitializable, IDisposable
         if(allReady)
         {
             Completed?.Invoke();
+            Debug.Log("Loaded All scenes");
             foreach( var action in Completed.GetInvocationList())
             {
                 // TODO MG : make sure all event are unsubsrcibed

@@ -1,5 +1,6 @@
 ﻿using DarkRift;
 using DarkRift.Client.Unity;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ChangeSceneMessageSender
@@ -36,10 +37,11 @@ public class ChangeSceneMessageSender
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(_client.Client.ID);
-
+            Debug.Log("id wysylajacego : " + _client.Client.ID);
             using (Message message = Message.Create(Tags.SceneReady, writer))
             {
                 _client.SendMessage(message, SendMode.Reliable);
+                Debug.Log("Sent sceneReeady");
             }
         }
     }
