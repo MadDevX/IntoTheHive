@@ -31,17 +31,17 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         ServerManager serverManager,
         ClientInfo clientInfo)
     {
+        _serverButton = serverButton;
         _joinButton = joinButton;
         _backButton = backButton;
-        _serverButton = serverButton;
 
         _clientInfo = clientInfo;
         _serverManager = serverManager;
-        _initializer = connectionInitializer;
         _lobbyMessageSender = lobbyMessageSender;
         _sceneMessageSender = sceneMessageSender;
         _networkedSceneManager = networkedSceneManager;
         _globalHostPlayerManager = globalHostPlayerManager;
+        _initializer = connectionInitializer;
     }
 
     public void Initialize()

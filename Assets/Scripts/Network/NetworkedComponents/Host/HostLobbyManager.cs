@@ -39,6 +39,7 @@ public class HostLobbyManager: IInitializable, IDisposable
         _relay.Subscribe(Tags.PlayerJoined, HandlePlayerJoined);
         _relay.Subscribe(Tags.RequestUpdateLobby, HandleRequestUpdateLobby);
         _relay.Subscribe(Tags.IsPlayerReady, HandleIsPlayerReady);
+        _relay.Subscribe(Tags.SceneReady, HandleSceneReady);
 
         Debug.Log("Initializing");
         Debug.Log("ilosc graczy" + _globalHostPlayerManager.ConnectedPlayers.Count);
@@ -53,6 +54,7 @@ public class HostLobbyManager: IInitializable, IDisposable
         _relay.Unsubscribe(Tags.PlayerJoined, HandlePlayerJoined);
         _relay.Unsubscribe(Tags.RequestUpdateLobby, HandleRequestUpdateLobby);
         _relay.Unsubscribe(Tags.IsPlayerReady, HandleIsPlayerReady);
+        _relay.Unsubscribe(Tags.SceneReady, HandleSceneReady);
     }
 
     public void SetPlayerReady()
@@ -108,7 +110,7 @@ public class HostLobbyManager: IInitializable, IDisposable
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
-            //name = reader.ReadString();
+          //name = reader.ReadString();
         }
 
         Debug.Log("ilosc graczy w rozgrywce" + _lobbyState.PlayersReadyStatus.Values.Count);
@@ -126,5 +128,19 @@ public class HostLobbyManager: IInitializable, IDisposable
     {
         _lobbyMessageSender.SendUpdateLobbyMessage();
     }
+
+    // TODO MG move both of these methods to another class
+    // Perhaps Scene Sender which has changeSceneMessageSenderInside and handles logic while sender handles sending
+    public void SendSceneChangedWithResponse()
+    {
+        // Send next level message to everybody in the form of SceneChangedMessage
+    }
+
+    private void HandleSceneReady(Message message)
+    {
+        // TODO MG: move to another class??
+        
+    }
+
 }
 

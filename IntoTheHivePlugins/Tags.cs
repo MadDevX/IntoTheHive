@@ -6,7 +6,7 @@
     public static readonly ushort UpdateCharacterState = 2;
     public static readonly ushort UpdateCharacterEquipment = 3;
     public static readonly ushort UpdateLobby = 4;
-    public static readonly ushort RequestUpdateLobby = 6;
+    public static readonly ushort RequestUpdateLobby = 14;
 
     public static readonly ushort ChangeScene = 5;
     public static readonly ushort GameStarted = 7;
@@ -17,5 +17,5 @@
     public static readonly ushort PlayerDisconnected = 11;
     public static readonly ushort IsPlayerReady = 12;
     public static readonly ushort LoadLobby = 13;
-    public static readonly ushort ChangeSceneWithReply = 14;
+    
 }

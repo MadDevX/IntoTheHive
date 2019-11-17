@@ -29,28 +29,15 @@ public class NetworkedSceneManager: IInitializable,IDisposable
     public void Initialize()
     {
         _relay.Subscribe(Tags.ChangeScene, ParseChangeSceneMessage);
-        _relay.Subscribe(Tags.ChangeSceneWithReply, ParseChangeSceneWithResponseMessage);
+
     }
 
     public void Dispose()
     {
         _relay.Unsubscribe(Tags.ChangeScene, ParseChangeSceneMessage);
-        _relay.Unsubscribe(Tags.ChangeSceneWithReply, ParseChangeSceneWithResponseMessage);
-    }  
-
-    private void ParseChangeSceneMessage(Message message)
-    {
-        int sceneBuildIndex;
-
-        using (DarkRiftReader reader = message.GetReader())
-        {
-            sceneBuildIndex = reader.ReadUInt16();
-        }
-
-        var asyncOperation = SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
     }
 
-    private void ParseChangeSceneWithResponseMessage(Message message)
+    private void ParseChangeSceneMessage(Message message)
     {
         int sceneBuildIndex;
 
@@ -66,6 +53,6 @@ public class NetworkedSceneManager: IInitializable,IDisposable
     private void SceneReady(AsyncOperation obj)
     {
         _messageSender.SendSceneReady();
-    }    
+    } 
 }
 
