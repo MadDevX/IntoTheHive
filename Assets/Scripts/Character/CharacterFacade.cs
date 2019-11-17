@@ -6,6 +6,9 @@ using Zenject;
 public struct CharacterSpawnParameters
 {
     public ushort Id;
+    public ushort SenderId;
+    public bool IsLocal;
+
     //What additional info should this contain?
 }
 

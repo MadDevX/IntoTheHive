@@ -40,8 +40,6 @@ public class HostLobbyManager: IInitializable, IDisposable
         _relay.Subscribe(Tags.RequestUpdateLobby, HandleRequestUpdateLobby);
         _relay.Subscribe(Tags.IsPlayerReady, HandleIsPlayerReady);
 
-        Debug.Log("Initializing");
-        Debug.Log("ilosc graczy" + _globalHostPlayerManager.ConnectedPlayers.Count);
         foreach (ushort client in _globalHostPlayerManager.ConnectedPlayers)
         {
             _lobbyState.PlayersReadyStatus.Add(client, false);
@@ -66,9 +64,6 @@ public class HostLobbyManager: IInitializable, IDisposable
         bool allReady = true;
         foreach(bool value in _lobbyState.PlayersReadyStatus.Values)
         {
-            Debug.Log("Iterated for value");
-            //throw new NotImplementedException();
-            //TODO MG some clients are not included here 
             allReady = allReady && value;
         }       
 
@@ -79,7 +74,6 @@ public class HostLobbyManager: IInitializable, IDisposable
     {
         ushort id;
         bool isReady;
-        Debug.Log("Handled IsPlayerRready");
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
@@ -111,11 +105,9 @@ public class HostLobbyManager: IInitializable, IDisposable
             //name = reader.ReadString();
         }
 
-        Debug.Log("ilosc graczy w rozgrywce" + _lobbyState.PlayersReadyStatus.Values.Count);
         _lobbyState.PlayersReadyStatus.Add(id, false);
         AreAllPlayersReady();
-        Debug.Log("ilosc graczy w rozgrywce po dodaniu" + _lobbyState.PlayersReadyStatus.Values.Count);
-
+        
         // TODO MG : add some kind of sceneManager.GetSceneByName
         ushort sceneIndex = (ushort)2;
         

@@ -18,4 +18,6 @@
     public static readonly ushort IsPlayerReady = 12;
     public static readonly ushort LoadLobby = 13;
     public static readonly ushort ChangeSceneWithReply = 14;
+
+    public static readonly ushort RequestSpawn = 15;
 }

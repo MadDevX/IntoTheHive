@@ -64,7 +64,7 @@ public class NetworkedSceneManager: IInitializable,IDisposable
     }
 
     private void SceneReady(AsyncOperation obj)
-    {
+    { 
         _messageSender.SendSceneReady();
     }    
 }

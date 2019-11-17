@@ -16,9 +16,6 @@ public class ProjectNetworkInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<SceneChangedWithResponseSender>().AsSingle();
 
-        // TODO MG - decide how to reference Character Spawner from ConnectionMenu
         Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();        
-        Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
-
     }
 }

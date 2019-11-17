@@ -14,6 +14,7 @@ public class GameplayInstaller : MonoInstaller
     {
         Container.Bind<Camera>().FromInstance(_mainCamera).AsSingle();
         Container.Bind<CinemachineVirtualCamera>().FromInstance(_virtualCamera).AsSingle();
+        Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
     }
 }

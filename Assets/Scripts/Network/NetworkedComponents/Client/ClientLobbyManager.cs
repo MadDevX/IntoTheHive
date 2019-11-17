@@ -32,7 +32,6 @@ public class ClientLobbyManager: IInitializable, IDisposable
 
     private void ParseLoadLobbyMessage(Message message)
     {
-        Debug.Log("ParsingLoadLobbby");
         int sceneBuildIndex;
         using (DarkRiftReader reader = message.GetReader())
         {
