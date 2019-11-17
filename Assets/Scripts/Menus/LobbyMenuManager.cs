@@ -11,10 +11,12 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private Button _readyButton;
     private Button _leaveLobbyButton;
 
+    private CharacterSpawner _characterSpawner;
     private UnityClient _client;
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
     private HostLobbyManager _hostManager;
+    private SceneChangedWithResponseSender _sceneChangedWithResponseSender;
 
     public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
@@ -23,10 +25,12 @@ public class LobbyMenuManager: IInitializable, IDisposable
         Button readyButton,
         [Inject(Id = Identifiers.LobbyLeaveButton)]
         Button leaveButton,
-        UnityClient client,
-        ClientInfo clientInfo,
+        SceneChangedWithResponseSender sceneChangedWithResponseSender,
+        CharacterSpawner characterSpawner,
         HostLobbyManager hostManager,
-        ServerManager serverManager
+        ServerManager serverManager,
+        ClientInfo clientInfo,
+        UnityClient client
         )
     {
         _startGameButton = startGameButton;
@@ -36,7 +40,9 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _client = client;
         _clientInfo = clientInfo;
         _serverManager = serverManager;
+        _characterSpawner = characterSpawner;
         _hostManager = hostManager;
+        _sceneChangedWithResponseSender = sceneChangedWithResponseSender;
     }
 
     public void Initialize()
@@ -81,7 +87,9 @@ public class LobbyMenuManager: IInitializable, IDisposable
 
     public void StartGame()
     {
-        //_hostManager.SendSceneChangedWithResponse();
+        _sceneChangedWithResponseSender.Completed += _characterSpawner.InitiateSpawn;
+        _sceneChangedWithResponseSender.SendSceneChangedWithResponse(3);
+
         Debug.Log("Started The game"); 
     }
 
