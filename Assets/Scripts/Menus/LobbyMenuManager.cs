@@ -11,7 +11,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private Button _readyButton;
     private Button _leaveLobbyButton;
 
-    private CharacterSpawner _characterSpawner;
+    private NetworkedCharacterSpawner _networkedCharacterSpawner;
     private UnityClient _client;
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
@@ -26,7 +26,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
         [Inject(Id = Identifiers.LobbyLeaveButton)]
         Button leaveButton,
         SceneChangedWithResponseSender sceneChangedWithResponseSender,
-        CharacterSpawner characterSpawner,
+        NetworkedCharacterSpawner characterSpawner,
         HostLobbyManager hostManager,
         ServerManager serverManager,
         ClientInfo clientInfo,
@@ -40,7 +40,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _client = client;
         _clientInfo = clientInfo;
         _serverManager = serverManager;
-        _characterSpawner = characterSpawner;
+        _networkedCharacterSpawner = characterSpawner;
         _hostManager = hostManager;
         _sceneChangedWithResponseSender = sceneChangedWithResponseSender;
     }
@@ -87,7 +87,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
 
     public void StartGame()
     {
-        _sceneChangedWithResponseSender.Completed += _characterSpawner.InitiateSpawn;
+        _sceneChangedWithResponseSender.Completed += _networkedCharacterSpawner.InitiateSpawn;
         _sceneChangedWithResponseSender.SendSceneChangedWithResponse(3);
 
         Debug.Log("Started The game"); 

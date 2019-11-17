@@ -30,9 +30,6 @@ public class MessageHandler
             if (message.Tag == Tags.ChangeSceneWithReply)
                 _plugin.BroadcastToAllClients(message, e);            
 
-            if (message.Tag == Tags.SpawnCharacter)
-                _plugin.BroadcastToAllClients(message, e);
-
             if (message.Tag == Tags.DespawnCharacter)
                 _plugin.BroadcastToOtherClients(message, e);
 
@@ -51,7 +48,11 @@ public class MessageHandler
             if (message.Tag == Tags.UpdateLobby)
                 _plugin.BroadcastToAllClients(message, e);
 
-          
+            if (message.Tag == Tags.SceneReady)
+                _plugin.BroadcastToHost(message, e);
+
+            if (message.Tag == Tags.SpawnCharacter)
+                _plugin.BroadcastToAllClients(message,e);
 
             if (message.Tag == Tags.LoadLobby)
             {
