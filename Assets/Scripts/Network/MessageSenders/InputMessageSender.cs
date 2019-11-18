@@ -66,7 +66,7 @@ class InputMessageSender : UpdatableObject
 
             using (Message message = Message.Create(Tags.UpdateCharacterState, writer))
             {
-                _client.SendMessage(message, SendMode.Reliable);
+                _client.SendMessage(message, SendMode.Unreliable);
             }
         }
     }
