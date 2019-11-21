@@ -24,13 +24,15 @@ public class CharacterSpawner : IInitializable, IDisposable
         Projectile.Factory projectileFactory
         )
     {
+        _projectileFactory = projectileFactory;
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _AIfactory = AIFactory;
+
         _cameraManager = cameraManager;
-        _projectileFactory = projectileFactory;
-        _characters = new Dictionary<ushort, CharacterFacade>();
         _networkedCharacterSpawner = networkedCharacterSpawner;
+        _characters = new Dictionary<ushort, CharacterFacade>();
+
     }
 
 
@@ -69,6 +71,23 @@ public class CharacterSpawner : IInitializable, IDisposable
                 _characters.Add(clientID, characterFacade);
             }
         }
+    }
+
+    public void SpawnAI(CharacterSpawnParameters spawnParameters)
+    {
+        ushort clientID = spawnParameters.SenderId;
+        bool isLocal = spawnParameters.IsLocal;
+        if (_characters.ContainsKey(clientID) == false)
+        {
+            // Generate Spawn coordinates 
+            // Should the position be generated on the server or by the client?
+            // (Probably server, he can ensure that all characters do not collide)
+
+            CharacterFacade AICharacterFacade = _AIfactory.Create(spawnParameters);
+            _characters.Add(clientID, AICharacterFacade);
+        }
+
+        
     }
 
     public void Despawn(ushort clientID)
