@@ -15,7 +15,6 @@ public class ProjectNetworkInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ChangeSceneMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<SceneChangedWithResponseSender>().AsSingle();
-
         Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();        
     }
 }

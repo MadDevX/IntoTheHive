@@ -9,6 +9,8 @@ public class GameplayInstaller : MonoInstaller
 {
     [SerializeField] private Camera _mainCamera; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private SceneInitializedAnnouncer _announcer;
+
 
     public override void InstallBindings()
     {
@@ -16,5 +18,6 @@ public class GameplayInstaller : MonoInstaller
         Container.Bind<CinemachineVirtualCamera>().FromInstance(_virtualCamera).AsSingle();
         Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
+        Container.BindInstance(_announcer).AsSingle();
     }
 }
