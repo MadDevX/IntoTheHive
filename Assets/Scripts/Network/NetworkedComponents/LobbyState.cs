@@ -4,6 +4,7 @@ public class LobbyState
 {
     public Dictionary<ushort, bool> PlayersReadyStatus;
     public bool IsAllPlayersReady;
+
     public LobbyState()
     {
         PlayersReadyStatus = new Dictionary<ushort, bool>();

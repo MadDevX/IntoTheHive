@@ -6,7 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-//Exists Only on Join Lobby Screen
+
+/// <summary>
+/// Exists Only on ConnectionMenu Screen
+/// Is used to initialize client connection to the server
+/// </summary>
 public class NetworkedClientInitializer
 {
     private UnityClient _client;
@@ -35,7 +39,7 @@ public class NetworkedClientInitializer
         bool portParsed = int.TryParse(_portNumberInputField.textComponent.text, out port);
 
         if (ipParsed == false)
-        {
+        { 
             Debug.Log("Incorrect Ip - jakies okienko");
         }
 

@@ -20,29 +20,19 @@ public class ClientLobbyManager: IInitializable, IDisposable
 
     public void Initialize()
     {
-        _networkRelay.Subscribe(Tags.LoadLobby, ParseLoadLobbyMessage);
+
         _networkRelay.Subscribe(Tags.UpdateLobby, ParseUpdateLobbyMessage);
     }
 
     public void Dispose()
     {
-        _networkRelay.Unsubscribe(Tags.LoadLobby, ParseLoadLobbyMessage);
         _networkRelay.Unsubscribe(Tags.UpdateLobby, ParseUpdateLobbyMessage);
     }
 
-    private void ParseLoadLobbyMessage(Message message)
+    public void RequestLobbyUpdate()
     {
-        int sceneBuildIndex;
-        using (DarkRiftReader reader = message.GetReader())
-        {
-            //read client id
-            reader.ReadInt16();
-            //read scene id
-            sceneBuildIndex = reader.ReadInt16();
-        }
-
-        var asyncAction = SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
-        asyncAction.completed += RequestLobbyUpdate;
+        // Now Fires also for host
+        _lobbyMessageSender.SendRequestLobbyUpdate();
     }
 
     private void ParseUpdateLobbyMessage(Message message)
@@ -60,11 +50,6 @@ public class ClientLobbyManager: IInitializable, IDisposable
         }
     }
 
-    private void RequestLobbyUpdate(AsyncOperation operation)
-    {
-        // Now Fires also for host
-        _lobbyMessageSender.SendRequestLobbyUpdate();
-        operation.completed -= RequestLobbyUpdate;
-    }
+    
 }
 

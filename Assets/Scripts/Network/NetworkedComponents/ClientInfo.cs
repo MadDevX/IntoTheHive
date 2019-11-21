@@ -32,6 +32,11 @@ public class ClientInfo: IInitializable, IDisposable
         _relay.Unsubscribe(Tags.ConnectionInfo, HandleConnectionInfo);
     }
 
+    public void ResetState()
+    {
+        Status = ClientStatus.None;
+    }
+
     private void HandleConnectionInfo(Message message)
     {
         using (DarkRiftReader reader = message.GetReader())

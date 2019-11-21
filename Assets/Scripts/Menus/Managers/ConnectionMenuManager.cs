@@ -12,22 +12,16 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     private Button _backButton;
 
     private ClientInfo _clientInfo;
-    private ServerManager _serverManager;
-    private LobbyMessageSender _lobbyMessageSender;
-    private NetworkedClientInitializer _initializer;
-    private NetworkedSceneManager _networkedSceneManager;
-    private ChangeSceneMessageSender _sceneMessageSender;
-    private GlobalHostPlayerManager _globalHostPlayerManager;
+    private ServerManager _serverManager; 
+    private NetworkedClientInitializer _initializer; 
+    private ConnectionMenuMessageSender _connectionMenuMessageSender;
 
     public ConnectionMenuManager(
         [Inject(Id = Identifiers.ConnetionMenuCreateServerButton)] Button serverButton,
         [Inject(Id = Identifiers.ConnetionMenuJoinServerButton)] Button joinButton,
         [Inject(Id = Identifiers.ConnetionMenuBackButton)] Button backButton,
+        ConnectionMenuMessageSender connectionMenuMessageSender,
         NetworkedClientInitializer connectionInitializer,
-        GlobalHostPlayerManager globalHostPlayerManager,
-        NetworkedSceneManager networkedSceneManager,
-        ChangeSceneMessageSender sceneMessageSender,
-        LobbyMessageSender lobbyMessageSender,
         ServerManager serverManager,
         ClientInfo clientInfo)
     {
@@ -38,19 +32,17 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         _clientInfo = clientInfo;
         _serverManager = serverManager;
         _initializer = connectionInitializer;
-        _lobbyMessageSender = lobbyMessageSender;
-        _sceneMessageSender = sceneMessageSender;
-        _networkedSceneManager = networkedSceneManager;
-        _globalHostPlayerManager = globalHostPlayerManager;
+        _connectionMenuMessageSender = connectionMenuMessageSender;
     }
 
     public void Initialize()
     {
-        _clientInfo.Status = ClientStatus.None;
+        // When the client application initializes this scene, 
+        // its client/host state is reset to not be treated as either one
+        _clientInfo.ResetState();
         _serverButton.onClick.AddListener(ServerButtonClicked);
         _joinButton.onClick.AddListener(JoinButtonClicked);
         _backButton.onClick.AddListener(BackButtonClicker);
-        
     }
 
     public void Dispose()
@@ -90,30 +82,13 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void JoinedServerAsHost(ushort status)
-    {
-        if (status == ClientStatus.Host)
-        {
-            // TODO MG: send a message 
-            //_sceneMessageSender.SendSceneChanged(2);
-            _lobbyMessageSender.PlayerJoinedMessage();
-        }
-        else
-        {
-            Debug.Log("Server setup unsuccessful.Try again");
-            _serverManager.CloseServer();
-        }
-        _clientInfo.StatusChanged -= JoinedServerAsHost;
-    }
-
     private void JoinedServerAsClient(ushort status)
     {
         if (status == ClientStatus.Client)
         {
-            //Handler to the response exists in Networked SceneManager
-            _lobbyMessageSender.PlayerJoinedMessage();
-            //TODO MG why is LobbyMessageSender in Connecton Menu?
-            //TODO MG MOVE THIS TO ANOTHER CLASS OR RENAME THE CLASS
+            // This message is handled in HostLobbyManager
+            // In response - LoadLobby Message is sent
+            _connectionMenuMessageSender.PlayerJoinedMessage();
         }
         else
         {
@@ -122,5 +97,23 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         _clientInfo.StatusChanged -= JoinedServerAsClient;
     }
 
+    private void JoinedServerAsHost(ushort status)
+    {
+        if (status == ClientStatus.Host)
+        {
+            // This message is handled in HostLobbyManager
+            // In response - LoadLobby Message is sent
+
+            // Now the functionality on Parsing PlayerJoined message is moved from Connection menu to LobbyInitializedHandler if the clientStatus is host
+            //_connectionMenuMessageSender.PlayerJoinedMessage();
+            SceneManager.LoadScene("Lobby");
+        }
+        else
+        {
+            Debug.Log("Server setup unsuccessful. Try again");
+            _serverManager.CloseServer();
+        }
+        _clientInfo.StatusChanged -= JoinedServerAsHost;
+    }
 
 }

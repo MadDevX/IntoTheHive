@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-
-// This class handles message receival for host side of the lobby
+/// <summary>
+/// This class handles message receival for host side of the lobby
+/// </summary>
 public class HostLobbyManager: IInitializable, IDisposable
 {
     public event Action<bool> AllPlayersReady;
     
     private LobbyState _lobbyState;
     private NetworkRelay _relay;
-    private NetworkedSceneManager _sceneManager;
-    private ChangeSceneMessageSender _sceneMessageSender;
     private LobbyMessageSender _lobbyMessageSender;
     private GlobalHostPlayerManager _globalHostPlayerManager; 
 
@@ -28,9 +27,7 @@ public class HostLobbyManager: IInitializable, IDisposable
     {
         _relay = relay;
         _lobbyState = lobbyState;
-        _sceneManager = sceneManager;
         _lobbyMessageSender = lobbyMessageSender;
-        _sceneMessageSender = sceneMessageSender;
         _globalHostPlayerManager = globalHostPlayerManager; 
     }
 
@@ -58,18 +55,6 @@ public class HostLobbyManager: IInitializable, IDisposable
         _lobbyMessageSender.SendIsPlayerReadyMessage(true);
     }
 
-    // TODO MG Move this method elsewhere or add similiar in NetworkedSceneManager?
-    private void AreAllPlayersReady()
-    {
-        bool allReady = true;
-        foreach(bool value in _lobbyState.PlayersReadyStatus.Values)
-        {
-            allReady = allReady && value;
-        }       
-
-        AllPlayersReady?.Invoke(allReady);
-    }
-
     private void HandleIsPlayerReady(Message message)
     {
         ushort id;
@@ -93,25 +78,44 @@ public class HostLobbyManager: IInitializable, IDisposable
         _lobbyMessageSender.SendUpdateLobbyMessage();
     }
 
+     // TODO MG Move this method elsewhere or add similiar in NetworkedSceneManager?
+    private void AreAllPlayersReady()
+    {
+        bool allReady = true;
+        foreach(bool value in _lobbyState.PlayersReadyStatus.Values)
+        {
+            allReady = allReady && value;
+        }       
 
+        AllPlayersReady?.Invoke(allReady);
+    }
+
+    // TODO MG: This class need to also exist in connection Menu to allow the host to change scenes 
     private void HandlePlayerJoined(Message message)
     {
         
         ushort id;
         //string name;
+
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
             //name = reader.ReadString();
         }
 
-        _lobbyState.PlayersReadyStatus.Add(id, false);
-        AreAllPlayersReady();
-        
+        AddNewPlayer(id);
+
         // TODO MG : add some kind of sceneManager.GetSceneByName
         ushort sceneIndex = (ushort)2;
         
         _lobbyMessageSender.SendLoadLobbyMessage(id, sceneIndex);
+    }
+
+    public void AddNewPlayer(ushort id)
+    {
+        _lobbyState.PlayersReadyStatus.Add(id, false);
+        // Turns off the ability to start the game until the new player is ready
+        AreAllPlayersReady();
     }
 
     private void HandleRequestUpdateLobby(Message message)

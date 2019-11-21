@@ -19,6 +19,8 @@ public class LobbyInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<LobbyMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<HostLobbyManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<ClientLobbyManager>().AsSingle();
+        //Add handler
+        //add announcer
         
     }
 }

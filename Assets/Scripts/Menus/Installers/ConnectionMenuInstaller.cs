@@ -25,10 +25,10 @@ class ConnectionMenuInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ConnectionMenuManager>().AsSingle();
         //TODO MG get these things out of here this is supposed to be ConnectionMenu Only installer
         Container.BindInterfacesAndSelfTo<LobbyState>().AsSingle();
-        Container.BindInterfacesAndSelfTo<LobbyMessageSender>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ClientLobbyManager>().AsSingle(); 
-        Container.BindInterfacesAndSelfTo<HostLobbyManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionMenuClientManager>().AsSingle(); 
         Container.BindInterfacesAndSelfTo<NetworkedClientInitializer>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionMenuMessageSender>().AsSingle();
+        
     }
 }
 
