@@ -30,3 +30,5 @@ MonoBehaviour:
     widthMult: 0.1
   _projectileDamageSettings:
     baseDamage: 10
+  _aiShooterScannerSettings:
+    shootDelay: 1
