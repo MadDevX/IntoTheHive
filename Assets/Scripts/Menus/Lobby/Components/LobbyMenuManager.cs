@@ -30,8 +30,8 @@ public class LobbyMenuManager: IInitializable, IDisposable
         [Inject(Id = Identifiers.LobbyReadyButton)]
         Button readyButton,
         [Inject(Id = Identifiers.LobbyLeaveButton)]
-        UnityClient client,
         Button leaveButton,
+        UnityClient client,
         ClientInfo clientInfo,
         ServerManager serverManager,
         LobbyMessageSender messageSender,

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1721,9 +1721,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1307239035}
   - component: {fileID: 1307239034}
-  - component: {fileID: 1307239036}
   - component: {fileID: 1307239038}
   - component: {fileID: 1307239037}
+  - component: {fileID: 1307239036}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1745,8 +1745,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 1307239036}
   - {fileID: 1307239038}
+  - {fileID: 1307239036}
   - {fileID: 1307239037}
   _installerPrefabs: []
   _autoRun: 1
@@ -1788,12 +1788,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307239033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3685a6c93588a4ca1c60b70f0af04e, type: 3}
+  m_Script: {fileID: 11500000, guid: e33a9336afc2ddc4f991f54db84a7a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _singlePlayerButton: {fileID: 123032712}
-  _multiplayerButton: {fileID: 1037656597}
-  _quitGameButton: {fileID: 1840530221}
 --- !u!114 &1307239037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1803,7 +1800,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307239033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f50916cdca49301448f61cc2111b8709, type: 3}
+  m_Script: {fileID: 11500000, guid: ca8f4367bfbbefe46b5314e2b61d63a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1307239038
@@ -1815,9 +1812,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307239033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6356fd8496b1fbf4b9413ab9df1e27ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 09d9d41b5ef4005438ba911d37e3aa70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _singlePlayerButton: {fileID: 123032712}
+  _multiplayerButton: {fileID: 1037656597}
+  _quitGameButton: {fileID: 1840530221}
 --- !u!1 &1330656957
 GameObject:
   m_ObjectHideFlags: 0
