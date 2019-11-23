@@ -11,10 +11,10 @@ public class ProjectNetworkInstaller : MonoInstaller
         Container.Bind<UnityClient>().FromInstance(_client).AsSingle();
         Container.BindInterfacesAndSelfTo<ClientInfo>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkRelay>().AsSingle();
-        Container.BindInterfacesAndSelfTo<NetworkedSceneManager>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ChangeSceneMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<SceneMessageReceiver>().AsSingle();
+        Container.BindInterfacesAndSelfTo<SceneMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<SceneChangedWithResponseSender>().AsSingle();
-        Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();        
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
     }
 }

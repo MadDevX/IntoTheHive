@@ -48,7 +48,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            // TODO check message size 
+            //TODO MG CHECKSIZE
             ushort clientID = reader.ReadUInt16();
             PlayerDespawned?.Invoke(clientID);
         }
@@ -58,8 +58,8 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     {  
         using (DarkRiftReader reader = message.GetReader())
         {
-            // TODO  check message size 
-            while(reader.Position < reader.Length)
+            //TODO MG CHECKSIZE
+            while (reader.Position < reader.Length)
             {
                 ushort id = reader.ReadUInt16();
                 bool isLocal = (id == _client.ID);

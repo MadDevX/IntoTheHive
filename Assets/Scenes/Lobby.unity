@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 366372675}
   - component: {fileID: 366372674}
   - component: {fileID: 366372673}
+  - component: {fileID: 366372676}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -391,6 +392,7 @@ MonoBehaviour:
   _startGameButton: {fileID: 484677706}
   _readyButton: {fileID: 1790785012}
   _leaveLobbyButton: {fileID: 1495849935}
+  _sceneInitializedAnnouncer: {fileID: 366372676}
 --- !u!114 &366372674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +439,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366372676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366372672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a29cb37f134d0141b7a8bf2bd33d8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &484677704
 GameObject:
   m_ObjectHideFlags: 0
