@@ -3,11 +3,11 @@ using DarkRift.Client.Unity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeSceneMessageSender
+public class SceneMessageSender
 {
     private UnityClient _client;
 
-    public ChangeSceneMessageSender(
+    public SceneMessageSender(
         UnityClient client)
     {
         _client = client;
@@ -22,6 +22,20 @@ public class ChangeSceneMessageSender
             using (Message message = Message.Create(Tags.ChangeScene, writer))
             {
                 _client.SendMessage(message,SendMode.Reliable);
+            }
+        }
+    }
+
+    public void SendSceneChangedToPlayer(ushort clientId, ushort sceneBuildIndex)
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(clientId);
+            writer.Write(sceneBuildIndex);
+
+            using (Message message = Message.Create(Tags.LoadLobby, writer))
+            {
+                _client.SendMessage(message, SendMode.Reliable);
             }
         }
     }

@@ -4,23 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-/// <summary>
-/// Scene-local connectionMenu only class used to handle messages as client on that scene
-/// </summary>
 public class ConnectionMenuClientMessageReceiver: IInitializable, IDisposable
 {
     private NetworkRelay _networkRelay;
-    private ConnectionMenuMessageSender _sender;
-    private ScenePostinitializationEvents _postInitEvents;
 
     public ConnectionMenuClientMessageReceiver(
-        NetworkRelay networkRelay,
-        ConnectionMenuMessageSender sender,
-        ScenePostinitializationEvents postInitEvents)
+        NetworkRelay networkRelay)
     {
-        _sender = sender;
         _networkRelay = networkRelay;
-        _postInitEvents = postInitEvents;
     }
 
     public void Initialize()
@@ -33,16 +24,11 @@ public class ConnectionMenuClientMessageReceiver: IInitializable, IDisposable
         _networkRelay.Unsubscribe(Tags.LoadLobby, ParseLoadLobbyMessage);
     }
 
-    /// <summary>
-    /// Parses a LoadLobby TagMessage
-    /// </summary>
-    /// <param name="message"></param>
     private void ParseLoadLobbyMessage(Message message)
     {
         int sceneBuildIndex;
         using (DarkRiftReader reader = message.GetReader())
         {
-            // TODO MG CHECKSIZE
             //read client id
             reader.ReadInt16();
             //read scene id
@@ -50,12 +36,7 @@ public class ConnectionMenuClientMessageReceiver: IInitializable, IDisposable
         }
 
         SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
-        _postInitEvents.Subscribe(sceneBuildIndex, RequestLobbyUpdate);
     }
 
-    private void RequestLobbyUpdate()
-    {
-        _sender.SendRequestLobbyUpdate();
-    }
    
 }
