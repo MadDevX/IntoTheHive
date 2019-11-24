@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Pathfinding;
 using UnityEngine;
 using Zenject;
@@ -27,5 +28,6 @@ public class AIInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<AITargetForwarder>().AsSingle();
         Container.BindInterfacesAndSelfTo<AIDestinationPointForwarder>().AsSingle();
         Container.BindInterfacesAndSelfTo<AIShooterScanner>().AsSingle();
+        
     }
 }

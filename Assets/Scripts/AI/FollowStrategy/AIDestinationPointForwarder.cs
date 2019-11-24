@@ -23,7 +23,7 @@ public class AIDestinationPointForwarder : UpdatableObject
         //if(!(_aiFollowInput.NextPoint == (Vector2) nextPosition))
         //    Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {nextPosition}, currently at {_aiPath.position}");
         //_aiFollowInput.NextPoint = nextPosition;
-        ///Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {_aiPath.steeringTarget}, currently at {_aiPath.position}");
+        //Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {_aiPath.steeringTarget}, currently at {_aiPath.position}");
         _aiFollowInput.NextPoint = _aiPath.steeringTarget;
     }
 }
