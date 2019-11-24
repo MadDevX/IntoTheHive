@@ -11,18 +11,21 @@ public class LobbyInitializedHandler : IInitializable, IDisposable
     private LobbyMessageSender _sender;
     private LobbyStateManager _lobbyStateManager;
     private SceneInitializedAnnouncer _lobbyAnnouncer;
+    private SceneMessageWithResponse _sceneMessageWithResponse;
 
     public LobbyInitializedHandler(
         ClientInfo clientInfo,
         LobbyMessageSender sender,
         LobbyStateManager lobbyStateManager,
-        SceneInitializedAnnouncer lobbyAnnouncer
+        SceneInitializedAnnouncer lobbyAnnouncer,
+        SceneMessageWithResponse messageWithResponse
         )
     {
         _sender = sender;
         _clientInfo = clientInfo;
         _lobbyAnnouncer = lobbyAnnouncer;
         _lobbyStateManager = lobbyStateManager;
+        _sceneMessageWithResponse = messageWithResponse;
     }
 
     public void Initialize()
@@ -40,6 +43,9 @@ public class LobbyInitializedHandler : IInitializable, IDisposable
     /// </summary>
     private void HandleLobbyInitialized()
     {
+        //A better solution would be to make a list of actions to be called here
+        _sceneMessageWithResponse.SceneReady();
+
         if(_clientInfo.Status == ClientStatus.Host)
         {
             HostPostInitializeSetup();
