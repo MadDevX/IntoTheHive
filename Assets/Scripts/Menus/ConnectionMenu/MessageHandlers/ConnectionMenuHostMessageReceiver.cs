@@ -1,7 +1,11 @@
 ﻿using DarkRift;
 using System;
+using UnityEngine.SceneManagement;
 using Zenject;
 
+/// <summary>
+/// Scene-local connectionMenu only class used to handle messages as host on that scene
+/// </summary>
 public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
 {
     private ConnectionMenuMessageSender _sender;
@@ -25,26 +29,24 @@ public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
     {
         _relay.Unsubscribe(Tags.PlayerJoined, HandleHostJoined);
     }
-
-    // TODO MG : make some universal method to use in both classes
+    
     // A similiar method is located in LobbyHostMessageReceiver. 
-    // If you want to change this class make sure if those changes apply there also.
+    // If you want to change this class make sure if those changes apply there also.    
     private void HandleHostJoined(Message message)
     {
-
+        // Host is added to the LobbyState when his lobby is initialized
         ushort id;
         //string name;
-
+        // TODO MG CHECKSIZE
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
             //name = reader.ReadString();
         }
 
-        // Host is added to the LobbyState when his lobby is initialized
-        // TODO MG : add some kind of sceneManager.GetSceneByName
-        ushort sceneIndex = (ushort)2;
-
+        
+        // TODO MG : add some kind of sceneManager.GetSceneByName                    
+        ushort sceneIndex = 2;
         _sender.SendLoadLobbyMessage(id, sceneIndex);
     }
 

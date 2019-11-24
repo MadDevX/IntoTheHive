@@ -1,10 +1,12 @@
 ﻿using DarkRift.Client.Unity;
 using DarkRift.Server.Unity;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
+/// <summary>
+/// This is a ProjectContext class which holds the server created at the beggining of the game.
+/// </summary>
 public class ServerManager: IDisposable
 {
     private XmlUnityServer _server;
@@ -17,7 +19,7 @@ public class ServerManager: IDisposable
         _server = server;
         _client = client;
     }
-
+   
     public void CreateServer()
     {
         _server.Create();
@@ -30,6 +32,9 @@ public class ServerManager: IDisposable
         Debug.Log("Server is not closing properly");
     }
 
+    /// <summary>
+    /// Joins the local server as host without sumbiting the it's IP or port number.
+    /// </summary>
     public void JoinAsHost()
     {
         // TODO MG extract this data from configuration file

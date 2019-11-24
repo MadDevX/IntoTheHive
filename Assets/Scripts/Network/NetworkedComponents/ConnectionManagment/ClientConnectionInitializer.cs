@@ -1,27 +1,20 @@
-﻿using DarkRift;
-using DarkRift.Client.Unity;
-using System;
+﻿using DarkRift.Client.Unity;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-// TODO MG RENAME
-
 /// <summary>
-/// Exists Only on ConnectionMenu Screen
-/// Is used to initialize client connection to the server
+/// ConnectionMenu context only class 
+/// Used to initialize client connection to the server.
 /// </summary>
-public class NetworkedClientInitializer
+public class ClientConnectionInitializer
 {
     private UnityClient _client;
     private InputField _ipAddressInputField;
     private InputField _portNumberInputField;
     
-    private IPAddress address;
-    private int port;
-
-    public NetworkedClientInitializer(
+    public ClientConnectionInitializer(
         [Inject(Id = Identifiers.ConnetionMenuIpInputField)] InputField ipAddressInputField,
         [Inject(Id = Identifiers.ConnetionMenuPortInputField)] InputField portNumberInputField,
         UnityClient client)
@@ -31,25 +24,30 @@ public class NetworkedClientInitializer
         _client = client;
     }
 
+    /// <summary>
+    /// Joins a server with IP and port number specified by the connection menu input fields.
+    /// </summary>
     public void JoinServer()
     {
-        // button method
         int port;
         IPAddress address;
+
         bool ipParsed = IPAddress.TryParse(_ipAddressInputField.textComponent.text, out address);
         bool portParsed = int.TryParse(_portNumberInputField.textComponent.text, out port);
 
         if (ipParsed == false)
         { 
             Debug.Log("Incorrect Ip - jakies okienko");
+            // TODO MG : add a modal error window
         }
 
         if(portParsed == false)
         {
             Debug.Log("Incorrect port - jakies okienko");
+            // TODO MG : add a modal error window
         }
 
-        if(ipParsed && portParsed)
+        if (ipParsed && portParsed)
         {
 
             if (_client.ConnectionState != DarkRift.ConnectionState.Connecting)

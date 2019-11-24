@@ -28,6 +28,8 @@ public class SceneMessageSender
 
     public void SendSceneChangedToPlayer(ushort clientId, ushort sceneBuildIndex)
     {
+        // TODO MG : change the tag to something generic
+        // TODO MG : add "ifs" in the proper places so that LoadLobby parser doesn't parse LoadHub etc.
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(clientId);
@@ -46,6 +48,8 @@ public class SceneMessageSender
         SendSceneChanged((ushort)scene.buildIndex);
     }
     
+    // TODO MG : Move to SceneChangedWithResponseSender
+    // maybe add some proxy method to response sender so that other classes don't need to reference it 
     public void SendSceneReady()
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())

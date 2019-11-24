@@ -50,6 +50,7 @@ public class SceneMessageReceiver: IInitializable,IDisposable
         var asyncOperation = SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
     }
 
+    // TODO MG : move this method to sceneChenagedwithResponseSender
     private void ParseChangeSceneWithResponseMessage(Message message)
     {
         int sceneBuildIndex;
@@ -64,6 +65,7 @@ public class SceneMessageReceiver: IInitializable,IDisposable
         asyncOperation.completed += SceneReady;
     }
 
+    // TODO MG : move this method to sceneChenagedwithResponseSender
     private void SceneReady(AsyncOperation obj)
     { 
         _messageSender.SendSceneReady();
