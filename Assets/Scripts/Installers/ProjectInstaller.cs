@@ -13,5 +13,6 @@ public class ProjectInstaller : MonoInstaller
     {
         Container.Bind<IGameLoop>().FromInstance(_gameLoop).AsSingle();
         Container.Bind<Scenes>().FromInstance(_scenes).AsSingle();
+        Container.BindInterfacesAndSelfTo<ScenePostinitializationEvents>().AsSingle();
     }
 }

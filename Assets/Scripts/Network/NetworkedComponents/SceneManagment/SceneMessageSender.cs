@@ -54,8 +54,8 @@ public class SceneMessageSender
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
-            writer.Write(_client.Client.ID);
-            Debug.Log("id wysylajacego : " + _client.Client.ID);
+            writer.Write(_client.ID);
+            Debug.Log("id wysylajacego : " + _client.ID);
             using (Message message = Message.Create(Tags.SceneReady, writer))
             {
                 _client.SendMessage(message, SendMode.Reliable);

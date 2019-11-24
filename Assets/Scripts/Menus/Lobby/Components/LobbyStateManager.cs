@@ -1,18 +1,29 @@
 ﻿using System;
+using Zenject;
 
 /// <summary>
 /// Modifies LobbyState and has a public event which notifies when the readiness of all players change.
 /// </summary>
-public class LobbyStateManager
+public class LobbyStateManager: IInitializable
 {
     private LobbyState _lobbyState;
-
+    private GlobalHostPlayerManager _playerManager;
     public event Action<bool> AllPlayersReadyChanged;
 
     public LobbyStateManager(
-        LobbyState lobbyState)
+        LobbyState lobbyState,
+        GlobalHostPlayerManager playerManager)
     {
         _lobbyState = lobbyState;
+        _playerManager = playerManager;
+    }
+
+    /// <summary>
+    /// Add currently connected players (most notably HOST) with not ready status.
+    /// </summary>
+    public void Initialize()
+    {
+        _playerManager.ConnectedPlayers.ForEach(player => AddPlayerToLobby(player));
     }
 
     /// <summary>
@@ -36,14 +47,6 @@ public class LobbyStateManager
     }
 
     /// <summary>
-    /// Adds the host to the lobby's ready players list.
-    /// </summary>
-    public void AddHostToLobby()
-    {
-        AddPlayerToLobby(0);
-    }
-
-    /// <summary>
     /// Checks if all players are ready and invokes AllPlayersReadyChanged with the current value.
     /// </summary>
     public void AreAllPlayersReady()
@@ -57,6 +60,6 @@ public class LobbyStateManager
         AllPlayersReadyChanged?.Invoke(allReady);
     }
 
-    
+   
 }
 

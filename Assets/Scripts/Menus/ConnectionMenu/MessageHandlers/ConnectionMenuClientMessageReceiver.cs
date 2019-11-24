@@ -10,11 +10,17 @@ using Zenject;
 public class ConnectionMenuClientMessageReceiver: IInitializable, IDisposable
 {
     private NetworkRelay _networkRelay;
+    private ConnectionMenuMessageSender _sender;
+    private ScenePostinitializationEvents _postInitEvents;
 
     public ConnectionMenuClientMessageReceiver(
-        NetworkRelay networkRelay)
+        NetworkRelay networkRelay,
+        ConnectionMenuMessageSender sender,
+        ScenePostinitializationEvents postInitEvents)
     {
+        _sender = sender;
         _networkRelay = networkRelay;
+        _postInitEvents = postInitEvents;
     }
 
     public void Initialize()
@@ -44,7 +50,12 @@ public class ConnectionMenuClientMessageReceiver: IInitializable, IDisposable
         }
 
         SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+        _postInitEvents.Subscribe(sceneBuildIndex, RequestLobbyUpdate);
     }
 
+    private void RequestLobbyUpdate()
+    {
+        _sender.SendRequestLobbyUpdate();
+    }
    
 }

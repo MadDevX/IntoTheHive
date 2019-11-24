@@ -49,7 +49,7 @@ public class LobbyInstaller : MonoInstaller
     private void InstallInitializationHandling()
     {
         Container.BindInstance(_sceneInitializedAnnouncer);
-        Container.BindInterfacesAndSelfTo<LobbyInitializedHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<SceneInitializedBaseHandler>().AsSingle();
     }
 }
 

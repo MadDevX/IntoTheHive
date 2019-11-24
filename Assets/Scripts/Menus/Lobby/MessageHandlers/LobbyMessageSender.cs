@@ -49,21 +49,7 @@ public class LobbyMessageSender
                 _client.SendMessage(message, SendMode.Reliable);
             }
         }
-    }
-
-    /// <summary>
-    /// Sends a message with a request to receive a list of current players in the lobby along with their ready status.
-    /// </summary>
-    public void SendRequestLobbyUpdate()
-    {
-        using (DarkRiftWriter writer = DarkRiftWriter.Create())
-        {
-            using (Message message = Message.Create(Tags.RequestUpdateLobby, writer))
-            {
-                _client.SendMessage(message, SendMode.Reliable);
-            }
-        }
-    }
+    }    
 
     /// <summary>
     /// Sends a message with a an information wheter the client is ready or not.

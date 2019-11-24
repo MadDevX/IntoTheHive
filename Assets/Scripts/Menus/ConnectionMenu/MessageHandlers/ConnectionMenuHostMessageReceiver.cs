@@ -34,7 +34,7 @@ public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
     // If you want to change this class make sure if those changes apply there also.    
     private void HandleHostJoined(Message message)
     {
-        // Host is added to the LobbyState when his lobby is initialized
+        // Host is added to the LobbyState in LobbyStateManager Initialize based on the connected players
         ushort id;
         //string name;
         // TODO MG CHECKSIZE
@@ -43,10 +43,10 @@ public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
             id = reader.ReadUInt16();
             //name = reader.ReadString();
         }
-
         
         // TODO MG : add some kind of sceneManager.GetSceneByName                    
         ushort sceneIndex = 2;
+        // TODO MG : currently loadLobby is a crypto ChangeSceneWithReply to specific player, so that could be moved to a seperate class
         _sender.SendLoadLobbyMessage(id, sceneIndex);
     }
 

@@ -19,19 +19,23 @@ public class SceneMessageWithResponse : IInitializable, IDisposable
     private UnityClient _client;
     private SceneMessageSender _messageSender;
     private GlobalHostPlayerManager _playerManager;
+    private ScenePostinitializationEvents _postInitEvents;
+
     private Dictionary<ushort, bool> PlayersWithSceneReady;
 
     public SceneMessageWithResponse(
         NetworkRelay relay,
         UnityClient client,
         SceneMessageSender sender,
-        GlobalHostPlayerManager playerManager)
+        GlobalHostPlayerManager playerManager,
+        ScenePostinitializationEvents postInitEvents)
     {
         PlayersWithSceneReady = new Dictionary<ushort, bool>();
         _relay = relay;
         _client = client;
         _messageSender = sender;
         _playerManager = playerManager;
+        _postInitEvents = postInitEvents;
     }
 
     public void Initialize()
@@ -87,6 +91,7 @@ public class SceneMessageWithResponse : IInitializable, IDisposable
         
         foreach(ushort client in _playerManager.ConnectedPlayers)
         {
+            Debug.Log("added client " + client + " to the dictionary");
             PlayersWithSceneReady.Add(client, false);
         }
     }
@@ -101,6 +106,7 @@ public class SceneMessageWithResponse : IInitializable, IDisposable
         {
             //TODO MG CHECKSIZE
             ushort id = reader.ReadUInt16();
+            Debug.Log("id of joining player" + id);
             if(PlayersWithSceneReady.ContainsKey(id))
             {
                 PlayersWithSceneReady.Remove(id);
@@ -156,9 +162,10 @@ public class SceneMessageWithResponse : IInitializable, IDisposable
             sceneBuildIndex = reader.ReadUInt16();
         }
 
-        // TODO MG : delete this and send SceneReady on SceneInitialized
         SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
-        // TODO MG : Make a postInitializationEvents registry which states which scenes fire what events?
+        // Sends SceneReady when scene is loaded and properly initialized
+        // TODO MG : REMEMBER TO UNSUBSCRIBE
+        _postInitEvents.Subscribe(sceneBuildIndex, SceneReady);
     }
 }
 
