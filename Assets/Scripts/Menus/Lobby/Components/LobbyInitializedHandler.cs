@@ -44,7 +44,7 @@ public class LobbyInitializedHandler : IInitializable, IDisposable
     private void HandleLobbyInitialized()
     {
         //A better solution would be to make a list of actions to be called here
-        _sceneMessageWithResponse.SceneReady();
+        //_sceneMessageWithResponse.SceneReady();
 
         if(_clientInfo.Status == ClientStatus.Host)
         {
