@@ -22,7 +22,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private LobbyStateManager _lobbyStateManager;
     private LobbyHostMessageReceiver _hostManager;
     private NetworkedCharacterSpawner _networkedCharacterSpawner;
-    private SceneChangedWithResponseSender _sceneChangedWithResponseSender;
+    private SceneMessageWithResponse _sceneChangedWithResponseSender;
 
     public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
@@ -37,7 +37,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
         LobbyMessageSender messageSender,
         LobbyStateManager lobbyStateManager,
         NetworkedCharacterSpawner characterSpawner,
-        SceneChangedWithResponseSender sceneChangedWithResponseSender
+        SceneMessageWithResponse sceneChangedWithResponseSender
         )
     {
         _readyButton = readyButton;
