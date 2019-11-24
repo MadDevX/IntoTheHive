@@ -19,9 +19,11 @@ public class AIDestinationPointForwarder : UpdatableObject
 
     public override void OnUpdate(float deltaTime)
     {
-        _aiPath.MovementUpdate(deltaTime, out var nextPosition, out _);
+        //_aiPath.MovementUpdate(deltaTime, out var nextPosition, out _);
         //if(!(_aiFollowInput.NextPoint == (Vector2) nextPosition))
         //    Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {nextPosition}, currently at {_aiPath.position}");
-        _aiFollowInput.NextPoint = nextPosition;
+        //_aiFollowInput.NextPoint = nextPosition;
+        ///Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {_aiPath.steeringTarget}, currently at {_aiPath.position}");
+        _aiFollowInput.NextPoint = _aiPath.steeringTarget;
     }
 }

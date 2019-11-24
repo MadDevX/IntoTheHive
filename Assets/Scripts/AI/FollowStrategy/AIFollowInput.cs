@@ -42,10 +42,12 @@ public class AIFollowInput : UpdatableObject
     {
         if (_target != null)
         {
-            var distY = Mathf.Abs(_target.position.y - _rb.position.y);
-            var distX = Mathf.Abs(_target.position.x - _rb.position.x);
+            var distY = Mathf.Abs(NextPoint.y - _rb.position.y);
+            var distX = Mathf.Abs(NextPoint.x - _rb.position.x);
             _controlState.Horizontal = Mathf.Clamp(NextPoint.x.CompareTo(_rb.position.x), -distX, distX);
             _controlState.Vertical = Mathf.Clamp(NextPoint.y.CompareTo(_rb.position.y), -distY, distY);
+            Debug.Log($"distX => {distX}, distY -> {distY}, _rb.pos -> {_rb.position}, nextPoint = {NextPoint}");
+            Debug.Log($"Horizontal -> {_controlState.Horizontal}, Vertical => {_controlState.Vertical}");
             _controlState.PrimaryAction = _aiShooterScanner.ShouldShoot;
             _controlState.SecondaryAction = false;
 
