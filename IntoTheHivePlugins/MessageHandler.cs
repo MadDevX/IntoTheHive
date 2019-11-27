@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DarkRift;
+﻿using DarkRift;
 using DarkRift.Server;
 using ServerPlugins;
 
@@ -18,23 +15,29 @@ public class MessageHandler
     {
         using (Message message = e.GetMessage())
         {
-            if (message.Tag == Tags.UpdateCharacterState)
-                _plugin.BroadcastToOtherClients(message, e);
-
-            if (message.Tag == Tags.UpdateCharacterEquipment)
-                _plugin.BroadcastToOtherClients(message, e);
-
             if (message.Tag == Tags.ChangeScene)
                 _plugin.BroadcastToAllClients(message, e);
 
             if (message.Tag == Tags.ChangeSceneWithReply)
                 _plugin.BroadcastToAllClients(message, e);            
 
-            if (message.Tag == Tags.DespawnCharacter)
-                _plugin.BroadcastToOtherClients(message, e);
-
             if (message.Tag == Tags.GameStarted)
                 _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.UpdateLobby)
+                _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.SpawnCharacter)
+                _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.UpdateCharacterState)
+                _plugin.BroadcastToOtherClients(message, e);
+
+            if (message.Tag == Tags.UpdateCharacterEquipment)
+                _plugin.BroadcastToOtherClients(message, e);
+
+            if (message.Tag == Tags.DespawnCharacter)
+                _plugin.BroadcastToOtherClients(message, e);
 
             if(message.Tag == Tags.PlayerJoined)
                 _plugin.BroadcastToHost(message, e);
@@ -45,26 +48,19 @@ public class MessageHandler
             if (message.Tag == Tags.RequestUpdateLobby)
                 _plugin.BroadcastToHost(message, e);
 
-            if (message.Tag == Tags.UpdateLobby)
-                _plugin.BroadcastToAllClients(message, e);
-
             if (message.Tag == Tags.SceneReady)
                 _plugin.BroadcastToHost(message, e);
-
-            if (message.Tag == Tags.SpawnCharacter)
-                _plugin.BroadcastToAllClients(message,e);
 
             if (message.Tag == Tags.LoadLobby)
             {
                 using (DarkRiftReader reader = message.GetReader())
                 {
                     //checksize
+                    //TODO change to sombe kind of load scene
                     ushort id = reader.ReadUInt16();
                     _plugin.BroadcastToClient(message, e,id);
                 }
             }
-                
-
         }
     }
 }
