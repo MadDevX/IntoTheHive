@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,12 +12,12 @@ using Zenject;
 public class ScenePostinitializationEvents: IInitializable
 {
     private Scenes _scenes;
-    private Dictionary<int, List<Action>> _scenePostInitEvents;
+    private Dictionary<int, List<PostInitActionArgument>> _scenePostInitEvents;
         
     public ScenePostinitializationEvents(Scenes scenes)
     {
         _scenes = scenes;
-        _scenePostInitEvents = new Dictionary<int, List<Action>>();
+        _scenePostInitEvents = new Dictionary<int, List<PostInitActionArgument>>();
     }
 
     public void Initialize()
@@ -31,11 +30,12 @@ public class ScenePostinitializationEvents: IInitializable
     /// </summary>
     /// <param name="sceneBuildIndex">Build index of the scene which initialization will trigger the action.</param>
     /// <param name="postInitAction">Action which will be called after initialization.</param>
-    public void Subscribe(int sceneBuildIndex, Action postInitAction)
+    /// <param name="oneTimeOnly">States if the action will be called only one when the scene next loads or every time.</param>
+    public void Subscribe(int sceneBuildIndex, Action postInitAction, bool oneTimeOnly = true)
     {
-        List<Action> list;
-        _scenePostInitEvents.TryGetValue(sceneBuildIndex, out list);
-        list.Add(postInitAction);
+        List<PostInitActionArgument> list;
+        _scenePostInitEvents.TryGetValue(sceneBuildIndex, out list);        
+        list.Add(new PostInitActionArgument(postInitAction, oneTimeOnly));
     }
 
     /// <summary>
@@ -45,9 +45,9 @@ public class ScenePostinitializationEvents: IInitializable
     /// <param name="postInitAction">Action which is called after initialization.</param>
     public void Unsubscribe(int sceneBuildIndex, Action postInitAction)
     {
-        List<Action> list;
+        List<PostInitActionArgument> list;
         _scenePostInitEvents.TryGetValue(sceneBuildIndex, out list);
-        list.Remove(postInitAction);
+        list.RemoveAll(action => action.Action == postInitAction);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class ScenePostinitializationEvents: IInitializable
             var sceneBuildIndex = SceneUtility.GetBuildIndexByScenePath(sceneReference.ScenePath);
             // Do not add lists for nonexisting scenes.
             if(sceneBuildIndex >= 0)
-                _scenePostInitEvents.Add(sceneBuildIndex, new List<Action>());
+                _scenePostInitEvents.Add(sceneBuildIndex, new List<PostInitActionArgument>());
         }
     }
 
@@ -79,8 +79,25 @@ public class ScenePostinitializationEvents: IInitializable
         //TODO MG : should this clear all events after invoking?
         //TODO MG : add a boolean isOneTimeOnly
         var events = _scenePostInitEvents[sceneBuildIndex];
-        events?.ForEach(e => e?.Invoke());
+        events?.ForEach(e => e?.Action.Invoke());
+        events.RemoveAll(e => e.OneTimeOnly == true);
     }
 
+    /// <summary>
+    /// class which is purely internal to hold the information if action is one time only in a simply fashion
+    /// </summary>
+    private class PostInitActionArgument
+    {
+        public Action Action { get; set; }
+        public bool OneTimeOnly { get; }
+
+        public PostInitActionArgument(Action action, bool oneTimeOnly = true)
+        {
+            Action = action;
+            OneTimeOnly = oneTimeOnly;
+        }
+    }
 }
+
+
 
