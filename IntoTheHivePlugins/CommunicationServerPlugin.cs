@@ -16,7 +16,6 @@ namespace ServerPlugins
         private MessageHandler _messageHandler;
         private IClient _host;
 
-
         public CommunicationServerPlugin(PluginLoadData pluginLoadData) : base(pluginLoadData)
         {
             _clients = new Dictionary<ushort, IClient>();
@@ -35,7 +34,6 @@ namespace ServerPlugins
                 _host = e.Client;
             }
 
-            // Send PlayerJoined message to host?
             using (DarkRiftWriter writer = DarkRiftWriter.Create())
             {
                 if(e.Client.ID == _host.ID)
@@ -54,7 +52,6 @@ namespace ServerPlugins
                 }
             }
         }
-
 
         private void HandleClientDisconnected(object sender, ClientDisconnectedEventArgs e)
         {
@@ -111,69 +108,5 @@ namespace ServerPlugins
                 client.SendMessage(message, e.SendMode);
             }
         }
-
-        //public void BroadcastSpawnMessages(Message message, MessageReceivedEventArgs e)
-        //{
-        //    List<ushort> playersToSpawn = new List<ushort>();
-        //    using (DarkRiftReader reader = message.GetReader())
-        //    {
-        //        //checksize
-        //        while(reader.Position < reader.Length)
-        //        {
-        //            playersToSpawn.Add(reader.ReadUInt16());
-        //        }
-        //    }
-
-        //    foreach(IClient client in ClientManager.GetAllClients())
-        //    {
-        //        client.SendMessage(message, SendMode.Reliable);
-        //    }
-
-        //}
-
-        //private void SendSpawnMesssages(object sender, ClientDisconnectedEventArgs e)
-        //{
-        //    // TODO MG change to send PlayerJoined message to the host
-        //    // Spawn messages will be sent when the host will start the 
-        //    // When changing the boolean value corresponding to wheter the the cleintId is locac should be removed
-        //    // Separate message with client's own id could be sent separately
-
-        //    //Write spawn message
-        //    using (DarkRiftWriter spawnWriter = DarkRiftWriter.Create())
-        //    {
-        //        spawnWriter.Write(e.Client.ID);
-        //        spawnWriter.Write(true);
-
-        //        foreach (IClient client in ClientManager.GetAllClients())
-        //        {
-        //            spawnWriter.Write(client.ID);
-        //            spawnWriter.Write(false);
-        //        }
-
-        //        using (Message newPlayerConnectedMessage = Message.Create(Tags.SpawnCharacter, spawnWriter))
-        //        {
-        //            e.Client.SendMessage(newPlayerConnectedMessage, SendMode.Reliable);
-        //        }
-        //    }
-
-        //    //Broadcast spawn to other players
-        //    using (DarkRiftWriter spawnPlayerBroadcast = DarkRiftWriter.Create())
-        //    {
-        //        spawnPlayerBroadcast.Write(e.Client.ID);
-        //        spawnPlayerBroadcast.Write(false);
-
-        //        var clients = ClientManager.GetAllClients().Where(client => client != e.Client);
-
-        //        using (Message newPlayerConnectedMessage = Message.Create(Tags.SpawnCharacter, spawnPlayerBroadcast))
-        //        {
-        //            foreach (IClient client in clients)
-        //            {
-        //                client.SendMessage(newPlayerConnectedMessage, SendMode.Reliable);
-        //            }
-        //        }
-        //    }
-        //}
-
-
     }
 }
