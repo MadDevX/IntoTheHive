@@ -55,11 +55,11 @@ public class CharacterSpawner : IInitializable, IDisposable
         bool isLocal = spawnParameters.IsLocal;
         if (_characters.ContainsKey(clientID) == false)
         {
-            // Generate Spawn coordinates 
+            // TODO MG : Generate Spawn coordinates 
             // Should the position be generated on the server or by the client?
             // (Probably server, he can ensure that all characters do not collide)
-            
-            if(isLocal)
+
+            if (isLocal)
             {
                 CharacterFacade characterFacade = _playerFactory.Create(spawnParameters);
                 _cameraManager.SetCameraToPlayerCharacter(characterFacade);
@@ -79,7 +79,7 @@ public class CharacterSpawner : IInitializable, IDisposable
         bool isLocal = spawnParameters.IsLocal;
         if (_characters.ContainsKey(clientID) == false)
         {
-            // Generate Spawn coordinates 
+            // TODO MG : Generate Spawn coordinates 
             // Should the position be generated on the server or by the client?
             // (Probably server, he can ensure that all characters do not collide)
 
