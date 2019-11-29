@@ -35,12 +35,12 @@ public class TripleShot : BaseModule
         }
     }
 
-    public class Factory : IFactory<ProjectileSpawnParameters, Projectile[]>
+    public class Factory : IFactory<ProjectileSpawnParameters, IProjectile[]>
     {
-        private List<Projectile> _objects = new List<Projectile>();
+        private List<IProjectile> _objects = new List<IProjectile>();
         private float _spreadAngle = 30.0f;
-        public IFactory<ProjectileSpawnParameters, Projectile[]> DecoratedFactory { get; set; }
-        public Projectile[] Create(ProjectileSpawnParameters param)
+        public IFactory<ProjectileSpawnParameters, IProjectile[]> DecoratedFactory { get; set; }
+        public IProjectile[] Create(ProjectileSpawnParameters param)
         {
             _objects.Clear();
             var initRotation = param.rotation;

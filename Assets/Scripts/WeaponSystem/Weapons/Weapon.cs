@@ -6,7 +6,7 @@ using Zenject;
 
 public class Weapon : IWeapon
 {
-    public IFactory<ProjectileSpawnParameters, Projectile[]> Factory { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public IFactory<ProjectileSpawnParameters, IProjectile[]> Factory { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public event Action<List<IModule>> OnWeaponRefreshed;
 

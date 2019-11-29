@@ -25,24 +25,22 @@ public struct ProjectileSpawnParameters
 
 public struct ProjectilePipelineParameters
 {
-    public Projectile projectile;
-    public Rigidbody2D rb;
+    public IProjectile projectile;
     //TODO: collision information (CastHit)
-    public ProjectilePipelineParameters(Projectile projectile, Rigidbody2D rb)
+    public ProjectilePipelineParameters(IProjectile projectile)
     {
         this.projectile = projectile;
-        this.rb = rb;
     }
 }
 
-public class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable
+public partial class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable, IProjectile
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private TrailRenderer _trail;
     [SerializeField] private Collider2D _collider;
-    public event Action<Projectile, float> OnUpdateEvt;
-    public event Action<Projectile, float> OnFixedUpdateEvt;
-    public event Action<Projectile, Collider2D, int> OnCollisionEnter;
+    public event Action<IProjectile, float> OnUpdateEvt;
+    public event Action<IProjectile, float> OnFixedUpdateEvt;
+    public event Action<IProjectile, Collider2D, int> OnCollisionEnter;
     public PhasePipeline Pipeline { get; } = new PhasePipeline();
 
     private List<IModule> _currentModules = new List<IModule>();
@@ -56,7 +54,7 @@ public class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnPara
     public int CollisionLimit { get; set; } = 0;
     private int _remainingCollisions;
 
-    public ProjectilePipelineParameters PipelineParameters = new ProjectilePipelineParameters();
+    private ProjectilePipelineParameters _pipelineParameters = new ProjectilePipelineParameters();
 
     #region EVENT_FUNCTIONS
     //Following event functions are declared in their execution order:
@@ -70,27 +68,26 @@ public class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnPara
     public void OnSpawned(ProjectileSpawnParameters parameters, IMemoryPool pool)
     {
         transform.position = parameters.position;
-        _rb.velocity = Vector2.up.Rotate(parameters.rotation) * parameters.velocity;
+        Velocity = Vector2.up.Rotate(parameters.rotation) * parameters.velocity;
         TravelTime = 0.0f;
         _remainingCollisions = CollisionLimit;
         _pool = pool;
         _trail.Clear();
 
-        PipelineParameters.projectile = this;
-        PipelineParameters.rb = _rb;
+        _pipelineParameters.projectile = this;
 
         if (parameters.modules != null)
         {
             _currentModules.Clear();
             _currentModules.AddRange(parameters.modules);
-            InitModules();
+            ProjectileUtility.InitModules(_currentModules, this);
         }
-        Pipeline.SetState(ProjectilePhases.Created, PipelineParameters);
+        Pipeline.SetState(ProjectilePhases.Created, _pipelineParameters);
     }
 
     public void Dispose()
     {
-        Pipeline.SetState(ProjectilePhases.Destroy, PipelineParameters);
+        Pipeline.SetState(ProjectilePhases.Destroy, _pipelineParameters);
         _pool.Despawn(this);
     }
 
@@ -98,9 +95,9 @@ public class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnPara
     {
         //DO NOT USE Factory.Create within OnDespawned because object is not fully returned to pool and but already can be used by next Create instruction
         _pool = null;
-        _rb.velocity = Vector2.zero;
+        Velocity = Vector2.zero;
         TravelTime = FixedTravelTime = 0.0f;
-        DisposeModules();
+        ProjectileUtility.DisposeModules(_currentModules, this);
     }
 
     protected override void OnDisable()
@@ -135,22 +132,6 @@ public class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnPara
         OnCollisionEnter?.Invoke(this, collision, _remainingCollisions);
     }
 
-    private void InitModules()
-    {
-        for (int i = 0; i < _currentModules.Count; i++)
-        {
-            _currentModules[i].DecorateProjectile(this);
-        }
-    }
-
-    private void DisposeModules()
-    {
-        for (int i = _currentModules.Count - 1; i >= 0; i--)
-        {
-            _currentModules[i].RemoveFromProjectile(this);
-        }
-    }
-
     public class Factory : PlaceholderFactory<ProjectileSpawnParameters, Projectile>
     {
     }
@@ -158,9 +139,5 @@ public class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnPara
     public class MultiFactory : MultiFactory<ProjectileSpawnParameters, Projectile>
     {
         public MultiFactory([Inject(Id = Identifiers.Bullet)] Factory factory) : base(factory){}
-    }
-
-    public class PhasePipeline : EventStateMachine<ProjectilePhases, ProjectilePipelineParameters>
-    {
     }
 }

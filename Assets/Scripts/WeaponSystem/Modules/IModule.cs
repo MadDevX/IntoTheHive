@@ -8,8 +8,8 @@ public interface IModule
     /// Module sort is based on priority (with 0 being the highest priority, int.maxvalue the lowest priority)
     /// </summary>
     int Priority { get; }
-    void DecorateProjectile(Projectile projectile);
-    void RemoveFromProjectile(Projectile projectile);
+    void DecorateProjectile(IProjectile projectile);
+    void RemoveFromProjectile(IProjectile projectile);
 
     bool AttachToWeapon(IWeapon weapon);
     bool DetachFromWeapon(IWeapon weapon);

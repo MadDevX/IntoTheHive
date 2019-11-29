@@ -9,18 +9,18 @@ using UnityEngine;
 /// </summary>
 public static class DefaultProjectileModule
 {
-    public static void DecorateProjectile(Projectile projectile)
+    public static void DecorateProjectile(IProjectile projectile)
     {
         projectile.OnCollisionEnter += DestroyAfterCollisions;
     }
 
-    public static void RemoveFromProjectile(Projectile projectile)
+    public static void RemoveFromProjectile(IProjectile projectile)
     {
 
         projectile.OnCollisionEnter -= DestroyAfterCollisions;
     }
 
-    private static void DestroyAfterCollisions(Projectile projectile, Collider2D hit, int remainingCollisions)
+    private static void DestroyAfterCollisions(IProjectile projectile, Collider2D hit, int remainingCollisions)
     {
         if(remainingCollisions < 0)
         {

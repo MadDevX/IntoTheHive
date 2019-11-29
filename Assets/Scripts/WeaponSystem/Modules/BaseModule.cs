@@ -33,6 +33,6 @@ public abstract class BaseModule : IModule
             return true;
         }
     }
-    public virtual void DecorateProjectile(Projectile projectile) { }
-    public virtual void RemoveFromProjectile(Projectile projectile) { }
+    public virtual void DecorateProjectile(IProjectile projectile) { }
+    public virtual void RemoveFromProjectile(IProjectile projectile) { }
 }

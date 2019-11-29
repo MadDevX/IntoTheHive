@@ -9,7 +9,7 @@ public class PlaceholderWeapon : IWeapon
     private Settings _settings;
 
     private List<IModule> _modules = new List<IModule>();
-    public IFactory<ProjectileSpawnParameters, Projectile[]> Factory { get; set; }
+    public IFactory<ProjectileSpawnParameters, IProjectile[]> Factory { get; set; }
 
     private bool _wasSqueezed = false;
 
@@ -21,7 +21,7 @@ public class PlaceholderWeapon : IWeapon
         fac.DecoratedFactory = projectileFactory;
         Factory = fac;
         _settings = settings;
-        AttachModule(new SineTravelModule());
+        //AttachModule(new SineTravelModule());
         AttachModule(new TripleSpawnOnDestroyModule(projectileFactory));
     }
 
