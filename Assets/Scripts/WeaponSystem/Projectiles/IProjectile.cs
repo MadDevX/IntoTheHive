@@ -8,7 +8,7 @@ public interface IProjectile
     event Action<IProjectile, float> OnUpdateEvt;
     event Action<IProjectile, float> OnFixedUpdateEvt;
     event Action<IProjectile, Collider2D, int> OnCollisionEnter;
-    PhasePipeline Pipeline { get; }
+    ProjectilePhasePipeline Pipeline { get; }
     Vector2 Position { get; }
     Vector2 Velocity { get; set; }
     float TravelTime { get; }

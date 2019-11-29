@@ -8,7 +8,7 @@ using Zenject;
 public class RayProjectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable, IProjectile
 {
 
-    public PhasePipeline Pipeline => new PhasePipeline();
+    public ProjectilePhasePipeline Pipeline => new ProjectilePhasePipeline();
 
     public Vector2 Position { get; private set; }
 

@@ -41,7 +41,7 @@ public partial class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileS
     public event Action<IProjectile, float> OnUpdateEvt;
     public event Action<IProjectile, float> OnFixedUpdateEvt;
     public event Action<IProjectile, Collider2D, int> OnCollisionEnter;
-    public PhasePipeline Pipeline { get; } = new PhasePipeline();
+    public ProjectilePhasePipeline Pipeline { get; } = new ProjectilePhasePipeline();
 
     private List<IModule> _currentModules = new List<IModule>();
     private IMemoryPool _pool;
