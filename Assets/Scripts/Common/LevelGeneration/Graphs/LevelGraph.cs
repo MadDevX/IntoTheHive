@@ -26,6 +26,7 @@ public class LevelGraph
         vertex.AddNeighbour(west, GraphDirection.West);
         vertex.AddNeighbour(east, GraphDirection.East);
         vertex.AddNeighbour(south, GraphDirection.South);
+        nodes.Add(vertex);
     }
 
     public void Reset()
