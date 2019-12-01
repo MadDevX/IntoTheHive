@@ -9,7 +9,7 @@ public class LevelInstaller: MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<BasicLevelGraphGenerator>();
-        Container.BindInterfacesAndSelfTo<LevelGenerator>();
+        Container.BindInterfacesAndSelfTo<LevelSpawner>();
         Container.BindInstance(_rooms);
     }
 

@@ -3,11 +3,17 @@
 /// </summary>
 public class BasicLevelGraphGenerator : IGraphGenerable
 {
+    private LevelGraphState _levelGraph;
     // change this to BasicLevelGraphFactory?
+    public BasicLevelGraphGenerator(LevelGraphState levelGraph)
+    {
+        _levelGraph = levelGraph;
+    }
+
 
     public LevelGraph GenerateLevelGraph()
     {
-        LevelGraph graph = new LevelGraph();
+        LevelGraph graph = _levelGraph.graph;
 
         graph.AddVertex(0);
         graph.AddVertex(0);

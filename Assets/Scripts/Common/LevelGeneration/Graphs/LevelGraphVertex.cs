@@ -3,6 +3,7 @@
 /// </summary>
 public class LevelGraphVertex
 {
+    public int ID { get; set; }
     public ushort RoomId;
     public int[] neighbours;
 

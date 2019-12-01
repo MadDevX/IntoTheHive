@@ -4,4 +4,5 @@
 /// </summary>
 public class Rooms
 {
+  
 }

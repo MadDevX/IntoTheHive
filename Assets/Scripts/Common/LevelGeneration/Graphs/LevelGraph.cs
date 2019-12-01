@@ -15,7 +15,8 @@ public class LevelGraph
     {
         var vertex = new LevelGraphVertex(roomId);
         nodes.Add(vertex);
-        return nodes.IndexOf(vertex);
+        vertex.ID = nodes.IndexOf(vertex);
+        return vertex.ID;
     }
 
     public void RemoveVertex(int Id)
