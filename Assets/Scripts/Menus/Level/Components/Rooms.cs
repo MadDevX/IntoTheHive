@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// This class holds all rooms' prefabs
 /// </summary>
-public class Rooms
+[CreateAssetMenu(menuName = "GameResources/Rooms")]
+public class Rooms: ScriptableObject
 {
     [SerializeField] public Object BasicRoom;
     [SerializeField] public Object Door;

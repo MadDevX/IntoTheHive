@@ -1,8 +1,11 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 public class LevelGenerationInstaller: MonoInstaller
 {
+    [SerializeField] private Rooms _rooms;
+
     public override void InstallBindings()
     {
         BindComponents();
@@ -12,7 +15,7 @@ public class LevelGenerationInstaller: MonoInstaller
 
     private void BindComponents()
     {
-        Container.Bind<Rooms>().AsSingle();
+        Container.Bind<Rooms>().FromInstance(_rooms).AsSingle();
         Container.BindInterfacesAndSelfTo<LevelSpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<LevelGraphState>().AsSingle();
         Container.BindInterfacesAndSelfTo<BasicLevelGraphGenerator>().AsSingle();
