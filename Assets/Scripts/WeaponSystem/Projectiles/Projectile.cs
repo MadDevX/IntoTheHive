@@ -87,7 +87,7 @@ public partial class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileS
 
     public void Dispose()
     {
-        Pipeline.SetState(ProjectilePhases.Destroy, _pipelineParameters);
+        Pipeline.SetState(ProjectilePhases.Destroyed, _pipelineParameters);
         _pool.Despawn(this);
     }
 
@@ -130,6 +130,11 @@ public partial class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileS
     {
         _remainingCollisions--;
         OnCollisionEnter?.Invoke(this, collision, _remainingCollisions);
+    }
+
+    public void Destroy()
+    {
+        throw new NotImplementedException();
     }
 
     public class Factory : PlaceholderFactory<ProjectileSpawnParameters, Projectile>

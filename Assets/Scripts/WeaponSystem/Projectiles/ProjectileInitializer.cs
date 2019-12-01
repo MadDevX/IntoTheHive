@@ -14,9 +14,16 @@ public class ProjectileInitializer
     /// </summary>
     public event Action OnProjectileInitialized;
 
+    public event Action OnProjectileDespawned;
+
     public void CreateProjectile(ProjectileSpawnParameters parameters)
     {
         OnProjectileCreated?.Invoke(parameters);
         OnProjectileInitialized?.Invoke();
+    }
+
+    public void DespawnProjectile()
+    {
+        OnProjectileDespawned?.Invoke();
     }
 }

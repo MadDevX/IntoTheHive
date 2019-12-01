@@ -15,13 +15,13 @@ public class PlaceholderWeapon : IWeapon
 
     public event Action<List<IModule>> OnWeaponRefreshed;
 
-    public PlaceholderWeapon([Inject(Id = Identifiers.Bullet)] IFactory<ProjectileSpawnParameters, Projectile[]> projectileFactory, Settings settings)
+    public PlaceholderWeapon([Inject(Id = Identifiers.Bullet)] IFactory<ProjectileSpawnParameters, ProjectileFacade[]> projectileFactory, Settings settings)
     {
         var fac = new TripleShot.Factory();
         fac.DecoratedFactory = projectileFactory;
         Factory = fac;
         _settings = settings;
-        //AttachModule(new SineTravelModule());
+        AttachModule(new SineTravelModule());
         AttachModule(new TripleSpawnOnDestroyModule(projectileFactory));
     }
 

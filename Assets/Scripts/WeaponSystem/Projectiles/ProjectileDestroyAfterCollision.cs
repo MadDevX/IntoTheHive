@@ -4,34 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ProjectileDestroyAfterCollision : IInitializable, IDisposable
+public class ProjectileDestroyAfterCollision : IDisposable
 {
     public int CollisionLimit { get; set; }
 
     private int _remainingCollisions;
 
-    private ProjectileCollisionHandler _colHandler;
+    private IProjectileCollision _collision;
     private ProjectilePhasePipeline _pipeline;
     private ProjectileInitializer _initializer;
 
-    public ProjectileDestroyAfterCollision(ProjectileCollisionHandler colHandler, 
+    private IProjectile _facade;
+
+    public ProjectileDestroyAfterCollision(IProjectileCollision collision, 
+        IProjectile facade,
         ProjectilePhasePipeline pipeline,
         ProjectileInitializer initializer)
     {
-        _colHandler = colHandler;
+        _collision = collision;
         _pipeline = pipeline;
         _initializer = initializer;
+        _facade = facade;
+        PreInitialize();
     }
 
-    public void Initialize()
+    public void PreInitialize()
     {
-        _colHandler.OnCollisionEnter += OnCollisionEnter;
+        _collision.OnCollisionEnter += OnCollisionEnter;
         _initializer.OnProjectileInitialized += ResetCollisions;
     }
 
     public void Dispose()
     {
-        _colHandler.OnCollisionEnter -= OnCollisionEnter;
+        _collision.OnCollisionEnter -= OnCollisionEnter;
         _initializer.OnProjectileInitialized -= ResetCollisions;
     }
 
@@ -40,12 +45,12 @@ public class ProjectileDestroyAfterCollision : IInitializable, IDisposable
         _remainingCollisions = CollisionLimit;
     }
 
-    private void OnCollisionEnter(IProjectile facade, Collider2D collider)
+    private void OnCollisionEnter(Collider2D collider)
     {
         _remainingCollisions--;
         if(_remainingCollisions < 0)
         {
-            _pipeline.SetState(ProjectilePhases.Destroy, new ProjectilePipelineParameters(facade));
+            _facade.Destroy();
         }
     }
 }

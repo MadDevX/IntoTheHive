@@ -5,20 +5,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ProjectileCollisionHandler : IInitializable, IDisposable
+public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 {
-    public event Action<IProjectile, Collider2D> OnCollisionEnter;
-
+    public event Action<Collider2D> OnCollisionEnter;
+    private Collider2D _collider;
     private IRelay _relay;
-    private IProjectile _facade;
 
-    public ProjectileCollisionHandler(IRelay relay, IProjectile facade)
+    public bool IsPiercing { get => _collider.isTrigger; set => _collider.isTrigger = value; }
+
+    public RigidProjectileCollisionHandler(IRelay relay, Collider2D collider)
     {
         _relay = relay;
-        _facade = facade;
+        PreInitialize();
     }
 
-    public void Initialize()
+    public void PreInitialize()
     {
         _relay.OnCollision2DEnterEvt += OnColEnterHandler;
         _relay.OnTrigger2DEnterEvt += OnTriggerEnterHandler;
@@ -32,11 +33,11 @@ public class ProjectileCollisionHandler : IInitializable, IDisposable
 
     private void OnTriggerEnterHandler(Collider2D obj)
     {
-        OnCollisionEnter?.Invoke(_facade, obj);
+        OnCollisionEnter?.Invoke(obj);
     }
 
     private void OnColEnterHandler(Collision2D obj)
     {
-        OnCollisionEnter?.Invoke(_facade, obj.collider);
+        OnCollisionEnter?.Invoke(obj.collider);
     }
 }

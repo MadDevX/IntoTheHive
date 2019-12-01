@@ -67,7 +67,7 @@ public class RayProjectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParam
 
     public void Dispose()
     {
-        Pipeline.SetState(ProjectilePhases.Destroy, _pipelineParameters);
+        Pipeline.SetState(ProjectilePhases.Destroyed, _pipelineParameters);
         _pool.Despawn(this);
     }
     public void OnDespawned()
@@ -103,6 +103,11 @@ public class RayProjectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParam
             _remainingCollisions--;
             OnCollisionEnter?.Invoke(this, hits[i].collider, _remainingCollisions);
         }
+    }
+
+    public void Destroy()
+    {
+        throw new NotImplementedException();
     }
 
     //private void DrawRay()

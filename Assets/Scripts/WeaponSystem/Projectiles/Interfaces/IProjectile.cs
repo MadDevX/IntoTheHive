@@ -16,5 +16,5 @@ public interface IProjectile
     bool IsPiercing { get; set; }
     int CollisionLimit { get; set; }
 
-    void Dispose();
+    void Destroy();
 }

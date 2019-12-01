@@ -33,6 +33,11 @@ public class RigidProjectileInstaller : MonoInstaller
 
     private void InstallProjectile()
     {
-        Container.BindInterfacesAndSelfTo<ProjectileCollisionHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectileCollisionHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectilePosition>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectileVelocity>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectileTimer>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectileFixedTimer>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectileVFX>().AsSingle();
     }
 }

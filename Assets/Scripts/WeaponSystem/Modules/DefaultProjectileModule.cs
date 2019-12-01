@@ -24,7 +24,7 @@ public static class DefaultProjectileModule
     {
         if(remainingCollisions < 0)
         {
-            projectile.Dispose();
+            projectile.Destroy();
         }
     }
 }

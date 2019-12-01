@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Zenject;
+
+public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable, IProjectile
+{
+    private ProjectileInitializer _initializer;
+    private IProjectilePosition _position;
+    private IProjectileVelocity _velocity;
+    private IProjectileTime _time;
+    private IProjectileFixedTime _fixedTime;
+    private IProjectileCollision _collision;
+    private ProjectileDestroyAfterCollision _destroyCollision;
+    private IMemoryPool _pool;
+
+    public ProjectilePhasePipeline Pipeline { get; private set; }
+
+    public Vector2 Position { get => _position.Position; }
+
+    public Vector2 Velocity { get => _velocity.Velocity; set => _velocity.Velocity = value; }
+
+    public float TravelTime => _time.TravelTime;
+
+    public float FixedTravelTime => _fixedTime.FixedTravelTime;
+
+    public bool IsPiercing { get => _collision.IsPiercing; set => _collision.IsPiercing = value; }
+
+    public int CollisionLimit { get => _destroyCollision.CollisionLimit; set => _destroyCollision.CollisionLimit = value; }
+
+    public event Action<IProjectile, float> OnUpdateEvt;
+    public event Action<IProjectile, float> OnFixedUpdateEvt;
+    public event Action<IProjectile, Collider2D, int> OnCollisionEnter;
+
+    private ProjectilePipelineParameters _parameters;
+
+    [Inject]
+    public void Construct(ProjectilePhasePipeline pipeline,
+        ProjectileInitializer initializer,
+        IProjectilePosition position, 
+        IProjectileVelocity velocity, 
+        IProjectileTime time, 
+        IProjectileFixedTime fixedTime,
+        IProjectileCollision collision,
+        ProjectileDestroyAfterCollision destroyCollision)
+    {
+        Pipeline = pipeline;
+        _initializer = initializer;
+        _position = position;
+        _velocity = velocity;
+        _time = time;
+        _fixedTime = fixedTime;
+        _collision = collision;
+        _destroyCollision = destroyCollision;
+        _parameters = new ProjectilePipelineParameters(this);
+    }
+
+
+    public void OnSpawned(ProjectileSpawnParameters parameters, IMemoryPool pool)
+    {
+        _pool = pool;
+        AttachUpdates();
+        _initializer.CreateProjectile(parameters);
+        Pipeline.SetState(ProjectilePhases.Created, _parameters);
+    }
+
+    public void Dispose()
+    {
+        DetachUpdates();
+        _pool.Despawn(this);
+    }
+
+    public void Destroy()
+    {
+        if (Pipeline.State != ProjectilePhases.Destroyed)
+        {
+            Pipeline.SetState(ProjectilePhases.Destroyed, _parameters);
+            Dispose();
+        }
+    }
+
+    public void OnDespawned()
+    {
+        _initializer.DespawnProjectile();
+    }
+
+
+    #region UPDATE FORWARDING
+    private void AttachUpdates()
+    {
+        _time.OnUpdateEvt += OnUpdate;
+        _fixedTime.OnFixedUpdateEvt += OnFixedUpdate;
+    }
+
+    private void OnUpdate(float deltaTime)
+    {
+        OnUpdateEvt?.Invoke(this, deltaTime);
+    }
+
+    private void OnFixedUpdate(float deltaTime)
+    {
+        OnFixedUpdateEvt?.Invoke(this, deltaTime);
+    }
+
+    private void DetachUpdates()
+    {
+        _time.OnUpdateEvt -= OnUpdate;
+        _fixedTime.OnFixedUpdateEvt -= OnFixedUpdate;
+    }
+    #endregion
+
+    public class Factory : PlaceholderFactory<ProjectileSpawnParameters, ProjectileFacade>
+    {
+    }
+
+    public class MultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade> //TODO: possibly move into separate file and define multiple factories for every projectile prefab (rigid, ray, etc)
+    {
+        public MultiFactory([Inject(Id = Identifiers.Bullet)] Factory factory) : base(factory) { }
+    }
+}

@@ -6,5 +6,5 @@ public enum ProjectilePhases
 {
     Created,
     Hit,
-    Destroy
+    Destroyed
 }

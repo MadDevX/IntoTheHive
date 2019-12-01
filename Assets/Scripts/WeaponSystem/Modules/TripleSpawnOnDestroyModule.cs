@@ -49,12 +49,12 @@ public class TripleSpawnOnDestroyModule : BaseModule
 
     public override void DecorateProjectile(IProjectile projectile)
     {
-        projectile.Pipeline.SubscribeToInit(ProjectilePhases.Destroy, OnProjectileDestroyed);
+        projectile.Pipeline.SubscribeToInit(ProjectilePhases.Destroyed, OnProjectileDestroyed);
     }
 
     public override void RemoveFromProjectile(IProjectile projectile)
     {
-        projectile.Pipeline.UnsubscribeFromInit(ProjectilePhases.Destroy, OnProjectileDestroyed);
+        projectile.Pipeline.UnsubscribeFromInit(ProjectilePhases.Destroyed, OnProjectileDestroyed);
     }
 
     private void OnProjectileDestroyed(ProjectilePipelineParameters param)
