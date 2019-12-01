@@ -3,27 +3,28 @@
 /// </summary>
 public class LevelSpawner
 {
-    private LevelGraphState _graphState;
-    private LevelGraphTranslator _levelGraphTranslator;
-    private Rooms _rooms;
+    private SpawnParametersGenerator _levelGraphTranslator;
+    private RoomFacade.Factory _levelRoomFactory;
 
     public LevelSpawner(
-        LevelGraphTranslator levelGraphTranslator,
-        LevelGraphState graphState,
-        Rooms rooms)
+        SpawnParametersGenerator levelGraphTranslator,
+        RoomFacade.Factory levelRoomFactory)
     {
-        _graphState = graphState;
+        _levelRoomFactory = levelRoomFactory;
         _levelGraphTranslator = levelGraphTranslator;
-        _rooms = rooms;
     }
 
+    /// <summary>
+    /// Spawn the level based on LevelGraphState class.
+    /// </summary>
     public void GenerateLevel()
     {        
-        var vertices = _graphState.graph.nodes;
-        var spawnInfo = _levelGraphTranslator.TraverseLevelGraph();
-
-        // TODO MG : iterate through vertices and spawn them 
-        // spawn "bllockers" in rooms not connected to anything
+        var spawnInfo = _levelGraphTranslator.TranslateLevelGraph();
+        
+        foreach(RoomSpawnParameters spawnParameters in spawnInfo)
+        {
+            _levelRoomFactory.Create(spawnParameters);
+        }
     }
     
 }
