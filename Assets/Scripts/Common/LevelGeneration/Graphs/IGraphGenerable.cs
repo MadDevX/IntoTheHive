@@ -1,4 +1,4 @@
 ﻿public interface IGraphGenerable
 {
-    void GenerateLevelGraph();
+    LevelGraph GenerateLevelGraph();
 }

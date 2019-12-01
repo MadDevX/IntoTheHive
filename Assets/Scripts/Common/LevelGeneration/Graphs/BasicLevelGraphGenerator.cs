@@ -10,7 +10,8 @@ public class BasicLevelGraphGenerator : IGraphGenerable
         _levelGraph = levelGraph;
     }
 
-    public void GenerateLevelGraph()
+
+    public LevelGraph GenerateLevelGraph()
     {
         LevelGraph graph = _levelGraph.graph;
 
@@ -26,5 +27,7 @@ public class BasicLevelGraphGenerator : IGraphGenerable
         graph.AddEdge(2, 3, GraphDirection.North);
         graph.AddEdge(1, 4, GraphDirection.East);
         graph.AddEdge(4, 5, GraphDirection.North);
+
+        return graph;
     }
 }
