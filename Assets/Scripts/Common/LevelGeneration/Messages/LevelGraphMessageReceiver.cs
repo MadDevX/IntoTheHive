@@ -10,9 +10,12 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
 
     public LevelGraphMessageReceiver(
         NetworkRelay relay,
-        LevelGraphState graphState)
+        LevelGraphState graphState,
+        LevelSpawner levelSpawner)
     {
         _relay = relay;
+        _levelSpawner = levelSpawner;
+        _graphState = graphState;
     }
 
     public void Initialize()

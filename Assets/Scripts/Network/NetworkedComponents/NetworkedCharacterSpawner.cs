@@ -14,12 +14,16 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     public event Action<CharacterSpawnParameters> PlayerSpawned;
 
 
+    private LevelGraphMessageSender _graphSender;
+
     public NetworkedCharacterSpawner(
         GlobalHostPlayerManager globalHostPlayerManager,
         UnityClient client,
+        LevelGraphMessageSender sender,
         NetworkRelay networkRelay
         )
     {
+        _graphSender = sender;
         _globalHostPlayerManager = globalHostPlayerManager;
         _client = client;
         _networkRelay = networkRelay;
@@ -40,8 +44,8 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     public void InitiateSpawn()
     {
         Debug.Log("Spawn Initiated");
-        
-        SpawnAll();
+        _graphSender.SendLevelGraph();
+        //SpawnAll();
     }
 
     private void HandleDespawn(Message message)

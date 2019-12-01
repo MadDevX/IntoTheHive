@@ -25,3 +25,5 @@ MonoBehaviour:
   _inputSenderSettings:
     moveEps: 0.001
     rotationEps: 0.1
+  _roomSpawnSettings:
+    roomSize: 8

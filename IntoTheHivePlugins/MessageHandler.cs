@@ -61,6 +61,9 @@ public class MessageHandler
                     _plugin.BroadcastToClient(message, e,id);
                 }
             }
+
+            if (message.Tag == Tags.LevelGraph)
+                _plugin.BroadcastToAllClients(message, e);
         }
     }
 }

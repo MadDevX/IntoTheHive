@@ -15,6 +15,7 @@ public class SpawnParametersGenerator
         Settings settings)
     {
         _settings = settings;
+        _levelGraphState = levelGraphState;
     }
 
     /// <summary>
@@ -151,9 +152,9 @@ public class SpawnParametersGenerator
         roomSpawnInfo.Add(new RoomSpawnParameters(X, Y, 1, isHorizontal));
     }
 
-    [SerializeField]
+    [System.Serializable]
     public class Settings
     {
-        public int roomSize;
+        public float roomSize;
     }
 }
