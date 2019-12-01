@@ -20,4 +20,5 @@
     public static readonly ushort ChangeSceneWithReply = 14;
 
     public static readonly ushort RequestSpawn = 15;
+    public static readonly ushort LevelGraph = 16;
 }
