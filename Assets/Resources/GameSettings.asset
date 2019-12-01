@@ -32,3 +32,5 @@ MonoBehaviour:
     baseDamage: 10
   _aiShooterScannerSettings:
     shootDelay: 1
+  _aiFollowInputSettings:
+    LerpFactor: 0.01

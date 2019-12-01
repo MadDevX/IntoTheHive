@@ -888,7 +888,7 @@ PrefabInstance:
     - target: {fileID: -3224232866765772967, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
         type: 3}
       propertyPath: pickNextWaypointDist
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3224232866765772967, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
         type: 3}
@@ -913,7 +913,7 @@ PrefabInstance:
     - target: {fileID: -3224232866765772967, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
         type: 3}
       propertyPath: slowdownDistance
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3224232866765772967, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
         type: 3}
