@@ -35,5 +35,7 @@ MonoBehaviour:
   _aiFollowInputSettings:
     LerpFactor: 0.02
     RemainingDistanceToPlayer: 2
+  _aiKeepLineOfSightInputSettings:
+    LerpFactor: 0.02
   _aiTargetInSightSettings:
-    EnvironmentLayer: 0
+    castRadius: 0.5
