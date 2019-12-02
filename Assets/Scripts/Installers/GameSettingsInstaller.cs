@@ -15,6 +15,8 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private ProjectileDamage.Settings _projectileDamageSettings;
     [SerializeField] private AIShooterScanner.Settings _aiShooterScannerSettings;
     [SerializeField] private AIFollowInput.Settings _aiFollowInputSettings;
+    [SerializeField] private AIKeepLineOfSightInput.Settings _aiKeepLineOfSightInputSettings;
+    [SerializeField] private AITargetInSight.Settings _aiTargetInSightSettings;
 
     public override void InstallBindings()
     {
@@ -27,5 +29,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_projectileDamageSettings).AsSingle();
         Container.BindInstance(_aiShooterScannerSettings).AsSingle();
         Container.BindInstance(_aiFollowInputSettings).AsSingle();
+        Container.BindInstance(_aiTargetInSightSettings).AsSingle();
+        Container.BindInstance(_aiKeepLineOfSightInputSettings).AsSingle();
     }
 }

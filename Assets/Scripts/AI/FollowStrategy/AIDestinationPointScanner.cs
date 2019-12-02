@@ -6,15 +6,16 @@ using Pathfinding;
 using UnityEngine;
 using Zenject;
 
-public class AIDestinationPointForwarder : UpdatableObject
+public class AIDestinationPointScanner : UpdatableObject
 {
     private AIPath _aiPath;
-    private AIFollowInput _aiFollowInput;
 
-    public AIDestinationPointForwarder(AIPath aiPath, AIFollowInput aiFollowInput)
+    public Vector2 NextPoint {  get; private set; }
+    public float RemainingDistance { get; private set; }
+
+    public AIDestinationPointScanner(AIPath aiPath)
     {
         _aiPath = aiPath;
-        _aiFollowInput = aiFollowInput;
     }
 
     public override void OnUpdate(float deltaTime)
@@ -24,6 +25,8 @@ public class AIDestinationPointForwarder : UpdatableObject
         //    Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {nextPosition}, currently at {_aiPath.position}");
         //_aiFollowInput.NextPoint = nextPosition;
         //Debug.Log($"Previous point -> {_aiFollowInput.NextPoint}, next point -> {_aiPath.steeringTarget}, currently at {_aiPath.position}");
-        _aiFollowInput.NextPoint = _aiPath.steeringTarget;
+        
+        NextPoint = _aiPath.steeringTarget;
+        RemainingDistance = _aiPath.remainingDistance;
     }
 }

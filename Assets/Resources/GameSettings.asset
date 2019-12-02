@@ -33,4 +33,7 @@ MonoBehaviour:
   _aiShooterScannerSettings:
     shootDelay: 1
   _aiFollowInputSettings:
-    LerpFactor: 0.01
+    LerpFactor: 0.02
+    RemainingDistanceToPlayer: 2
+  _aiTargetInSightSettings:
+    EnvironmentLayer: 0
