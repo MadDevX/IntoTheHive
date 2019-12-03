@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: -4272652936887552119, guid: 0fff293fd23b4464d92d834d9b8dcae9,
     type: 3}
-  _rayProjectilePrefab: {fileID: 8711313583401228974, guid: 529800f577f3c2145b7e6803f75ba9d2,
+  _rayProjectilePrefab: {fileID: 9012927215289474397, guid: 529800f577f3c2145b7e6803f75ba9d2,
     type: 3}

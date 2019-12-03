@@ -9,7 +9,7 @@ public class RigidProjectileInstaller : MonoInstaller
     [SerializeField] private Collider2D _collider;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private TrailRenderer _trailRenderer;
-    [SerializeField] private ProjectileRelay _relay;
+    [SerializeField] private RigidProjectileRelay _relay;
 
     public override void InstallBindings()
     {

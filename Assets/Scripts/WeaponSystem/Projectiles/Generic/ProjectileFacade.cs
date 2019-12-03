@@ -113,9 +113,4 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
     public class Factory : PlaceholderFactory<ProjectileSpawnParameters, ProjectileFacade>
     {
     }
-
-    public class MultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade> //TODO: possibly move into separate file and define multiple factories for every projectile prefab (rigid, ray, etc)
-    {
-        public MultiFactory([Inject(Id = Identifiers.Bullet)] Factory factory) : base(factory) { }
-    }
 }
