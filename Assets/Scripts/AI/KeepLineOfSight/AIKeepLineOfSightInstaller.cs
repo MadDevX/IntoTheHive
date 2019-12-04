@@ -24,6 +24,8 @@ namespace Assets.Scripts.AI.KeepLineOfSight
         {
             Container.BindInterfacesAndSelfTo<AITargetInSight>().AsSingle();
             Container.BindInterfacesAndSelfTo<AIKeepLineOfSightInput>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TargetFurthestPlayer>().AsSingle();
+
 
         }
     }

@@ -23,10 +23,13 @@ public class AIInstaller : MonoInstaller
 
     private void InstallAI()
     {
-        Container.BindInterfacesAndSelfTo<AITargetScanner>().AsSingle();
-        Container.BindInterfacesAndSelfTo<AITargetForwarder>().AsSingle();
+
         Container.BindInterfacesAndSelfTo<AIDestinationPointScanner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<AITargetForwarder>().AsSingle();
         Container.BindInterfacesAndSelfTo<AIShooterScanner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<AITargetScanner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<MovementManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<DirectionManager>().AsSingle();
 
     }
 }

@@ -14,9 +14,10 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private RayProjectileVFX.Settings _rayVFXSettings;
     [SerializeField] private ProjectileDamage.Settings _projectileDamageSettings;
     [SerializeField] private AIShooterScanner.Settings _aiShooterScannerSettings;
-    [SerializeField] private AIFollowInput.Settings _aiFollowInputSettings;
-    [SerializeField] private AIKeepLineOfSightInput.Settings _aiKeepLineOfSightInputSettings;
     [SerializeField] private AITargetInSight.Settings _aiTargetInSightSettings;
+    [SerializeField] private AIShootOnTimer.Settings _aiShootOnTimerSettings;
+    [SerializeField] private DirectionManager.Settings _directionManagerSettings;
+    [SerializeField] private MovementManager.Settings _movementManagerSettings;
 
     public override void InstallBindings()
     {
@@ -28,8 +29,9 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_rayVFXSettings).AsSingle();
         Container.BindInstance(_projectileDamageSettings).AsSingle();
         Container.BindInstance(_aiShooterScannerSettings).AsSingle();
-        Container.BindInstance(_aiFollowInputSettings).AsSingle();
         Container.BindInstance(_aiTargetInSightSettings).AsSingle();
-        Container.BindInstance(_aiKeepLineOfSightInputSettings).AsSingle();
+        Container.BindInstance(_aiShootOnTimerSettings).AsSingle();
+        Container.BindInstance(_directionManagerSettings).AsSingle();
+        Container.BindInstance(_movementManagerSettings).AsSingle();
     }
 }

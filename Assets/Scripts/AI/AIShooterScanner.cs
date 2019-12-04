@@ -47,7 +47,7 @@ public class AIShooterScanner : FixedUpdatableObject
     private void OnTargetChanged(Transform transform)
     {
         _targetAcquired = transform != null;
-        _timer = 0.0f;
+        //_timer = 0.0f;
     }
 
     [Serializable]

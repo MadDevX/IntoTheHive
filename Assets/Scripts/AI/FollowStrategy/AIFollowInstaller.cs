@@ -23,6 +23,8 @@ namespace Assets.Scripts.AI.FollowStrategy
         private void InstallAI()
         {
             Container.BindInterfacesAndSelfTo<AIFollowInput>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TargetClosestPlayer>().AsSingle();
+
         }
     }
 }

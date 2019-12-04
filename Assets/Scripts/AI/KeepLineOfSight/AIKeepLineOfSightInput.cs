@@ -12,12 +12,13 @@ public class AIKeepLineOfSightInput : UpdatableObject
     private AIShooterScanner _aiShooterScanner;
     private AITargetInSight _aiTargetInSight;
     private AIDestinationPointScanner _aiDestinationPointScanner;
-    private Settings _settings;
-    private Vector2 _prevDirection = Vector2.zero;
+
     private Transform _target;
+    private MovementManager _movementManager;
+    private DirectionManager _directionManager;
 
     public AIKeepLineOfSightInput(ControlState controlState, Rigidbody2D rigidbody, AITargetScanner aiTargetScanner, AIShooterScanner aiShooterScanner,
-        AIDestinationPointScanner aiDestinationPointScanner, AITargetInSight aiTargetInSight, Settings settings)
+        AIDestinationPointScanner aiDestinationPointScanner, AITargetInSight aiTargetInSight, MovementManager movementManager, DirectionManager directionManager)
     {
         _controlState = controlState;
         _rb = rigidbody;
@@ -25,7 +26,8 @@ public class AIKeepLineOfSightInput : UpdatableObject
         _aiShooterScanner = aiShooterScanner;
         _aiDestinationPointScanner = aiDestinationPointScanner;
         _aiTargetInSight = aiTargetInSight;
-        _settings = settings;
+        _movementManager = movementManager;
+        _directionManager = directionManager;
     }
 
     public override void Initialize()
@@ -50,34 +52,20 @@ public class AIKeepLineOfSightInput : UpdatableObject
 
         if (_target != null && !_aiTargetInSight.TargetInSight)
         {
-            Debug.Log("I should be moving now");
-            //var distY = Mathf.Abs(NextPoint.y - _rb.position.y);
-            //var distX = Mathf.Abs(NextPoint.x - _rb.position.x);
-            var distX = 1;
-            var distY = 1;
-            var currentDirection = new Vector2(Mathf.Clamp(_aiDestinationPointScanner.NextPoint.x.CompareTo(_rb.position.x), -distX, distX),
-                Mathf.Clamp(_aiDestinationPointScanner.NextPoint.y.CompareTo(_rb.position.y), -distY, distY));
-            currentDirection = Vector2.Lerp(_prevDirection, currentDirection, _settings.LerpFactor);
-          
-            _controlState.Horizontal = currentDirection.x;
-            _controlState.Vertical = currentDirection.y;
-            
+            _movementManager.SetMovement(_controlState, _aiDestinationPointScanner.NextPoint, _rb, _aiDestinationPointScanner.RemainingDistance);
+            _directionManager.SetDirection(_controlState, _target, _rb);
 
-            
-
-            //Debug.Log($"distX => {distX}, distY -> {distY}, _rb.pos -> {_rb.position}, nextPoint = {NextPoint}");
-            //Debug.Log($"Horizontal -> {_controlState.Horizontal}, Vertical => {_controlState.Vertical}");
             _controlState.PrimaryAction = _aiShooterScanner.ShouldShoot;
             _controlState.SecondaryAction = false;
 
-            _controlState.Direction = ((Vector2)_target.position - _rb.position).normalized;
-            _prevDirection = currentDirection;
+
+
         }
         else 
         {
             if (_target != null)
             {
-                _controlState.Direction = ((Vector2)_target.position - _rb.position).normalized;
+                _directionManager.SetDirection(_controlState, _target, _rb);
             }
             _controlState.Horizontal = 0.0f;
             _controlState.Vertical = 0.0f;
@@ -88,11 +76,4 @@ public class AIKeepLineOfSightInput : UpdatableObject
     }
 
 
-    [Serializable]
-    public class Settings
-    {
-        public float LerpFactor;
-        //public float MinimalDistanceToPlayer;
-        
-    }
 }

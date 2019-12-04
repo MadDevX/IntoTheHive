@@ -9,6 +9,7 @@ public class AITargetScanner : FixedUpdatableObject
 {
     private Rigidbody2D _rb;
     private Settings _settings;
+    private ITargetUpdatable _targetUpdatable;
 
     public Transform Target
     {
@@ -27,39 +28,28 @@ public class AITargetScanner : FixedUpdatableObject
 
     private float _timer = 0.0f;
 
-    public AITargetScanner(Rigidbody2D rb, Settings settings)
+    public AITargetScanner(Rigidbody2D rb, Settings settings, ITargetUpdatable targetUpdatable)
     {
         _rb = rb;
         _settings = settings;
+        _targetUpdatable = targetUpdatable;
     }
 
     public override void OnFixedUpdate(float deltaTime)
     {
         if (_timer >= _settings.scanDelay)
         {
-            var hits = Physics2D.OverlapCircleAll(_rb.position, _settings.scanRadius);
-            _timer = 0.0f;
+            var hits = Physics2D.OverlapCircleAll(_rb.position, _settings.scanRadius, ~Layers.Environment.ToMask());
+            Array.Sort(hits, (x1, x2) => ((Vector2)x1.transform.position - _rb.position).sqrMagnitude
+                .CompareTo(((Vector2)x2.transform.position - _rb.position).sqrMagnitude));
+           
 
-            UpdateTarget(hits);
+            _timer = 0.0f;
+            Target = _targetUpdatable.GetTarget(hits);
         }
         _timer += deltaTime;
     }
-
-    private void UpdateTarget(Collider2D[] hits)
-    {
-        for(int i = 0; i < hits.Length; i++)
-        {
-            var player = hits[i].GetComponent<PlayerInstaller>();
-            if(player != null)
-            {
-                Target = player.transform;
-                Debug.Log($"Found target: {Target.name}");
-                return;
-            }
-        }
-
-        Target = null;
-    }
+    
 
     [System.Serializable]
     public class Settings
@@ -68,3 +58,6 @@ public class AITargetScanner : FixedUpdatableObject
         public float scanRadius;
     }
 }
+
+
+

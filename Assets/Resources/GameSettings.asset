@@ -32,10 +32,13 @@ MonoBehaviour:
     baseDamage: 10
   _aiShooterScannerSettings:
     shootDelay: 1
-  _aiFollowInputSettings:
-    LerpFactor: 0.02
-    RemainingDistanceToPlayer: 2
-  _aiKeepLineOfSightInputSettings:
-    LerpFactor: 0.02
   _aiTargetInSightSettings:
     castRadius: 0.5
+  _aiShootOnTimerSettings:
+    shootDelay: 1
+  _directionManagerSettings:
+    RotationLerp: 0.01
+  _movementManagerSettings:
+    LerpFactor: 0.01
+    DistanceToPlayerToStop: 4
+    DistanceToPlayerToStartSlowing: 7
