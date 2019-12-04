@@ -23,14 +23,22 @@ public class MovementManager
 
 
 
+        if (remainingDistance <= _settings.DistanceToPlayerToStop)
+        {
+            controlState.Horizontal = 0.0f;
+            controlState.Vertical = 0.0f;
+        }
+        else
+        {
+            var velocityMultiplier = Mathf.Clamp((remainingDistance - _settings.DistanceToPlayerToStop) /
+                                                 (_settings.DistanceToPlayerToStartSlowing -
+                                                  _settings.DistanceToPlayerToStop), 0.05f, 1.0f);
 
+            controlState.Horizontal = currentDirection.x * velocityMultiplier;
+            controlState.Vertical = currentDirection.y * velocityMultiplier;
+        }
 
-        var velocityMultiplier = Mathf.Clamp01((remainingDistance - _settings.DistanceToPlayerToStop) /
-                                               (_settings.DistanceToPlayerToStartSlowing -
-                                                _settings.DistanceToPlayerToStop));
-
-        controlState.Horizontal = currentDirection.x * velocityMultiplier;
-        controlState.Vertical = currentDirection.y * velocityMultiplier;
+        
 
 
         //Debug.Log($"distX => {distX}, distY -> {distY}, _rb.pos -> {_rb.position}, nextPoint = {NextPoint}");
