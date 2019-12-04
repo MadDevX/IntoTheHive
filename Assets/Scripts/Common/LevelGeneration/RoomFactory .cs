@@ -25,7 +25,7 @@ public class RoomFactory : IFactory<RoomSpawnParameters, RoomFacade>
         var instantiatedObject = _container.InstantiatePrefab(roomPrefab);
 
         Transform transform = instantiatedObject.transform;
-        transform.position.Set(param.X, param.X, transform.position.z);
+        transform.SetPositionAndRotation(new Vector3(param.X, param.Y, transform.position.z), transform.rotation);
 
         if(param.IsHorizontal)
         {
