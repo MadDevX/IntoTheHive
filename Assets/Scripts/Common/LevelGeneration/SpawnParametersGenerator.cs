@@ -28,10 +28,9 @@ public class SpawnParametersGenerator
         
         List<RoomSpawnParameters> spawnInfos = new List<RoomSpawnParameters>();
 
-
         CalculateNeighboursPosition(vertices, spawnInfos);
 
-        //Clear (0,0) Rooms - when calculate positions is changed to BFS, all separate rooms will be deleted here
+        //clear(0, 0) rooms - when calculate positions is changed to bfs, all separate rooms will be deleted here
         var first = spawnInfos[0];
         spawnInfos.RemoveAll(info => info.X == 0 && info.Y == 0);
         spawnInfos.Add(first);
@@ -46,15 +45,15 @@ public class SpawnParametersGenerator
     /// <param name="roomSpawnInfo">A list of empty SpawnParameters which will be filled in this method</param>
     private void CalculateNeighboursPosition(List<LevelGraphVertex> vertices, List<RoomSpawnParameters> roomSpawnInfo)
     {
-        bool[] positionSet = new bool[vertices.Count];
+        bool[] visited = new bool[vertices.Count];
         Queue<LevelGraphVertex> queue = new Queue<LevelGraphVertex>();       
-
-        vertices.ForEach(vertex => roomSpawnInfo.Add(new RoomSpawnParameters(0, 0, 0)));
-        queue.Enqueue(vertices[0]);
         
-        // BFS through the level graph
+        vertices.ForEach(vertex => roomSpawnInfo.Add(new RoomSpawnParameters(0, 0, 0)));
+        //BFS through the graph
+        queue.Enqueue(vertices[0]);
+
         while(queue.Count > 0)
-        {
+        {              
             var currentVertex = queue.Dequeue();
             if (currentVertex.ID == 0)
             {
@@ -62,23 +61,23 @@ public class SpawnParametersGenerator
                 roomSpawnInfo[0].Y = 0;
             }
 
-            positionSet[currentVertex.ID] = true;
-
             for (int dir = 0; dir < currentVertex.neighbours.Length; dir++)
             {
                 int neighbourIndex = currentVertex.neighbours[dir];
                 if (neighbourIndex >= 0)
                 {
-                    if(positionSet[neighbourIndex] == false )
+                    if(visited[neighbourIndex] == false )
                     {
                         Setposition(currentVertex.ID , vertices[neighbourIndex], (GraphDirection)dir, roomSpawnInfo);
+                        queue.Enqueue(vertices[neighbourIndex]);
+                        visited[neighbourIndex] = true;
                     }
-                    positionSet[neighbourIndex] = true;
-                    queue.Enqueue(vertices[neighbourIndex]);
+                    
                 }
                 else
                 {
-                    SetDoorPosition(currentVertex.ID, (GraphDirection)dir, roomSpawnInfo);
+                    //TODO MG : Figure out how to set doors properly
+                    //SetDoorPosition(currentVertex.ID, (GraphDirection)dir, roomSpawnInfo);
                 }
             }
         }

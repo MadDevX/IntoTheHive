@@ -19,5 +19,10 @@ public class ProjectNetworkInstaller : MonoInstaller
 
         Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
+
+        //TODO MG : make some mechanic that allows for interscene communication without. Maybe a signal bus?
+        Container.BindInterfacesAndSelfTo<LevelGraphMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LevelGraphState>().AsSingle();
+        Container.BindInterfacesAndSelfTo<BasicLevelGraphGenerator>().AsSingle();
     }
 }

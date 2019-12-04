@@ -27,6 +27,7 @@ public class LevelGraph
         vertex.AddNeighbour(east, GraphDirection.East);
         vertex.AddNeighbour(south, GraphDirection.South);
         nodes.Add(vertex);
+        vertex.ID = nodes.IndexOf(vertex);
     }
 
     public void Reset()

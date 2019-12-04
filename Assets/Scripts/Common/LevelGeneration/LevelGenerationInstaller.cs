@@ -15,10 +15,10 @@ public class LevelGenerationInstaller: MonoInstaller
 
     private void BindComponents()
     {
+        //TODO MG : make some mechanic that allows for interscene communication without. Maybe a signal bus?
+        //Also move classes from ProjectNetworkInstaller here 
         Container.Bind<Rooms>().FromInstance(_rooms).AsSingle();
         Container.BindInterfacesAndSelfTo<LevelSpawner>().AsSingle();
-        Container.BindInterfacesAndSelfTo<LevelGraphState>().AsSingle();
-        Container.BindInterfacesAndSelfTo<BasicLevelGraphGenerator>().AsSingle();
         Container.BindInterfacesAndSelfTo<SpawnParametersGenerator>().AsSingle();
     }
 
@@ -30,6 +30,6 @@ public class LevelGenerationInstaller: MonoInstaller
     private void BindMessaging()
     {
         Container.BindInterfacesAndSelfTo<LevelGraphMessageReceiver>().AsSingle();
-        Container.BindInterfacesAndSelfTo<LevelGraphMessageSender>().AsSingle();
+        
     }
 }
