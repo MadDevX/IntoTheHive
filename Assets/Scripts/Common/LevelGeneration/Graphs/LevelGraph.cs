@@ -19,9 +19,9 @@ public class LevelGraph
         return vertex.ID;
     }
 
-    public void AddVertex(ushort roomid, ushort north, ushort west, ushort east, ushort south)
+    public void AddVertex(short roomid, short north, short west, short east, short south)
     {
-        var vertex = new LevelGraphVertex(roomid);
+        var vertex = new LevelGraphVertex((ushort)roomid);
         vertex.AddNeighbour(north, GraphDirection.North);
         vertex.AddNeighbour(west, GraphDirection.West);
         vertex.AddNeighbour(east, GraphDirection.East);
@@ -48,16 +48,16 @@ public class LevelGraph
         to.AddNeighbour(fromId, reversedDirection);
     }
 
-    public List<ushort> GetSendableFormat()
+    public List<short> GetSendableFormat()
     {
-        List<ushort> data = new List<ushort>();
+        List<short> data = new List<short>();
 
         nodes.ForEach(node =>
         {
-            data.Add(node.RoomId);
+            data.Add((short)node.RoomId);
             for(int i=0; i<node.neighbours.Length; i++)
             {
-                data.Add((ushort)node.neighbours[i]);
+                data.Add((short)node.neighbours[i]);
             }
         });
 
