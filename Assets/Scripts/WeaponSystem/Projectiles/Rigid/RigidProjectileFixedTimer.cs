@@ -20,7 +20,7 @@ public class RigidProjectileFixedTimer : FixedUpdatableObject, IProjectileFixedT
         PreInitialize();
     }
 
-    public void PreInitialize()
+    private void PreInitialize()
     {
         _pipeline.SubscribeToInit(ProjectilePhases.Created, StartTimer);
         _pipeline.SubscribeToInit(ProjectilePhases.Destroyed, StopTimer);

@@ -6,6 +6,7 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
 {
     [SerializeField] private ProjectileFacade _projectilePrefab;
     [SerializeField] private ProjectileFacade _rayProjectilePrefab;
+    [SerializeField] private LineVFX _lineVFX;
 
     public override void InstallBindings()
     {
@@ -17,11 +18,15 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         //    FromSubContainerResolve().
         //    ByNewContextPrefab(_projectilePrefab).
         //    UnderTransformGroup("Projectiles")).When((x) => x.Container == Container);
-        BindMonoPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
-            (Identifiers.Bullet, 10, _projectilePrefab, "Projectiles");
+        BindingCondition bindCond = (x) => x.Container == Container;
+        BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
+            (Identifiers.Bullet, 10, _projectilePrefab, "Projectiles", bindCond);
 
-        BindMonoPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
-            (Identifiers.Ray, 10, _rayProjectilePrefab, "RayProjectiles");
+        BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
+            (Identifiers.Ray, 10, _rayProjectilePrefab, "RayProjectiles", bindCond);
+
+        BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
+            (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
 
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Bullet).To<RigidProjectileMultiFactory>().AsSingle();
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Ray).To<RayProjectileMultiFactory>().AsSingle();
@@ -29,11 +34,12 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
 
 
 
-    private void BindMonoPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, string transformGroupName) 
+    private void BindMonoContextPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, string transformGroupName, BindingCondition cond = null) 
         where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
         where TFactory : PlaceholderFactory<TArgs, T>
         where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
     {
+        var bind =
         Container.BindFactory<TArgs, T, TFactory>().
             WithId(id).
             FromPoolableMemoryPool<TArgs, T, TPool>
@@ -41,10 +47,39 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
             ExpandByDoubling().
             FromSubContainerResolve().
             ByNewContextPrefab(prefab).
-            UnderTransformGroup(transformGroupName)).When((x) => x.Container == Container);
+            UnderTransformGroup(transformGroupName));
+
+        if (cond != null)
+        {
+            bind.When(cond);
+        }
+    }
+
+    private void BindMonoPrefabPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, string transformGroupName, BindingCondition cond = null)
+    where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
+    where TFactory : PlaceholderFactory<TArgs, T>
+    where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
+    {
+        var bind = 
+        Container.BindFactory<TArgs, T, TFactory>().
+            WithId(id).
+            FromPoolableMemoryPool<TArgs, T, TPool>
+            (x => x.WithInitialSize(size).
+            ExpandByDoubling().
+            FromComponentInNewPrefab(prefab).
+            UnderTransformGroup(transformGroupName));
+
+        if (cond != null)
+        {
+            bind.When(cond);
+        }
     }
 
     public class ProjectilePool : MonoPoolableMemoryPool<ProjectileSpawnParameters, IMemoryPool, ProjectileFacade>
+    {
+    }
+
+    public class LineVFXPool : MonoPoolableMemoryPool<LineVFXSpawnParameters, IMemoryPool, LineVFX>
     {
     }
 

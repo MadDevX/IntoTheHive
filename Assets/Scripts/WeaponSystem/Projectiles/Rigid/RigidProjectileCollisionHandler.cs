@@ -19,7 +19,7 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
         PreInitialize();
     }
 
-    public void PreInitialize()
+    private void PreInitialize()
     {
         _relay.OnCollision2DEnterEvt += OnColEnterHandler;
         _relay.OnTrigger2DEnterEvt += OnTriggerEnterHandler;

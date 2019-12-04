@@ -23,6 +23,8 @@ MonoBehaviour:
   _aiTargetScannerSettings:
     scanDelay: 1
     scanRadius: 4
-  _raySettings:
-    baseRange: 5
-    vfxDuration: 0.1
+  _raycasterSettings:
+    baseRange: 0.3
+  _rayVFXSettings:
+    vfxDuration: 0.2
+    widthMult: 0.1

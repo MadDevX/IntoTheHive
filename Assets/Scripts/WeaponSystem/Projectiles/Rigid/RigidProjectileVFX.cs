@@ -17,12 +17,12 @@ public class RigidProjectileVFX : IDisposable
 
     private void PreInitialize()
     {
-        _initializer.OnProjectileInitialized += ClearTrail;
+        _initializer.OnProjectileDefined += ClearTrail;
     }
 
     public void Dispose()
     {
-        _initializer.OnProjectileInitialized -= ClearTrail;
+        _initializer.OnProjectileDefined -= ClearTrail;
     }
 
     private void ClearTrail()

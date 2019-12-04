@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   _rayProjectilePrefab: {fileID: 9012927215289474397, guid: 529800f577f3c2145b7e6803f75ba9d2,
     type: 3}
+  _lineVFX: {fileID: 3453305121713875019, guid: d333a313fd68a4c4db941ab00d8c1684,
+    type: 3}

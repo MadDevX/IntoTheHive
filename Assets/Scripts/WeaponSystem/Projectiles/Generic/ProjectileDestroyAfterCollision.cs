@@ -28,16 +28,16 @@ public class ProjectileDestroyAfterCollision : IDisposable
         PreInitialize();
     }
 
-    public void PreInitialize()
+    private void PreInitialize()
     {
         _collision.OnCollisionEnter += OnCollisionEnter;
-        _initializer.OnProjectileInitialized += ResetCollisions;
+        _initializer.OnProjectileDefined += ResetCollisions;
     }
 
     public void Dispose()
     {
         _collision.OnCollisionEnter -= OnCollisionEnter;
-        _initializer.OnProjectileInitialized -= ResetCollisions;
+        _initializer.OnProjectileDefined -= ResetCollisions;
     }
 
     private void ResetCollisions()

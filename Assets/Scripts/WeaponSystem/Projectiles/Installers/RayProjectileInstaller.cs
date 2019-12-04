@@ -1,18 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class RayProjectileInstaller : MonoBehaviour
+public class RayProjectileInstaller : MonoInstaller
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void InstallBindings()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Container.BindInterfacesAndSelfTo<RayProjectileLocation>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RayProjectileCollisionHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RayProjectilePipelineManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RayProjectileTimers>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RayProjectileVFX>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RayProjectileRaycaster>().AsSingle();
     }
 }

@@ -18,7 +18,7 @@ public class ProjectileModules : IDisposable
         PreInitialize();
     }
 
-    public void PreInitialize()
+    private void PreInitialize()
     {
         _initializer.OnProjectileCreated += ProjectileCreated;
         _initializer.OnProjectileDespawned += ProjectileDespawned;

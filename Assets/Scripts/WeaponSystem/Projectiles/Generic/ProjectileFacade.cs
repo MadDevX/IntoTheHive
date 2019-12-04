@@ -59,30 +59,27 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
 
     public void OnSpawned(ProjectileSpawnParameters parameters, IMemoryPool pool)
     {
-        _pool = pool;
         AttachUpdates();
+        _pool = pool;
         _initializer.CreateProjectile(parameters);
-        Pipeline.SetState(ProjectilePhases.Created, _parameters);
+    }
+    public void Destroy()
+    {
+        if (Pipeline.State != ProjectilePhases.Destroyed)
+        {
+            Dispose();
+        }
     }
 
     public void Dispose()
     {
         DetachUpdates();
+        _initializer.DespawnProjectile();
         _pool.Despawn(this);
-    }
-
-    public void Destroy()
-    {
-        if (Pipeline.State != ProjectilePhases.Destroyed)
-        {
-            Pipeline.SetState(ProjectilePhases.Destroyed, _parameters);
-            Dispose();
-        }
     }
 
     public void OnDespawned()
     {
-        _initializer.DespawnProjectile();
     }
 
 
