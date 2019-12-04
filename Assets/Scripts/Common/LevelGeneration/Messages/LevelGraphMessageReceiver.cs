@@ -37,11 +37,11 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
             _graphState.graph.Reset();
             while(reader.Position < reader.Length)
             {
-                ushort RoomId = reader.ReadUInt16();
-                ushort north = reader.ReadUInt16();
-                ushort west = reader.ReadUInt16();
-                ushort east = reader.ReadUInt16();
-                ushort south = reader.ReadUInt16();
+                short RoomId = reader.ReadInt16();
+                short north = reader.ReadInt16();
+                short west = reader.ReadInt16();
+                short east = reader.ReadInt16();
+                short south = reader.ReadInt16();
                 _graphState.graph.AddVertex(RoomId, north, west, east, south);
             }
         }
