@@ -1,4 +1,5 @@
-﻿using DarkRift;
+﻿using System;
+using DarkRift;
 using DarkRift.Client.Unity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
