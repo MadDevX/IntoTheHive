@@ -20,6 +20,8 @@ public class LevelGenerationInstaller: MonoInstaller
         Container.Bind<Rooms>().FromInstance(_rooms).AsSingle();
         Container.BindInterfacesAndSelfTo<LevelSpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<SpawnParametersGenerator>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameplayInitializer>().AsSingle();
+
     }
 
     private void BindFactory()

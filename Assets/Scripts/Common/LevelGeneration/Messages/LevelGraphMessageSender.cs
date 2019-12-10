@@ -17,7 +17,8 @@ public class LevelGraphMessageSender
         _levelGraphState = levelGraphState;
     }
 
-    public void SendLevelGraph()
+
+    public Message GenerateLevelGraphMessage()
     {
         _graphGenerator.GenerateLevelGraph();
         //TODO MG: add some kind of validation to generated graph
@@ -29,10 +30,7 @@ public class LevelGraphMessageSender
                 writer.Write(rawGraphData[i]);
             }
 
-            using (Message levelGraphMessage = Message.Create(Tags.LevelGraph, writer))
-            {
-                _client.SendMessage(levelGraphMessage, SendMode.Reliable);
-            }
+            return Message.Create(Tags.LevelGraph, writer);            
         }
     }
 }

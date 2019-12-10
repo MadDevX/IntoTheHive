@@ -1,6 +1,4 @@
 ﻿using GameLoop.Internal;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -14,5 +12,7 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<IGameLoop>().FromInstance(_gameLoop).AsSingle();
         Container.Bind<Scenes>().FromInstance(_scenes).AsSingle();
         Container.BindInterfacesAndSelfTo<ScenePostinitializationEvents>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ProjectEventManager>().AsSingle();
+        
     }
 }

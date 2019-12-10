@@ -51,7 +51,7 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
         }
 
         _levelSpawner.GenerateLevel();
-        _sender.SendClientReady(message.Tag);
+        _sender.SendClientReady();
     }
 
 }

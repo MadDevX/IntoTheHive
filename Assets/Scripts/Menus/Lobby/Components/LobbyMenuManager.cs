@@ -11,6 +11,7 @@ using Zenject;
 /// </summary>
 public class LobbyMenuManager: IInitializable, IDisposable
 {
+    private bool _isPlayerReady;
     private Button _startGameButton;
     private Button _readyButton;
     private Button _leaveLobbyButton;
@@ -19,10 +20,9 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
     private LobbyMessageSender _messageSender;
+    private ProjectEventManager _eventManager;
     private LobbyStateManager _lobbyStateManager;
-    private LobbyHostMessageReceiver _hostManager;
-    private NetworkedCharacterSpawner _networkedCharacterSpawner;
-    private SceneMessageWithResponse _sceneChangedWithResponseSender;
+    private SynchronizedSceneManager _synchronizedSceneManager;
 
     public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
@@ -35,9 +35,10 @@ public class LobbyMenuManager: IInitializable, IDisposable
         ClientInfo clientInfo,
         ServerManager serverManager,
         LobbyMessageSender messageSender,
+        ProjectEventManager eventManager,
         LobbyStateManager lobbyStateManager,
         NetworkedCharacterSpawner characterSpawner,
-        SceneMessageWithResponse sceneChangedWithResponseSender
+        SynchronizedSceneManager synchronizedSceneManager
         )
     {
         _readyButton = readyButton;
@@ -46,11 +47,11 @@ public class LobbyMenuManager: IInitializable, IDisposable
 
         _client = client;
         _clientInfo = clientInfo;
+        _eventManager = eventManager;
         _serverManager = serverManager;
         _messageSender = messageSender;
         _lobbyStateManager = lobbyStateManager;
-        _networkedCharacterSpawner = characterSpawner;
-        _sceneChangedWithResponseSender = sceneChangedWithResponseSender;
+        _synchronizedSceneManager = synchronizedSceneManager;
     }
 
     public void Initialize()
@@ -81,9 +82,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     /// </summary>
     public void StartGame()
     {
-        _sceneChangedWithResponseSender.
-            SendSceneChangedWithResponse(3, _networkedCharacterSpawner.InitiateSpawn);
-        Debug.Log("Started The game"); 
+        _synchronizedSceneManager.SendSceneChanged(3, _eventManager.FireGameInitializedHost);
     }
 
     /// <summary>
@@ -91,7 +90,8 @@ public class LobbyMenuManager: IInitializable, IDisposable
     /// </summary>
     public void SetReadyStatus()
     {
-        _messageSender.SendIsPlayerReadyMessage(true);
+        _isPlayerReady = !_isPlayerReady;
+        _messageSender.SendIsPlayerReadyMessage(_isPlayerReady);
     }
 
     public void LeaveLobby()

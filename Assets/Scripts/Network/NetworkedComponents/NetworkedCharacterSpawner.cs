@@ -43,15 +43,6 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         _networkRelay.Unsubscribe(Tags.DespawnCharacter, HandleDespawn);
     }
 
-    public void InitiateSpawn()
-    {
-        Debug.Log("Spawn Initiated");
-
-        //_graphSender.SendLevelGraph();
-        _messageWithResponse.SendMessageWithResponse(Tags.LevelGraph, _graphSender.SendLevelGraph, SpawnAll);
-        //SpawnAll();
-    }
-
     private void HandleDespawn(Message message)
     {
         using (DarkRiftReader reader = message.GetReader())
@@ -83,7 +74,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         }
     }
 
-    private void SpawnAll()
+    public Message GenerateSpawnMessage()
     {
         PrepareSpawnPositions();
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
@@ -93,10 +84,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 writer.Write(playerId);
             }
             
-            using (Message message = Message.Create(Tags.SpawnCharacter, writer))
-            {
-                _client.SendMessage(message,SendMode.Reliable);
-            }
+            return Message.Create(Tags.SpawnCharacter, writer);            
         }
     }
 

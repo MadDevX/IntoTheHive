@@ -13,7 +13,6 @@ using Zenject;
 /// </summary>
 public class GenericMessageWithResponseHost : IInitializable, IDisposable
 {
-    private int _currentTag = -1;
     private event Action Completed;
     private Dictionary<ushort, bool> ReadyPlayers;
     private NetworkRelay _relay;
@@ -47,13 +46,12 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
         _relay.Unsubscribe(Tags.ClientReady, HandleReadyMessage);
     }
 
-    public void SendMessageWithResponse(ushort tag, Action sendMessageMethod, Action actionOnComplete)
+    public void SendMessageWithResponse(Message message, Action actionOnComplete, SendMode sendMode = SendMode.Reliable)
     {
-        Debug.Log("Sent a message with response");
         BuildClientsList();
-        _currentTag = tag;
-        sendMessageMethod.Invoke();
+        ClearEvents();
         Completed += actionOnComplete;
+        _client.SendMessage(message, sendMode);
     }
 
     private void BuildClientsList()
@@ -72,19 +70,17 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
             
             //TODO MG CHECKSIZE
             ushort id = reader.ReadUInt16();
-            ushort messagetag = reader.ReadUInt16();
-            if(messagetag == _currentTag)
+            
+            if (ReadyPlayers.ContainsKey(id))
             {
-                if (ReadyPlayers.ContainsKey(id))
-                {
-                    ReadyPlayers[id] = true;
-                }
-                else
-                {
-                    throw new ArgumentException("Received a message from client not present in the game");
-                }
-                AreAllClientsReady();
+                ReadyPlayers[id] = true;
             }
+            else
+            {
+                Debug.Log(id);
+                throw new ArgumentException("Received a message from client not present in the game");
+            }
+            AreAllClientsReady();
         }
     }
 
@@ -100,17 +96,18 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
         if (allReady && ReadyPlayers.Keys.Count > 0)
         {
             Completed?.Invoke();
-            ClearAfterExecution();
+  
         }
     }
 
-    private void ClearAfterExecution()
+    private void ClearEvents()
     {
-        ReadyPlayers.Clear();
-        _currentTag = -1;
-        foreach (var action in Completed.GetInvocationList())
+        if(Completed != null)
         {
-            Completed -= (Action)action;
+            foreach (var action in Completed.GetInvocationList())
+            {
+                Completed -= (Action)action;
+            }
         }
     }
 }

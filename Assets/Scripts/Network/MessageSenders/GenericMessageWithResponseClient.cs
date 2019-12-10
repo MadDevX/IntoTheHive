@@ -1,5 +1,6 @@
 ﻿using DarkRift;
 using DarkRift.Client.Unity;
+using UnityEngine;
 
 /// <summary>
 /// This is a generic class responsible for answering a message with response if necessary
@@ -15,12 +16,11 @@ public class GenericMessageWithResponseClient
         _client = client;
     }
 
-    public void SendClientReady(ushort tag)
+    public void SendClientReady()
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(_client.ID);
-            writer.Write(tag);
 
             using (Message message = Message.Create(Tags.ClientReady, writer))
             {

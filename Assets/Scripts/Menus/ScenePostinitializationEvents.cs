@@ -9,7 +9,7 @@ using Zenject;
 /// <summary>
 /// This class holds the events that are fired when a corresponding scene is initialized.
 /// </summary>
-public class ScenePostinitializationEvents: IInitializable
+public class ScenePostinitializationEvents
 {
     private Scenes _scenes;
     private Dictionary<int, List<PostInitActionArgument>> _scenePostInitEvents;
@@ -18,10 +18,6 @@ public class ScenePostinitializationEvents: IInitializable
     {
         _scenes = scenes;
         _scenePostInitEvents = new Dictionary<int, List<PostInitActionArgument>>();
-    }
-
-    public void Initialize()
-    {
         InitializeAllScenesLists();
     }
 
