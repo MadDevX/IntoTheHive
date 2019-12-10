@@ -21,4 +21,6 @@
 
     public static readonly ushort RequestSpawn = 15;
     public static readonly ushort LevelGraph = 16;
+
+    public static readonly ushort ClientReady = 17;
 }

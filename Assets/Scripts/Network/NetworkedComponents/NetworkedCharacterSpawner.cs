@@ -9,7 +9,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     private UnityClient _client;
     private NetworkRelay _networkRelay;
     private GlobalHostPlayerManager _globalHostPlayerManager;
-
+    private GenericMessageWithResponseHost _messageWithResponse;
     public event Action<ushort> PlayerDespawned;
     public event Action<CharacterSpawnParameters> PlayerSpawned;
 
@@ -17,12 +17,14 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     private LevelGraphMessageSender _graphSender;
 
     public NetworkedCharacterSpawner(
+        GenericMessageWithResponseHost messageWithResponse,
         GlobalHostPlayerManager globalHostPlayerManager,
         UnityClient client,
         LevelGraphMessageSender sender,
         NetworkRelay networkRelay
         )
     {
+        _messageWithResponse = messageWithResponse;
         _graphSender = sender;
         _globalHostPlayerManager = globalHostPlayerManager;
         _client = client;
@@ -44,7 +46,9 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     public void InitiateSpawn()
     {
         Debug.Log("Spawn Initiated");
-        _graphSender.SendLevelGraph();
+
+        //_graphSender.SendLevelGraph();
+        _messageWithResponse.SendMessageWithResponse(Tags.LevelGraph, _graphSender.SendLevelGraph, SpawnAll);
         //SpawnAll();
     }
 

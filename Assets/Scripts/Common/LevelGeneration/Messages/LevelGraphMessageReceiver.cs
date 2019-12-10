@@ -7,13 +7,17 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
     private NetworkRelay _relay;
     private LevelGraphState _graphState;
     private LevelSpawner _levelSpawner;
+    private GenericMessageWithResponseClient _sender;
+
 
     public LevelGraphMessageReceiver(
         NetworkRelay relay,
         LevelGraphState graphState,
+        GenericMessageWithResponseClient sender,
         LevelSpawner levelSpawner)
     {
         _relay = relay;
+        _sender = sender;
         _levelSpawner = levelSpawner;
         _graphState = graphState;
     }
@@ -47,6 +51,7 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
         }
 
         _levelSpawner.GenerateLevel();
+        _sender.SendClientReady(message.Tag);
     }
 
 }
