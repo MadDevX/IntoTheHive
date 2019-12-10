@@ -20,9 +20,8 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private ClientInfo _clientInfo;
     private ServerManager _serverManager;
     private LobbyMessageSender _messageSender;
-    private ProjectEventManager _eventManager;
     private LobbyStateManager _lobbyStateManager;
-    private SynchronizedSceneManager _synchronizedSceneManager;
+    private HostSceneManager _sceneManager;
 
     public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
@@ -35,11 +34,9 @@ public class LobbyMenuManager: IInitializable, IDisposable
         ClientInfo clientInfo,
         ServerManager serverManager,
         LobbyMessageSender messageSender,
-        ProjectEventManager eventManager,
         LobbyStateManager lobbyStateManager,
-        NetworkedCharacterSpawner characterSpawner,
-        SynchronizedSceneManager synchronizedSceneManager
-        )
+        HostSceneManager sceneManager,
+        NetworkedCharacterSpawner characterSpawner)
     {
         _readyButton = readyButton;
         _leaveLobbyButton = leaveButton;
@@ -47,11 +44,11 @@ public class LobbyMenuManager: IInitializable, IDisposable
 
         _client = client;
         _clientInfo = clientInfo;
-        _eventManager = eventManager;
+        _sceneManager = sceneManager;
         _serverManager = serverManager;
         _messageSender = messageSender;
         _lobbyStateManager = lobbyStateManager;
-        _synchronizedSceneManager = synchronizedSceneManager;
+        
     }
 
     public void Initialize()
@@ -82,7 +79,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     /// </summary>
     public void StartGame()
     {
-        _synchronizedSceneManager.SendSceneChanged(3, _eventManager.FireGameInitializedHost);
+        _sceneManager.LoadNextLevel();
     }
 
     /// <summary>

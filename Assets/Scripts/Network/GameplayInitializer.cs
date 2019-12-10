@@ -38,17 +38,17 @@ public class GameplayInitializer: IInitializable, IDisposable
         _eventManager.GameInitializedHost -= LoadLevel;
     }
 
-    public void LoadLevel()
+    private void LoadLevel()
     {
         _messageWithResponse.SendMessageWithResponse(_graphSender.GenerateLevelGraphMessage(), SpawnPlayers);
     }
 
-    public void SpawnPlayers()
+    private void SpawnPlayers()
     {
         _messageWithResponse.SendMessageWithResponse(_characterSpawner.GenerateSpawnMessage(), BeginGame);
     }
 
-    public void BeginGame()
+    private void BeginGame()
     {
         // Probably something like turning on the players' controls
     }

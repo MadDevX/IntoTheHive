@@ -28,7 +28,7 @@ public class ProjectNetworkInstaller : MonoInstaller
     private void InstallScenesNetworkedManagment()
     {
         // Scenes
-        Container.BindInterfacesAndSelfTo<NetworkedSceneManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<HostSceneManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<SceneMessageReceiver>().AsSingle();
         Container.BindInterfacesAndSelfTo<SceneMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<SynchronizedSceneManager>().AsSingle();
