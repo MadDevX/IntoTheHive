@@ -30,6 +30,12 @@ public class MessageHandler
             if (message.Tag == Tags.SpawnCharacter)
                 _plugin.BroadcastToAllClients(message, e);
 
+            if (message.Tag == Tags.LevelGraph)
+                _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.EndLevelTrigger)
+                _plugin.BroadcastToAllClients(message, e);
+
             if (message.Tag == Tags.UpdateCharacterState)
                 _plugin.BroadcastToOtherClients(message, e);
 
@@ -51,6 +57,9 @@ public class MessageHandler
             if (message.Tag == Tags.SceneReady)
                 _plugin.BroadcastToHost(message, e);
 
+            if (message.Tag == Tags.ClientReady)
+                _plugin.BroadcastToHost(message, e);
+
             if (message.Tag == Tags.LoadLobby)
             {
                 using (DarkRiftReader reader = message.GetReader())
@@ -62,11 +71,8 @@ public class MessageHandler
                 }
             }
 
-            if (message.Tag == Tags.LevelGraph)
-                _plugin.BroadcastToAllClients(message, e);
 
-            if (message.Tag == Tags.ClientReady)
-                _plugin.BroadcastToHost(message, e);
+
         }
     }
 }

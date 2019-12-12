@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 /// <summary>
@@ -40,6 +41,7 @@ public class GameplayInitializer: IInitializable, IDisposable
 
     private void LoadLevel()
     {
+        Debug.Log("Load level initializer");
         _messageWithResponse.SendMessageWithResponse(_graphSender.GenerateLevelGraphMessage(), SpawnPlayers);
     }
 

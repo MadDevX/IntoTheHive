@@ -23,4 +23,7 @@
     public static readonly ushort LevelGraph = 16;
 
     public static readonly ushort ClientReady = 17;
+
+    //Triggers
+    public static readonly ushort EndLevelTrigger = 18;
 }

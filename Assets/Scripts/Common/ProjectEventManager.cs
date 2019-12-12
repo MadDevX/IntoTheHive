@@ -11,6 +11,7 @@ public class ProjectEventManager
 
     public void FireGameInitializedHost()
     {
+        Debug.Log("GameInitialized fired");
         GameInitializedHost?.Invoke();
     }
 }

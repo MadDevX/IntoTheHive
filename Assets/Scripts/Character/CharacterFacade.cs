@@ -8,15 +8,15 @@ public struct CharacterSpawnParameters
     public ushort Id;
     public ushort SenderId;
     public bool IsLocal;
-
+    public CharacterType CharacterType;
     //What additional info should this contain?
 }
 
 public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable
-{
-    
+{    
     private IMemoryPool _pool;
     public ushort Id;
+    public CharacterType CharacterType { get; private set; }
 
     public CharacterFacade()
     {
@@ -37,6 +37,7 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
     public void OnSpawned(CharacterSpawnParameters parameters, IMemoryPool pool)
     {
         Id = parameters.Id;
+        CharacterType = parameters.CharacterType;
         _pool = pool;
     }
 

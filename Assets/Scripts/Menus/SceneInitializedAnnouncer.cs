@@ -9,7 +9,6 @@ public class SceneInitializedAnnouncer: MonoUpdatableObject
     private void Start()
     {
         SceneInitialized?.Invoke();
-        Debug.Log("Scene Initialized");
     }
 
     public override void OnUpdate(float deltaTime)
