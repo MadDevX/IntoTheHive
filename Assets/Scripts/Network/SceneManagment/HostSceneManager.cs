@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿using UnityEngine;
+/// <summary>
 /// In this class synchronized scene changes are stores with their corresponding events so that other classes do not need to know which event to fire.
 /// </summary>
 public class HostSceneManager
@@ -19,6 +20,7 @@ public class HostSceneManager
     /// </summary>
     public void LoadNextLevel()
     {
+        Debug.Log(this.ToString() + ": loading next level");
         _synchronizedSceneManager.SendSceneChanged(3, _eventManager.FireGameInitializedHost);
     }
 

@@ -44,7 +44,7 @@ public class SceneMessageReceiver: IInitializable,IDisposable
             sceneBuildIndex = reader.ReadUInt16();
         }
 
-        var asyncOperation = SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
+        SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using DarkRift;
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -37,6 +38,7 @@ public class SynchronizedSceneManager : IInitializable, IDisposable
     
     public void SendSceneChanged(int buildIndex, Action onComplete)
     {
+        Debug.Log("Send scene changed");
         _messageWithResponseHost.SendMessageWithResponse(PrepareMessage(buildIndex), onComplete);
     }
 

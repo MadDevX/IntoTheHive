@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DarkRift;
+using UnityEngine;
 using Zenject;
 
 //This class stores currently connected clients
@@ -30,6 +31,7 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
 
     private void HandlePlayerJoined(Message message)
     {
+        Debug.Log("Player Joined");
         using (DarkRiftReader reader = message.GetReader())
         {
             ushort clientId;
@@ -40,6 +42,7 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
 
     private void HandlePlayerDisconnected(Message message)
     {
+        Debug.Log("Player disconnected");
         using (DarkRiftReader reader = message.GetReader())
         {
             ushort clientId;
