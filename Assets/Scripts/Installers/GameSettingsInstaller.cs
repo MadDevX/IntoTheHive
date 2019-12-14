@@ -12,6 +12,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private AITargetScanner.Settings _aiTargetScannerSettings;
     [SerializeField] private RayProjectileRaycaster.Settings _raycasterSettings;
     [SerializeField] private RayProjectileVFX.Settings _rayVFXSettings;
+    [SerializeField] private ProjectileDamage.Settings _projectileDamageSettings;
     
     public override void InstallBindings()
     {
@@ -21,5 +22,6 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_aiTargetScannerSettings).AsSingle();
         Container.BindInstance(_raycasterSettings).AsSingle();
         Container.BindInstance(_rayVFXSettings).AsSingle();
+        Container.BindInstance(_projectileDamageSettings).AsSingle();
     }
 }

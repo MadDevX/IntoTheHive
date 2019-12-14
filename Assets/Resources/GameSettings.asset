@@ -28,3 +28,5 @@ MonoBehaviour:
   _rayVFXSettings:
     vfxDuration: 0.2
     widthMult: 0.1
+  _projectileDamageSettings:
+    baseDamage: 10
