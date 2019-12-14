@@ -27,7 +27,7 @@ public class RayProjectileRaycaster: IDisposable
         _velocity = velocity;
         _colHandler = colHandler;
         _settings = settings;
-        _layerMask = Layers.Interactable.ToMask();
+        _layerMask = Layers.Interactable.ToMask() + Layers.Environment.ToMask();
         PreInitialize();
     }
 
@@ -48,6 +48,7 @@ public class RayProjectileRaycaster: IDisposable
         Vector2 lastPos = _position.Position + _velocity.Velocity * _settings.baseRange;
         for(int i = 0; i < hit.Length; i++)
         {
+            //TODO: check bullet state to avoid excess collisions
             _velocity.Velocity = Vector2.Reflect(_velocity.Velocity, hit[i].normal);
             _position.Position = hit[i].point;
             _colHandler.HandleCollision(hit[i].collider);
