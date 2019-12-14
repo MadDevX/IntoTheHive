@@ -40,5 +40,5 @@ MonoBehaviour:
     RotationLerp: 0.01
   _movementManagerSettings:
     LerpFactor: 0.01
-    DistanceToPlayerToStop: 4
-    DistanceToPlayerToStartSlowing: 7
+    DistanceToPlayerToStop: 3
+    DistanceToPlayerToStartSlowing: 3.5
