@@ -31,20 +31,18 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
 
-        BindMonoPrefabPool<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory, CharacterPool>
+        BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.AI, 10, _AIPrefab, "AI");
 
-        BindMonoPrefabPool<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory, CharacterPool>
+        BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.Network, 4, _networkedCharacterPrefab, "Characters");
 
-        BindMonoPrefabPool<CharacterSpawnParameters, CharacterFacade, CharacterFacade.Factory, CharacterPool>
+        BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.Player, 1, _playerPrefab, "Players");
         
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Bullet).To<RigidProjectileMultiFactory>().AsSingle();
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Ray).To<RayProjectileMultiFactory>().AsSingle();
     }
-
-
 
     private void BindMonoContextPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, string transformGroupName, BindingCondition cond = null) 
         where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>

@@ -22,5 +22,4 @@ public class CameraManager
         _cinemachineCamera.Follow = playerCharacterFacade.transform;
     }
 
-
 }

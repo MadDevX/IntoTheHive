@@ -26,7 +26,6 @@ class ConnectionMenuInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ConnectionMenuMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<ConnectionMenuClientMessageReceiver>().AsSingle();
         Container.BindInterfacesAndSelfTo<ConnectionMenuHostMessageReceiver>().AsSingle();
-        Container.BindInterfacesAndSelfTo<NetworkedClientInitializer>().AsSingle();
     }
 }
 

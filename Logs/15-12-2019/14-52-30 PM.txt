@@ -1,0 +1,18 @@
+[Trace]   DarkRiftServer        System Details:
+                                	OS: Microsoft Windows NT 6.1.7601.65536 Service Pack 1
+                                	CLS Version: 4.0.30319.42000
+                                	DarkRift: 2.3.1.0 - Free
+[Trace]   DarkRiftServer        Cache already initialized, cannot update settings.
+[Trace]   PluginFactory         Created plugin 'CommunicationServerPlugin'.
+[Trace]   ExtendedPluginManagerBase Plugin 'CommunicationServerPlugin' has requested that DarkRift operates in thread safe mode.
+[Trace]   DarkRiftServer        Switched into thread safe mode. Expect lower performance!
+[Info]    ExtendedPluginManagerBase Loaded plugin CommunicationServerPlugin version 1.0.0
+[Trace]   PluginFactory         Created plugin 'CompatibilityBichannelListener'.
+[Fatal]   DarkRiftServer        A listener threw an exception while starting, the server can't be started.
+                                 System.Net.Sockets.SocketException (0x80004005): Tylko jedno użycie każdego adresu gniazda (protokół/adres sieciowy/port) jest normalnie dozwolone.
+                                 
+                                   at System.Net.Sockets.Socket.Bind (System.Net.EndPoint localEP) [0x00043] in <735c83e43c004ee998f77c68cf8035da>:0 
+                                   at DarkRift.Server.Plugins.Listeners.Bichannel.BichannelListenerBase.BindSockets () [0x00018] in <c92ea31c79004d8e862085a98c33054e>:0 
+                                   at DarkRift.Server.Plugins.Listeners.Bichannel.CompatibilityBichannelListener.StartListening () [0x00001] in <c92ea31c79004d8e862085a98c33054e>:0 
+                                   at DarkRift.Server.NetworkListenerManager.StartListening () [0x00017] in <c92ea31c79004d8e862085a98c33054e>:0 
+                                   at DarkRift.Server.DarkRiftServer.Start () [0x00002] in <c92ea31c79004d8e862085a98c33054e>:0 
