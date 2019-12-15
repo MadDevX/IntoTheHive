@@ -26,7 +26,8 @@ public class HostSceneManager
 
     public void LoadHub()
     {
-
+        Debug.Log(this.ToString() + ": loading next level");
+        _synchronizedSceneManager.SendSceneChanged(4, _eventManager.FireGameInitializedHost);
     }
 
     public void LoadMenu()

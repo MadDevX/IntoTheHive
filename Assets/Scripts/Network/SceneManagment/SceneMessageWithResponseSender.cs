@@ -63,8 +63,8 @@ public class SynchronizedSceneManager : IInitializable, IDisposable
         }
 
         // Loads a sceme and Sends ClientReady when scene is loaded and properly initialized
-        SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
         _postInitEvents.Subscribe(sceneBuildIndex, _messageWithResponseClient.SendClientReady);
+        SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
 
     }
 }

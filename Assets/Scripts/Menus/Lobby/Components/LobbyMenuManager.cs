@@ -9,7 +9,7 @@ using Zenject;
 /// This class gathers button handlers from Lobby Menu 
 /// It uses networking classes to set player status as ready and start the game
 /// </summary>
-public class LobbyMenuManager : IInitializable, IDisposable
+public class LobbyMenuManager: IInitializable, IDisposable
 {
     private bool _isPlayerReady;
     private Button _startGameButton;
@@ -48,7 +48,7 @@ public class LobbyMenuManager : IInitializable, IDisposable
         _serverManager = serverManager;
         _messageSender = messageSender;
         _lobbyStateManager = lobbyStateManager;
-
+        
     }
 
     public void Initialize()
@@ -72,7 +72,7 @@ public class LobbyMenuManager : IInitializable, IDisposable
         _readyButton.onClick.RemoveListener(SetReadyStatus);
         _leaveLobbyButton.onClick.RemoveListener(LeaveLobby);
         _lobbyStateManager.AllPlayersReadyChanged -= StartGameButtonSetActive;
-    }
+    }  
 
     /// <summary>
     /// Starts the game by sending all players the ChangeScene message and spawning players when all clients are ready.

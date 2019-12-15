@@ -8,8 +8,7 @@ using Zenject;
 class ConnectionMenuInstaller : MonoInstaller
 {
     [SerializeField] private Button _serverButton;
-    [SerializeField] private Button _joinButton;
-    
+    [SerializeField] private Button _joinButton;    
     [SerializeField] private Button _backButton;
     [SerializeField] private InputField _ipAddressInputField;
     [SerializeField] private InputField _portNumberInputField;
@@ -23,6 +22,10 @@ class ConnectionMenuInstaller : MonoInstaller
         Container.BindInstance(_joinButton).WithId(Identifiers.ConnetionMenuJoinServerButton);
 
         Container.BindInterfacesAndSelfTo<ConnectionMenuManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ClientConnectionInitializer>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionMenuMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionMenuClientMessageReceiver>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConnectionMenuHostMessageReceiver>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedClientInitializer>().AsSingle();
     }
 }
