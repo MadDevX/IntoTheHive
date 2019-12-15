@@ -21,5 +21,7 @@ public enum Identifiers
     MainMenuQuitButton,
     LobbyStartGameButton,
     LobbyReadyButton,
-    LobbyLeaveButton
+    LobbyLeaveButton,
+    Health,
+    InventorySlot
 }

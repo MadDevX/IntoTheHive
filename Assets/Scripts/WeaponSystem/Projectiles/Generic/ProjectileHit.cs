@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ProjectileHit : IProjectileHit, IDisposable
 {
-    public event Action<IHealth> OnHit;
+    public event Action<IDamageable> OnHit;
 
     private IProjectileCollision _collision;
 
@@ -27,7 +27,7 @@ public class ProjectileHit : IProjectileHit, IDisposable
 
     private void OnCollisionEnter(Collider2D obj)
     {
-        var health = obj.GetComponent<IHealth>();
+        var health = obj.GetComponent<IDamageable>();
 
         if (health != null)
         {

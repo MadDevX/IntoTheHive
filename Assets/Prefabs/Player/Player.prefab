@@ -163,6 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e17da3861f7fc4b8674f6702874ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemsToInitialize:
+  - {fileID: 11400000, guid: da27c2b1ca8e73d45bf669afe520266e, type: 2}
+  - {fileID: 11400000, guid: e821b207daabd1845b6ab41e9bb7cb8f, type: 2}
+  - {fileID: 11400000, guid: 7f497e762c17d50498213a55a8ff93bd, type: 2}
   Id: 0
 --- !u!114 &-6508435617645927799
 MonoBehaviour:

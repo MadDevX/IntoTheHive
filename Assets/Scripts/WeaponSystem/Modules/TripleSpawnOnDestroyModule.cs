@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -7,43 +8,34 @@ public class TripleSpawnOnDestroyModule : BaseModule
 {
     public override int Priority => 1;
 
-    private float _spreadAngle = 30.0f;
+    public override short Id => 1;
+
+    private float _spreadAngle = 10.0f;
     private IFactory<ProjectileSpawnParameters, IProjectile[]> _factory;
+
+    public TripleSpawnOnDestroyModule()
+    {
+        _factory = null;
+    }
 
     public TripleSpawnOnDestroyModule(IFactory<ProjectileSpawnParameters, IProjectile[]> factory)
     {
         _factory = factory;
     }
 
-    public override bool AttachToWeapon(IWeapon weapon)
+    protected override void OnAttach()
     {
-        if (base.AttachToWeapon(weapon))
+        if(_factory == null)
         {
-            if (_factory == null)
-            {
-                _factory = weapon.Factory;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
+            _factory = _weapon.Factory;
         }
     }
 
-    public override bool DetachFromWeapon(IWeapon weapon)
+    protected override void OnDetach()
     {
-        if (base.DetachFromWeapon(weapon))
+        if(_factory == _weapon.Factory)
         {
-            if (_factory == weapon.Factory)
-            {
-                _factory = null;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
+            _factory = null;
         }
     }
 
@@ -68,5 +60,24 @@ public class TripleSpawnOnDestroyModule : BaseModule
         _factory.Create(spawnParam);
         spawnParam.rotation = baseRotation - _spreadAngle;
         _factory.Create(spawnParam);
+    }
+
+    public override IModule Clone()
+    {
+        if (_weapon == null)
+        {
+            if (_factory == null)
+            {
+                return new TripleSpawnOnDestroyModule();
+            }
+            else
+            {
+                return new TripleSpawnOnDestroyModule(_factory);
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException("Tried to clone attached module. This must not be done outside ModuleDictionary class");
+        }
     }
 }

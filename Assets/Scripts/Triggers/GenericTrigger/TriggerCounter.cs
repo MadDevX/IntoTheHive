@@ -51,7 +51,7 @@ public class HostTriggerCounter: IInitializable, IDisposable
     private void HandleTriggerEnter(Collider2D obj)
     {
         var playerFacade = obj.GetComponent<CharacterFacade>();
-        if(playerFacade.CharacterType == CharacterType.Player)
+        if(playerFacade != null && playerFacade.CharacterType == CharacterType.Player)
         {
             _counter++;
             Debug.Log(_counter);
@@ -70,7 +70,7 @@ public class HostTriggerCounter: IInitializable, IDisposable
     private void HandleTriggerExit(Collider2D obj)
     {
         var playerFacade = obj.GetComponent<CharacterFacade>();
-        if (playerFacade.CharacterType == CharacterType.Player)
+        if (playerFacade!= null && playerFacade.CharacterType == CharacterType.Player)
         {
             Debug.Log(_counter);
             _counter--;

@@ -1,5 +1,6 @@
 ﻿using GameLoop;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -15,23 +16,37 @@ public struct CharacterSpawnParameters
     //What additional info should this contain?
 }
 
-public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable, IDamageable
-{    
+public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable, IHealth
+{
+    //TODO: remove this
+    public List<ItemData> itemsToInitialize;
+
+
+    public event Action<float> OnDamageTaken;
+    public event Action OnDeath;
+
     public ushort Id;
     public CharacterType CharacterType { get; private set; }
 
+    public float MaxHealth => _health.MaxHealth;
+    public float Health => _health.Health;
+
+    public IItemContainer Inventory { get; private set; }
+    public IWeapon Weapon { get; private set; }
+
     private IMemoryPool _pool;
     private IHealth _health;
+    private IRespawner _respawner;
+    private ItemFactory _factory;
 
-    //[Inject]
-    //public void Construct(IHealth health)
-    //{
-    //    _health = health;
-    //}
-
-    public CharacterFacade()
+    [Inject]
+    public void Construct(IHealth health, IRespawner respawner, IItemContainer itemContainer, IWeapon weapon, ItemFactory factory)
     {
-        // To be filled
+        _health = health;
+        _respawner = respawner;
+        Inventory = itemContainer;
+        Weapon = weapon;
+        _factory = factory;
     }
 
     public void Dispose()
@@ -43,14 +58,23 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
     public void OnDespawned()
     {
         _pool = null;
+        _respawner.Despawn();
     }
 
     public void OnSpawned(CharacterSpawnParameters parameters, IMemoryPool pool)
     {
         Id = parameters.Id;
         CharacterType = parameters.CharacterType;
-        _health = parameters.health;
+        //_health = parameters.health; TODO: read health data from spawn parameters
         _pool = pool;
+        _respawner.Spawn(parameters);
+
+
+        foreach (var item in itemsToInitialize)
+        {
+            var instance = item.CreateItem(_factory);
+            Inventory.AddItem(instance);
+        }
     }
 
     public override void OnUpdate(float deltaTime)
@@ -59,6 +83,7 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
 
     public float TakeDamage(float amount)
     {
+        OnDamageTaken?.Invoke(amount);
         return _health.TakeDamage(amount);
     }
 

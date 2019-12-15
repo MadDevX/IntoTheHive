@@ -8,7 +8,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
 {
     [SerializeField] private CharacterMovement.Settings _charMovementSettings;
     [SerializeField] private CharacterShooting.Settings _charShootingSettings;
-    [SerializeField] private PlaceholderWeapon.Settings _placeholderWeaponSettings;
+    [SerializeField] private Weapon.Settings _placeholderWeaponSettings;
     [SerializeField] private AITargetScanner.Settings _aiTargetScannerSettings;
     [SerializeField] private RayProjectileRaycaster.Settings _raycasterSettings;
     [SerializeField] private RayProjectileVFX.Settings _rayVFXSettings;
@@ -20,6 +20,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private MovementManager.Settings _movementManagerSettings;
     [SerializeField] private InputMessageSender.Settings _inputSenderSettings;
     [SerializeField] private SpawnParametersGenerator.Settings _roomSpawnSettings;
+    [SerializeField] private CharacterHealth.Settings _characterHealthSettings;
 
     public override void InstallBindings()
     {
@@ -37,5 +38,6 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_aiShootOnTimerSettings).AsSingle();
         Container.BindInstance(_directionManagerSettings).AsSingle();
         Container.BindInstance(_movementManagerSettings).AsSingle();
+        Container.BindInstance(_characterHealthSettings).AsSingle();
     }
 }

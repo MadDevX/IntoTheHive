@@ -15,5 +15,6 @@ public class PlayerInstaller : MonoInstaller
     private void InstallPlayer()
     {
         Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerRegistryTracker>().AsSingle();
     }
 }

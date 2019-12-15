@@ -13,6 +13,6 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<Scenes>().FromInstance(_scenes).AsSingle();
         Container.BindInterfacesAndSelfTo<ScenePostinitializationEvents>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectEventManager>().AsSingle();
-        
+        Container.BindInterfacesAndSelfTo<PlayerRegistry>().AsSingle();
     }
 }
