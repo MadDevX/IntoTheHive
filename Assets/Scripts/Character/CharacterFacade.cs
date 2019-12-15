@@ -9,21 +9,23 @@ public struct CharacterSpawnParameters
     public ushort SenderId;
     public bool IsLocal;
     public CharacterType CharacterType;
+    public IHealth health;
     //What additional info should this contain?
 }
 
 public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable, IDamageable
 {    
-    private IMemoryPool _pool;
     public ushort Id;
     public CharacterType CharacterType { get; private set; }
+
+    private IMemoryPool _pool;
     private IHealth _health;
 
-    [Inject]
-    public void Construct(IHealth health)
-    {
-        _health = health;
-    }
+    //[Inject]
+    //public void Construct(IHealth health)
+    //{
+    //    _health = health;
+    //}
 
     public CharacterFacade()
     {
@@ -45,6 +47,7 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
     {
         Id = parameters.Id;
         CharacterType = parameters.CharacterType;
+        _health = parameters.health;
         _pool = pool;
     }
 

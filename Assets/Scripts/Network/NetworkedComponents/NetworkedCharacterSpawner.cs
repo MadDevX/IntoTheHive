@@ -69,6 +69,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 // spawnParameters.SenderId = TODO MG
                 spawnParameters.SenderId = id;
                 spawnParameters.IsLocal = isLocal;
+                spawnParameters.health = new CharacterHealth();
                 PlayerSpawned?.Invoke(spawnParameters);
             }
         }

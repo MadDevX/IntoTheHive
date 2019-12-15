@@ -8,10 +8,9 @@ public class CharacterSpawner : IInitializable, IDisposable
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
     private CharacterFacade.Factory _AIfactory;
-    private Projectile.Factory _projectileFactory;
+    //private Projectile.Factory _projectileFactory;
     private CameraManager _cameraManager;
     private NetworkedCharacterSpawner _networkedCharacterSpawner;
-
     private Dictionary<ushort, CharacterFacade> _characters;
 
     [Inject]
@@ -20,11 +19,11 @@ public class CharacterSpawner : IInitializable, IDisposable
         [Inject(Id = Identifiers.AI)] CharacterFacade.Factory AIFactory,
         [Inject(Id = Identifiers.Player)] CharacterFacade.Factory playerFactory,
         NetworkedCharacterSpawner networkedCharacterSpawner,
-        CameraManager cameraManager,
-        Projectile.Factory projectileFactory
+        CameraManager cameraManager
+        //Projectile.Factory projectileFactory
         )
     {
-        _projectileFactory = projectileFactory;
+        //_projectileFactory = projectileFactory;
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _AIfactory = AIFactory;
@@ -32,7 +31,6 @@ public class CharacterSpawner : IInitializable, IDisposable
         _cameraManager = cameraManager;
         _networkedCharacterSpawner = networkedCharacterSpawner;
         _characters = new Dictionary<ushort, CharacterFacade>();
-
     }
 
 

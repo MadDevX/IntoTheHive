@@ -22,17 +22,5 @@ MonoBehaviour:
     type: 3}
   _networkedCharacterPrefab: {fileID: 959658805932920713, guid: 2aaf74e4e0ab1c747aece132ade4e8d0,
     type: 3}
-  _AIPrefab: {fileID: 3652549698571164043, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
-    type: 3}
-  _playerPrefab: {fileID: 562093153655815228, guid: 7b7f08a6d435ee34f8e0afcc075925fe,
-    type: 3}
-  _networkedCharacterPrefab: {fileID: 959658805932920713, guid: 2aaf74e4e0ab1c747aece132ade4e8d0,
-    type: 3}
-  _AIPrefab: {fileID: 3652549698571164043, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
-    type: 3}
-  _playerPrefab: {fileID: 562093153655815228, guid: 7b7f08a6d435ee34f8e0afcc075925fe,
-    type: 3}
-  _networkedCharacterPrefab: {fileID: 959658805932920713, guid: 2aaf74e4e0ab1c747aece132ade4e8d0,
-    type: 3}
-  _AIPrefab: {fileID: 3652549698571164043, guid: cdbe9b7a0b23b8a449c7270a4c5cd9cb,
+  _AIPrefab: {fileID: 7211818929575144110, guid: 346a77ae78559104ba41f7e1b8c80d0c,
     type: 3}

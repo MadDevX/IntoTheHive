@@ -39,7 +39,6 @@ public class ProjectileDamage : IDisposable
         health.TakeDamage(Damage);
     }
 
-
     [System.Serializable]
     public class Settings
     {
