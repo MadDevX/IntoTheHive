@@ -9,7 +9,7 @@ public class SpawnParametersGenerator
 {
     private Settings _settings;
     private LevelGraphState _levelGraphState;
-
+    
     public SpawnParametersGenerator(
         LevelGraphState levelGraphState,
         Settings settings)
@@ -22,20 +22,18 @@ public class SpawnParametersGenerator
     /// Translates levelGraph contained in LevelGraphState to a list of RoomSpawnParameters.
     /// </summary>
     /// <returns>List of RoomSpawnParameters with complete information to spawn the level</returns>
-    public List<RoomSpawnParameters> TranslateLevelGraph()
+    public LevelSpawnParameters TranslateLevelGraph()
     {
         var vertices = _levelGraphState.graph.nodes;
-        
-        List<RoomSpawnParameters> spawnInfos = new List<RoomSpawnParameters>();
-
-        CalculateNeighboursPosition(vertices, spawnInfos);
+        LevelSpawnParameters levelSpawnParameters = new LevelSpawnParameters();
+        CalculateNeighboursPosition(vertices, levelSpawnParameters.spawnInfos, levelSpawnParameters.doorSpawnInfos);
 
         //clear(0, 0) rooms - when calculate positions is changed to bfs, all separate rooms will be deleted here
-        var first = spawnInfos[0];
-        spawnInfos.RemoveAll(info => info.X == 0 && info.Y == 0);
-        spawnInfos.Add(first);
+        var first = levelSpawnParameters.spawnInfos[0];
+        levelSpawnParameters.spawnInfos.RemoveAll(info => info.X == 0 && info.Y == 0);
+        levelSpawnParameters.spawnInfos.Add(first);
 
-        return spawnInfos;
+        return levelSpawnParameters;
     }
 
     /// <summary>
@@ -43,7 +41,7 @@ public class SpawnParametersGenerator
     /// </summary>
     /// <param name="vertices">A list of LevelGraph vertices</param>
     /// <param name="roomSpawnInfo">A list of empty SpawnParameters which will be filled in this method</param>
-    private void CalculateNeighboursPosition(List<LevelGraphVertex> vertices, List<RoomSpawnParameters> roomSpawnInfo)
+    private void CalculateNeighboursPosition(List<LevelGraphVertex> vertices, List<RoomSpawnParameters> roomSpawnInfo, List<RoomSpawnParameters> doorSpawnInfo)
     {
         bool[] visited = new bool[vertices.Count];
         Queue<LevelGraphVertex> queue = new Queue<LevelGraphVertex>();       
@@ -76,8 +74,7 @@ public class SpawnParametersGenerator
                 }
                 else
                 {
-                    //TODO MG : Figure out how to set doors properly
-                    //SetDoorPosition(currentVertex.ID, (GraphDirection)dir, roomSpawnInfo);
+                    SetDoorPosition(currentVertex.ID, (GraphDirection)dir, roomSpawnInfo);
                 }
             }
         }
@@ -120,35 +117,37 @@ public class SpawnParametersGenerator
     /// </summary>
     /// <param name="vertexIndex"> Index of current vertex</param>
     /// <param name="direction"> Direction in which the neighbouring vertex lies in reference to current vertex </param>
-    /// <param name="roomSpawnInfo">List of RoomSpawnParameters</param>
-    private void SetDoorPosition(int vertexIndex, GraphDirection direction, List<RoomSpawnParameters> roomSpawnInfo)
+    /// <param name="doorSpawnInfo">List of RoomSpawnParameters</param>
+    private void SetDoorPosition(int vertexIndex, GraphDirection direction, List<RoomSpawnParameters> doorSpawnInfo)
     {
         float X = 0, Y = 0;
         bool isHorizontal = true;
         switch (direction)
         {
             case GraphDirection.North:
-                X = roomSpawnInfo[vertexIndex].X;
-                Y = roomSpawnInfo[vertexIndex].Y + _settings.roomSize / 2;
+                X = doorSpawnInfo[vertexIndex].X;
+                Y = doorSpawnInfo[vertexIndex].Y + _settings.roomSize / 2;
+                isHorizontal = false;
                 break;
             case GraphDirection.South:
-                X = roomSpawnInfo[vertexIndex].X;
-                Y = roomSpawnInfo[vertexIndex].Y - _settings.roomSize / 2;
+                X = doorSpawnInfo[vertexIndex].X;
+                Y = doorSpawnInfo[vertexIndex].Y - _settings.roomSize / 2;
+                isHorizontal = false;
                 break;
             case GraphDirection.East:
-                X = roomSpawnInfo[vertexIndex].X + _settings.roomSize / 2;
-                Y = roomSpawnInfo[vertexIndex].Y;
-                isHorizontal = false;
+                X = doorSpawnInfo[vertexIndex].X + _settings.roomSize / 2;
+                Y = doorSpawnInfo[vertexIndex].Y;
+                isHorizontal = true;
                 break;
             case GraphDirection.West:
-                X = roomSpawnInfo[vertexIndex].X - _settings.roomSize / 2;
-                Y = roomSpawnInfo[vertexIndex].Y;
-                isHorizontal = false;
+                X = doorSpawnInfo[vertexIndex].X - _settings.roomSize / 2;
+                Y = doorSpawnInfo[vertexIndex].Y;
+                isHorizontal = true;
                 break;
         }
 
         //TODO MG: DELETE THIS HARDCODED DOOR "ROOMID" AND MAKE A BETTER SOLUTION FOR THIS
-        roomSpawnInfo.Add(new RoomSpawnParameters(X, Y, 1, isHorizontal));
+        doorSpawnInfo.Add(new RoomSpawnParameters(X, Y, 1, isHorizontal));
     }
 
     [System.Serializable]

@@ -21,10 +21,16 @@ public class LevelSpawner
     {        
         var spawnInfo = _levelGraphTranslator.TranslateLevelGraph();
         
-        foreach(RoomSpawnParameters spawnParameters in spawnInfo)
+        foreach(RoomSpawnParameters spawnParameters in spawnInfo.spawnInfos)
         {
             _levelRoomFactory.Create(spawnParameters);
         }
+
+        foreach(RoomSpawnParameters spawnParameters in spawnInfo.doorSpawnInfos)
+        {
+            _levelRoomFactory.Create(spawnParameters);
+        }
+
     }
     
 }
