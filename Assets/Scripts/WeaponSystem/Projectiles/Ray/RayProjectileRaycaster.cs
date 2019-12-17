@@ -65,6 +65,7 @@ public class RayProjectileRaycaster: IDisposable
             _colHandler.HandleCollision(hit[i].collider);
             lastPos = hit[i].point;
         }
+        _position.Position = lastPos;
         if (_pipeline.State != ProjectilePhases.Destroyed) _facade.Destroy(); //Destroy ray even if it did not hit anything
         OnRayExecuted?.Invoke(startPos, lastPos);
     }
