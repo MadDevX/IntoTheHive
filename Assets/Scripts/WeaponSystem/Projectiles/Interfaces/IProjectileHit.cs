@@ -2,5 +2,5 @@
 
 public interface IProjectileHit
 {
-    event Action<IHealth> OnHit;
+    event Action<IDamageable> OnHit;
 }

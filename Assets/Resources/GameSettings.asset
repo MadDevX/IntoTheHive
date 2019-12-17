@@ -22,12 +22,6 @@ MonoBehaviour:
   _placeholderWeaponSettings:
     velocity: 15
     timeToLive: 2
-  _inputSenderSettings:
-    moveEps: 0.001
-    rotationEps: 0.1
-  _roomSpawnSettings:
-    roomSize: 8
-    timeToLive: 4
   _aiTargetScannerSettings:
     scanDelay: 1
     scanRadius: 4
@@ -50,3 +44,10 @@ MonoBehaviour:
     LerpFactor: 0.01
     DistanceToPlayerToStop: 3
     DistanceToPlayerToStartSlowing: 3.5
+  _inputSenderSettings:
+    moveEps: 0.001
+    rotationEps: 0.1
+  _roomSpawnSettings:
+    roomSize: 8
+  _characterHealthSettings:
+    maxHealth: 100

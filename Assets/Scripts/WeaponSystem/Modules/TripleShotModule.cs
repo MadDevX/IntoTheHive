@@ -6,33 +6,25 @@ using Zenject;
 public class TripleShot : BaseModule
 {
     public override int Priority => 0;
+
+    public override short Id => 0;
+
     private Factory _factory = new Factory();
 
-    public override bool AttachToWeapon(IWeapon weapon)
+    protected override void OnAttach()
     {
-        if (base.AttachToWeapon(weapon))
-        {
-            _factory.DecoratedFactory = weapon.Factory;
-            weapon.Factory = _factory;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _factory.DecoratedFactory = _weapon.Factory;
+        _weapon.Factory = _factory;
     }
 
-    public override bool DetachFromWeapon(IWeapon weapon)
+    protected override void OnDetach()
     {
-        if (base.DetachFromWeapon(weapon))
-        {
-            weapon.Factory = _factory.DecoratedFactory;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _weapon.Factory = _factory.DecoratedFactory;
+    }
+
+    public override IModule Clone()
+    {
+        return new TripleShot();
     }
 
     public class Factory : IFactory<ProjectileSpawnParameters, IProjectile[]>

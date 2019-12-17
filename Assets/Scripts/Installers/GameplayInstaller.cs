@@ -19,12 +19,19 @@ public class GameplayInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
         InstallInitializationHandling();
+        InstallItems();
     }
 
     private void InstallInitializationHandling()
     {
         Container.BindInstance(_announcer).AsSingle();
         Container.BindInterfacesAndSelfTo<SceneInitializedBaseHandler>().AsSingle();
+    }
+
+    private void InstallItems()
+    {
+        Container.BindInterfacesAndSelfTo<ModuleFactory>().AsSingle().When(x => x.Container == Container);
+        Container.BindInterfacesAndSelfTo<ItemFactory>().AsSingle();
     }
 
 }

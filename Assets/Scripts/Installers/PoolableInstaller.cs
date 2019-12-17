@@ -31,6 +31,8 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
 
+
+        //TODO: all characters should be marked as context prefab
         BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.AI, 10, _AIPrefab, "AI");
 
@@ -58,6 +60,27 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
             FromSubContainerResolve().
             ByNewContextPrefab(prefab).
             UnderTransformGroup(transformGroupName));
+
+        if (cond != null)
+        {
+            bind.When(cond);
+        }
+    }
+
+    private void BindMonoContextPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, Transform parentTransform, BindingCondition cond = null)
+    where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
+    where TFactory : PlaceholderFactory<TArgs, T>
+    where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
+    {
+        var bind =
+        Container.BindFactory<TArgs, T, TFactory>().
+            WithId(id).
+            FromPoolableMemoryPool<TArgs, T, TPool>
+            (x => x.WithInitialSize(size).
+            ExpandByDoubling().
+            FromSubContainerResolve().
+            ByNewContextPrefab(prefab).
+            UnderTransform(parentTransform));
 
         if (cond != null)
         {

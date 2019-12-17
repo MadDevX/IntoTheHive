@@ -6,6 +6,8 @@ public class SineTravelModule : BaseModule
 {
     public override int Priority => 1;
 
+    public override short Id => 2;
+
     private static float _offset = 2.0f / 3.0f;
     public override void DecorateProjectile(IProjectile projectile)
     {
@@ -21,5 +23,10 @@ public class SineTravelModule : BaseModule
     private void OnFixedUpdate(IProjectile projectile, float deltaTime)
     {
         projectile.Velocity = projectile.Velocity.Rotate(-Mathf.Sin(projectile.FixedTravelTime * 50.0f + Mathf.PI * _offset) * 45.0f);
+    }
+
+    public override IModule Clone()
+    {
+        return new SineTravelModule();
     }
 }
