@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+/// Manages doors as level graph edges. Capable of adding and removing them while spawning doors.
+/// </summary>
 public class DoorManager
 {   
     private LevelSpawnParameters _levelSpawnParameters;
@@ -20,6 +23,9 @@ public class DoorManager
         _levelGraphState = levelGraphState;
     }
 
+    /// <summary>
+    /// Initializes edges list, fills it and spawns all existing edges as doors.
+    /// </summary>
     public void PrepareEdges()
     {
         //Initialize a list of edges for each present node
@@ -31,11 +37,19 @@ public class DoorManager
         _levelGraphState.graph.nodes.ForEach(node => CloseAllDoorsInRoom(node));
     }
 
+    /// <summary>
+    /// Removes all edges originating from the room and despawns doors.
+    /// </summary>
+    /// <param name="id">Id of the room</param>
     public void OpenAllDoorsInRoom(int id)
     {
         OpenAllDoorsInRoom(_levelGraphState.graph.nodes.Find(node => node.ID == id));
     }
 
+    /// <summary>
+    /// Removes all edges originating from the room and despawns doors.
+    /// </summary>
+    /// <param name="node">Node which represents the room</param>
     public void OpenAllDoorsInRoom(LevelGraphVertex node)
     {
         for (int i = 0; i < node.neighbours.Length; i++)
@@ -50,11 +64,19 @@ public class DoorManager
         }
     }
 
+    /// <summary>
+    /// Add all possible edges where the room has a neighbour and spawns the doors.
+    /// </summary>
+    /// <param name="id">Id of the room</param>
     public void CloseAllDoorsInRoom(int id)
     {
         CloseAllDoorsInRoom(_levelGraphState.graph.nodes.Find(node => node.ID == id));
     }
 
+    /// <summary>
+    /// Add all possible edges where the room has a neighbour and spawns the doors.
+    /// </summary>
+    /// <param name="node">Node which represents the room</param>
     public void CloseAllDoorsInRoom(LevelGraphVertex node)
     {
         // check which doors are closed and 
@@ -90,11 +112,23 @@ public class DoorManager
         }
     }
 
+    /// <summary>
+    /// Returns whether an edge between the two rooms exists.
+    /// </summary>
+    /// <param name="from">One of the room's id</param>
+    /// <param name="to">The other room's id</param>
+    /// <returns></returns>
     public bool Exists(int from, int to)
     {
         return GetEdge(from, to).facade != null;
     }
 
+    /// <summary>
+    /// Add an edge to the graph and spawn a door.
+    /// </summary>
+    /// <param name="from">One of the room's id</param>
+    /// <param name="to">The other room's id</param>
+    /// <param name="isHorizontal"> Whether th connection between rooms is horizontal or not</param>
     public void AddEdge(int from, int to, bool isHorizontal)
     {
         if(from > to)
@@ -128,6 +162,11 @@ public class DoorManager
         }
     }
 
+    /// <summary>
+    /// Deletes an edge and despawns corresponding door.
+    /// </summary>
+    /// <param name="from">One of the room's id</param>
+    /// <param name="to">The other room's id</param>
     public void DeleteEdge(int from, int to)
     {
         if(from > to)
