@@ -32,6 +32,8 @@ public class RoomFactory : IFactory<RoomSpawnParameters, RoomFacade>
             transform.Rotate(0, 0, 90);   
         }
 
-        return instantiatedObject.GetComponent<RoomFacade>();
+        var facade = instantiatedObject.GetComponent<RoomFacade>();
+        facade.ID = param.ID;
+        return facade;
     }
 }

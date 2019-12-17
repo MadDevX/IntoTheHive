@@ -819,6 +819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rooms: {fileID: 11400000, guid: 9943a219b0d6d8144b497210b1389db7, type: 2}
   _triggers: {fileID: 11400000, guid: 28efcee49643d6c4b8902edb355a5da4, type: 2}
+  _doors: {fileID: 11400000, guid: b2736a2ba93e5614791f75d22e2e7cae, type: 2}
 --- !u!1 &2110054448
 GameObject:
   m_ObjectHideFlags: 3
