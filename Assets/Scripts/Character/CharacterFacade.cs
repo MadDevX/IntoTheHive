@@ -83,8 +83,9 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
 
     public float TakeDamage(float amount)
     {
+        var ret = _health.TakeDamage(amount);
         OnDamageTaken?.Invoke(amount);
-        return _health.TakeDamage(amount);
+        return ret;
     }
 
     public class Factory: PlaceholderFactory<CharacterSpawnParameters, CharacterFacade>
