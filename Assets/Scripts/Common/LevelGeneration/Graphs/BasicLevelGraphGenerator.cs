@@ -14,6 +14,9 @@ public class BasicLevelGraphGenerator : IGraphGenerable
     {
         LevelGraph graph = _levelGraph.graph;
 
+        graph.TriggerId = 0;
+        graph.EndLevelRoomId = 5;
+
         graph.AddVertex(0);
         graph.AddVertex(0);
         graph.AddVertex(0);

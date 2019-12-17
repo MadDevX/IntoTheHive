@@ -9,7 +9,6 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
     private LevelSpawner _levelSpawner;
     private GenericMessageWithResponseClient _sender;
 
-
     public LevelGraphMessageReceiver(
         NetworkRelay relay,
         LevelGraphState graphState,
@@ -37,9 +36,11 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
         using (DarkRiftReader reader = message.GetReader())
         {
             //TODO MG CHECKSIZE
-
             _graphState.graph.Reset();
-            while(reader.Position < reader.Length)
+            
+            _graphState.graph.TriggerId = reader.ReadUInt16();
+            _graphState.graph.EndLevelRoomId = reader.ReadUInt16();
+            while (reader.Position < reader.Length)
             {
                 short RoomId = reader.ReadInt16();
                 short north = reader.ReadInt16();

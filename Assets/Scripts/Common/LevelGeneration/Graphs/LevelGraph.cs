@@ -5,6 +5,8 @@
 public class LevelGraph
 {
     public List<LevelGraphVertex> nodes;
+    public int EndLevelRoomId { get; set; } = -1;
+    public int TriggerId { get; set; } = -1;
 
     public LevelGraph()
     {
@@ -33,6 +35,8 @@ public class LevelGraph
     public void Reset()
     {
         nodes.Clear();
+        EndLevelRoomId = -1;
+        TriggerId = -1;
     }
 
     public void RemoveVertex(int Id)

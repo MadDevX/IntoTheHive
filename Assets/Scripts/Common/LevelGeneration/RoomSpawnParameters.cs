@@ -4,6 +4,15 @@
 /// </summary>
 public class RoomSpawnParameters
 {
+    public RoomSpawnParameters(int id, float X, float Y, ushort roomId, bool isHorizontal = true)
+    {
+        this.ID = id;
+        this.X = X;
+        this.Y = Y;
+        RoomId = roomId;
+        IsHorizontal = isHorizontal;
+    }
+
     public RoomSpawnParameters(float X, float Y, ushort roomId, bool isHorizontal = true)
     {
         this.X = X;
@@ -11,7 +20,8 @@ public class RoomSpawnParameters
         RoomId = roomId;
         IsHorizontal = isHorizontal;
     }
-    
+
+    public int ID { get; set; }
     public float X { get; set; }
     public float Y { get; set; }
     public bool IsHorizontal;

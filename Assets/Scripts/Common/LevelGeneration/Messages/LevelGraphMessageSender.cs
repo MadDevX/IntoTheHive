@@ -17,14 +17,16 @@ public class LevelGraphMessageSender
         _levelGraphState = levelGraphState;
     }
 
-
     public Message GenerateLevelGraphMessage()
     {
         _graphGenerator.GenerateLevelGraph();
-        //TODO MG: add some kind of validation to generated graph
+        //TODO MG: add some kind of validation to generated graph        
         var rawGraphData = _levelGraphState.graph.GetSendableFormat();
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
+            writer.Write((ushort)_levelGraphState.graph.TriggerId);
+            writer.Write((ushort)_levelGraphState.graph.EndLevelRoomId);
+
             for (int i = 0; i < rawGraphData.Count; i++)
             {
                 writer.Write(rawGraphData[i]);
