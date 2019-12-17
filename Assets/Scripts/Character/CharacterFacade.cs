@@ -16,11 +16,10 @@ public struct CharacterSpawnParameters
     //What additional info should this contain?
 }
 
-public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable, IHealth
+public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable, IHealth
 {
     //TODO: remove this
     public List<ItemData> itemsToInitialize;
-
 
     public event Action<float> OnDamageTaken;
     public event Action OnDeath;
@@ -75,10 +74,6 @@ public class CharacterFacade: MonoUpdatableObject, IPoolable<CharacterSpawnParam
             var instance = item.CreateItem(_factory);
             Inventory.AddItem(instance);
         }
-    }
-
-    public override void OnUpdate(float deltaTime)
-    {
     }
 
     public float TakeDamage(float amount)
