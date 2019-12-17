@@ -7,15 +7,13 @@ public class InventoryWindow : MonoBehaviour
 {
     private PlayerRegistry _registry;
     private InventorySlot.Factory _slotFactory;
-    private ItemFactory _itemFactory;
     private List<InventorySlot> _slots = new List<InventorySlot>();
 
     [Inject]
-    public void Construct(PlayerRegistry registry, [Inject(Id = Identifiers.InventorySlot)] InventorySlot.Factory slotFactory, ItemFactory itemFactory)
+    public void Construct(PlayerRegistry registry, [Inject(Id = Identifiers.InventorySlot)] InventorySlot.Factory slotFactory)
     {
         _registry = registry;
         _slotFactory = slotFactory;
-        _itemFactory = itemFactory;
     }
 
     private void OnEnable()
