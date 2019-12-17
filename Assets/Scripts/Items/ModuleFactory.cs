@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class ModuleFactory
 {
-    private Dictionary<int, BaseModule> _modules;
+    private Dictionary<short, BaseModule> _modules;
 
     public ModuleFactory()
     {
         InitDictionary();
     }
 
-    public IModule Create(int id)
+    public IModule Create(short id)
     {
         if(_modules.TryGetValue(id, out var module))
         {
@@ -28,7 +28,7 @@ public class ModuleFactory
 
     private void InitDictionary()
     {
-        _modules = new Dictionary<int, BaseModule>();
+        _modules = new Dictionary<short, BaseModule>();
         Debug.Log("Initializing module dictionary");
         foreach (Type t in this.GetType().Assembly.GetTypes())
         {
