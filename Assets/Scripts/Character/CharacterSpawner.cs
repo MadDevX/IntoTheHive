@@ -61,13 +61,22 @@ public class CharacterSpawner : IInitializable, IDisposable
             {
                 CharacterFacade characterFacade = _playerFactory.Create(spawnParameters);
                 _cameraManager.SetCameraToPlayerCharacter(characterFacade);
+                
+                Transform transform = characterFacade.transform;
+                transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
+
                 _characters.Add(clientID, characterFacade);
             }
             else
             {
                 CharacterFacade characterFacade = _networkFactory.Create(spawnParameters);
+
+                Transform transform = characterFacade.transform;
+                transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
+
                 _characters.Add(clientID, characterFacade);
             }
+            
         }
     }
 
@@ -84,8 +93,6 @@ public class CharacterSpawner : IInitializable, IDisposable
             CharacterFacade AICharacterFacade = _AIfactory.Create(spawnParameters);
             _characters.Add(clientID, AICharacterFacade);
         }
-
-        
     }
 
     public void Despawn(ushort clientID)

@@ -1,6 +1,7 @@
 ﻿using DarkRift;
 using DarkRift.Client.Unity;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -61,11 +62,15 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
             while (reader.Position < reader.Length)
             {
                 ushort id = reader.ReadUInt16();
+                float X = reader.ReadSingle();
+                float Y = reader.ReadSingle();
                 bool isLocal = (id == _client.ID);
                 // Replace with id == _client.ID
 
                 CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
                 spawnParameters.Id = id;
+                spawnParameters.X = X;
+                spawnParameters.Y = Y;
                 // spawnParameters.SenderId = TODO MG
                 spawnParameters.SenderId = id;
                 spawnParameters.IsLocal = isLocal;
@@ -77,21 +82,60 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
 
     public Message GenerateSpawnMessage()
     {
-        PrepareSpawnPositions();
+        var list = PrepareSpawnPositions();
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
-            foreach (ushort playerId in _globalHostPlayerManager.ConnectedPlayers)
+            foreach (PlayerSpawnData spawnData in list)
             {
-                writer.Write(playerId);
+                writer.Write(spawnData.Id);
+                writer.Write(spawnData.X);
+                writer.Write(spawnData.Y);
             }
             
             return Message.Create(Tags.SpawnCharacter, writer);            
         }
     }
 
-    private void PrepareSpawnPositions()
+    private List<PlayerSpawnData> PrepareSpawnPositions()
     {
-        //throw new NotImplementedException();
+
+        //TODO MG: REMOVE ASAP: implement other method of determining positions.
+        List<PlayerSpawnData> spawnPosisionsList = new List<PlayerSpawnData>();
+        if (_globalHostPlayerManager.ConnectedPlayers.Count >= 1)
+        {
+            var spawnData = new PlayerSpawnData();
+            spawnData.Id = _globalHostPlayerManager.ConnectedPlayers[0];
+            spawnData.X = 0.5f;
+            spawnData.Y = 0.5f;
+            spawnPosisionsList.Add(spawnData);
+        }
+        if (_globalHostPlayerManager.ConnectedPlayers.Count >= 2)
+        {
+            var spawnData = new PlayerSpawnData();
+            spawnData.Id = _globalHostPlayerManager.ConnectedPlayers[1];
+            spawnData.X = -0.5f;
+            spawnData.Y = 0.5f;
+            spawnPosisionsList.Add(spawnData);
+        }
+        if (_globalHostPlayerManager.ConnectedPlayers.Count >= 3)
+        {
+            var spawnData = new PlayerSpawnData();
+            spawnData.Id = _globalHostPlayerManager.ConnectedPlayers[2];
+            spawnData.X = 0.5f;
+            spawnData.Y = -0.5f;
+            spawnPosisionsList.Add(spawnData);
+        }
+        if (_globalHostPlayerManager.ConnectedPlayers.Count >= 4)
+        {
+            var spawnData = new PlayerSpawnData();
+            spawnData.Id = _globalHostPlayerManager.ConnectedPlayers[3];
+            spawnData.X = -0.5f;
+            spawnData.Y = -0.5f;
+            spawnPosisionsList.Add(spawnData);
+        }
+
+        return spawnPosisionsList;
     }
+
 
 }
