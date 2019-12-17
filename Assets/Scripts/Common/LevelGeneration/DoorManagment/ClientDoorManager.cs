@@ -1,14 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DarkRift;
+using DarkRift.Client.Unity;
+using UnityEngine;
+using Zenject;
 
-namespace Assets.Scripts.DoorManagment
+/// <summary>
+/// Receives messages from hostDoorManager and calls functions from door manager.
+/// </summary>
+public class ClientDoorManager: IInitializable, IDisposable
 {
-    class ClientDoorManager
-    {
+    private NetworkRelay _networkRelay;
+    private DoorManager _doorManager;
+    private GenericMessageWithResponseClient _sender;
 
-        //receives messages from hostDoorManager and calls functions from door manager
+    public ClientDoorManager(
+        NetworkRelay relay,
+        DoorManager doorManager,
+        GenericMessageWithResponseClient sender)
+    {
+        _networkRelay = relay;
+        _doorManager = doorManager;
+        _sender = sender;
     }
+
+    public void Initialize()
+    {
+        _networkRelay.Subscribe(Tags.OpenDoorsMessage, HandleOpenDoors);
+        _networkRelay.Subscribe(Tags.CloseDoorsMessage, HandleCloseDoors);
+    }
+
+    public void Dispose()
+    {
+        _networkRelay.Unsubscribe(Tags.OpenDoorsMessage, HandleOpenDoors);
+        _networkRelay.Unsubscribe(Tags.CloseDoorsMessage, HandleCloseDoors);
+    }
+
+    private void HandleCloseDoors(Message message)
+    {        
+        using(DarkRiftReader reader = message.GetReader())
+        {
+            //TODO MG CHECKSIZE
+            ushort roomId = reader.ReadUInt16();
+            _doorManager.CloseAllDoorsInRoom(roomId);
+            _sender.SendClientReady();
+        }
+    }
+
+    private void HandleOpenDoors(Message message)
+    {
+        Debug.Log("DOORS ARE OPENING");
+        using (DarkRiftReader reader = message.GetReader())
+        {
+            //TODO MG CHECKSIZE
+            ushort roomId = reader.ReadUInt16();
+            _doorManager.OpenAllDoorsInRoom(roomId);
+            _sender.SendClientReady();
+        }
+    }
+
 }

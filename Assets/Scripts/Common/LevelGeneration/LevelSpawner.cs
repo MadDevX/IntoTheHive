@@ -58,8 +58,8 @@ public class LevelSpawner
         
         _doorManager.PrepareEdges();
         // open spawn roomso that players can exit
-        _doorManager.OpenAllDoorsInRoom(0);
-        _doorManager.OpenAllDoorsInRoom(2);
+        //_doorManager.OpenAllDoorsInRoom(0);
+        //_doorManager.OpenAllDoorsInRoom(2);
     }
     
 }

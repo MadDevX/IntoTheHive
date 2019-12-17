@@ -46,11 +46,12 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
         _relay.Unsubscribe(Tags.ClientReady, HandleReadyMessage);
     }
 
-    public void SendMessageWithResponse(Message message, Action actionOnComplete, SendMode sendMode = SendMode.Reliable)
+    public void SendMessageWithResponse(Message message, Action actionOnComplete = null, SendMode sendMode = SendMode.Reliable)
     {
         BuildClientsList();
         ClearEvents();
-        Completed += actionOnComplete;
+        if(actionOnComplete != null)
+            Completed += actionOnComplete;        
         _client.SendMessage(message, sendMode);
     }
 

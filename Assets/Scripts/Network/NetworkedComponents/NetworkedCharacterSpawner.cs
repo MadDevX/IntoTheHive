@@ -7,29 +7,25 @@ using Zenject;
 
 public class NetworkedCharacterSpawner: IInitializable, IDisposable
 {
-    private UnityClient _client;
-    private NetworkRelay _networkRelay;
-    private GlobalHostPlayerManager _globalHostPlayerManager;
-    private GenericMessageWithResponseHost _messageWithResponse;
     public event Action<ushort> PlayerDespawned;
     public event Action<CharacterSpawnParameters> PlayerSpawned;
 
-
-    private LevelGraphMessageSender _graphSender;
+    private GenericMessageWithResponseClient _messageWithResponse;
+    private GlobalHostPlayerManager _globalHostPlayerManager;
+    private NetworkRelay _networkRelay;
+    private UnityClient _client;
 
     public NetworkedCharacterSpawner(
-        GenericMessageWithResponseHost messageWithResponse,
+        GenericMessageWithResponseClient messageWithResponse,
         GlobalHostPlayerManager globalHostPlayerManager,
-        UnityClient client,
-        LevelGraphMessageSender sender,
-        NetworkRelay networkRelay
+        NetworkRelay networkRelay,
+        UnityClient client
         )
     {
-        _messageWithResponse = messageWithResponse;
-        _graphSender = sender;
         _globalHostPlayerManager = globalHostPlayerManager;
-        _client = client;
+        _messageWithResponse = messageWithResponse;
         _networkRelay = networkRelay;
+        _client = client;
     }
 
     public void Initialize()
@@ -75,7 +71,9 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 spawnParameters.SenderId = id;
                 spawnParameters.IsLocal = isLocal;
                 spawnParameters.health = null;
+                //TODO MG: REVESRE DEPENDENCY - call create from character spawner
                 PlayerSpawned?.Invoke(spawnParameters);
+                _messageWithResponse.SendClientReady();
             }
         }
     }

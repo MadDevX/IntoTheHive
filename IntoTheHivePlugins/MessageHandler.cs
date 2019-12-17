@@ -36,6 +36,12 @@ public class MessageHandler
             if (message.Tag == Tags.EndLevelTrigger)
                 _plugin.BroadcastToAllClients(message, e);
 
+            if (message.Tag == Tags.CloseDoorsMessage)
+                _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.OpenDoorsMessage)
+                _plugin.BroadcastToAllClients(message, e);
+
             if (message.Tag == Tags.UpdateCharacterState)
                 _plugin.BroadcastToOtherClients(message, e);
 
@@ -71,7 +77,7 @@ public class MessageHandler
                 }
             }
 
-
+            
 
         }
     }

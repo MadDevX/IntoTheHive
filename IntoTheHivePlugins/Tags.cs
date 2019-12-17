@@ -26,4 +26,7 @@
 
     //Triggers
     public static readonly ushort EndLevelTrigger = 18;
+
+    public static readonly ushort OpenDoorsMessage = 19;
+    public static readonly ushort CloseDoorsMessage = 20;
 }

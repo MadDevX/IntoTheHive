@@ -44,6 +44,7 @@ public class LevelGenerationInstaller: MonoInstaller
     private void BindMessaging()
     {
         Container.BindInterfacesAndSelfTo<LevelGraphMessageReceiver>().AsSingle();
-        
+        Container.BindInterfacesAndSelfTo<HostDoorManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ClientDoorManager>().AsSingle();
     }
 }

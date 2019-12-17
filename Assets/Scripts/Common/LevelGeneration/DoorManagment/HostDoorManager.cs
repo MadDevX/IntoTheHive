@@ -1,15 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Scripts.DoorManagment
-{
-    class HostDoorManager
+﻿using DarkRift;
+using UnityEngine;
+/// <summary>
+/// Sends messages which will be handled by ClientDoorManager
+/// </summary>
+public class HostDoorManager
+{    
+    public Message PrepareOpenDoorsMessage(ushort roomId)
     {
-        
-        //Sends messages which will be handled by 
-        // OpenAllDoorsInRoom  method in door manage
+        Debug.Log("PreparedOpenDoorsMessage");
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(roomId);
+            return Message.Create(Tags.OpenDoorsMessage, writer);
+        }
+    }
+
+    public Message PrepareCloseDoorsMessage(ushort roomId)
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(roomId);
+            return Message.Create(Tags.CloseDoorsMessage, writer);
+        }
     }
 }

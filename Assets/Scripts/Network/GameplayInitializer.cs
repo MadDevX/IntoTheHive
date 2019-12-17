@@ -10,23 +10,25 @@ using Zenject;
 /// </summary>
 public class GameplayInitializer: IInitializable, IDisposable
 {
-
     private GenericMessageWithResponseHost _messageWithResponse;
     private NetworkedCharacterSpawner _characterSpawner;
     private LevelGraphMessageSender _graphSender;
     private ProjectEventManager _eventManager;
+    private HostDoorManager _hostDoorManager;
 
     public GameplayInitializer(
         GenericMessageWithResponseHost messageWithResponse,
         NetworkedCharacterSpawner characterSpawner,
         LevelGraphMessageSender graphSender,
-        ProjectEventManager eventManager
+        ProjectEventManager eventManager,
+        HostDoorManager hostDoorManager
         )
     {
         _messageWithResponse = messageWithResponse;
         _characterSpawner = characterSpawner;
         _graphSender = graphSender;
         _eventManager = eventManager;
+        _hostDoorManager = hostDoorManager;
     }
 
     public void Initialize()
@@ -42,16 +44,24 @@ public class GameplayInitializer: IInitializable, IDisposable
     private void LoadLevel()
     {
         Debug.Log("Load level initializer");
-        _messageWithResponse.SendMessageWithResponse(_graphSender.GenerateLevelGraphMessage(), SpawnPlayers);
+        _messageWithResponse.SendMessageWithResponse(_graphSender.GenerateLevelGraphMessage(), OpenSpawnRoom);
+    }
+
+    private void OpenSpawnRoom()
+    {
+        Debug.Log("OpenSpawn room");
+        _messageWithResponse.SendMessageWithResponse(_hostDoorManager.PrepareOpenDoorsMessage(0), SpawnPlayers);
     }
 
     private void SpawnPlayers()
     {
+        //TODO MG: SpawnCharacter does not reply to this message with response
+        Debug.Log("Spawn Players");
         _messageWithResponse.SendMessageWithResponse(_characterSpawner.GenerateSpawnMessage(), BeginGame);
-    }
+    }    
 
     private void BeginGame()
     {
-        // Probably something like turning on the players' controls
+
     }
 }
