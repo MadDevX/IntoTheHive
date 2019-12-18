@@ -2,6 +2,7 @@
 using DarkRift.Client.Unity;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 public class NetworkedAISpawner : IInitializable, IDisposable
@@ -46,7 +47,7 @@ public class NetworkedAISpawner : IInitializable, IDisposable
     }
 
     private void HandleSpawn(Message message)
-    {  
+    {   
         using (DarkRiftReader reader = message.GetReader())
         {
             //TODO MG CHECKSIZE
@@ -86,7 +87,7 @@ public class NetworkedAISpawner : IInitializable, IDisposable
                 writer.Write(spawnData.Y);
             }
             
-            return Message.Create(Tags.SpawnCharacter, writer);            
+            return Message.Create(Tags.SpawnAI, writer);            
         }
     }   
 
