@@ -45,6 +45,9 @@ public class MessageHandler
             if (message.Tag == Tags.UpdateCharacterState)
                 _plugin.BroadcastToOtherClients(message, e);
 
+            if (message.Tag == Tags.WeaponChanged)
+                _plugin.BroadcastToOtherClients(message, e);
+
             if (message.Tag == Tags.UpdateCharacterEquipment)
                 _plugin.BroadcastToOtherClients(message, e);
 

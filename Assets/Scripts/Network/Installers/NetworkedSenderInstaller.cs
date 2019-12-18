@@ -9,5 +9,6 @@ public class NetworkedSenderInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<InputMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedPositionUpdater>().AsSingle();
         Container.BindInterfacesAndSelfTo<EquipmentMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<WeaponChangedMessageSender>().AsSingle();
     }
 }

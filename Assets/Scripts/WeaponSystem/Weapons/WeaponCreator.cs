@@ -6,7 +6,7 @@ public class WeaponCreator
 {
     private ModuleFactory _factory;
 
-    private List<IModule> _holdingList;
+    private List<IModule> _holdingList = new List<IModule>();
     public WeaponCreator(ModuleFactory factory)
     {
         _factory = factory;

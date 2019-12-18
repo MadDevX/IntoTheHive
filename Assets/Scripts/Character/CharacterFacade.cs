@@ -9,7 +9,7 @@ public struct CharacterSpawnParameters
     public ushort Id;
     public float X;
     public float Y;
-    public ushort SenderId;
+    public ushort playerId;
     public bool IsLocal;
     public CharacterType CharacterType;
     public IHealth health;

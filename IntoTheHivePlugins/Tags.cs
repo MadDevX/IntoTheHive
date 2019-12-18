@@ -29,4 +29,8 @@
 
     public static readonly ushort OpenDoorsMessage = 19;
     public static readonly ushort CloseDoorsMessage = 20;
+
+    public static readonly ushort WeaponChanged = 21;
+
+
 }

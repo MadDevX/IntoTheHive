@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DarkRift.Client.Unity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,7 @@ public class CharacterSpawner : IInitializable, IDisposable
     private CameraManager _cameraManager;
     private NetworkedCharacterSpawner _networkedCharacterSpawner;
     private Dictionary<ushort, CharacterFacade> _characters;
+    private UnityClient _unityClient;
 
     [Inject]
     public void Construct(
@@ -19,7 +21,8 @@ public class CharacterSpawner : IInitializable, IDisposable
         [Inject(Id = Identifiers.AI)] CharacterFacade.Factory AIFactory,
         [Inject(Id = Identifiers.Player)] CharacterFacade.Factory playerFactory,
         NetworkedCharacterSpawner networkedCharacterSpawner,
-        CameraManager cameraManager
+        CameraManager cameraManager,
+        UnityClient unityClient
         //Projectile.Factory projectileFactory
         )
     {
@@ -27,6 +30,7 @@ public class CharacterSpawner : IInitializable, IDisposable
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _AIfactory = AIFactory;
+        _unityClient = unityClient;
 
         _cameraManager = cameraManager;
         _networkedCharacterSpawner = networkedCharacterSpawner;
@@ -49,9 +53,9 @@ public class CharacterSpawner : IInitializable, IDisposable
     //isLocal corresponds to whether the client to be spawned is Local or not
     public void Spawn(CharacterSpawnParameters spawnParameters)
     {
-        ushort clientID = spawnParameters.SenderId;
+        ushort playerId = spawnParameters.playerId;
         bool isLocal = spawnParameters.IsLocal;
-        if (_characters.ContainsKey(clientID) == false)
+        if (_characters.ContainsKey(playerId) == false)
         {
             // TODO MG : Generate Spawn coordinates 
             // Should the position be generated on the server or by the client?
@@ -59,22 +63,24 @@ public class CharacterSpawner : IInitializable, IDisposable
 
             if (isLocal)
             {
+                // Player character
                 CharacterFacade characterFacade = _playerFactory.Create(spawnParameters);
-                _cameraManager.SetCameraToPlayerCharacter(characterFacade);
+                characterFacade.Id = _unityClient.ID;
                 
+                _cameraManager.SetCameraToPlayerCharacter(characterFacade);
                 Transform transform = characterFacade.transform;
                 transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
-
-                _characters.Add(clientID, characterFacade);
+                _characters.Add(playerId, characterFacade);
             }
             else
             {
+                // Networked character character
                 CharacterFacade characterFacade = _networkFactory.Create(spawnParameters);
-
+                characterFacade.Id = playerId;
                 Transform transform = characterFacade.transform;
                 transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
 
-                _characters.Add(clientID, characterFacade);
+                _characters.Add(playerId, characterFacade);
             }
             
         }
@@ -82,7 +88,7 @@ public class CharacterSpawner : IInitializable, IDisposable
 
     public void SpawnAI(CharacterSpawnParameters spawnParameters)
     {
-        ushort clientID = spawnParameters.SenderId;
+        ushort clientID = spawnParameters.playerId;
         bool isLocal = spawnParameters.IsLocal;
         if (_characters.ContainsKey(clientID) == false)
         {
@@ -91,8 +97,14 @@ public class CharacterSpawner : IInitializable, IDisposable
             // (Probably server, he can ensure that all characters do not collide)
 
             CharacterFacade AICharacterFacade = _AIfactory.Create(spawnParameters);
+            GenerateID();
             _characters.Add(clientID, AICharacterFacade);
         }
+    }
+
+    private void GenerateID()
+    {
+        throw new NotImplementedException();
     }
 
     public void Despawn(ushort clientID)

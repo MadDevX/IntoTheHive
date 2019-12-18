@@ -68,7 +68,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 spawnParameters.X = X;
                 spawnParameters.Y = Y;
                 // spawnParameters.SenderId = TODO MG
-                spawnParameters.SenderId = id;
+                spawnParameters.playerId = id;
                 spawnParameters.IsLocal = isLocal;
                 spawnParameters.health = null;
                 //TODO MG: REVESRE DEPENDENCY - call create from character spawner
