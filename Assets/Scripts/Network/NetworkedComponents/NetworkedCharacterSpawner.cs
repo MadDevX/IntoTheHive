@@ -2,7 +2,6 @@
 using DarkRift.Client.Unity;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 public class NetworkedCharacterSpawner: IInitializable, IDisposable
@@ -12,18 +11,21 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
 
     private GenericMessageWithResponseClient _messageWithResponse;
     private GlobalHostPlayerManager _globalHostPlayerManager;
+    private CharacterSpawner _characterSpawner;
     private NetworkRelay _networkRelay;
     private UnityClient _client;
 
     public NetworkedCharacterSpawner(
         GenericMessageWithResponseClient messageWithResponse,
         GlobalHostPlayerManager globalHostPlayerManager,
+        CharacterSpawner characterSpawner,
         NetworkRelay networkRelay,
         UnityClient client
         )
     {
         _globalHostPlayerManager = globalHostPlayerManager;
         _messageWithResponse = messageWithResponse;
+        _characterSpawner = characterSpawner;
         _networkRelay = networkRelay;
         _client = client;
     }
@@ -46,7 +48,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         {
             //TODO MG CHECKSIZE
             ushort clientID = reader.ReadUInt16();
-            PlayerDespawned?.Invoke(clientID);
+            _characterSpawner.Despawn(clientID);
         }
     }
 
@@ -61,18 +63,15 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 float X = reader.ReadSingle();
                 float Y = reader.ReadSingle();
                 bool isLocal = (id == _client.ID);
-                // Replace with id == _client.ID
 
                 CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
                 spawnParameters.Id = id;
                 spawnParameters.X = X;
                 spawnParameters.Y = Y;
-                // spawnParameters.SenderId = TODO MG
                 spawnParameters.playerId = id;
                 spawnParameters.IsLocal = isLocal;
                 spawnParameters.health = null;
-                //TODO MG: REVESRE DEPENDENCY - call create from character spawner
-                PlayerSpawned?.Invoke(spawnParameters);
+                _characterSpawner.Spawn(spawnParameters);
                 _messageWithResponse.SendClientReady();
             }
         }
