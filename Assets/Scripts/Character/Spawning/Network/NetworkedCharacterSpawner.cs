@@ -90,6 +90,16 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         }
     }
 
+    public Message GenerateDespawnMessage(ushort playerID)
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(playerID);
+
+            return Message.Create(Tags.DespawnCharacter, writer);
+        }
+    }
+
     private List<PlayerSpawnData> PrepareSpawnPositions()
     {
 

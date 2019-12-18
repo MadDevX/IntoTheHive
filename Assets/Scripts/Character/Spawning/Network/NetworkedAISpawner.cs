@@ -90,6 +90,16 @@ public class NetworkedAISpawner : IInitializable, IDisposable
         }
     }   
 
+    public Message GenerateDespawnMessage(ushort playerID)
+    {
+        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+        {
+            writer.Write(playerID);
+
+            return Message.Create(Tags.DespawnAI, writer);
+        }
+    }
+
     private List<PlayerSpawnData> PrepareSpawnPositions(float X, float Y)
     {
         //TODO MG: REMOVE ASAP: implement other method of determining positions.
