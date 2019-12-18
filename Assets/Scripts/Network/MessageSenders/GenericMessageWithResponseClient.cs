@@ -8,7 +8,6 @@ using UnityEngine;
 public class GenericMessageWithResponseClient
 {
     private UnityClient _client;
-
     public GenericMessageWithResponseClient(
         UnityClient client
         )

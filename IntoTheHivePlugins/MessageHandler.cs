@@ -15,6 +15,7 @@ public class MessageHandler
     {
         using (Message message = e.GetMessage())
         {
+            #region all clients
             if (message.Tag == Tags.ChangeScene)
                 _plugin.BroadcastToAllClients(message, e);
 
@@ -41,6 +42,14 @@ public class MessageHandler
 
             if (message.Tag == Tags.OpenDoorsMessage)
                 _plugin.BroadcastToAllClients(message, e);
+            #endregion
+
+            #region other clients
+            if (message.Tag == Tags.SpawnAI)
+                _plugin.BroadcastToOtherClients(message, e);
+
+            if (message.Tag == Tags.DespawnAI)
+                _plugin.BroadcastToOtherClients(message, e);
 
             if (message.Tag == Tags.UpdateCharacterState)
                 _plugin.BroadcastToOtherClients(message, e);
@@ -53,8 +62,10 @@ public class MessageHandler
 
             if (message.Tag == Tags.DespawnCharacter)
                 _plugin.BroadcastToOtherClients(message, e);
+            #endregion
 
-            if(message.Tag == Tags.PlayerJoined)
+            #region host only
+            if (message.Tag == Tags.PlayerJoined)
                 _plugin.BroadcastToHost(message, e);
 
             if (message.Tag == Tags.IsPlayerReady)
@@ -68,7 +79,7 @@ public class MessageHandler
 
             if (message.Tag == Tags.ClientReady)
                 _plugin.BroadcastToHost(message, e);
-
+            #endregion
             if (message.Tag == Tags.LoadLobby)
             {
                 using (DarkRiftReader reader = message.GetReader())

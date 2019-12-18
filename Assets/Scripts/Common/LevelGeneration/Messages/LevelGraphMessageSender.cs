@@ -2,17 +2,14 @@
 using DarkRift.Client.Unity;
 
 public class LevelGraphMessageSender
-{
-    private UnityClient _client;
+{   
     private LevelGraphState _levelGraphState;
     private IGraphGenerable _graphGenerator;
 
     public LevelGraphMessageSender(
         LevelGraphState levelGraphState,
-        IGraphGenerable graphGenerator,
-        UnityClient client)
+        IGraphGenerable graphGenerator)
     {
-        _client = client;
         _graphGenerator = graphGenerator;
         _levelGraphState = levelGraphState;
     }

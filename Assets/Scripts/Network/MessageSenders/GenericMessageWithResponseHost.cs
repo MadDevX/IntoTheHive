@@ -18,8 +18,6 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
     private NetworkRelay _relay;
     private UnityClient _client;
     private GlobalHostPlayerManager _playerManager;
-    private ScenePostinitializationEvents _postInitEvents;
-    private SceneMessageSender _messageSender;
 
     public GenericMessageWithResponseHost(
         NetworkRelay relay,
@@ -31,9 +29,7 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
         ReadyPlayers = new Dictionary<ushort, bool>();
         _relay = relay;
         _client = client;
-        _messageSender = sender;
         _playerManager = playerManager;
-        _postInitEvents = postInitEvents;
     }
 
     public void Initialize()

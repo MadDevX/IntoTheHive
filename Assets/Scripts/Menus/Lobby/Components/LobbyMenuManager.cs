@@ -35,8 +35,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
         ServerManager serverManager,
         LobbyMessageSender messageSender,
         LobbyStateManager lobbyStateManager,
-        HostSceneManager sceneManager,
-        NetworkedCharacterSpawner characterSpawner)
+        HostSceneManager sceneManager)
     {
         _readyButton = readyButton;
         _leaveLobbyButton = leaveButton;

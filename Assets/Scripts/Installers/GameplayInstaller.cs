@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using DarkRift.Client.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,19 +14,31 @@ public class GameplayInstaller : MonoInstaller
 
 
     public override void InstallBindings()
+    {       
+        InstallCameras();
+        InstallInitializationHandling();
+        InstallSpawning();
+        InstallItems();
+    }
+
+    private void InstallCameras()
     {
         Container.Bind<Camera>().FromInstance(_mainCamera).AsSingle();
         Container.Bind<CinemachineVirtualCamera>().FromInstance(_virtualCamera).AsSingle();
         Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
-        Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
-        InstallInitializationHandling();
-        InstallItems();
     }
 
     private void InstallInitializationHandling()
     {
         Container.BindInstance(_announcer).AsSingle();
         Container.BindInterfacesAndSelfTo<SceneInitializedBaseHandler>().AsSingle();
+    }
+    private void InstallSpawning()
+    {
+        Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterAISpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<NetworkedAISpawner>().AsSingle();
     }
 
     private void InstallItems()

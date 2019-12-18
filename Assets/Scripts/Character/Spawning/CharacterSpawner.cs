@@ -8,7 +8,6 @@ public class CharacterSpawner
 {
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
-    private CharacterFacade.Factory _AIfactory;
     private CameraManager _cameraManager;
     private Dictionary<ushort, CharacterFacade> _characters;
     private UnityClient _unityClient;
@@ -24,7 +23,6 @@ public class CharacterSpawner
     {
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
-        _AIfactory = AIFactory;
         _unityClient = unityClient;
         _cameraManager = cameraManager;
         _characters = new Dictionary<ushort, CharacterFacade>();
@@ -53,8 +51,7 @@ public class CharacterSpawner
             {
                 // Networked character 
                 characterFacade = _networkFactory.Create(spawnParameters);
-                characterFacade.Id = playerId;
-                
+                characterFacade.Id = playerId;   
             }
 
             // Put the character on spawn position
@@ -64,24 +61,10 @@ public class CharacterSpawner
         }
     }
 
-    public void SpawnAI(CharacterSpawnParameters spawnParameters)
-    {
-        ushort clientID = spawnParameters.playerId;
-        bool isLocal = spawnParameters.IsLocal;
-        if (_characters.ContainsKey(clientID) == false)
-        {            
-            CharacterFacade AICharacterFacade = _AIfactory.Create(spawnParameters);
-            GenerateID();
-            _characters.Add(clientID, AICharacterFacade);
-        }
-    }
-
-    private ushort GenerateID()
-    {
-        //TODO MG move this to a class which has SpawnAISendFuncionality
-        throw new NotImplementedException();
-    }
-
+    /// <summary>
+    /// Despawns a character
+    /// </summary>
+    /// <param name="clientID"></param>
     public void Despawn(ushort clientID)
     {
         if (_characters.ContainsKey(clientID) == true)
@@ -92,4 +75,12 @@ public class CharacterSpawner
         }
     }
 
+    //TODO MG FIGURE OUT IF THIS SHOULD BE HERE 
+    // IS USED IN NETWORKEDAISPAWNER TO GET AI Ids
+
+    [System.Serializable]
+    public class Settings
+    {
+        public int maxPlayers = 4;
+    }
 }

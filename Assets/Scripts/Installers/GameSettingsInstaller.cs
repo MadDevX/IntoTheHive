@@ -21,7 +21,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private InputMessageSender.Settings _inputSenderSettings;
     [SerializeField] private SpawnParametersGenerator.Settings _roomSpawnSettings;
     [SerializeField] private CharacterHealth.Settings _characterHealthSettings;
-
+    [SerializeField] private CharacterSpawner.Settings _characterSpawnerSettings;
     public override void InstallBindings()
     {
         Container.BindInstance(_roomSpawnSettings).AsSingle();
@@ -39,5 +39,6 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_directionManagerSettings).AsSingle();
         Container.BindInstance(_movementManagerSettings).AsSingle();
         Container.BindInstance(_characterHealthSettings).AsSingle();
+        Container.BindInstance(_characterSpawnerSettings).AsSingle();
     }
 }
