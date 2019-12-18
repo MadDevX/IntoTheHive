@@ -32,6 +32,7 @@ public class GameplayInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<ModuleFactory>().AsSingle().When(x => x.Container == Container);
         Container.BindInterfacesAndSelfTo<ItemFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<WeaponCreator>().AsSingle();
     }
 
 }

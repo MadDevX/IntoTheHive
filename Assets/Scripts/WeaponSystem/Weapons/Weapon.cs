@@ -56,6 +56,14 @@ public class Weapon : IWeapon
         RefreshWeapon();
     }
 
+    public void SetModules(List<IModule> modules)
+    {
+        ResetWeapon();
+        _modules.Clear();
+        for (int i = 0; i < modules.Count; i++) _modules.Add(modules[i]);
+        RefreshWeapon();
+    }
+
     private void ResetWeapon()
     {
         for(int i = _modules.Count-1; i >= 0; i--)

@@ -12,6 +12,8 @@ public interface IWeapon
     void AttachModule(IModule module);
     void DetachModule(IModule module);
 
+    void SetModules(List<IModule> modules);
+
     event Action<List<IModule>> OnWeaponRefreshed;
     IFactory<ProjectileSpawnParameters, IProjectile[]> Factory { get; set; }
 }
