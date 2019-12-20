@@ -51,7 +51,7 @@ public class AIFollowInput : UpdatableObject
         
         if (_target != null)
         {
-           
+            //Debug.Log("target is not null");
             _movementManager.SetMovement(_controlState, _aiDestinationPointScanner.NextPoint, _rb, _aiDestinationPointScanner.RemainingDistance);
             _directionManager.SetDirection(_controlState, _target, _rb);
 

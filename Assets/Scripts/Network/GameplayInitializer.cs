@@ -12,6 +12,7 @@ public class GameplayInitializer: IInitializable, IDisposable
 {
     private GenericMessageWithResponseHost _messageWithResponse;
     private NetworkedCharacterSpawner _characterSpawner;
+    private NetworkedAISpawner _aiSpawner;
     private LevelGraphMessageSender _graphSender;
     private ProjectEventManager _eventManager;
     private HostDoorManager _hostDoorManager;
@@ -19,6 +20,7 @@ public class GameplayInitializer: IInitializable, IDisposable
     public GameplayInitializer(
         GenericMessageWithResponseHost messageWithResponse,
         NetworkedCharacterSpawner characterSpawner,
+        NetworkedAISpawner aiSpawner,
         LevelGraphMessageSender graphSender,
         ProjectEventManager eventManager,
         HostDoorManager hostDoorManager
@@ -26,6 +28,7 @@ public class GameplayInitializer: IInitializable, IDisposable
     {
         _messageWithResponse = messageWithResponse;
         _characterSpawner = characterSpawner;
+        _aiSpawner = aiSpawner;
         _graphSender = graphSender;
         _eventManager = eventManager;
         _hostDoorManager = hostDoorManager;
@@ -62,6 +65,6 @@ public class GameplayInitializer: IInitializable, IDisposable
 
     private void BeginGame()
     {
-
+        _messageWithResponse.SendMessageWithResponse(_aiSpawner.GenerateSpawnMessage(2, 2));
     }
 }

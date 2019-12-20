@@ -28,7 +28,7 @@ public class SpawnParametersGenerator
     public void TranslateLevelGraph()
     {
         var vertices = _levelGraphState.graph.nodes;
-        CalculateNeighboursPosition(vertices, _levelSpawnParameters.spawnInfos, _levelSpawnParameters.doorSpawnInfos);
+        CalculateNeighboursPosition(vertices, _levelSpawnParameters.roomSpawnInfos, _levelSpawnParameters.doorSpawnInfos);
         ////clear(0, 0) rooms - when calculate positions is changed to bfs, all separate rooms will be deleted here
         //var first = levelSpawnParameters.spawnInfos[0];
         //levelSpawnParameters.spawnInfos.RemoveAll(info => info.X == 0 && info.Y == 0);

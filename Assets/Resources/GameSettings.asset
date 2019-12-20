@@ -51,3 +51,8 @@ MonoBehaviour:
     roomSize: 8
   _characterHealthSettings:
     maxHealth: 100
+  _characterSpawnerSettings:
+    maxPlayers: 4
+  _levelAIGraphSettings:
+    nodeSize: 0.5
+    diameter: 2

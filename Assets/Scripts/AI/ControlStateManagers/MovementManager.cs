@@ -18,15 +18,17 @@ public class MovementManager
         var distX = 1;
         var distY = 1;
         var currentDirection = new Vector2(Mathf.Clamp(nextPoint.x.CompareTo(character.position.x), -distX, distX),
-            Mathf.Clamp(nextPoint.y.CompareTo(character.position.y), -distY, distY));
+            Mathf.Clamp(nextPoint.y.CompareTo(character.position.y), -distY, distY));    
         currentDirection = Vector2.Lerp(new Vector2(controlState.Horizontal, controlState.Vertical), currentDirection, _settings.LerpFactor);
-
+        //Debug.Log(currentDirection.x);
+        //Debug.Log(currentDirection.y);
 
 
         if (remainingDistance <= _settings.DistanceToPlayerToStop)
         {
             controlState.Horizontal = 0.0f;
             controlState.Vertical = 0.0f;
+            Debug.Log("reset control state");
         }
         else
         {
@@ -34,6 +36,10 @@ public class MovementManager
                                                  (_settings.DistanceToPlayerToStartSlowing -
                                                   _settings.DistanceToPlayerToStop), 0.05f, 1.0f);
 
+            //Debug.Log("X = " + currentDirection.x);
+            //Debug.Log("Y = " + currentDirection.y);
+            //Debug.Log("velo mult = " + velocityMultiplier);
+            //Debug.Log("Control state updated");
             controlState.Horizontal = currentDirection.x * velocityMultiplier;
             controlState.Vertical = currentDirection.y * velocityMultiplier;
         }

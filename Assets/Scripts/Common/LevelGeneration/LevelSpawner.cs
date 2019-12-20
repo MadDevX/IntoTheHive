@@ -12,6 +12,8 @@ public class LevelSpawner
     private LevelGraphState _levelGraph;
     private LevelSpawnParameters _levelSpawnParameters;
     private DoorManager _doorManager;
+    private AIGraphSpawner _aIGraphSpawner;
+
     public LevelSpawner(
         SpawnParametersGenerator levelGraphTranslator,
         RoomFacade.Factory levelRoomFactory,
@@ -19,7 +21,8 @@ public class LevelSpawner
         DoorFacade.Factory doorFactory,
         LevelGraphState levelGraph,
         LevelSpawnParameters levelSpawnParameters,
-        DoorManager doorManager)
+        DoorManager doorManager,
+        AIGraphSpawner aIGraphSpawner)
     {
         _levelGraphTranslator = levelGraphTranslator;
         _levelRoomFactory = levelRoomFactory;
@@ -28,6 +31,7 @@ public class LevelSpawner
         _levelGraph = levelGraph;
         _levelSpawnParameters = levelSpawnParameters;
         _doorManager = doorManager;
+        _aIGraphSpawner = aIGraphSpawner;
     }
 
     /// <summary>
@@ -38,7 +42,7 @@ public class LevelSpawner
         //Updates LevelSpawnParameters
         _levelGraphTranslator.TranslateLevelGraph();
 
-        foreach (RoomSpawnParameters spawnParameters in _levelSpawnParameters.spawnInfos)
+        foreach (RoomSpawnParameters spawnParameters in _levelSpawnParameters.roomSpawnInfos)
         {
             //Debug.Log("roomSpawned");
             _levelRoomFactory.Create(spawnParameters);
@@ -54,9 +58,8 @@ public class LevelSpawner
         {
             _doorFactory.Create(spawnParameters);
         }
-
-        
         _doorManager.PrepareEdges();
+        _aIGraphSpawner.AddLevelGraphs();
         // open spawn roomso that players can exit
         //_doorManager.OpenAllDoorsInRoom(0);
         //_doorManager.OpenAllDoorsInRoom(2);

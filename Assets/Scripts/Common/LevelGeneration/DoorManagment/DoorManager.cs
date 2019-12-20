@@ -137,7 +137,7 @@ public class DoorManager
         }
         else
         {
-            var spawnInfos = _levelSpawnParameters.spawnInfos;
+            var spawnInfos = _levelSpawnParameters.roomSpawnInfos;
 
             var fromInfo = spawnInfos.Find(info => info.ID == from);
             var toInfo = spawnInfos.Find(info => info.ID == to);
