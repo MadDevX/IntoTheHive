@@ -7,7 +7,7 @@ using Zenject;
 /// </summary>
 public class RoomFacade: MonoUpdatableObject
 {
-    public int ID { get; set; }
+    public ushort ID { get; set; }
 
     public override void OnUpdate(float deltaTime)
     {

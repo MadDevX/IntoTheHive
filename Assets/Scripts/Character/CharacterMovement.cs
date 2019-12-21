@@ -47,8 +47,8 @@ public class CharacterMovement : FixedUpdatableObject
     private void CorrectPosition(float deltaTime)
     {
         //Debug.Log("rb: " + _rb.position.x + " " + _rb.position.y);
-        Debug.Log("cs pos: " + _controlState.Position.x + " " + _controlState.Position.y);
-        Debug.Log("cs dir: " + _controlState.Direction.x + " " + _controlState.Direction.y);
+        //Debug.Log("cs pos: " + _controlState.Position.x + " " + _controlState.Position.y);
+        //Debug.Log("cs dir: " + _controlState.Direction.x + " " + _controlState.Direction.y);
         var positionDifference = (_rb.position-_controlState.Position).sqrMagnitude;
         //Debug.Log("position diff = " + positionDifference);
         if (positionDifference >= _settings.positionEps * _settings.positionEps)

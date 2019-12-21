@@ -66,6 +66,5 @@ public class LevelInitializer: IInitializable, IDisposable
 
     private void BeginGame()
     {
-        _messageWithResponse.SendMessageWithResponse(_aiSpawner.GenerateSpawnMessage(2, 2));
     }
 }

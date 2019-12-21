@@ -33,7 +33,7 @@ public class RoomFactory : IFactory<RoomSpawnParameters, RoomFacade>
         }
 
         var facade = instantiatedObject.GetComponent<RoomFacade>();
-        facade.ID = param.ID;
+        facade.ID = (ushort)param.ID;
         return facade;
     }
 }
