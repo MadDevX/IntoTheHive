@@ -21,5 +21,6 @@ public class ProjectileInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ProjectileDestroyAfterCollision>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectileDamage>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectileHit>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ProjectileDummy>().AsSingle();
     }
 }

@@ -25,7 +25,7 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     public event Action OnDeath;
 
     public ushort Id;
-    public CharacterType CharacterType { get; private set; }
+    public CharacterType CharacterType { get; private set; } //TODO: forward CharacterInfo property
 
     public float MaxHealth => _health.MaxHealth;
     public float Health => _health.Health;

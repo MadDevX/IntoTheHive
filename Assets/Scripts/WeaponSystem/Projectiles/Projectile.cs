@@ -5,34 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public struct ProjectileSpawnParameters
-{
-    public Vector2 position;
-    public float rotation;
-    public float velocity;
-    public float ttl;
-    public List<IModule> modules;
-
-    public ProjectileSpawnParameters(Vector2 position, float rotation, float velocity, float ttl, List<IModule> modules)
-    {
-        this.position = position;
-        this.rotation = rotation;
-        this.velocity = velocity;
-        this.ttl = ttl;
-        this.modules = modules;
-    }
-}
-
-public struct ProjectilePipelineParameters
-{
-    public IProjectile projectile;
-    //TODO: collision information (CastHit)
-    public ProjectilePipelineParameters(IProjectile projectile)
-    {
-        this.projectile = projectile;
-    }
-}
-
 public partial class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable, IProjectile
 {
     [SerializeField] private Rigidbody2D _rb;
@@ -52,6 +24,9 @@ public partial class Projectile : MonoBothUpdatableObject, IPoolable<ProjectileS
     public float FixedTravelTime { get; private set; }
     public bool IsPiercing { get => _collider.isTrigger; set => _collider.isTrigger = value; }
     public int CollisionLimit { get; set; } = 0;
+
+    public bool IsDummy => throw new NotImplementedException();
+
     private int _remainingCollisions;
 
     private ProjectilePipelineParameters _pipelineParameters = new ProjectilePipelineParameters();

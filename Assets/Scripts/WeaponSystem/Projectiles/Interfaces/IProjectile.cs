@@ -14,6 +14,7 @@ public interface IProjectile
     float TravelTime { get; }
     float FixedTravelTime { get; }
     bool IsPiercing { get; set; }
+    bool IsDummy { get; }
     int CollisionLimit { get; set; }
 
     void Destroy();

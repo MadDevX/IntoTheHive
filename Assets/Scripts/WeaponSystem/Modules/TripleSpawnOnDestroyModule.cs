@@ -54,7 +54,7 @@ public class TripleSpawnOnDestroyModule : BaseModule
         var velocity = param.projectile.Velocity;
         var baseRotation = velocity.Rotation();
         var spawnPos = param.projectile.Position + Vector2.ClampMagnitude(velocity, Constants.COLLISION_CORRECTION_EPS);
-        var spawnParam = new ProjectileSpawnParameters(spawnPos, baseRotation, velocity.magnitude, 3.0f, null);
+        var spawnParam = new ProjectileSpawnParameters(spawnPos, baseRotation, velocity.magnitude, 3.0f, null, param.projectile.IsDummy);
         _factory.Create(spawnParam);
         spawnParam.rotation = baseRotation + _spreadAngle;
         _factory.Create(spawnParam);

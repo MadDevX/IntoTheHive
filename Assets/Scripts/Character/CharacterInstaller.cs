@@ -26,6 +26,7 @@ public class CharacterInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CharacterHealth>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterRespawnable>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterInventory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterInfo>().AsSingle();
         Container.Bind<ControlState>().AsSingle();
     }
 
@@ -36,7 +37,7 @@ public class CharacterInstaller : MonoInstaller
         Container.Bind(typeof(CharacterFacade), typeof(IDisposable)).FromInstance(_characterFacade).AsSingle(); //TODO: check if other bindings were required (if they are - there will be errors)
     }
 
-    private void InstallWeapon() //fast solution - delete as soon as possible
+    private void InstallWeapon()
     {
         Container.BindInterfacesAndSelfTo<Weapon>().AsSingle();
     }
