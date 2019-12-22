@@ -8,7 +8,6 @@ using Zenject;
 /// </summary>
 public class HostEncounterEnemyManager: IDisposable
 {
-    // REMEMBER TO BIND ENCOUNTER CLASSES
     public event Action AllEnemiesDead;
 
     private event Action WaveCleared;
@@ -48,7 +47,6 @@ public class HostEncounterEnemyManager: IDisposable
     /// </summary>
     public void SpawnEnemies()
     {
-        Debug.LogWarning("Spawning enemies");
         // Get data from spawner list
         var data = _enemyInfoPool.GetEnemySpawnInfos();
 
@@ -56,8 +54,9 @@ public class HostEncounterEnemyManager: IDisposable
         if(data.Count > 0)
         {
             // Spawn enemies locally and through network
-            _synchronizedMessageSender.SendMessageWithResponse(_networkedAISpawner.GenerateSpawnMessage(data));            
+            // Generate an unique id for each enemy
             data.ForEach(enemy => enemy.SpawnParameters.playerId = _aiSpawner.GenerateNextID());
+            _synchronizedMessageSender.SendMessageWithResponse(_networkedAISpawner.GenerateSpawnMessage(data));            
             LocalSpawn(data);
         }
         else

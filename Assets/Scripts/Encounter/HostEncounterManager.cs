@@ -4,11 +4,12 @@
 /// </summary>
 public class HostEncounterManager
 {
+    private HostEncounterEnemyManager _encounterEnemyManager;
     private GenericMessageWithResponseHost _messageWithResponse;
     private HostDoorManager _doorManager;
-    private HostEncounterEnemyManager _encounterEnemyManager; //- spawns enemies and invokes AllwavesClearedEvent    
     
     private RoomFacade _currentRoom = null;
+
     public HostEncounterManager(
         HostEncounterEnemyManager encounterEemyManager,
         GenericMessageWithResponseHost messageWithResponse,
@@ -22,7 +23,7 @@ public class HostEncounterManager
     public void BeginEncounter(RoomFacade room)
     {
         if (room.Visited == false)
-        {
+        { 
             room.Visited = true;
             _currentRoom = room;
             _encounterEnemyManager.AllEnemiesDead += EndEncounter;
