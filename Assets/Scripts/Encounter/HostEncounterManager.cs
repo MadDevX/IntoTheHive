@@ -1,52 +1,49 @@
-﻿/// <summary>
+﻿using UnityEngine;
+/// <summary>
 /// Handles the flow of the encounter. Begins it reacting to the RoomEnteredTrigger and end when all enemies are dead.
 /// </summary>
 public class HostEncounterManager
 {
     private GenericMessageWithResponseHost _messageWithResponse;
     private HostDoorManager _doorManager;
-    // private HostEncouterEnemyManager - spawns enemies and invokes AllwavesClearedEvent
-    // 
-
-    // TEMPORARY
-    private NetworkedAISpawner _aISpawner;
-    // TEMPORARY
-
-    private int _encounterID = -1;
-
+    private HostEncounterEnemyManager _encounterEnemyManager; //- spawns enemies and invokes AllwavesClearedEvent    
+    
+    private RoomFacade _currentRoom = null;
     public HostEncounterManager(
-        NetworkedAISpawner aISpawner,
-
+        HostEncounterEnemyManager encounterEemyManager,
         GenericMessageWithResponseHost messageWithResponse,
         HostDoorManager doorManager)
     {
-        _aISpawner = aISpawner;
-
+        _encounterEnemyManager = encounterEemyManager;
         _messageWithResponse = messageWithResponse;
         _doorManager = doorManager;
     }
 
-    public void BeginEncounter(ushort doorId)
+    public void BeginEncounter(RoomFacade room)
     {
-        _encounterID = doorId;
-        // mark room as visited
-        // spawn doors 
-        SpawnDoors();
+        if (room.Visited == false)
+        {
+            room.Visited = true;
+            _currentRoom = room;
+            _encounterEnemyManager.AllEnemiesDead += EndEncounter;
+            SpawnDoors();
+        }
     }
 
     public void SpawnDoors()
     {
-        _messageWithResponse.SendMessageWithResponse(_doorManager.PrepareCloseDoorsMessage((ushort)_encounterID), SpawnEnemies);
+        _messageWithResponse.SendMessageWithResponse(_doorManager.PrepareCloseDoorsMessage(_currentRoom.ID), SpawnEnemies);
     }
 
     public void SpawnEnemies()
     {
-        //_messageWithResponse.SendMessageWithResponse(_aISpawner.GenerateSpawnMessage(0, 10));
+        _encounterEnemyManager.SpawnEnemies();
     }
 
-    public void EndEncounter()
+    private void EndEncounter()
     {
-        _messageWithResponse.SendMessageWithResponse(_doorManager.PrepareOpenDoorsMessage((ushort)_encounterID));
+        _encounterEnemyManager.AllEnemiesDead -= EndEncounter;
+        _messageWithResponse.SendMessageWithResponse(_doorManager.PrepareOpenDoorsMessage(_currentRoom.ID));
     }
 
 }
