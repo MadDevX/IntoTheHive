@@ -28,7 +28,7 @@ public class MovementManager
         {
             controlState.Horizontal = 0.0f;
             controlState.Vertical = 0.0f;
-            Debug.Log("reset control state");
+            //Debug.Log("reset control state");
         }
         else
         {

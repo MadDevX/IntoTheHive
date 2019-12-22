@@ -49,10 +49,10 @@ public class MessageHandler
 
             #region other clients
             if (message.Tag == Tags.SpawnAI)
-                _plugin.BroadcastToAllClients(message, e);
+                _plugin.BroadcastToOtherClients(message, e);
 
             if (message.Tag == Tags.DespawnAI)
-                _plugin.BroadcastToAllClients(message, e);
+                _plugin.BroadcastToOtherClients(message, e);
 
             if (message.Tag == Tags.UpdateCharacterState)
                 _plugin.BroadcastToOtherClients(message, e);

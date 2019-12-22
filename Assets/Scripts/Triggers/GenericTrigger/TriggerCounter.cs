@@ -54,9 +54,9 @@ public class HostTriggerCounter: IInitializable, IDisposable
         if(playerFacade != null && playerFacade.CharacterType == CharacterType.Player)
         {
             _counter++;
-            Debug.Log(_counter);
+            //Debug.Log(_counter);
             //TODO MG : this line is not affected by disconnects! look out!
-            Debug.Log(_playerManager.ConnectedPlayers.Count);
+            //Debug.Log(_playerManager.ConnectedPlayers.Count);
 
             if (_playerManager.ConnectedPlayers.Count <= _counter)
             {
@@ -72,7 +72,7 @@ public class HostTriggerCounter: IInitializable, IDisposable
         var playerFacade = obj.GetComponent<CharacterFacade>();
         if (playerFacade!= null && playerFacade.CharacterType == CharacterType.Player)
         {
-            Debug.Log(_counter);
+            //Debug.Log(_counter);
             _counter--;
         }
     }

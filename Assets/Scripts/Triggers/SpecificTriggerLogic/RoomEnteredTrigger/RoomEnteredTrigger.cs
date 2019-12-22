@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿using UnityEngine;
+/// <summary>
 /// Begins an encounter when triggered.
 /// </summary>
 public class RoomEnteredTrigger : ITriggerable
@@ -16,6 +17,6 @@ public class RoomEnteredTrigger : ITriggerable
 
     public void Trigger()
     {
-        _encounterManager.BeginEncounter(_facade.ID);
+        _encounterManager.BeginEncounter(_facade);
     }
 }
