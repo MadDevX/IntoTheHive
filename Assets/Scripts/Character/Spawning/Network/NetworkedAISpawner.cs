@@ -77,15 +77,13 @@ public class NetworkedAISpawner : IInitializable, IDisposable
 
     public Message GenerateSpawnMessage(List<AISpawnParameters> data)
     {
-        //var list = PrepareSpawnPositions(data);
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             foreach (AISpawnParameters spawnData in data)
             {
-                writer.Write(_AISpawner.GenerateNextID()); //this is still necessary but probabl;y would be better in a different classs
-                
-                writer.Write(0);
-                writer.Write(8);
+                writer.Write(spawnData.SpawnParameters.Id);
+                writer.Write(spawnData.SpawnParameters.X);
+                writer.Write(spawnData.SpawnParameters.Y);
             }
             
             return Message.Create(Tags.SpawnAI, writer);            
@@ -101,55 +99,4 @@ public class NetworkedAISpawner : IInitializable, IDisposable
             return Message.Create(Tags.DespawnAI, writer);
         }
     }
-
-    //private List<PlayerSpawnData> PrepareSpawnPositions(List<AISpawnParameters> data)
-    //{
-    //    //TODO MG: REMOVE ASAP: implement other method of determining positions.
-    //    List<PlayerSpawnData> spawnPosisionsList = new List<PlayerSpawnData>();
-
-    //    if (_globalHostPlayerManager.ConnectedPlayers.Count >= 1)
-    //    {
-    //        var spawnData = new PlayerSpawnData
-    //        {
-    //            Id = _globalHostPlayerManager.ConnectedPlayers[0],
-    //            X = X + 0.5f,
-    //            Y = Y + 0.5f
-    //        };
-    //        spawnPosisionsList.Add(spawnData);
-    //    }
-    //    if (_globalHostPlayerManager.ConnectedPlayers.Count >= 2)
-    //    {
-    //        var spawnData = new PlayerSpawnData
-    //        {
-    //            Id = _globalHostPlayerManager.ConnectedPlayers[1],
-    //            X = X - 0.5f,
-    //            Y = Y + 0.5f
-    //        };
-    //        spawnPosisionsList.Add(spawnData);
-    //    }
-    //    if (_globalHostPlayerManager.ConnectedPlayers.Count >= 3)
-    //    {
-    //        var spawnData = new PlayerSpawnData
-    //        {
-    //            Id = _globalHostPlayerManager.ConnectedPlayers[2],
-    //            X = X + 0.5f,
-    //            Y = Y - 0.5f
-    //        };
-    //        spawnPosisionsList.Add(spawnData);
-    //    }
-    //    if (_globalHostPlayerManager.ConnectedPlayers.Count >= 4)
-    //    {
-    //        var spawnData = new PlayerSpawnData
-    //        {
-    //            Id = _globalHostPlayerManager.ConnectedPlayers[3],
-    //            X = X - 0.5f,
-    //            Y = Y - 0.5f
-    //        };
-    //        spawnPosisionsList.Add(spawnData);
-    //    }
-
-    //    return spawnPosisionsList;
-    //}
-
-
 }
