@@ -7,6 +7,7 @@ public class CharacterInfo : IDisposable
 {
     public CharacterType Type { get; private set; }
     public bool IsLocal { get; private set; }
+    public ushort Id { get; private set; }
 
     private IRespawnable _respawnable;
 
@@ -29,6 +30,7 @@ public class CharacterInfo : IDisposable
     {
         Type = obj.CharacterType;
         IsLocal = obj.IsLocal;
+        Id = obj.Id;
     }
 
 }

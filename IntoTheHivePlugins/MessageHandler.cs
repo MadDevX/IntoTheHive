@@ -62,6 +62,12 @@ public class MessageHandler
 
             if (message.Tag == Tags.DespawnCharacter)
                 _plugin.BroadcastToOtherClients(message, e);
+
+            if (message.Tag == Tags.TakeDamage)
+                _plugin.BroadcastToOtherClients(message, e);
+
+            if (message.Tag == Tags.UpdateHealth)
+                _plugin.BroadcastToOtherClients(message, e);
             #endregion
 
             #region host only

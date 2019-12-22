@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Networking.Character;
+using Zenject;
 
 public class NetworkedReceiverInstaller : MonoInstaller
 {
@@ -6,5 +7,6 @@ public class NetworkedReceiverInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<NetworkedCharacterInput>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedCharacterWeapon>().AsSingle();
+        Container.BindInterfacesAndSelfTo<HealthUpdateReceiver>().AsSingle();
     }
 }
