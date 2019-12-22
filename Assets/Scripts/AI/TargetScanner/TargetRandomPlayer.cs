@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class TargetRandomPlayer : ITargetUpdatable
 {
-    private Random _random;
 
     public TargetRandomPlayer()
     {
-        _random = new Random();
     }
 
     private void Shuffle(Collider2D[] array)

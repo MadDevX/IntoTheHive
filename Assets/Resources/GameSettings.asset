@@ -47,8 +47,6 @@ MonoBehaviour:
   _inputSenderSettings:
     moveEps: 0.001
     rotationEps: 0.1
-  _roomSpawnSettings:
-    roomSize: 8
   _characterHealthSettings:
     maxHealth: 100
   _characterSpawnerSettings:
@@ -56,3 +54,9 @@ MonoBehaviour:
   _levelAIGraphSettings:
     nodeSize: 0.5
     diameter: 2
+  _roomSpawnSettings:
+    roomSize: 12
+  _levelGraphGeneratorSettings:
+    MinNumberOfRooms: 20
+    MaxNumberOfRooms: 25
+    PercentageChanceOfConnectingExistingRoom: 50

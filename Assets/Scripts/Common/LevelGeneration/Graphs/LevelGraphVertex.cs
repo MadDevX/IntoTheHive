@@ -7,13 +7,22 @@ public class LevelGraphVertex
     public ushort RoomId;
     public int[] neighbours;
 
-    public LevelGraphVertex(ushort RoomId)
+    public LevelGraphVertex(ushort RoomId = 0)
     {
         neighbours = new int[4];
         for (int i = 0; i < neighbours.Length; i++)
         {
             neighbours[i] = -1;
         }
+        this.RoomId = RoomId;
+    }
+    /// <summary>
+    /// Change roomId
+    /// </summary>
+    /// <param name="roomId">Id of a new room</param>
+    public void SetRoomId(ushort roomId)
+    {
+        RoomId = roomId;
     }
 
     /// <summary>

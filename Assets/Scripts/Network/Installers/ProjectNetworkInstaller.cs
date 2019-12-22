@@ -13,6 +13,7 @@ public class ProjectNetworkInstaller : MonoInstaller
         InstallScenesNetworkedManagment();
         InstallMessageManagment();
         InstallPlayerManagment();
+        InstallLevelManagment();                    
     }
 
     private void InstallConnectionManagment()
@@ -44,5 +45,14 @@ public class ProjectNetworkInstaller : MonoInstaller
     {
         // Players and characters
         Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
-    }   
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
+    }
+
+    private void InstallLevelManagment()
+    {
+        // Level generation
+        Container.BindInterfacesAndSelfTo<LevelGraphMessageSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LevelGraphState>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LevelGraphGenerator>().AsSingle();
+    }
 }
