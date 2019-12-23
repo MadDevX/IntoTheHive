@@ -29,7 +29,7 @@ public class CharacterAISpawner
     /// <param name="spawnParameters">Parameters to spawn a character.</param>
     public CharacterFacade Spawn(CharacterSpawnParameters spawnParameters)
     {
-        ushort ID = spawnParameters.playerId;
+        ushort ID = spawnParameters.Id;
         
         if (_AIplayers.ContainsKey(ID) == false)
         {

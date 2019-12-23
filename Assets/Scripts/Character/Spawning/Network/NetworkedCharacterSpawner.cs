@@ -65,7 +65,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 spawnParameters.Id = id;
                 spawnParameters.X = X;
                 spawnParameters.Y = Y;
-                spawnParameters.playerId = id;
+                //spawnParameters.playerId = id;
                 spawnParameters.IsLocal = isLocal;
                 spawnParameters.health = null;
                 _characterSpawner.Spawn(spawnParameters);

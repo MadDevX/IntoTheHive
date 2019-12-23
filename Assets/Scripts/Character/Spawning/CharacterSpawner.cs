@@ -34,7 +34,7 @@ public class CharacterSpawner
     /// <param name="spawnParameters">Parameters to spawn a character.</param>
     public void Spawn(CharacterSpawnParameters spawnParameters)
     {
-        ushort playerId = spawnParameters.playerId;
+        ushort playerId = spawnParameters.Id;
         bool isLocal = spawnParameters.IsLocal;
 
         if (_characters.ContainsKey(playerId) == false)

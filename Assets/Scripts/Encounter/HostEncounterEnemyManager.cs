@@ -55,7 +55,7 @@ public class HostEncounterEnemyManager: IDisposable
         {
             // Spawn enemies locally and through network
             // Generate an unique id for each enemy
-            data.ForEach(enemy => enemy.SpawnParameters.playerId = _aiSpawner.GenerateNextID());
+            data.ForEach(enemy => enemy.SpawnParameters.Id = _aiSpawner.GenerateNextID());
             _synchronizedMessageSender.SendMessageWithResponse(_networkedAISpawner.GenerateSpawnMessage(data));
             data.ForEach(enemy => enemy.SpawnParameters.IsLocal = true);
             LocalSpawn(data);
@@ -93,16 +93,11 @@ public class HostEncounterEnemyManager: IDisposable
         Debug.Log("death parameters id = " + deathParameters.characterInfo.Id);
         //Unsubsribe event
         if (facade == null) Debug.Log("Facade is null");
-        Debug.Log("Character id = " + facade.Id);
         facade.OnDeath -= OnAIDeath;
 
-        //_aiSpawner.Despawn(facade.Id);
         _aliveEnemies.Remove(facade);
-
-        _synchronizedMessageSender.SendMessageWithResponse(
-            _networkedAISpawner.GenerateDespawnMessage(deathParameters.characterInfo.Id),
-            CheckWaveEnded);
-
+        AllEnemiesDead?.Invoke();
+        //CheckWaveEnded();
     }
 
     /// <summary>
@@ -111,6 +106,9 @@ public class HostEncounterEnemyManager: IDisposable
     private void CheckWaveEnded()
     {
         if (_aliveEnemies.Count == 0)
+        {
+            Debug.LogWarning("Wave ended");
             WaveCleared?.Invoke();
+        }
     }
 }
