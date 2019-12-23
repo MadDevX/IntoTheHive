@@ -5,7 +5,7 @@ using UnityEngine;
 public class ModuleItem : IItem
 {
     private IModule _module;
-    public bool IsActive => _module.IsAttached;
+    public bool IsEquipped => _module.IsAttached;
 
     public ModuleItem(IModule module)
     {

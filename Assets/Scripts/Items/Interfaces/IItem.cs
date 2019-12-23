@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IItem
 {
     void UseItem(CharacterFacade facade);
-    bool IsActive { get; }
+    bool IsEquipped { get; }
 }

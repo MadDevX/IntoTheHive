@@ -6,9 +6,12 @@ using Zenject;
 public class HUDInstaller : MonoInstaller
 {
     [SerializeField] private TMPro.TextMeshProUGUI _healthText;
-    [SerializeField] private InventoryWindow _inventoryWindow;
+    [SerializeField] private ItemListWindow _inventoryWindow;
+    [SerializeField] private ItemListWindow _equipmentWindow;
     [SerializeField] private InventorySlot _slotPrefab;
-    [SerializeField] private Transform _slotParent;
+    [SerializeField] private Transform _inventorySlotParent;
+    [SerializeField] private Transform _equipmentSlotParent;
+    [SerializeField] private GameObject _windowParent;
 
     public override void InstallBindings()
     {
@@ -20,18 +23,22 @@ public class HUDInstaller : MonoInstaller
     private void InstallComponents()
     {
         Container.Bind<TMPro.TextMeshProUGUI>().WithId(Identifiers.Health).FromInstance(_healthText).AsCached();
-        Container.Bind<InventoryWindow>().FromInstance(_inventoryWindow).AsSingle();
+        Container.Bind<ItemListWindow>().WithId(Identifiers.Inventory).FromInstance(_inventoryWindow).AsCached();
+        Container.Bind<ItemListWindow>().WithId(Identifiers.Equipment).FromInstance(_equipmentWindow).AsCached();
     }
 
     private void InstallLogic()
     {
         Container.BindInterfacesAndSelfTo<HealthTracker>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UnassignedItems>().AsSingle();
     }
 
     private void InstallSlots()
     {
         BindMonoPrefabPool<InventorySlot, ItemInstance, InventorySlot.Factory, InventorySlotPool>
-            (Identifiers.InventorySlot, 10, _slotPrefab, _slotParent);
+            (Identifiers.Inventory, 10, _slotPrefab, _inventorySlotParent);
+        BindMonoPrefabPool<InventorySlot, ItemInstance, InventorySlot.Factory, InventorySlotPool>
+            (Identifiers.Equipment, 10, _slotPrefab, _equipmentSlotParent);
     }
 
     //TODO: remove this
@@ -39,7 +46,7 @@ public class HUDInstaller : MonoInstaller
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            _inventoryWindow.gameObject.SetActive(!_inventoryWindow.gameObject.activeSelf);
+            _windowParent.SetActive(!_windowParent.activeSelf);
         }
     }
 

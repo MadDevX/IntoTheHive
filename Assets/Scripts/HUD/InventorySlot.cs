@@ -10,8 +10,17 @@ public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>
     public event Action<ItemInstance> OnClick;
     public ItemInstance Item { get; set; }
     [SerializeField] private Image _image;
+    [SerializeField] private Image _background;
     [SerializeField] private Button _button;
     private IMemoryPool _pool;
+    private Settings _settings;
+
+    [Inject]
+    public void Construct(Settings settings)
+    {
+        _settings = settings;
+    }
+
 
     public void OnSpawned(ItemInstance item, IMemoryPool pool)
     {
@@ -19,6 +28,7 @@ public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>
         Item = item;
         _image.sprite = item.data.icon;
         _button.onClick.AddListener(OnButtonClick);
+        UpdateView();
     }
 
     public void Dispose()
@@ -38,6 +48,26 @@ public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>
     private void OnButtonClick()
     {
         OnClick?.Invoke(Item);
+        UpdateView();
+    }
+
+    private void UpdateView()
+    {
+        if(Item.instance.IsEquipped)
+        {
+            _background.color = _settings.activeColor;
+        }
+        else
+        {
+            _background.color = _settings.inactiveColor;
+        }
+    }
+
+    [System.Serializable]
+    public class Settings
+    {
+        public Color activeColor;
+        public Color inactiveColor;
     }
 
     public class Factory : PlaceholderFactory<ItemInstance, InventorySlot>

@@ -23,5 +23,6 @@ public enum Identifiers
     LobbyReadyButton,
     LobbyLeaveButton,
     Health,
-    InventorySlot
+    Inventory,
+    Equipment
 }

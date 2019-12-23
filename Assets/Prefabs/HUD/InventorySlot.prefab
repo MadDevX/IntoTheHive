@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4846040837768742082}
   - component: {fileID: 4846040837768742083}
   m_Layer: 5
-  m_Name: Button
+  m_Name: InventorySlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 4846040836474677789}
+  _background: {fileID: 4846040837768742080}
   _button: {fileID: 4846040837768742087}
 --- !u!114 &4846040837768742083
 MonoBehaviour:
