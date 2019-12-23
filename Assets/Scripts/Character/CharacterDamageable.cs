@@ -45,7 +45,7 @@ public class CharacterDamageable : IDamageable
         else
         {
             //although not the cleanest one, this is by far the simplest and relatively "clean" solution
-            SendMessage(amount);
+            SendMessage(amount); //we use {amount} instead of {dmgDealt} because HP may not be up to date on the client
         }
 
         return dmgDealt;

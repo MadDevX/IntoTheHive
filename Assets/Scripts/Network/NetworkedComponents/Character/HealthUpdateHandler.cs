@@ -10,13 +10,13 @@ namespace Networking.Character
     /// <summary>
     /// Used in networked characters. Responsible for updating health of assigned character based on network messages.
     /// </summary>
-    public class HealthUpdateReceiver : IInitializable, IDisposable
+    public class HealthUpdateHandler : IInitializable, IDisposable
     {
         private IHealthSetter _health;
         private NetworkRelay _networkRelay;
         private CharacterInfo _info;
 
-        public HealthUpdateReceiver(IHealthSetter health, NetworkRelay networkRelay, CharacterInfo info)
+        public HealthUpdateHandler(IHealthSetter health, NetworkRelay networkRelay, CharacterInfo info)
         {
             _health = health;
             _networkRelay = networkRelay;

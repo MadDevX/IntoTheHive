@@ -42,6 +42,9 @@ public class MessageHandler
 
             if (message.Tag == Tags.OpenDoorsMessage)
                 _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.DisposeCharacter)
+                _plugin.BroadcastToAllClients(message, e);
             #endregion
 
             #region other clients
@@ -85,7 +88,11 @@ public class MessageHandler
 
             if (message.Tag == Tags.ClientReady)
                 _plugin.BroadcastToHost(message, e);
+
+            if (message.Tag == Tags.DeathRequest)
+                _plugin.BroadcastToHost(message, e);
             #endregion
+
             if (message.Tag == Tags.LoadLobby)
             {
                 using (DarkRiftReader reader = message.GetReader())

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Networking.Character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class CharacterInstaller : MonoInstaller
         InstallComponents();
         InstallCharacter();
         InstallWeapon();
+        InstallNetworkedDespawn();
     }
 
     private void InstallCharacter()
@@ -41,5 +43,12 @@ public class CharacterInstaller : MonoInstaller
     private void InstallWeapon()
     {
         Container.BindInterfacesAndSelfTo<Weapon>().AsSingle();
+    }
+
+    private void InstallNetworkedDespawn()
+    {
+        Container.BindInterfacesAndSelfTo<DeathRequestHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<DeathRequestSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<DisposeCharacterHandler>().AsSingle();
     }
 }
