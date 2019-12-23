@@ -32,7 +32,7 @@ namespace Networking.Character
             _damageable.OnDeath -= SendRequest;
         }
 
-        private void SendRequest()
+        private void SendRequest(DeathParameters deathParameters)
         {
             using (var writer = DarkRiftWriter.Create())
             {

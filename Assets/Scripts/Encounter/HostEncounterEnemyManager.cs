@@ -56,7 +56,8 @@ public class HostEncounterEnemyManager: IDisposable
             // Spawn enemies locally and through network
             // Generate an unique id for each enemy
             data.ForEach(enemy => enemy.SpawnParameters.playerId = _aiSpawner.GenerateNextID());
-            _synchronizedMessageSender.SendMessageWithResponse(_networkedAISpawner.GenerateSpawnMessage(data));            
+            _synchronizedMessageSender.SendMessageWithResponse(_networkedAISpawner.GenerateSpawnMessage(data));
+            data.ForEach(enemy => enemy.SpawnParameters.IsLocal = true);
             LocalSpawn(data);
         }
         else
@@ -88,15 +89,18 @@ public class HostEncounterEnemyManager: IDisposable
     /// <param name="deathParameters"></param>
     private void OnAIDeath(DeathParameters deathParameters)
     {
-        CharacterFacade facade = deathParameters.facade;
+        CharacterFacade facade = _aliveEnemies.Find(enemy => enemy.Id == deathParameters.characterInfo.Id);
+        Debug.Log("death parameters id = " + deathParameters.characterInfo.Id);
         //Unsubsribe event
+        if (facade == null) Debug.Log("Facade is null");
+        Debug.Log("Character id = " + facade.Id);
         facade.OnDeath -= OnAIDeath;
 
-        _aiSpawner.Despawn(facade.Id);
+        //_aiSpawner.Despawn(facade.Id);
         _aliveEnemies.Remove(facade);
 
         _synchronizedMessageSender.SendMessageWithResponse(
-            _networkedAISpawner.GenerateDespawnMessage(deathParameters.facade.Id),
+            _networkedAISpawner.GenerateDespawnMessage(deathParameters.characterInfo.Id),
             CheckWaveEnded);
 
     }
