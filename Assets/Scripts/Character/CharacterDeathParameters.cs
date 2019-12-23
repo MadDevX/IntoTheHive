@@ -4,6 +4,6 @@
 public class DeathParameters
 {
     // TODO MG : change fields in this class to store only necessary information
-    public CharacterFacade facade;
+    public CharacterInfo characterInfo;
 
 }

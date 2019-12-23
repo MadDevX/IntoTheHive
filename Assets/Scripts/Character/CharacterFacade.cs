@@ -33,7 +33,7 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
         }
     }
 
-    public event Action OnDeath
+    public event Action<DeathParameters> OnDeath
     {
         add
         {
@@ -46,8 +46,8 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     }
 
     public ushort Id;
-    public CharacterType CharacterType { get; private set; } //TODO: forward CharacterInfo property
-
+    public CharacterType CharacterType { get; set; } //TODO: forward CharacterInfo property
+    
     public float MaxHealth => _health.MaxHealth;
     public float Health => _health.Health;
     public IItemContainer Inventory { get; private set; }

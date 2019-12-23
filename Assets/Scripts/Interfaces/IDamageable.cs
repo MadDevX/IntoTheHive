@@ -15,7 +15,7 @@ public interface IDamageable
     /// 
     /// </summary>
     event Action<DamageTakenArgs> OnDamageTaken;
-    event Action OnDeath;
+    event Action<DeathParameters> OnDeath;
 }
 
 public struct DamageTakenArgs
