@@ -16,13 +16,15 @@ namespace Networking.Character
         private UnityClient _client;
         private ClientInfo _connectionInfo;
         private CharacterInfo _info;
+        private CharacterFacade _facade;
 
-        public DeathRequestHandler(NetworkRelay networkRelay, UnityClient client, ClientInfo connectionInfo, CharacterInfo info)
+        public DeathRequestHandler(NetworkRelay networkRelay, UnityClient client, ClientInfo connectionInfo, CharacterInfo info, CharacterFacade facade)
         {
             _networkRelay = networkRelay;
             _client = client;
             _connectionInfo = connectionInfo;
             _info = info;
+            _facade = facade;
             PreInitialize();
         }
 
@@ -43,9 +45,13 @@ namespace Networking.Character
                 using (var reader = message.GetReader())
                 {
                     var characterId = reader.ReadUInt16();
-                    if (_info.Id == characterId)
+                    ushort localId = _info.Id;
+                    
+                    if (localId == characterId)
                     {
-                        using(var writer = DarkRiftWriter.Create())
+                        Debug.LogWarning("Character dead received. ID = " + localId);
+                        Debug.LogWarning("message content = " + characterId);
+                        using (var writer = DarkRiftWriter.Create())
                         {
                             writer.Write(characterId);
                             using (var msg = Message.Create(Tags.DisposeCharacter, writer))

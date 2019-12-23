@@ -69,7 +69,7 @@ public class NetworkedAISpawner : IInitializable, IDisposable
             Id = id,
             X = X,
             Y = Y,
-            playerId = id,
+            //playerId = id,
             health = null
         };
         _AISpawner.Spawn(spawnParameters);
