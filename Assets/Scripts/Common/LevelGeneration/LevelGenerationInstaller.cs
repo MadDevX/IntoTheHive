@@ -34,7 +34,7 @@ public class LevelGenerationInstaller: MonoInstaller
         Container.Bind<Doors>().FromInstance(_doors).AsSingle();
         Container.BindInterfacesAndSelfTo<LevelSpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<SpawnParametersGenerator>().AsSingle();
-        Container.BindInterfacesAndSelfTo<GameplayInitializer>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LevelInitializer>().AsSingle();
         Container.BindInterfacesAndSelfTo<LevelSpawnParameters>().AsSingle();
     }
 

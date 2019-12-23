@@ -8,8 +8,9 @@ using Zenject;
 /// To make this class scene context based, an inter-scene event had to be introduced to trigger 
 /// methods from this class without being bound at the time of a call to change scenes.
 /// </summary>
-public class GameplayInitializer: IInitializable, IDisposable
+public class LevelInitializer: IInitializable, IDisposable
 {
+    // TODO MG : rename to LevelInitializer?
     private GenericMessageWithResponseHost _messageWithResponse;
     private NetworkedCharacterSpawner _characterSpawner;
     private NetworkedAISpawner _aiSpawner;
@@ -17,7 +18,7 @@ public class GameplayInitializer: IInitializable, IDisposable
     private ProjectEventManager _eventManager;
     private HostDoorManager _hostDoorManager;
 
-    public GameplayInitializer(
+    public LevelInitializer(
         GenericMessageWithResponseHost messageWithResponse,
         NetworkedCharacterSpawner characterSpawner,
         NetworkedAISpawner aiSpawner,
