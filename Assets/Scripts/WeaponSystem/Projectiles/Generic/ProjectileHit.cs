@@ -8,10 +8,12 @@ public class ProjectileHit : IProjectileHit, IDisposable
     public event Action<IDamageable> OnHit;
 
     private IProjectileCollision _collision;
+    private IProjectileDummy _dummy;
 
-    public ProjectileHit(IProjectileCollision collision)
+    public ProjectileHit(IProjectileCollision collision, IProjectileDummy dummy)
     {
         _collision = collision;
+        _dummy = dummy;
         PreInitialize();
     }
 
@@ -27,11 +29,14 @@ public class ProjectileHit : IProjectileHit, IDisposable
 
     private void OnCollisionEnter(Collider2D obj)
     {
-        var health = obj.GetComponent<IDamageable>();
-
-        if (health != null)
+        if (_dummy.IsDummy == false)
         {
-            OnHit?.Invoke(health);
+            var health = obj.GetComponent<IDamageable>();
+
+            if (health != null)
+            {
+                OnHit?.Invoke(health);
+            }
         }
     }
 }

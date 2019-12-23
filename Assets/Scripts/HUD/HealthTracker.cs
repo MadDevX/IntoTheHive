@@ -33,16 +33,21 @@ public class HealthTracker : IDisposable
 
     private void OnPlayerSet(CharacterFacade obj)
     {
-        obj.OnDamageTaken += SetText;
-        SetText(0.0f);
+        obj.OnDamageTaken += HandleDamageTaken;
+        SetText();
     }
 
     private void OnPlayerUnset(CharacterFacade obj)
     {
-        obj.OnDamageTaken -= SetText;
+        obj.OnDamageTaken -= HandleDamageTaken;
     }
 
-    private void SetText(float dmg)
+    private void HandleDamageTaken(DamageTakenArgs args)
+    {
+        SetText();
+    }
+
+    private void SetText()
     {
         _text.text = _settings.header + _registry.Player.Health;
     }

@@ -21,6 +21,8 @@ public class RayProjectile : MonoUpdatableObject, IPoolable<ProjectileSpawnParam
     public bool IsPiercing { get; set; } = true;
     public int CollisionLimit { get; set; } = 0;
 
+    public bool IsDummy => throw new NotImplementedException();
+
     private int _remainingCollisions;
     private float _vfxTimer = 0.0f;
 

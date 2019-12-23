@@ -36,5 +36,9 @@
     public static readonly ushort SpawnAI = 22;
     public static readonly ushort DespawnAI = 23;
 
+    public static readonly ushort TakeDamage = 24;
+    public static readonly ushort UpdateHealth = 25;
+    public static readonly ushort DeathRequest = 26;
+    public static readonly ushort DisposeCharacter = 27;
 
 }

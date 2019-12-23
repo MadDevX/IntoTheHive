@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Networking.Character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class CharacterInstaller : MonoInstaller
         InstallComponents();
         InstallCharacter();
         InstallWeapon();
+        InstallNetworkedDespawn();
     }
 
     private void InstallCharacter()
@@ -24,8 +26,10 @@ public class CharacterInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CharacterShooting>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterEquipment>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterHealth>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterDamageable>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterRespawnable>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterInventory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterInfo>().AsSingle();
         Container.Bind<ControlState>().AsSingle();
     }
 
@@ -36,8 +40,15 @@ public class CharacterInstaller : MonoInstaller
         Container.Bind(typeof(CharacterFacade), typeof(IDisposable)).FromInstance(_characterFacade).AsSingle(); //TODO: check if other bindings were required (if they are - there will be errors)
     }
 
-    private void InstallWeapon() //fast solution - delete as soon as possible
+    private void InstallWeapon()
     {
         Container.BindInterfacesAndSelfTo<Weapon>().AsSingle();
+    }
+
+    private void InstallNetworkedDespawn()
+    {
+        Container.BindInterfacesAndSelfTo<DeathRequestHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<DeathRequestSender>().AsSingle();
+        Container.BindInterfacesAndSelfTo<DisposeCharacterHandler>().AsSingle();
     }
 }

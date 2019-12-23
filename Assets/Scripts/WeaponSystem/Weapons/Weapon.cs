@@ -6,6 +6,7 @@ using Zenject;
 
 public class Weapon : IWeapon
 {
+    private CharacterInfo _info;
     private Settings _settings;
 
     private List<IModule> _modules = new List<IModule>();
@@ -15,8 +16,12 @@ public class Weapon : IWeapon
 
     public event Action<List<IModule>> OnWeaponRefreshed;
 
-    public Weapon([Inject(Id = Identifiers.Ray)] IFactory<ProjectileSpawnParameters, ProjectileFacade[]> projectileFactory, Settings settings)
+    public Weapon(
+        CharacterInfo info,
+        [Inject(Id = Identifiers.Ray)] IFactory<ProjectileSpawnParameters, ProjectileFacade[]> projectileFactory, 
+        Settings settings)
     {
+        _info = info;
         _settings = settings;
         Factory = projectileFactory;
     }
@@ -37,7 +42,7 @@ public class Weapon : IWeapon
         {
             _wasSqueezed = true;
             var spawnPos = position + offset.Rotate(rotation);
-            Factory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive, _modules));
+            Factory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive, _modules, dummy: _info.IsLocal == false));
         }
         return true;
     }

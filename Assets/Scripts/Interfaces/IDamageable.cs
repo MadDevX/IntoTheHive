@@ -11,5 +11,21 @@ public interface IDamageable
     /// <param name="amount"></param>
     /// <returns></returns>
     float TakeDamage(float amount);
-    event Action<float> OnDamageTaken;
+    /// <summary>
+    /// 
+    /// </summary>
+    event Action<DamageTakenArgs> OnDamageTaken;
+    event Action OnDeath;
+}
+
+public struct DamageTakenArgs
+{
+    public float damage;
+    public float remainingHealth;
+
+    public DamageTakenArgs(float damage, float remainingHealth)
+    {
+        this.damage = damage;
+        this.remainingHealth = remainingHealth;
+    }
 }

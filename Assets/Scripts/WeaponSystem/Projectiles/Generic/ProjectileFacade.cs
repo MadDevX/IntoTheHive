@@ -12,6 +12,7 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
     private IProjectileTime _time;
     private IProjectileFixedTime _fixedTime;
     private IProjectileCollision _collision;
+    private IProjectileDummy _dummy;
     private ProjectileDestroyAfterCollision _destroyCollision;
     private IMemoryPool _pool;
 
@@ -20,6 +21,8 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
     public Vector2 Position { get => _position.Position; }
 
     public Vector2 Velocity { get => _velocity.Velocity; set => _velocity.Velocity = value; }
+
+    public bool IsDummy => _dummy.IsDummy;
 
     public float TravelTime => _time.TravelTime;
 
@@ -43,6 +46,7 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
         IProjectileTime time, 
         IProjectileFixedTime fixedTime,
         IProjectileCollision collision,
+        IProjectileDummy dummy,
         ProjectileDestroyAfterCollision destroyCollision)
     {
         Pipeline = pipeline;
@@ -52,6 +56,7 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
         _time = time;
         _fixedTime = fixedTime;
         _collision = collision;
+        _dummy = dummy;
         _destroyCollision = destroyCollision;
         _parameters = new ProjectilePipelineParameters(this);
     }
