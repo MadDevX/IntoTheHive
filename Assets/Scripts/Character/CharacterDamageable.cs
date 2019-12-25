@@ -8,7 +8,7 @@ using UnityEngine;
 public class CharacterDamageable : IDamageable
 {
     public event Action<DamageTakenArgs> OnDamageTaken;
-    public event Action OnDeath;
+    public event Action<DeathParameters> OnDeath;
 
     private IHealthSetter _health;
     private CharacterInfo _info;
@@ -39,7 +39,9 @@ public class CharacterDamageable : IDamageable
 
             if (_health.Health <= 0.0f)
             {
-                OnDeath?.Invoke();
+                DeathParameters deathParameters = new DeathParameters();
+                deathParameters.characterInfo = _info;
+                OnDeath?.Invoke(deathParameters);
             }
         }
         else

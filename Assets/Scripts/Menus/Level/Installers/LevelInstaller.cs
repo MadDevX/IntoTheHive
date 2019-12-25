@@ -7,6 +7,7 @@ public class LevelInstaller: MonoInstaller
     [SerializeField] private AstarPath _astarModule;
     public override void InstallBindings()
     {
+        //Container.BindInterfacesAndSelfTo<HostEncounterManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<AIGraphSpawner>().AsSingle();
         Container.BindInstance(_astarModule);
     }

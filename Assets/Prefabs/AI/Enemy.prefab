@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -5907521224373670503}
   - component: {fileID: -3224232866765772967}
   - component: {fileID: -886181895324019119}
+  - component: {fileID: 7127671070180384023}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -60,6 +61,7 @@ MonoBehaviour:
   - {fileID: 4656559682471812266}
   - {fileID: 506730734958106846}
   - {fileID: 8856668721976089381}
+  - {fileID: 7127671070180384023}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -243,7 +245,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e17da3861f7fc4b8674f6702874ce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemsToInitialize: []
   Id: 0
+--- !u!114 &7127671070180384023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656559682471812272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dc1e4e33d79774da261ba3c589679d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4656559682613055192
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +396,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2034011289
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4059b6989c9b2e44c8c4dbe0ec1af0a3, type: 3}
   m_Color: {r: 0, g: 1, b: 0.41552758, a: 1}

@@ -27,19 +27,24 @@ public class CharacterAISpawner
     /// Spawns a character with given parameters.
     /// </summary>
     /// <param name="spawnParameters">Parameters to spawn a character.</param>
-    public void Spawn(CharacterSpawnParameters spawnParameters)
+    public CharacterFacade Spawn(CharacterSpawnParameters spawnParameters)
     {
-        ushort ID = spawnParameters.playerId;
-
+        ushort ID = spawnParameters.Id;
+        
         if (_AIplayers.ContainsKey(ID) == false)
         {
             CharacterFacade characterFacade = _AIfactory.Create(spawnParameters);
             characterFacade.Id = ID;
-
+            characterFacade.CharacterType = CharacterType.AICharacter;
             // Put the character on spawn position
             Transform transform = characterFacade.transform;
             transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
             _AIplayers.Add(ID, characterFacade);
+            return characterFacade;
+        }
+        else
+        {            
+            return null;
         }
     }
 

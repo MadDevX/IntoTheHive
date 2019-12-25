@@ -6,6 +6,8 @@ using Zenject;
 
 public class CharacterSpawner
 {
+    public event Action<CharacterFacade> CharacterSpawned;
+
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
     private CameraManager _cameraManager;
@@ -34,14 +36,14 @@ public class CharacterSpawner
     /// <param name="spawnParameters">Parameters to spawn a character.</param>
     public void Spawn(CharacterSpawnParameters spawnParameters)
     {
-        ushort playerId = spawnParameters.playerId;
+        ushort playerId = spawnParameters.Id;
         bool isLocal = spawnParameters.IsLocal;
 
         if (_characters.ContainsKey(playerId) == false)
         {
             CharacterFacade characterFacade = null;
             if (isLocal)
-            {
+            {                
                 // Player character
                 characterFacade = _playerFactory.Create(spawnParameters);                
                 characterFacade.Id = _unityClient.ID;
@@ -51,13 +53,20 @@ public class CharacterSpawner
             {
                 // Networked character 
                 characterFacade = _networkFactory.Create(spawnParameters);
-                characterFacade.Id = playerId;   
+                characterFacade.Id = playerId;
+                // TODO CHANGE WHEN REPLACING SPRITES
+                if (characterFacade.CharacterType == CharacterType.AICharacter)
+                {
+                    var renderer = characterFacade.GetComponentInChildren<SpriteRenderer>();
+                    renderer.color = Color.green;
+                }
             }
 
             // Put the character on spawn position
             Transform transform = characterFacade.transform;
             transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
             _characters.Add(playerId, characterFacade);
+            CharacterSpawned?.Invoke(characterFacade);
         }
     }
 
