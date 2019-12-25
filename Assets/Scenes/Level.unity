@@ -262,6 +262,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8941693456640016447, guid: 6e026e9f6107c05448d02a15ccbee32e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8941693456640016442, guid: 6e026e9f6107c05448d02a15ccbee32e,
         type: 3}
       propertyPath: m_Size.y
@@ -296,11 +301,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Offset.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8941693456640016447, guid: 6e026e9f6107c05448d02a15ccbee32e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e026e9f6107c05448d02a15ccbee32e, type: 3}
@@ -911,6 +911,7 @@ GameObject:
   - component: {fileID: 1954509279}
   - component: {fileID: 1954509280}
   - component: {fileID: 1954509281}
+  - component: {fileID: 1954509282}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -937,6 +938,7 @@ MonoBehaviour:
   - {fileID: 1954509278}
   - {fileID: 1954509280}
   - {fileID: 1954509281}
+  - {fileID: 1954509282}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1035,6 +1037,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _astarModule: {fileID: 1567203445}
+--- !u!114 &1954509282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954509274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff669ecf6bf4be4b884c74f420031e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110054448
 GameObject:
   m_ObjectHideFlags: 3

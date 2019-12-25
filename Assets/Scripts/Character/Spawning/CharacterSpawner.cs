@@ -6,6 +6,8 @@ using Zenject;
 
 public class CharacterSpawner
 {
+    public event Action<CharacterFacade> CharacterSpawned;
+
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
     private CameraManager _cameraManager;
@@ -64,6 +66,7 @@ public class CharacterSpawner
             Transform transform = characterFacade.transform;
             transform.SetPositionAndRotation(new Vector3(spawnParameters.X, spawnParameters.Y, transform.position.z), transform.rotation);
             _characters.Add(playerId, characterFacade);
+            CharacterSpawned?.Invoke(characterFacade);
         }
     }
 
