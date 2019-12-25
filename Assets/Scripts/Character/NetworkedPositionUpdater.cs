@@ -1,12 +1,12 @@
 ﻿using GameLoop;
 using UnityEngine;
 
-public class CharacterPositionUpdater : FixedUpdatableObject
+public class NetworkedPositionUpdater : FixedUpdatableObject
 {
     private Rigidbody2D _rb;
     private ControlState _controlState;
 
-    public CharacterPositionUpdater(
+    public NetworkedPositionUpdater(
         Rigidbody2D rigidbody,
         ControlState controlState)
     {

@@ -6,7 +6,8 @@ using Zenject;
 public class NetworkedSenderInstaller : MonoInstaller
 {
     public override void InstallBindings()
-    {   
+    {
+        Container.BindInterfacesAndSelfTo<NetworkedPositionUpdater>().AsSingle();
         Container.BindInterfacesAndSelfTo<InputMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<EquipmentMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<WeaponChangedMessageSender>().AsSingle();

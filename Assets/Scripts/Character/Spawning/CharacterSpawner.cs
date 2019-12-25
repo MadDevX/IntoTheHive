@@ -41,7 +41,7 @@ public class CharacterSpawner
         {
             CharacterFacade characterFacade = null;
             if (isLocal)
-            {
+            {                
                 // Player character
                 characterFacade = _playerFactory.Create(spawnParameters);                
                 characterFacade.Id = _unityClient.ID;
@@ -51,7 +51,13 @@ public class CharacterSpawner
             {
                 // Networked character 
                 characterFacade = _networkFactory.Create(spawnParameters);
-                characterFacade.Id = playerId;   
+                characterFacade.Id = playerId;
+                // TODO CHANGE WHEN REPLACING SPRITES
+                if (characterFacade.CharacterType == CharacterType.AICharacter)
+                {
+                    var renderer = characterFacade.GetComponentInChildren<SpriteRenderer>();
+                    renderer.color = Color.green;
+                }
             }
 
             // Put the character on spawn position
