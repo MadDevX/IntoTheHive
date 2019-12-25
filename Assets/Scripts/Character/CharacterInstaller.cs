@@ -20,7 +20,6 @@ public class CharacterInstaller : MonoInstaller
 
     private void InstallCharacter()
     {
-        Container.BindInterfacesAndSelfTo<CharacterPositionUpdater>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterMovement>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterRotation>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterShooting>().AsSingle();

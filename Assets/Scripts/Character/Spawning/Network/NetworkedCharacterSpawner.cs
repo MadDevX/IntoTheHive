@@ -29,12 +29,19 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
 
     public void Initialize()
     {
+        // TODO MG: SET TYPE OF CHARACTERS SPAWNED IN THIS WAY AI
+        _networkRelay.Subscribe(Tags.SpawnAI, HandleSpawnAiNetworkedCharacter);
+        _networkRelay.Subscribe(Tags.DespawnAI, HandleDespawn);
+
         _networkRelay.Subscribe(Tags.SpawnCharacter, HandleSpawnCharacter);
         _networkRelay.Subscribe(Tags.DespawnCharacter, HandleDespawn);
     }
 
     public void Dispose()
     {
+        _networkRelay.Unsubscribe(Tags.SpawnAI, HandleSpawnAiNetworkedCharacter);
+        _networkRelay.Unsubscribe(Tags.DespawnAI, HandleDespawn);
+
         _networkRelay.Unsubscribe(Tags.SpawnCharacter, HandleSpawnCharacter);
         _networkRelay.Unsubscribe(Tags.DespawnCharacter, HandleDespawn);
     }
@@ -46,6 +53,30 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
             //TODO MG CHECKSIZE
             ushort clientID = reader.ReadUInt16();
             _characterSpawner.Despawn(clientID);
+        }
+    }
+
+    private void HandleSpawnAiNetworkedCharacter(Message message)
+    {
+        using (DarkRiftReader reader = message.GetReader())
+        {
+            //TODO MG CHECKSIZE
+            while (reader.Position < reader.Length)
+            {
+                ushort id = reader.ReadUInt16();
+                float X = reader.ReadSingle();
+                float Y = reader.ReadSingle();
+
+                CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
+                spawnParameters.Id = id;
+                spawnParameters.X = X;
+                spawnParameters.Y = Y;
+                spawnParameters.CharacterType = CharacterType.AICharacter;
+                spawnParameters.IsLocal = false;
+                spawnParameters.health = null;
+                _characterSpawner.Spawn(spawnParameters);
+            }
+            _messageWithResponse.SendClientReady();
         }
     }
 
@@ -65,7 +96,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 spawnParameters.Id = id;
                 spawnParameters.X = X;
                 spawnParameters.Y = Y;
-                //spawnParameters.playerId = id;
+                spawnParameters.CharacterType = CharacterType.Player;
                 spawnParameters.IsLocal = isLocal;
                 spawnParameters.health = null;
                 _characterSpawner.Spawn(spawnParameters);
