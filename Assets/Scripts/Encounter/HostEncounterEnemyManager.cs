@@ -49,7 +49,7 @@ public class HostEncounterEnemyManager: IDisposable
     {
         // Get data from spawner list
         var data = _enemyInfoPool.GetEnemySpawnInfos();
-
+        
         // Check if data.Count is greater than zero
         if(data.Count > 0)
         {
@@ -96,8 +96,8 @@ public class HostEncounterEnemyManager: IDisposable
         facade.OnDeath -= OnAIDeath;
 
         _aliveEnemies.Remove(facade);
-        AllEnemiesDead?.Invoke();
-        //CheckWaveEnded();
+        //AllEnemiesDead?.Invoke();
+        CheckWaveEnded();
     }
 
     /// <summary>
@@ -107,7 +107,6 @@ public class HostEncounterEnemyManager: IDisposable
     {
         if (_aliveEnemies.Count == 0)
         {
-            Debug.LogWarning("Wave ended");
             WaveCleared?.Invoke();
         }
     }
