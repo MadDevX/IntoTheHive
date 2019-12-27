@@ -1,4 +1,5 @@
 ﻿using DarkRift.Client.Unity;
+using Networking.Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,5 +11,6 @@ public class SceneNetworkInstaller : MonoInstaller
     {
         // TODO MG - decide how to reference Character Spawner from ConnectionMenu
         //Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ItemSpawnMessageHandler>().AsSingle();
     }
 }

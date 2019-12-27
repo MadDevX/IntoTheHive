@@ -10,6 +10,7 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     [SerializeField] private CharacterFacade _playerPrefab;
     [SerializeField] private CharacterFacade _networkedCharacterPrefab;
     [SerializeField] private CharacterFacade _AIPrefab;
+    [SerializeField] private ItemPickup _pickupPrefab;
 
     public override void InstallBindings()
     {
@@ -30,6 +31,9 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
 
         BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
+
+        BindMonoContextPool<ItemPickup, ItemSpawnParameters, ItemPickup.Factory, PickupPool>
+            (Identifiers.Inventory, 10, _pickupPrefab, "Pickups");
 
 
         //TODO: all characters should be marked as context prefab
@@ -127,6 +131,10 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     }
 
     public class CharacterPool : MonoPoolableMemoryPool<CharacterSpawnParameters, IMemoryPool, CharacterFacade>
+    {
+    }
+
+    public class PickupPool : MonoPoolableMemoryPool<ItemSpawnParameters, IMemoryPool, ItemPickup>
     {
     }
 }

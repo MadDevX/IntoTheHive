@@ -56,11 +56,11 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     private IMemoryPool _pool;
     private IHealth _health;
     private IDamageable _damageable;
-    private IRespawner _respawner;
+    private IRespawner<CharacterSpawnParameters> _respawner;
     private ItemFactory _factory;
 
     [Inject]
-    public void Construct(IHealth health, IDamageable damageable, IRespawner respawner, IItemContainer itemContainer, IWeapon weapon, ItemFactory factory)
+    public void Construct(IHealth health, IDamageable damageable, IRespawner<CharacterSpawnParameters> respawner, IItemContainer itemContainer, IWeapon weapon, ItemFactory factory)
     {
         _health = health;
         _damageable = damageable;
@@ -91,9 +91,9 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
         _respawner.Spawn(parameters);
 
 
-        foreach (var item in itemsToInitialize)
+        foreach (var itemData in itemsToInitialize)
         {
-            var instance = item.CreateItem(_factory);
+            var instance = _factory.Create(itemData);
             Inventory.AddItem(instance);
         }
     }
