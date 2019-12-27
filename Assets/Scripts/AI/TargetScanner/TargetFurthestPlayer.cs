@@ -10,9 +10,10 @@ public class TargetFurthestPlayer : ITargetUpdatable
         for (int i = hits.Length - 1; i >= 0; i--)
         {
             var player = hits[i].GetComponent<PlayerInstaller>();
-            if (player != null)
+            var network = hits[i].GetComponent<NetworkedReceiverInstaller>();
+            if (player != null || network != null)
             {
-                var Target = player.transform;
+                var Target = player?.transform ?? network.transform;
                 Debug.Log($"Found furthest target: {Target.name}");
                 return Target;
             }

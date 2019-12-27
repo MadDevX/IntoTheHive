@@ -30,9 +30,10 @@ public class TargetRandomPlayer : ITargetUpdatable
         for (int i = 0; i < hits.Length; i++)
         {
             var player = hits[i].GetComponent<PlayerInstaller>();
-            if (player != null)
+            var network = hits[i].GetComponent<NetworkedReceiverInstaller>();
+            if (player != null || network != null)
             {
-                var Target = player.transform;
+                var Target = player?.transform ?? network.transform;
                 Debug.Log($"Found random target: {Target.name}");
                 return Target;
             }
