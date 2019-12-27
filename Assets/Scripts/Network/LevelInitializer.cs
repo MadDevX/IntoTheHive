@@ -10,10 +10,8 @@ using Zenject;
 /// </summary>
 public class LevelInitializer: IInitializable, IDisposable
 {
-    // TODO MG : rename to LevelInitializer?
     private GenericMessageWithResponseHost _messageWithResponse;
     private NetworkedCharacterSpawner _characterSpawner;
-    private NetworkedAISpawner _aiSpawner;
     private LevelGraphMessageSender _graphSender;
     private ProjectEventManager _eventManager;
     private HostDoorManager _hostDoorManager;
@@ -21,7 +19,6 @@ public class LevelInitializer: IInitializable, IDisposable
     public LevelInitializer(
         GenericMessageWithResponseHost messageWithResponse,
         NetworkedCharacterSpawner characterSpawner,
-        NetworkedAISpawner aiSpawner,
         LevelGraphMessageSender graphSender,
         ProjectEventManager eventManager,
         HostDoorManager hostDoorManager
@@ -29,7 +26,6 @@ public class LevelInitializer: IInitializable, IDisposable
     {
         _messageWithResponse = messageWithResponse;
         _characterSpawner = characterSpawner;
-        _aiSpawner = aiSpawner;
         _graphSender = graphSender;
         _eventManager = eventManager;
         _hostDoorManager = hostDoorManager;
@@ -47,20 +43,16 @@ public class LevelInitializer: IInitializable, IDisposable
 
     private void LoadLevel()
     {
-        Debug.Log("Load level initializer");
         _messageWithResponse.SendMessageWithResponse(_graphSender.GenerateLevelGraphMessage(), OpenSpawnRoom);
     }
 
     private void OpenSpawnRoom()
     {
-        Debug.Log("OpenSpawn room");
         _messageWithResponse.SendMessageWithResponse(_hostDoorManager.PrepareOpenDoorsMessage(0), SpawnPlayers);
     }
 
     private void SpawnPlayers()
     {
-        //TODO MG: SpawnCharacter does not reply to this message with response
-        Debug.Log("Spawn Players");
         _messageWithResponse.SendMessageWithResponse(_characterSpawner.GenerateSpawnMessage(), BeginGame);
     }    
 

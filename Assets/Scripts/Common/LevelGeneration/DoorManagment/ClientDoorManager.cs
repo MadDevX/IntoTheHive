@@ -48,7 +48,6 @@ public class ClientDoorManager: IInitializable, IDisposable
 
     private void HandleOpenDoors(Message message)
     {
-        Debug.Log("DOORS ARE OPENING");
         using (DarkRiftReader reader = message.GetReader())
         {
             //TODO MG CHECKSIZE

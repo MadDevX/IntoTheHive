@@ -33,7 +33,6 @@ public class GameEndManager: IInitializable, IDisposable
 
     private void EndGame()
     {
-        Debug.LogWarning("Game Ending");
         _sceneManager.LoadLobby();
     }
 
