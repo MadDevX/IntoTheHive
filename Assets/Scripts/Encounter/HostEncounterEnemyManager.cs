@@ -90,7 +90,6 @@ public class HostEncounterEnemyManager: IDisposable
     private void OnAIDeath(DeathParameters deathParameters)
     {
         CharacterFacade facade = _aliveEnemies.Find(enemy => enemy.Id == deathParameters.characterInfo.Id);
-        Debug.Log("death parameters id = " + deathParameters.characterInfo.Id);
         //Unsubsribe event
         if (facade == null) Debug.Log("Facade is null");
         facade.OnDeath -= OnAIDeath;

@@ -29,7 +29,6 @@ public class ScenePostinitializationEvents
     /// <param name="oneTimeOnly">States if the action will be called only one when the scene next loads or every time.</param>
     public void Subscribe(int sceneBuildIndex, Action postInitAction, bool oneTimeOnly = true)
     {
-        Debug.Log("subscribe post init events");
         List<PostInitActionArgument> list;
         _scenePostInitEvents.TryGetValue(sceneBuildIndex, out list);        
         list.Add(new PostInitActionArgument(postInitAction, oneTimeOnly));
@@ -72,10 +71,6 @@ public class ScenePostinitializationEvents
     /// <param name="sceneBuildIndex">Build index of the scene initialized.</param>
     public void InvokeEvents(int sceneBuildIndex)
     {
-
-        //TODO MG : should this clear all events after invoking?
-        //TODO MG : add a boolean isOneTimeOnly
-        Debug.Log("Invoke post init events");
         var events = _scenePostInitEvents[sceneBuildIndex];
         events?.ForEach(e => e?.Action.Invoke());
         events.RemoveAll(e => e.OneTimeOnly == true);

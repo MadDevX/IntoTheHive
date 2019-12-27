@@ -34,7 +34,6 @@ public class CharacterDamageable : IDamageable
         if (_info.IsLocal)
         {
             _health.Health = healthAfter;
-            Debug.Log($"{dmgDealt} DMG taken! {_health.Health} HP remaining");
             OnDamageTaken?.Invoke(new DamageTakenArgs(dmgDealt, _health.Health));
 
             if (_health.Health <= 0.0f)
@@ -46,7 +45,6 @@ public class CharacterDamageable : IDamageable
         }
         else
         {
-            //although not the cleanest one, this is by far the simplest and relatively "clean" solution
             SendMessage(amount); //we use {amount} instead of {dmgDealt} because HP may not be up to date on the client
         }
 

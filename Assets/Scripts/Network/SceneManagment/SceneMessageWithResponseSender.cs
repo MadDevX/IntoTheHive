@@ -38,13 +38,11 @@ public class SynchronizedSceneManager : IInitializable, IDisposable
     
     public void SendSceneChanged(int buildIndex, Action onComplete)
     {
-        Debug.Log("Send scene changed");
         _messageWithResponseHost.SendMessageWithResponse(PrepareMessage(buildIndex), onComplete);
     }
 
     public void SendSceneChanged(int buildIndex)
     {
-        Debug.Log("Send scene changed");
         _messageWithResponseHost.SendMessageWithResponse(PrepareMessage(buildIndex));
     }
 
@@ -69,7 +67,7 @@ public class SynchronizedSceneManager : IInitializable, IDisposable
             sceneBuildIndex = reader.ReadUInt16();
         }
 
-        // Loads a sceme and Sends ClientReady when scene is loaded and properly initialized
+        // Loads a scene and Sends ClientReady when scene is loaded and properly initialized
         _postInitEvents.Subscribe(sceneBuildIndex, _messageWithResponseClient.SendClientReady);
         SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
 

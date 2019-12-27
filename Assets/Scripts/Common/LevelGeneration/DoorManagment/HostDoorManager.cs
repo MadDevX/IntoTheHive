@@ -7,7 +7,6 @@ public class HostDoorManager
 {    
     public Message PrepareOpenDoorsMessage(ushort roomId)
     {
-        Debug.Log("PreparedOpenDoorsMessage");
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(roomId);

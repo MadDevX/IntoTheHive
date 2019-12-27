@@ -20,19 +20,16 @@ public class HostSceneManager
     /// </summary>
     public void LoadNextLevel()
     {
-        Debug.Log(this.ToString() + ": loading next level");
         _synchronizedSceneManager.SendSceneChanged(3, _eventManager.FireGameInitializedHost);
     }
 
     public void LoadHub()
     {
-        Debug.Log(this.ToString() + ": loading next level");
         _synchronizedSceneManager.SendSceneChanged(4, _eventManager.FireGameInitializedHost);
     }
 
     public void LoadLobby()
     {
-        Debug.Log(this.ToString() + ": loading next level");
         _synchronizedSceneManager.SendSceneChanged(2);
     }
 

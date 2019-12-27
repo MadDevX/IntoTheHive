@@ -13,7 +13,6 @@ public class TargetClosestPlayer : ITargetUpdatable
             if (player != null || network != null)
             {
                 var Target = player?.transform ?? network.transform;               
-                Debug.Log($"Found closest target: {Target.name}");
                 return Target;
             }
         }
