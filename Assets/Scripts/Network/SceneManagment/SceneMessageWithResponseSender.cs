@@ -42,6 +42,13 @@ public class SynchronizedSceneManager : IInitializable, IDisposable
         _messageWithResponseHost.SendMessageWithResponse(PrepareMessage(buildIndex), onComplete);
     }
 
+    public void SendSceneChanged(int buildIndex)
+    {
+        Debug.Log("Send scene changed");
+        _messageWithResponseHost.SendMessageWithResponse(PrepareMessage(buildIndex));
+    }
+
+
     public Message PrepareMessage(int buildIndex)
     {
         using (DarkRiftWriter writer = DarkRiftWriter.Create())

@@ -30,6 +30,13 @@ public class HostSceneManager
         _synchronizedSceneManager.SendSceneChanged(4, _eventManager.FireGameInitializedHost);
     }
 
+    public void LoadLobby()
+    {
+        Debug.Log(this.ToString() + ": loading next level");
+        _synchronizedSceneManager.SendSceneChanged(2);
+    }
+
+
     public void LoadMenu()
     {
 

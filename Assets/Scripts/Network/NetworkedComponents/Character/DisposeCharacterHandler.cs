@@ -10,7 +10,7 @@ namespace Networking.Character
     {
         private NetworkRelay _networkRelay;
         private CharacterFacade _facade;
-
+        
         public DisposeCharacterHandler(NetworkRelay networkRelay, CharacterFacade facade)
         {
             _networkRelay = networkRelay;

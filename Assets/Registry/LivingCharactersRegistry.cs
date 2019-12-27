@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 public class LivingCharactersRegistry: IInitializable, IDisposable
@@ -37,6 +38,18 @@ public class LivingCharactersRegistry: IInitializable, IDisposable
         spawnedCharacter.OnDeath += RemoveDeadCharacter;
         LivingPlayers.Add(spawnedCharacter);
     }
+    
+    public void RemoveDeadCharacter(ushort id)
+    {
+        var facade = LivingPlayers.Find(player => player.Id == id);
+        if (facade != null)
+        {
+            facade.OnDeath -= RemoveDeadCharacter;
+            LivingPlayers.Remove(facade);
+            if (LivingPlayersCount == 0)
+                AllPlayersDead?.Invoke();
+        }
+    }
 
     private void RemoveDeadCharacter(DeathParameters deathParameters)
     {
@@ -45,6 +58,8 @@ public class LivingCharactersRegistry: IInitializable, IDisposable
         {
             facade.OnDeath -= RemoveDeadCharacter;
             LivingPlayers.Remove(facade);
+            if (LivingPlayersCount == 0)
+                AllPlayersDead?.Invoke();
         }
     }
 }

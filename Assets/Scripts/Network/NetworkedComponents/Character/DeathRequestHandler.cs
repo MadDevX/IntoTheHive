@@ -12,19 +12,20 @@ namespace Networking.Character
     /// </summary>
     public class DeathRequestHandler : IDisposable
     {
+        private LivingCharactersRegistry _livingCharacterRegistry;
         private NetworkRelay _networkRelay;
         private UnityClient _client;
         private ClientInfo _connectionInfo;
         private CharacterInfo _info;
-        private CharacterFacade _facade;
 
-        public DeathRequestHandler(NetworkRelay networkRelay, UnityClient client, ClientInfo connectionInfo, CharacterInfo info, CharacterFacade facade)
+        public DeathRequestHandler(LivingCharactersRegistry livingCharactersRegistry,
+            NetworkRelay networkRelay, UnityClient client, ClientInfo connectionInfo, CharacterInfo info, CharacterFacade facade)
         {
+            _livingCharacterRegistry = livingCharactersRegistry;
             _networkRelay = networkRelay;
             _client = client;
             _connectionInfo = connectionInfo;
             _info = info;
-            _facade = facade;
             PreInitialize();
         }
 
@@ -46,11 +47,9 @@ namespace Networking.Character
                 {
                     var characterId = reader.ReadUInt16();
                     ushort localId = _info.Id;
-                    
                     if (localId == characterId)
                     {
-                        Debug.LogWarning("Character dead received. ID = " + localId);
-                        Debug.LogWarning("message content = " + characterId);
+                        _livingCharacterRegistry.RemoveDeadCharacter(localId);
                         using (var writer = DarkRiftWriter.Create())
                         {
                             writer.Write(characterId);

@@ -8,6 +8,7 @@ public class LevelInstaller: MonoInstaller
     public override void InstallBindings()
     {
         //Container.BindInterfacesAndSelfTo<HostEncounterManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameEndManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<AIGraphSpawner>().AsSingle();
         Container.BindInstance(_astarModule);
     }
