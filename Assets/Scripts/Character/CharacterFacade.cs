@@ -57,17 +57,15 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     private IHealth _health;
     private IDamageable _damageable;
     private IRespawner<CharacterSpawnParameters> _respawner;
-    private ItemFactory _factory;
 
     [Inject]
-    public void Construct(IHealth health, IDamageable damageable, IRespawner<CharacterSpawnParameters> respawner, IItemContainer itemContainer, IWeapon weapon, ItemFactory factory)
+    public void Construct(IHealth health, IDamageable damageable, IRespawner<CharacterSpawnParameters> respawner, IItemContainer itemContainer, IWeapon weapon)
     {
         _health = health;
         _damageable = damageable;
         _respawner = respawner;
         Inventory = itemContainer;
         Weapon = weapon;
-        _factory = factory;
     }
 
     public void Dispose()
@@ -89,13 +87,6 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
         //_health = parameters.health; TODO: read health data from spawn parameters
         _pool = pool;
         _respawner.Spawn(parameters);
-
-
-        foreach (var itemData in itemsToInitialize)
-        {
-            var instance = _factory.Create(itemData);
-            Inventory.AddItem(instance);
-        }
     }
 
     public float TakeDamage(float amount) => _damageable.TakeDamage(amount);
