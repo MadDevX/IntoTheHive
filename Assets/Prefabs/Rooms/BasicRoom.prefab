@@ -574,9 +574,9 @@ Transform:
   - {fileID: 5009875895852831052}
   - {fileID: 5009875895441086581}
   - {fileID: 5009875895258887979}
-  - {fileID: 2156956562263633859}
   - {fileID: 3558931879666393913}
   - {fileID: 1415873569836710053}
+  - {fileID: 2156956562263633859}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -989,7 +989,7 @@ Transform:
   m_Children:
   - {fileID: 259190914280885880}
   m_Father: {fileID: 5009875895464623848}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &7015248873979094999
 Grid:
@@ -1234,6 +1234,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8832549928812650057, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832549928812650057, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10.25
+      objectReference: {fileID: 0}
     - target: {fileID: 612687030308269818, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
         type: 3}
       propertyPath: _roomFacade
@@ -1314,12 +1324,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8273215834261396873, guid: 6e084349b1b58b448abc3a4f4957acd7,
+    - target: {fileID: 8273215834570778241, guid: 6e084349b1b58b448abc3a4f4957acd7,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8273215833427201841, guid: 6e084349b1b58b448abc3a4f4957acd7,
+    - target: {fileID: 8273215834261396873, guid: 6e084349b1b58b448abc3a4f4957acd7,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1329,7 +1339,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8273215834570778241, guid: 6e084349b1b58b448abc3a4f4957acd7,
+    - target: {fileID: 8273215833427201841, guid: 6e084349b1b58b448abc3a4f4957acd7,
         type: 3}
       propertyPath: m_IsActive
       value: 0

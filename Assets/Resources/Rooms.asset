@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicRoom: {fileID: 5009875895464623849, guid: bbca7299149bd664996844bb8932804e,
     type: 3}
-  Door: {fileID: 8941693455274307096, guid: 6e026e9f6107c05448d02a15ccbee32e, type: 3}
-  ExitRoom: {fileID: 61590988342074606, guid: 3071cadedc6bcd2419a4f291185a91e2, type: 3}
+  SpawnRoom: {fileID: 1171327135166459349, guid: bdc4aaf16c5c866499ef71eca216b90c,
+    type: 3}
+  ExitRoom: {fileID: 3914999637745710957, guid: 60c512b94da66014589a467556dcd8a4,
+    type: 3}
   Room1: {fileID: 5303414473920246559, guid: 8b8a3f296fcf54d42a83b2b9e537514b, type: 3}
   Room2: {fileID: 5661085036954786308, guid: 628b5227d7cfcdb4ab9f1109948127dd, type: 3}
   Room3: {fileID: 6586040683631445454, guid: 723694768f2fb93499b30bd2ce6cedab, type: 3}

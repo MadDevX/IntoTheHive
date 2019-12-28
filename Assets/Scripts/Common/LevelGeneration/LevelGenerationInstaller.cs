@@ -22,7 +22,6 @@ public class LevelGenerationInstaller: MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<LevelGraphMessageSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<LevelGraphState>().AsSingle();
-        Container.BindInterfacesAndSelfTo<BasicLevelGraphGenerator>().AsSingle();
     }
 
     private void InstallComponents()
@@ -36,6 +35,7 @@ public class LevelGenerationInstaller: MonoInstaller
         Container.BindInterfacesAndSelfTo<SpawnParametersGenerator>().AsSingle();
         Container.BindInterfacesAndSelfTo<LevelInitializer>().AsSingle();
         Container.BindInterfacesAndSelfTo<LevelSpawnParameters>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LevelGraphGenerator>().AsSingle();        
     }
 
     private void InstallFactory()

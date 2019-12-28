@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 public class Rooms: ScriptableObject
 {
     [SerializeField] public Object BasicRoom;
-    [SerializeField] public Object Door;
+    [SerializeField] public Object SpawnRoom;
     [SerializeField] public Object ExitRoom;
     [SerializeField] public Object Room1;
     [SerializeField] public Object Room2;
@@ -33,7 +33,7 @@ public class Rooms: ScriptableObject
     public Object GetRoomById(ushort roomId)
     {
         if (roomId == 0) return BasicRoom;
-        if (roomId == 1) return Door;
+        if (roomId == 1) return SpawnRoom;
         if (roomId == 2) return ExitRoom;
         if (roomId == 3) return Room1;
         if (roomId == 4) return Room2;
@@ -54,7 +54,7 @@ public class Rooms: ScriptableObject
     }
 
     public static ushort GetExitRoom() => 2;
-    public static ushort GetStartingRoom() => 0;
+    public static ushort GetStartingRoom() => 1;
     public static ushort GetRandomRoom() => Convert.ToUInt16(Random.Range(3, 17));
 
 }
