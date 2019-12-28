@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IRespawnable
+public interface IRespawnable<T>
 {
-    event Action<CharacterSpawnParameters> OnSpawn;
+    event Action<T> OnSpawn;
     event Action OnDespawn;
 }
 
-public interface IRespawner
+public interface IRespawner<T>
 {
-    void Spawn(CharacterSpawnParameters parameters);
+    void Spawn(T parameters);
     void Despawn();
 }

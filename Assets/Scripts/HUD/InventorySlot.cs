@@ -33,10 +33,7 @@ public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>
 
     public void Dispose()
     {
-        if(_pool != null)
-        {
-            _pool.Despawn(this);
-        }
+        _pool?.Despawn(this);
     }
 
     public void OnDespawned()

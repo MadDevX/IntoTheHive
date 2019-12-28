@@ -30,6 +30,6 @@ public class AIInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<AITargetScanner>().AsSingle();
         Container.BindInterfacesAndSelfTo<MovementManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<DirectionManager>().AsSingle();
-
+        Container.BindInterfacesAndSelfTo<AILootCreator>().AsSingle();
     }
 }

@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterRespawnable : IRespawnable<CharacterSpawnParameters>, IRespawner<CharacterSpawnParameters>
+public class ItemRespawnable : IRespawnable<PickupSpawnParameters>, IRespawner<PickupSpawnParameters>
 {
-    public event Action<CharacterSpawnParameters> OnSpawn;
+    public event Action<PickupSpawnParameters> OnSpawn;
     public event Action OnDespawn;
 
-    public void Spawn(CharacterSpawnParameters parameters)
+    public void Spawn(PickupSpawnParameters parameters)
     {
         OnSpawn?.Invoke(parameters);
     }
@@ -17,5 +17,4 @@ public class CharacterRespawnable : IRespawnable<CharacterSpawnParameters>, IRes
     {
         OnDespawn?.Invoke();
     }
-
 }

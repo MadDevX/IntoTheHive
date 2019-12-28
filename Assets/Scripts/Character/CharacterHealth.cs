@@ -10,9 +10,9 @@ public class CharacterHealth : IHealth, IHealthSetter, IDisposable
     public float Health { get; set; }
 
     private Settings _settings;
-    private IRespawnable _respawnable;
+    private IRespawnable<CharacterSpawnParameters> _respawnable;
 
-    public CharacterHealth(Settings settings, IRespawnable respawnable)
+    public CharacterHealth(Settings settings, IRespawnable<CharacterSpawnParameters> respawnable)
     {
         _settings = settings;
         _respawnable = respawnable;

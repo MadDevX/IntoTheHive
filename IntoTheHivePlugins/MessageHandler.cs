@@ -45,6 +45,15 @@ public class MessageHandler
 
             if (message.Tag == Tags.DisposeCharacter)
                 _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.SpawnPickup)
+                _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.DespawnPickup)
+                _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.AssignItem)
+                _plugin.BroadcastToAllClients(message, e);
             #endregion
 
             #region other clients

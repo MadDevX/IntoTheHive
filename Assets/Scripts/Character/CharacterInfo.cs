@@ -9,9 +9,9 @@ public class CharacterInfo : IDisposable
     public bool IsLocal { get; private set; }
     public ushort Id { get; private set; }
 
-    private IRespawnable _respawnable;
+    private IRespawnable<CharacterSpawnParameters> _respawnable;
 
-    public CharacterInfo(IRespawnable respawnable)
+    public CharacterInfo(IRespawnable<CharacterSpawnParameters> respawnable)
     {
         _respawnable = respawnable;
         PreInitialize();

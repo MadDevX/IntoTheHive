@@ -41,4 +41,8 @@
     public static readonly ushort DeathRequest = 26;
     public static readonly ushort DisposeCharacter = 27;
 
+    public static readonly ushort SpawnPickup = 28;
+    public static readonly ushort DespawnPickup = 29;
+    public static readonly ushort AssignItem = 30;
+
 }

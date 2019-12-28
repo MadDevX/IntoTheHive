@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class PlayerRegistryTracker : IDisposable
 {
-    private IRespawnable _respawnable;
+    private IRespawnable<CharacterSpawnParameters> _respawnable;
     private PlayerRegistry _registry;
     private CharacterFacade _facade;
 
 
-    public PlayerRegistryTracker(IRespawnable respawnable, PlayerRegistry registry, CharacterFacade facade)
+    public PlayerRegistryTracker(IRespawnable<CharacterSpawnParameters> respawnable, PlayerRegistry registry, CharacterFacade facade)
     {
         _respawnable = respawnable;
         _registry = registry;

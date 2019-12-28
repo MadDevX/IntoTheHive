@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
 public class ModuleFactory
 {
+    public ReadOnlyCollection<short> Ids { get; private set; }
+        
     private Dictionary<short, BaseModule> _modules;
+
 
     public ModuleFactory()
     {
         InitDictionary();
+        InitIds();
     }
 
     public IModule Create(short id)
@@ -51,5 +56,10 @@ public class ModuleFactory
                 }
             }
         }
+    }
+
+    private void InitIds()
+    {
+        Ids = _modules.Keys.ToList().AsReadOnly();
     }
 }
