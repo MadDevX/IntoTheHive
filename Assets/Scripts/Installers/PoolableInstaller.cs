@@ -32,7 +32,7 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
 
-        BindMonoContextPool<ItemPickup, ItemSpawnParameters, ItemPickup.Factory, PickupPool>
+        BindMonoContextPool<ItemPickup, PickupSpawnParameters, ItemPickup.Factory, PickupPool>
             (Identifiers.Inventory, 10, _pickupPrefab, "Pickups");
 
 
@@ -134,7 +134,7 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     {
     }
 
-    public class PickupPool : MonoPoolableMemoryPool<ItemSpawnParameters, IMemoryPool, ItemPickup>
+    public class PickupPool : MonoPoolableMemoryPool<PickupSpawnParameters, IMemoryPool, ItemPickup>
     {
     }
 }

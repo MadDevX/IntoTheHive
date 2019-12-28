@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ItemPickup : MonoBehaviour, IPoolable<ItemSpawnParameters, IMemoryPool>, IDisposable
+public class ItemPickup : MonoBehaviour, IPoolable<PickupSpawnParameters, IMemoryPool>, IDisposable
 {
     [SerializeField] private SpriteRenderer _iconRenderer;
 
-    public ItemInstance Item { get; private set; }
+    public ItemData Item { get; private set; }
     private IMemoryPool _pool;
-    private IRespawner<ItemSpawnParameters> _respawner;
+    private IRespawner<PickupSpawnParameters> _respawner;
 
     [Inject]
-    public void Construct(IRespawner<ItemSpawnParameters> respawner)
+    public void Construct(IRespawner<PickupSpawnParameters> respawner)
     {
         _respawner = respawner;
     }
 
-    public void OnSpawned(ItemSpawnParameters parameters, IMemoryPool pool)
+    public void OnSpawned(PickupSpawnParameters parameters, IMemoryPool pool)
     {
         _pool = pool;
         Item = parameters.item;
         transform.position = parameters.position;
-        _iconRenderer.sprite = Item.data.icon;
+        _iconRenderer.sprite = Item.icon;
         _respawner.Spawn(parameters);
     }
 
@@ -38,7 +38,7 @@ public class ItemPickup : MonoBehaviour, IPoolable<ItemSpawnParameters, IMemoryP
         _pool?.Despawn(this);
     }
 
-    public class Factory : PlaceholderFactory<ItemSpawnParameters, ItemPickup>
+    public class Factory : PlaceholderFactory<PickupSpawnParameters, ItemPickup>
     {
     }
 }

@@ -11,6 +11,6 @@ public class SceneNetworkInstaller : MonoInstaller
     {
         // TODO MG - decide how to reference Character Spawner from ConnectionMenu
         //Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ItemSpawnMessageHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PickupSpawnMessageHandler>().AsSingle();
     }
 }

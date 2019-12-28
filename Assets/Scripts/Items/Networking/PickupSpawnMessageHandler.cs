@@ -7,16 +7,16 @@ using Zenject;
 
 namespace Networking.Items
 {
-    public class ItemSpawnMessageHandler : IInitializable, IDisposable
+    public class PickupSpawnMessageHandler : IInitializable, IDisposable
     {
         private NetworkRelay _networkRelay;
-        private ItemFactory _itemFactory;
+        private ItemDatabase _itemDatabase;
         private ItemPickup.Factory _pickupFactory;
 
-        public ItemSpawnMessageHandler(NetworkRelay networkRelay, ItemFactory itemFactory, [Inject(Id = Identifiers.Inventory)] ItemPickup.Factory pickupFactory)
+        public PickupSpawnMessageHandler(NetworkRelay networkRelay, ItemDatabase itemDatabase, [Inject(Id = Identifiers.Inventory)] ItemPickup.Factory pickupFactory)
         {
             _networkRelay = networkRelay;
-            _itemFactory = itemFactory;
+            _itemDatabase = itemDatabase;
             _pickupFactory = pickupFactory;
         }
 
@@ -38,7 +38,7 @@ namespace Networking.Items
                 var itemId = reader.ReadInt16();
                 var xPos = reader.ReadSingle();
                 var yPos = reader.ReadSingle();
-                var parameters = new ItemSpawnParameters(entityId, _itemFactory.Create(ItemType.Module, itemId), new Vector2(xPos, yPos));
+                var parameters = new PickupSpawnParameters(entityId, _itemDatabase.GetData(ItemType.Module, itemId), new Vector2(xPos, yPos));
                 _pickupFactory.Create(parameters);
             }
         }

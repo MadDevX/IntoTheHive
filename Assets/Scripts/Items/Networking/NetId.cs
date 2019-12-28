@@ -10,9 +10,9 @@ namespace Networking.Items
     {
         public short Id { get; private set; }
 
-        private IRespawnable<ItemSpawnParameters> _respawnable;
+        private IRespawnable<PickupSpawnParameters> _respawnable;
 
-        public NetId(IRespawnable<ItemSpawnParameters> respawnable)
+        public NetId(IRespawnable<PickupSpawnParameters> respawnable)
         {
             _respawnable = respawnable;
             PreInitialize();
@@ -30,7 +30,7 @@ namespace Networking.Items
             _respawnable.OnDespawn -= OnDespawn;
         }
 
-        private void OnSpawn(ItemSpawnParameters obj)
+        private void OnSpawn(PickupSpawnParameters obj)
         {
             Id = obj.id;
         }

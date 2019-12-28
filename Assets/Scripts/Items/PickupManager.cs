@@ -17,7 +17,7 @@ public class PickupManager
         _lastId = -1;
     }
 
-    public void SpawnPickup(ItemSpawnRequestParameters parameters)
+    public void SpawnPickup(PickupSpawnRequestParameters parameters)
     {
         if (_info.Status == ClientStatus.Host)
         {

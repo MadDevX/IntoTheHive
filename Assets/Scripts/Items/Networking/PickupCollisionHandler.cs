@@ -7,14 +7,14 @@ using UnityEngine;
 
 namespace Networking.Items
 {
-    public class CollisionHandler : IDisposable
+    public class PickupCollisionHandler : IDisposable
     {
         private IRelay _relay;
         private ClientInfo _info;
         private NetId _netId;
         private ItemPickup _facade;
 
-        public CollisionHandler(IRelay relay, ClientInfo info, NetId netId, ItemPickup facade)
+        public PickupCollisionHandler(IRelay relay, ClientInfo info, NetId netId, ItemPickup facade)
         {
             _relay = relay;
             _info = info;
@@ -52,7 +52,7 @@ namespace Networking.Items
             using (var writer = DarkRiftWriter.Create())
             {
                 writer.Write(facade.Id);
-                writer.Write(_facade.Item.data.itemId); //TODO: handle different types of items, now only modules can be pickups
+                writer.Write(_facade.Item.itemId); //TODO: handle different types of items, now only modules can be pickups
                 using (var message = Message.Create(Tags.AssignItem, writer))
                 {
                     _info.Client.SendMessage(message, SendMode.Reliable);

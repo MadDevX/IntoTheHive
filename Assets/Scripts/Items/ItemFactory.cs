@@ -20,7 +20,7 @@ public class ItemFactory
         switch(type)
         {
             case ItemType.Module:
-                var data = GetData(type, id);
+                var data = _itemDatabase.GetData(type, id);
                 return new ItemInstance(new ModuleItem(_moduleFactory.Create(id)), data);
             default:
                 return null;
@@ -36,18 +36,6 @@ public class ItemFactory
             default:
                 return null;
         }
-    }
-
-    private ItemData GetData(ItemType type, short id)
-    {
-        foreach(var data in _itemDatabase.dataList)
-        {
-            if(data.itemId == id && data.type == type)
-            {
-                return data;
-            }
-        }
-        throw new ArgumentException($"Tried to get data that does not exist. Type: {type} | ID: {id}");
     }
 
 

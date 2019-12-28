@@ -15,7 +15,7 @@ public class NetworkPickupInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ItemPickup>().FromInstance(_facade).AsSingle();
         Container.BindInterfacesAndSelfTo<NetId>().AsSingle();
         Container.BindInterfacesAndSelfTo<ItemRespawnable>().AsSingle();
-        Container.BindInterfacesAndSelfTo<CollisionHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PickupCollisionHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<DespawnMessageHandler>().AsSingle();
         Container.Bind<IRelay>().FromInstance(_relay).AsSingle();
     }
