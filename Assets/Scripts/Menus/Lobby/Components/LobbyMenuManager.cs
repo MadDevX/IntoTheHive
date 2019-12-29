@@ -15,6 +15,9 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private Button _startGameButton;
     private Button _readyButton;
     private Button _leaveLobbyButton;
+    
+    private Text _startTextReady;
+    private Text _startTextNotReady;
 
     private UnityClient _client;
     private ClientInfo _clientInfo;
@@ -30,6 +33,10 @@ public class LobbyMenuManager: IInitializable, IDisposable
         Button readyButton,
         [Inject(Id = Identifiers.LobbyLeaveButton)]
         Button leaveButton,
+        [Inject(Id = Identifiers.StartTextReady)]
+        Text startTextReady,
+        [Inject(Id = Identifiers.StartTextNotReady)]
+        Text startTextNotReady,
         UnityClient client,
         ClientInfo clientInfo,
         ServerManager serverManager,
@@ -40,6 +47,9 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _readyButton = readyButton;
         _leaveLobbyButton = leaveButton;
         _startGameButton = startGameButton;
+
+        _startTextReady = startTextReady;
+        _startTextNotReady = startTextNotReady;
 
         _client = client;
         _clientInfo = clientInfo;
@@ -112,7 +122,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     /// </summary>
     private void SetupReadyHandlers()
     {
-        _startGameButton.interactable = false;
+        StartGameButtonSetActive(false);
         _lobbyStateManager.AllPlayersReadyChanged += StartGameButtonSetActive;
     }
 
@@ -123,6 +133,8 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private void StartGameButtonSetActive(bool isActive)
     {
         _startGameButton.interactable = isActive;
+        _startTextNotReady.enabled = !isActive;
+        _startTextReady.enabled = isActive;
     }
 
     /// <summary>

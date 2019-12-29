@@ -8,6 +8,9 @@ public class LobbyInstaller : MonoInstaller
     [SerializeField] private Button _startGameButton;
     [SerializeField] private Button _readyButton;
     [SerializeField] private Button _leaveLobbyButton;
+    [SerializeField] private Text _startTextReady;
+    [SerializeField] private Text _startTextNotReady;
+
     [SerializeField] private SceneInitializedAnnouncer _sceneInitializedAnnouncer;
 
     public override void InstallBindings()
@@ -34,6 +37,8 @@ public class LobbyInstaller : MonoInstaller
         Container.BindInstance(_startGameButton).WithId(Identifiers.LobbyStartGameButton);
         Container.BindInstance(_readyButton).WithId(Identifiers.LobbyReadyButton);
         Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyLeaveButton);
+        Container.BindInstance(_startTextReady).WithId(Identifiers.StartTextReady);
+        Container.BindInstance(_startTextNotReady).WithId(Identifiers.StartTextNotReady);
     }
 
     private void InstallMessageHandling()
