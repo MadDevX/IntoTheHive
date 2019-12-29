@@ -16,17 +16,17 @@ public class WeaponCreator
     {
         weapon.SetModules(CreateModuleList(modulesIds));
     }
-    public void CreateWeapon(IWeapon weapon, List<IModule> modulesIds)
+    public void CreateWeapon(IWeapon weapon, List<IModule> modules)
     {
-        weapon.SetModules(modulesIds);
+        weapon.SetModules(modules);
     }
 
-    private List<IModule> CreateModuleList(List<short> modules)
+    private List<IModule> CreateModuleList(List<short> modulesIds)
     {
         _holdingList.Clear();
-        for(int i = 0; i < modules.Count; i++)
+        for(int i = 0; i < modulesIds.Count; i++)
         {
-            _holdingList.Add(_factory.Create(modules[i]));
+            _holdingList.Add(_factory.Create(modulesIds[i]));
         }
         return _holdingList;
     }
