@@ -10,6 +10,8 @@ public class PlayerEquipmentInitializer : IDisposable
     private IItemContainer _inventory;
     private IWeapon _weapon;
 
+    private List<IModule> _modulesBuffer = new List<IModule>();
+    private List<ItemInstance> _itemsBuffer = new List<ItemInstance>();
     public PlayerEquipmentInitializer(IRespawnable<CharacterSpawnParameters> respawnable, ItemFactory itemFactory, IItemContainer inventory, IWeapon weapon)
     {
         _respawnable = respawnable;
@@ -36,16 +38,29 @@ public class PlayerEquipmentInitializer : IDisposable
             _inventory.AddItem(_itemFactory.Create(ItemType.Module, id));
         }
 
-        var modules = new List<IModule>();
+
+        _modulesBuffer.Clear();
+        _itemsBuffer.Clear();
+        _itemsBuffer.AddRange(_inventory.Items);
+
         foreach(var id in obj.modules)
         {
-            for(int i = 0; i < _inventory.Items.Count; i++)
+            if (_itemsBuffer.Count == 0)
             {
-                var item = _inventory.Items[i];
-                if(item.data.itemId == id && item.instance.IsEquipped == false)
+                throw new ArgumentException("Requested unused module does not exist in inventory");
+            }
+
+            for (int i = 0; i < _itemsBuffer.Count; i++)
+            {
+                if (_itemsBuffer[i].data.itemId == id)
                 {
-                    var module = item.instance as ModuleItem;
-                    if (module != null) modules.Add(module.Module);
+                    var module = _itemsBuffer[i].instance as ModuleItem;
+                    if (module != null)
+                    {
+                        _modulesBuffer.Add(module.Module);
+                        _itemsBuffer.RemoveAt(i);
+                        break;
+                    }
                     else throw new ArgumentException("Item is not a module");
                 }
                 if (i == _inventory.Items.Count - 1)
@@ -54,6 +69,6 @@ public class PlayerEquipmentInitializer : IDisposable
                 }
             }
         }
-        _weapon.SetModules(modules);
+        _weapon.SetModules(_modulesBuffer);
     }
 }
