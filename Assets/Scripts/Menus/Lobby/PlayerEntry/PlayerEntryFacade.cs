@@ -31,7 +31,9 @@ public class PlayerEntryFacade: MonoBehaviour, IPoolable<PlayerEntrySpawnParamet
     {
         _pool = memoryPool;
         Id = parameters.Id;
-        SetPlayerName(parameters.PlayerName);
+        string name = parameters.PlayerName;
+        if (Id == 0) name = name + " (host)";
+        SetPlayerName(name);
         SetReadyStatus(false);
     }
 
