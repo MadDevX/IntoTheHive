@@ -77,7 +77,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mariush
+  m_Text: 
 --- !u!114 &4971132036573520765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,8 +167,6 @@ GameObject:
   - component: {fileID: 4971132036928083299}
   - component: {fileID: 4971132036928083297}
   - component: {fileID: 4971132036928083296}
-  - component: {fileID: 4237683516045889624}
-  - component: {fileID: 8859521113900903774}
   - component: {fileID: 886419852821814937}
   m_Layer: 5
   m_Name: PlayerEntry
@@ -243,40 +241,6 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &4237683516045889624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4971132036928083298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 8859521113900903774}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &8859521113900903774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4971132036928083298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d4048db0cf32aa4d9f11e7a8f8d0c16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerEntryRoot: {fileID: 4971132036928083298}
-  _nameText: {fileID: 4971132036573520767}
-  _readyStatusText: {fileID: 4971132037281678642}
-  _notReadyStatusText: {fileID: 4971132037170252389}
 --- !u!114 &886419852821814937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +253,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3740b3cb03954ad408075cf7adbc8ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 0
+  _nameText: {fileID: 4971132036573520767}
+  _readyStatusText: {fileID: 4971132037281678642}
+  _notReadyStatusText: {fileID: 4971132037170252389}
 --- !u!1 &4971132037170252391
 GameObject:
   m_ObjectHideFlags: 0

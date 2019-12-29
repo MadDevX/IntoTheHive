@@ -5,18 +5,20 @@ using Zenject;
 
 public class PlayerEntryFacade: MonoBehaviour, IPoolable<PlayerEntrySpawnParameters, IMemoryPool>, IDisposable
 {
-    private Text _nameText;
-    private Text _readyStatusText;
-    private Text _notReadyStatusText;
+    public ushort Id;
+
+    [SerializeField] private Text _nameText;
+    [SerializeField] private Text _readyStatusText;
+    [SerializeField] private Text _notReadyStatusText;
 
     private IMemoryPool _pool;
 
     public PlayerEntryFacade(
-        [Inject(Id =Identifiers.PlayerEntryName)]
+        [Inject(Id = Identifiers.PlayerEntryName)]
         Text nameText,
-        [Inject(Id =Identifiers.PlayerEntryReady)]
+        [Inject(Id = Identifiers.PlayerEntryReady)]
         Text readyStatusText,
-        [Inject(Id =Identifiers.PlayerEntryNotReady)]
+        [Inject(Id = Identifiers.PlayerEntryNotReady)]
         Text notReadyStatusText
         )
     {
@@ -24,12 +26,13 @@ public class PlayerEntryFacade: MonoBehaviour, IPoolable<PlayerEntrySpawnParamet
         _readyStatusText = readyStatusText;
         _notReadyStatusText = notReadyStatusText;
     }
-  
+
     public void OnSpawned(PlayerEntrySpawnParameters parameters, IMemoryPool memoryPool)
     {
         _pool = memoryPool;
-        this.SetPlayerName(parameters.PlayerName);
-        this.SetReadyStatus(false);
+        Id = parameters.Id;
+        SetPlayerName(parameters.PlayerName);
+        SetReadyStatus(false);
     }
 
     public void Dispose()

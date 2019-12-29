@@ -61,6 +61,7 @@ public class LobbyInstaller : MonoInstaller
 
     private void InstallPlayerList()
     {
+        Container.BindInterfacesAndSelfTo<PlayerEntryManager>().AsSingle();
         BindMonoPrefabPool<PlayerEntryFacade, PlayerEntrySpawnParameters, PlayerEntryFacade.Factory, PlayerEntryPool>
             (Identifiers.PlayerEntryPool, 4, _playerEntryPrefab, _playerEntryPanel);
     }

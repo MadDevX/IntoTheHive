@@ -10,10 +10,11 @@ public class PlayerEntryInstaller: MonoInstaller
     [SerializeField] private Text _nameText;
     [SerializeField] private Text _readyStatusText;
     [SerializeField] private Text _notReadyStatusText;
-
+    [SerializeField] private PlayerEntryFacade _facade;
     public override void InstallBindings()
     {
         InstallTextFields();
+        Container.BindInstance(_facade);
     }
 
     public void InstallTextFields()

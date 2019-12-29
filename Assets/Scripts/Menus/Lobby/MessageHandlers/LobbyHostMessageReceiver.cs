@@ -13,22 +13,15 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
     private NetworkRelay _relay;
     private LobbyStateManager _lobbyStateManager;
     private LobbyMessageSender _lobbyMessageSender;
-    private SceneMessageSender _sceneMessageSender;
-    private GlobalHostPlayerManager _globalHostPlayerManager;
-
     public LobbyHostMessageReceiver(
         NetworkRelay relay,
         LobbyStateManager lobbyStateManager,
-        LobbyMessageSender lobbyMessageSender,
-        SceneMessageSender sceneMessageSender,
-        GlobalHostPlayerManager globalHostPlayerManager
+        LobbyMessageSender lobbyMessageSender
         )
     {
         _relay = relay;
         _lobbyStateManager = lobbyStateManager;
         _lobbyMessageSender = lobbyMessageSender;
-        _sceneMessageSender = sceneMessageSender;
-        _globalHostPlayerManager = globalHostPlayerManager; 
     }
 
     public void Initialize()
