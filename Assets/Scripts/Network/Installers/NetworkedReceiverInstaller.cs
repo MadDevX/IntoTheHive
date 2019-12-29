@@ -8,5 +8,6 @@ public class NetworkedReceiverInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<NetworkedCharacterInput>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedCharacterWeapon>().AsSingle();
         Container.BindInterfacesAndSelfTo<HealthUpdateHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<NetworkedCharacterWeaponInitalizer>().AsSingle();
     }
 }

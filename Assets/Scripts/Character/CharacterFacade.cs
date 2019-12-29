@@ -12,7 +12,8 @@ public struct CharacterSpawnParameters
     //public ushort playerId;
     public bool IsLocal;
     public CharacterType CharacterType;
-    public IHealth health;
+    public List<short> items;
+    public List<short> modules;
     //What additional info should this contain?
 }
 

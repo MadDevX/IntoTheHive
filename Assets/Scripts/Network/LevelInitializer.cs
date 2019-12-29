@@ -53,7 +53,10 @@ public class LevelInitializer: IInitializable, IDisposable
 
     private void SpawnPlayers()
     {
-        _messageWithResponse.SendMessageWithResponse(_characterSpawner.GenerateSpawnMessage(), BeginGame);
+        using (var message = _characterSpawner.GenerateSpawnMessage())
+        {
+            _messageWithResponse.SendMessageWithResponse(message, BeginGame);
+        }
     }    
 
     private void BeginGame()

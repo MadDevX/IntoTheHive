@@ -56,7 +56,10 @@ public class HostEncounterEnemyManager: IDisposable
             // Spawn enemies locally and through network
             // Generate an unique id for each enemy
             data.ForEach(enemy => enemy.SpawnParameters.Id = _aiSpawner.GenerateNextID());
-            _synchronizedMessageSender.SendMessageWithResponse(_networkedAISpawner.GenerateSpawnMessage(data));
+            using (var message = _networkedAISpawner.GenerateSpawnMessage(data))
+            {
+                _synchronizedMessageSender.SendMessageWithResponse(message);
+            }
             data.ForEach(enemy => enemy.SpawnParameters.IsLocal = true);
             LocalSpawn(data);
         }

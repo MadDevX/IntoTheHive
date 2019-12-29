@@ -45,6 +45,8 @@ public class ProjectNetworkInstaller : MonoInstaller
     {
         // Players and characters
         Container.BindInterfacesAndSelfTo<GlobalHostPlayerManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerInventoryDataManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerWeaponDataManager>().AsSingle();
     }
 
     private void InstallLevelManagment()
