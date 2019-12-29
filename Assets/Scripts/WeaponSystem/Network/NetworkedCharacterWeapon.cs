@@ -4,6 +4,9 @@ using DarkRift;
 using UnityEngine;
 using Zenject;
 
+/// <summary>
+/// Used only in networked characters, updates weapon state according to WeaponChanged message
+/// </summary>
 public class NetworkedCharacterWeapon: IDisposable
 {
     private NetworkRelay _networkRelay;

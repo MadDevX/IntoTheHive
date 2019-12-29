@@ -10,7 +10,7 @@ public class PlayerWeaponDataManager : IInitializable, IDisposable
     private NetworkRelay _networkRelay;
     private ItemDatabase _database;
 
-    private Dictionary<ushort, List<short>> _weapons;
+    private Dictionary<ushort, List<short>> _weapons = new Dictionary<ushort, List<short>>();
 
     public PlayerWeaponDataManager(NetworkRelay networkRelay, ItemDatabase database)
     {
