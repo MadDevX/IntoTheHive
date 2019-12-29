@@ -26,5 +26,9 @@ public enum Identifiers
     Inventory,
     Equipment,
     StartTextReady,
-    StartTextNotReady
+    StartTextNotReady,
+    PlayerEntryName,
+    PlayerEntryReady,
+    PlayerEntryNotReady,
+    PlayerEntryPool
 }
