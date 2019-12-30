@@ -189,7 +189,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         {
             var spawnData = new PlayerSpawnData
             {
-                Id = _globalHostPlayerManager.ConnectedPlayers[0],
+                Id = _globalHostPlayerManager.ConnectedPlayers[0].ID,
                 X = 0.5f,
                 Y = 0.5f,
                 ItemIds = new List<short>(),
@@ -201,7 +201,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         {
             var spawnData = new PlayerSpawnData
             {
-                Id = _globalHostPlayerManager.ConnectedPlayers[1],
+                Id = _globalHostPlayerManager.ConnectedPlayers[1].ID,
                 X = -0.5f,
                 Y = 0.5f,
                 ItemIds = new List<short>(),
@@ -213,7 +213,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         {
             var spawnData = new PlayerSpawnData
             {
-                Id = _globalHostPlayerManager.ConnectedPlayers[2],
+                Id = _globalHostPlayerManager.ConnectedPlayers[2].ID,
                 X = 0.5f,
                 Y = -0.5f,
                 ItemIds = new List<short>(),
@@ -225,7 +225,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         {
             var spawnData = new PlayerSpawnData
             {
-                Id = _globalHostPlayerManager.ConnectedPlayers[3],
+                Id = _globalHostPlayerManager.ConnectedPlayers[3].ID,
                 X = -0.5f,
                 Y = -0.5f,
                 ItemIds = new List<short>(),

@@ -8,9 +8,14 @@ using Zenject;
 public class ProjectEventManager
 {
     public event Action GameInitializedHost;
-
+    public event Action LobbyInitializedHost;
     public void FireGameInitializedHost()
     {
         GameInitializedHost?.Invoke();
+    }
+
+    public void FireLobbyInitializedHost()
+    {
+        LobbyInitializedHost?.Invoke();
     }
 }

@@ -30,7 +30,7 @@ public class HostSceneManager
 
     public void LoadLobby()
     {
-        _synchronizedSceneManager.SendSceneChanged(2);
+        _synchronizedSceneManager.SendSceneChanged(2, _eventManager.FireLobbyInitializedHost);
     }
 
 

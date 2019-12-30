@@ -1,6 +1,10 @@
 ﻿using System;
 using Zenject;
 
+/// <summary>
+/// Handles host specific logic that happens after the scene is initialized
+/// Reply to change scene message takes place in post initialization and this class reacts to event later event.
+/// </summary>
 public class HubInitializer : IInitializable, IDisposable
 {
     private ProjectEventManager _eventManager;

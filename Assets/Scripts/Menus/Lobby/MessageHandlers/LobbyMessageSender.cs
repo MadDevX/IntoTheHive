@@ -40,8 +40,11 @@ public class LobbyMessageSender
         {
             foreach(ushort playerId in _lobbyState.PlayersReadyStatus.Keys)
             {
+                var playerData = _lobbyState.PlayersReadyStatus[playerId];
                 writer.Write(playerId);
-                writer.Write(_lobbyState.PlayersReadyStatus[playerId]);
+                writer.Write(playerData.Ready);
+                writer.Write(playerData.Nickname);
+
             }
 
             using (Message message = Message.Create(Tags.UpdateLobby, writer))

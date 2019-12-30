@@ -13,22 +13,15 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
     private NetworkRelay _relay;
     private LobbyStateManager _lobbyStateManager;
     private LobbyMessageSender _lobbyMessageSender;
-    private SceneMessageSender _sceneMessageSender;
-    private GlobalHostPlayerManager _globalHostPlayerManager;
-
     public LobbyHostMessageReceiver(
         NetworkRelay relay,
         LobbyStateManager lobbyStateManager,
-        LobbyMessageSender lobbyMessageSender,
-        SceneMessageSender sceneMessageSender,
-        GlobalHostPlayerManager globalHostPlayerManager
+        LobbyMessageSender lobbyMessageSender
         )
     {
         _relay = relay;
         _lobbyStateManager = lobbyStateManager;
         _lobbyMessageSender = lobbyMessageSender;
-        _sceneMessageSender = sceneMessageSender;
-        _globalHostPlayerManager = globalHostPlayerManager; 
     }
 
     public void Initialize()
@@ -57,7 +50,7 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
             isReady = reader.ReadBoolean();
         }
 
-        _lobbyStateManager.AddPlayerToLobby(id, isReady);
+        _lobbyStateManager.SetReady(id, isReady);
         _lobbyMessageSender.SendUpdateLobbyMessage();
     }
 
@@ -67,16 +60,16 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
     private void HandlePlayerJoined(Message message)
     {
         ushort id;
-        //string name;
+        string name;
 
         //TODO MG CHECKSIZE
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
-            //name = reader.ReadString();
+            name = reader.ReadString();
         }
 
-        _lobbyStateManager.AddPlayerToLobby(id);
+        _lobbyStateManager.AddPlayerToLobby(id,name);
         // TODO MG : add some kind of sceneManager.GetSceneByName
         ushort sceneIndex = (ushort)2;
         _lobbyMessageSender.SendLoadLobbyMessage(id,sceneIndex);

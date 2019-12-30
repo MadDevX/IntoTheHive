@@ -5,15 +5,16 @@ using Zenject;
 
 public class LobbyClientMessageReceiver: IInitializable, IDisposable
 {
-    private LobbyMessageSender _lobbyMessageSender;
     private NetworkRelay _networkRelay;
+    private LobbyStateManager _lobbyManager;
 
     public LobbyClientMessageReceiver(
         NetworkRelay networkRelay,
-        LobbyMessageSender lobbyMessageSender)
+        LobbyStateManager lobbyManager
+        )
     {
         _networkRelay = networkRelay;
-        _lobbyMessageSender = lobbyMessageSender;
+        _lobbyManager = lobbyManager;
     }
 
     public void Initialize()
@@ -36,7 +37,8 @@ public class LobbyClientMessageReceiver: IInitializable, IDisposable
             {
                 ushort id = reader.ReadUInt16();
                 bool ready = reader.ReadBoolean();
-                // TODO MG : update info on Lobby menu fields to show it to players
+                string nickname = reader.ReadString();
+                _lobbyManager.AddPlayerToLobby(id,nickname,ready);              
             }
         }
     }

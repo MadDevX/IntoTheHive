@@ -8,6 +8,11 @@ public class LobbyInstaller : MonoInstaller
     [SerializeField] private Button _startGameButton;
     [SerializeField] private Button _readyButton;
     [SerializeField] private Button _leaveLobbyButton;
+    [SerializeField] private Text _startTextReady;
+    [SerializeField] private Text _startTextNotReady;
+    [SerializeField] private PlayerEntryFacade _playerEntryPrefab;
+    [SerializeField] private Transform _playerEntryPanel;
+
     [SerializeField] private SceneInitializedAnnouncer _sceneInitializedAnnouncer;
 
     public override void InstallBindings()
@@ -16,8 +21,9 @@ public class LobbyInstaller : MonoInstaller
         InstallMessageHandling();
         InstallInitializationHandling();
         InstallLobbyState();
-        
+        InstallPlayerList();
         Container.BindInterfacesAndSelfTo<LobbyMenuManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LobbyInitializer>().AsSingle();
     }
 
     /// <summary>
@@ -34,6 +40,8 @@ public class LobbyInstaller : MonoInstaller
         Container.BindInstance(_startGameButton).WithId(Identifiers.LobbyStartGameButton);
         Container.BindInstance(_readyButton).WithId(Identifiers.LobbyReadyButton);
         Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyLeaveButton);
+        Container.BindInstance(_startTextReady).WithId(Identifiers.StartTextReady);
+        Container.BindInstance(_startTextNotReady).WithId(Identifiers.StartTextNotReady);
     }
 
     private void InstallMessageHandling()
@@ -50,6 +58,37 @@ public class LobbyInstaller : MonoInstaller
     {
         Container.BindInstance(_sceneInitializedAnnouncer);
         Container.BindInterfacesAndSelfTo<SceneInitializedBaseHandler>().AsSingle();
+    }
+
+    private void InstallPlayerList()
+    {
+        Container.BindInterfacesAndSelfTo<PlayerEntryManager>().AsSingle();
+        BindMonoPrefabPool<PlayerEntryFacade, PlayerEntrySpawnParameters, PlayerEntryFacade.Factory, PlayerEntryPool>
+            (Identifiers.PlayerEntryPool, 4, _playerEntryPrefab, _playerEntryPanel);
+    }
+
+    private void BindMonoPrefabPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, Transform parentTransform, BindingCondition cond = null)
+   where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
+   where TFactory : PlaceholderFactory<TArgs, T>
+   where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
+    {
+        var bind =
+        Container.BindFactory<TArgs, T, TFactory>().
+            WithId(id).
+            FromPoolableMemoryPool<TArgs, T, TPool>
+            (x => x.WithInitialSize(size).
+            ExpandByDoubling().
+            FromComponentInNewPrefab(prefab).
+            UnderTransform(parentTransform));
+
+        if (cond != null)
+        {
+            bind.When(cond);
+        }
+    }
+
+    public class PlayerEntryPool : MonoPoolableMemoryPool<PlayerEntrySpawnParameters, IMemoryPool, PlayerEntryFacade>
+    {
     }
 }
 
