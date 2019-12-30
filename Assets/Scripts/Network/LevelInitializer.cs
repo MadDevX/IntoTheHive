@@ -8,7 +8,7 @@ using Zenject;
 /// To make this class scene context based, an inter-scene event had to be introduced to trigger 
 /// methods from this class without being bound at the time of a call to change scenes.
 /// </summary>
-public class LevelInitializer: IInitializable, IDisposable
+public class LevelInitializer : IInitializable, IDisposable
 {
     private GenericMessageWithResponseHost _messageWithResponse;
     private NetworkedCharacterSpawner _characterSpawner;
@@ -48,7 +48,13 @@ public class LevelInitializer: IInitializable, IDisposable
 
     private void OpenSpawnRoom()
     {
+        ScanGraphs();
         _messageWithResponse.SendMessageWithResponse(_hostDoorManager.PrepareOpenDoorsMessage(0), SpawnPlayers);
+    }
+
+    private void ScanGraphs()
+    {
+        AstarPath.active.Scan();
     }
 
     private void SpawnPlayers()
@@ -57,7 +63,7 @@ public class LevelInitializer: IInitializable, IDisposable
         {
             _messageWithResponse.SendMessageWithResponse(message, BeginGame);
         }
-    }    
+    }
 
     private void BeginGame()
     {
