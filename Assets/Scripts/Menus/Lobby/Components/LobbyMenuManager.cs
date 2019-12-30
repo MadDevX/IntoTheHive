@@ -25,6 +25,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     private LobbyMessageSender _messageSender;
     private LobbyStateManager _lobbyStateManager;
     private HostSceneManager _sceneManager;
+    private IGameCycleController _cycleController;
 
     public LobbyMenuManager(
         [Inject(Id = Identifiers.LobbyStartGameButton)]
@@ -42,7 +43,8 @@ public class LobbyMenuManager: IInitializable, IDisposable
         ServerManager serverManager,
         LobbyMessageSender messageSender,
         LobbyStateManager lobbyStateManager,
-        HostSceneManager sceneManager)
+        HostSceneManager sceneManager,
+        IGameCycleController cycleController)
     {
         _readyButton = readyButton;
         _leaveLobbyButton = leaveButton;
@@ -54,6 +56,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
         _client = client;
         _clientInfo = clientInfo;
         _sceneManager = sceneManager;
+        _cycleController = cycleController;
         _serverManager = serverManager;
         _messageSender = messageSender;
         _lobbyStateManager = lobbyStateManager;
@@ -89,6 +92,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     public void StartGame()
     {
         _sceneManager.LoadNextLevel();
+        _cycleController.RaiseOnGameStarted();
     }
 
     /// <summary>
