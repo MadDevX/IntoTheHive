@@ -47,7 +47,7 @@ public class CharacterSpawner
                 // Player character
                 characterFacade = _playerFactory.Create(spawnParameters);                
                 characterFacade.Id = _unityClient.ID;
-                _cameraManager.SetCameraToPlayerCharacter(characterFacade);                
+                _cameraManager.SetCameraToPlayerCharacter(characterFacade);
             }
             else
             {

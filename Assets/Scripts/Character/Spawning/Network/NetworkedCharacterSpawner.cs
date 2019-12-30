@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using Zenject;
 
 public class NetworkedCharacterSpawner: IInitializable, IDisposable
-{   
+{
+    public event Action<List<PlayerSpawnData>> OnDataPrepared;
+
     private GenericMessageWithResponseClient _messageWithResponse;
     private GlobalHostPlayerManager _globalHostPlayerManager;
     private CharacterSpawner _characterSpawner;
@@ -66,6 +68,19 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 ushort id = reader.ReadUInt16();
                 float X = reader.ReadSingle();
                 float Y = reader.ReadSingle();
+                var itemCount = reader.ReadInt16();
+                var items = new List<short>();
+                for (short i = 0; i < itemCount; i++)
+                {
+                    items.Add(reader.ReadInt16());
+                }
+                var moduleCount = reader.ReadInt16();
+                var modules = new List<short>();
+                for (short i = 0; i < moduleCount; i++)
+                {
+                    modules.Add(reader.ReadInt16());
+                }
+
 
                 CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
                 spawnParameters.Id = id;
@@ -73,7 +88,8 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 spawnParameters.Y = Y;
                 spawnParameters.CharacterType = CharacterType.AICharacter;
                 spawnParameters.IsLocal = false;
-                spawnParameters.health = null;
+                spawnParameters.items = items;
+                spawnParameters.modules = modules;
                 _characterSpawner.Spawn(spawnParameters);
             }
             _messageWithResponse.SendClientReady();
@@ -91,6 +107,19 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 float X = reader.ReadSingle();
                 float Y = reader.ReadSingle();
                 bool isLocal = (id == _client.ID);
+                var itemCount = reader.ReadInt16();
+                var items = new List<short>();
+                for (short i = 0; i < itemCount; i++)
+                {
+                    items.Add(reader.ReadInt16());
+                }
+                var moduleCount = reader.ReadInt16();
+                var modules = new List<short>();
+                for (short i = 0; i < moduleCount; i++)
+                {
+                    modules.Add(reader.ReadInt16());
+                }
+
 
                 CharacterSpawnParameters spawnParameters = new CharacterSpawnParameters();
                 spawnParameters.Id = id;
@@ -98,7 +127,8 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
                 spawnParameters.Y = Y;
                 spawnParameters.CharacterType = CharacterType.Player;
                 spawnParameters.IsLocal = isLocal;
-                spawnParameters.health = null;
+                spawnParameters.items = items;
+                spawnParameters.modules = modules;
                 _characterSpawner.Spawn(spawnParameters);
             }
             _messageWithResponse.SendClientReady();
@@ -112,9 +142,28 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
         {
             foreach (PlayerSpawnData spawnData in list)
             {
+                //ID
                 writer.Write(spawnData.Id);
+
+                //Position
                 writer.Write(spawnData.X);
                 writer.Write(spawnData.Y);
+
+                //Item count followed by item Id's
+                var itemCount = (short)spawnData.ItemIds.Count;
+                writer.Write(itemCount);
+                foreach(var data in spawnData.ItemIds)
+                {
+                    writer.Write(data);
+                }
+
+                //Module count followed by module Id's
+                var moduleCount = (short)spawnData.WeaponModuleIds.Count;
+                writer.Write(moduleCount);
+                foreach(var data in spawnData.WeaponModuleIds)
+                {
+                    writer.Write(data);
+                }
             }
             
             return Message.Create(Tags.SpawnCharacter, writer);            
@@ -142,7 +191,9 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
             {
                 Id = _globalHostPlayerManager.ConnectedPlayers[0],
                 X = 0.5f,
-                Y = 0.5f
+                Y = 0.5f,
+                ItemIds = new List<short>(),
+                WeaponModuleIds = new List<short>()
             };
             spawnPosisionsList.Add(spawnData);
         }
@@ -152,7 +203,9 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
             {
                 Id = _globalHostPlayerManager.ConnectedPlayers[1],
                 X = -0.5f,
-                Y = 0.5f
+                Y = 0.5f,
+                ItemIds = new List<short>(),
+                WeaponModuleIds = new List<short>()
             };
             spawnPosisionsList.Add(spawnData);
         }
@@ -162,7 +215,9 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
             {
                 Id = _globalHostPlayerManager.ConnectedPlayers[2],
                 X = 0.5f,
-                Y = -0.5f
+                Y = -0.5f,
+                ItemIds = new List<short>(),
+                WeaponModuleIds = new List<short>()
             };
             spawnPosisionsList.Add(spawnData);
         }
@@ -172,10 +227,14 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
             {
                 Id = _globalHostPlayerManager.ConnectedPlayers[3],
                 X = -0.5f,
-                Y = -0.5f
+                Y = -0.5f,
+                ItemIds = new List<short>(),
+                WeaponModuleIds = new List<short>()
             };
             spawnPosisionsList.Add(spawnData);
         }
+
+        OnDataPrepared?.Invoke(spawnPosisionsList);
 
         return spawnPosisionsList;
     }

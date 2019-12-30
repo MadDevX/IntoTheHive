@@ -12,6 +12,12 @@ public class CharacterInventory : IItemContainer
     public event Action<ItemInstance> OnItemRemoved;
 
     private List<ItemInstance> _items = new List<ItemInstance>();
+
+    public CharacterInventory()
+    {
+        UpdateItemsView();
+    }
+
     public void AddItem(ItemInstance item)
     {
         _items.Add(item);

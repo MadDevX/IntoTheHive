@@ -30,7 +30,10 @@ public class HubInitializer : IInitializable, IDisposable
 
     private void LoadLevel()
     {
-        _messageWithResponse.SendMessageWithResponse(_characterSpawner.GenerateSpawnMessage());
+        using(var message = _characterSpawner.GenerateSpawnMessage())
+        {
+            _messageWithResponse.SendMessageWithResponse(message);
+        }
 
     }
 }

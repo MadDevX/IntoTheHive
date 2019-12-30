@@ -39,6 +39,7 @@ public class GameplayInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CharacterAISpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedAISpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ItemInitializer>().AsSingle();
     }
 
     private void InstallItems()

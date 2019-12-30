@@ -16,6 +16,10 @@ public class WeaponCreator
     {
         weapon.SetModules(CreateModuleList(modulesIds));
     }
+    public void CreateWeapon(IWeapon weapon, List<IModule> modules)
+    {
+        weapon.SetModules(modules);
+    }
 
     private List<IModule> CreateModuleList(List<short> modulesIds)
     {

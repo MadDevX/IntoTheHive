@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class NetworkPickupInstaller : MonoInstaller
+public class PickupInstaller : MonoInstaller
 {
     [SerializeField] private ItemPickup _facade;
     [SerializeField] private MonoRelay _relay;

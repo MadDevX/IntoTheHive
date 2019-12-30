@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class ModuleItem : IItem
 {
-    private IModule _module;
-    public bool IsEquipped => _module.IsAttached;
+    public IModule Module { get; private set; }
+    public bool IsEquipped => Module.IsAttached;
 
     public ModuleItem(IModule module)
     {
-        _module = module;
+        Module = module;
     }
 
     public void UseItem(CharacterFacade facade)
     {
-        if (_module.IsAttached == false)
+        if (Module.IsAttached == false)
         {
-            facade.Weapon.AttachModule(_module);
+            facade.Weapon.AttachModule(Module);
         }
         else
         {
-            facade.Weapon.DetachModule(_module);
+            facade.Weapon.DetachModule(Module);
         }
     }
 }

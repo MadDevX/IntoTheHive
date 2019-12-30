@@ -54,6 +54,9 @@ public class MessageHandler
 
             if (message.Tag == Tags.AssignItem)
                 _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.WeaponChanged)
+                _plugin.BroadcastToAllClients(message, e);
             #endregion
 
             #region other clients
@@ -64,9 +67,6 @@ public class MessageHandler
                 _plugin.BroadcastToOtherClients(message, e);
 
             if (message.Tag == Tags.UpdateCharacterState)
-                _plugin.BroadcastToOtherClients(message, e);
-
-            if (message.Tag == Tags.WeaponChanged)
                 _plugin.BroadcastToOtherClients(message, e);
 
             if (message.Tag == Tags.UpdateCharacterEquipment)
@@ -99,6 +99,9 @@ public class MessageHandler
                 _plugin.BroadcastToHost(message, e);
 
             if (message.Tag == Tags.DeathRequest)
+                _plugin.BroadcastToHost(message, e);
+
+            if (message.Tag == Tags.RemoveItem)
                 _plugin.BroadcastToHost(message, e);
             #endregion
 
