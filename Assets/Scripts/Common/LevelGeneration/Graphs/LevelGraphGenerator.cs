@@ -54,18 +54,27 @@ public class LevelGraphGenerator : IGraphGenerable
 
     public void GenerateLevelGraph()
     {
+        //All possible room connection options - every room can have 4 exits: top, bottom, left and right
         GraphDirection[] directions = { GraphDirection.East, GraphDirection.West, GraphDirection.North, GraphDirection.South};
 
         LevelGraph graph = _levelGraph.graph;
+        graph.Reset();
+        //Random number of rooms between min and max
         int numberOfRooms = Random.Range(_settings.MinNumberOfRooms, _settings.MaxNumberOfRooms);
+
+        //Distance of a room from (0,0) - Manhattan distance
         Dictionary<int, int> distanceFromStart = new Dictionary<int, int>();
+        //List of rooms without 4 neighbors - newly added room can be connected to any of those rooms
         List<int> possibleRooms = new List<int>();
+        //Number of neighbors of each room to know when a given room has 4 neighbors, that means he can't have more of them 
         Dictionary<int, int> numberOfNeighbors = new Dictionary<int, int>();
         var realNumberOfNeighbors = new Dictionary<int, int>(); // <- this can be removed, only used for debug
+        //room number to his location (x, y)
         Dictionary<int, (int, int)> roomToLocation = new Dictionary<int, (int, int)>();
+        //location (x, y) to a room number that occupies it
         Dictionary<(int, int), int> locationToRoom = new Dictionary<(int, int), int>();
 
-        //Add first room [Starting one]
+        //Add first room [Starting one], its location is (0, 0)
         Debug.Log($"Added room number 0");
         graph.AddVertex(Rooms.GetStartingRoom());
 
@@ -77,7 +86,7 @@ public class LevelGraphGenerator : IGraphGenerable
         realNumberOfNeighbors[0] = 0;
         possibleRooms.Add(0);
         
-        
+        //Add room one by one
         for (int newRoomId = 1; newRoomId < numberOfRooms; newRoomId++)
         {
             Debug.Log($"Added room number {newRoomId}");
@@ -87,20 +96,17 @@ public class LevelGraphGenerator : IGraphGenerable
             //Choose an existing room to which you can connect the newly created one
             var roomToConnect = possibleRooms[Random.Range(0, possibleRooms.Count - 1)];
             Debug.Log($"Found room of id {roomToConnect}");
-            Debug.Log($"Size of RoomToLocation = {roomToLocation.Count}");
-            Debug.Log($"Size of LocationToRoom = {locationToRoom.Count}");
+
             var location = roomToLocation[roomToConnect];
-            var distanceToStart = Int32.MaxValue;
+            var distanceToStart = int.MaxValue;
             //Go in the random direction in which you could add the room
-            for (int j = 0; j < directions.Length; j++)
+            for (var j = 0; j < directions.Length; j++)
             {
                 var potentialRoom = GetRoomLocationAfterMove(location, directions[j]);
+
                 //If there is a room already there, just continue in another direction
-                //Debug.Log($"Potential Room = {potentialRoom}");
-                //Debug.Log($"Size of LocationToRoom = {locationToRoom.Count}");
                 if (locationToRoom.ContainsKey(potentialRoom)) continue;
-                //Debug.Log($"Wasn't in this place");
-                //Debug.Log($"Size of LocationToRoom = {locationToRoom.Count}");
+
                 //Set room in free spot
                 roomToLocation[newRoomId] = potentialRoom;
                 locationToRoom[potentialRoom] = newRoomId;
@@ -113,20 +119,20 @@ public class LevelGraphGenerator : IGraphGenerable
                 for (var k = 0; k < directions.Length; k++)
                 {
                     var potentialNeighbor = GetRoomLocationAfterMove(potentialRoom, directions[k]);
-                    
+                    //if the newly added room has a neighbor in any of the direction
                     if (locationToRoom.ContainsKey(potentialNeighbor))
                     {
+                        //increase number of neighbours of both rooms
                         var roomNumber = locationToRoom[potentialNeighbor];
                         numberOfNeighbors[roomNumber]++;
                         numberOfNeighbors[newRoomId]++;
-                        // Our room has no free spot for a new rooms
+                        // If we were the last possible neighbour of a new room
                         if (numberOfNeighbors[roomNumber] == 4)
                         {
                             possibleRooms.Remove(roomNumber);
                         }
 
-                        //if we check the room we chose to be connected to, we know there will be an edge
-                        //No need to random a range to maybe connect it
+                        //if we check the room we chose to be connected to, we know there will be a connection
                         if (roomNumber == roomToConnect)
                         {
                             realNumberOfNeighbors[roomNumber]++;
@@ -134,7 +140,7 @@ public class LevelGraphGenerator : IGraphGenerable
                             continue;
                         }
 
-                        //If we want to add the connection and we  
+                        //If we want to add the connection (random chance) 
                         if (Random.Range(1, 100) <= _settings.PercentageChanceOfConnectingExistingRoom)
                         {
                             Debug.Log($"Added a connection from room {newRoomId} to {roomNumber} with chance = {_settings.PercentageChanceOfConnectingExistingRoom}");
@@ -145,8 +151,6 @@ public class LevelGraphGenerator : IGraphGenerable
                         }
                     }
                 }
-
-                break;
             }
             //In case we add a room in a space enclosed from all 4 sides
             //        X -- X
@@ -168,7 +172,7 @@ public class LevelGraphGenerator : IGraphGenerable
         }
 
         var roomsForExit = numberOfNeighbors.Where(x => x.Value == 1).Select(x => x.Key)
-            .OrderByDescending(x => distanceFromStart[x]);
+            .OrderByDescending(x => distanceFromStart[x]).ToList();
 
         //there is a room with exactly one neighbour -> will become the exit room
         if (roomsForExit.Any())
@@ -178,8 +182,9 @@ public class LevelGraphGenerator : IGraphGenerable
         }
         else
         {
+            //Otherwise just add one more room add connect it to the furthest room from the start
             var roomId = graph.AddVertex(Rooms.GetExitRoom());
-            //should i create another room?
+            //Impossible for all rooms to have 4 neighbors. The proof is left as an exercise to the reader.
             var roomNumber = numberOfNeighbors.Where(x => x.Value != 4).OrderByDescending(x => distanceFromStart[x.Key])
                 .First().Key;
             var location = roomToLocation[roomNumber];
@@ -187,9 +192,11 @@ public class LevelGraphGenerator : IGraphGenerable
             {
                 var potentialSpace = GetRoomLocationAfterMove(location, directions[i]);
 
+                //Check if there is a place for a new room after moving in given direction 
                 if (!locationToRoom.ContainsKey(potentialSpace))
                 {
                     graph.AddEdge(roomNumber, roomId, directions[i]);
+                    break;
                 }
             }
         }
