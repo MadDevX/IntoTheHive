@@ -41,7 +41,7 @@ public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
-            //name = reader.ReadString();
+            string name = reader.ReadString();
         }
         
         // TODO MG : add some kind of sceneManager.GetSceneByName                    

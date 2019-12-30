@@ -6,10 +6,11 @@
 /// </summary>
 public class LobbyState 
 {
-    public Dictionary<ushort, bool> PlayersReadyStatus;
+    public Dictionary<ushort, LobbyPlayerData> PlayersReadyStatus;
 
     public LobbyState()
     {
-        PlayersReadyStatus = new Dictionary<ushort, bool>();
+        PlayersReadyStatus = new Dictionary<ushort, LobbyPlayerData>();
     }
+
 }

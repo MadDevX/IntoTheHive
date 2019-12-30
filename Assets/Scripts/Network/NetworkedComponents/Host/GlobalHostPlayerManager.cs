@@ -7,7 +7,7 @@ using Zenject;
 //This class stores currently connected clients
 public class GlobalHostPlayerManager: IInitializable, IDisposable
 {
-    public List<ushort> ConnectedPlayers;
+    public List<ConnectedPlayerData> ConnectedPlayers = new List<ConnectedPlayerData>();
 
     private NetworkRelay _relay;
 
@@ -15,7 +15,6 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
         NetworkRelay relay)
     {
         _relay = relay;
-        ConnectedPlayers = new List<ushort>();
     }
 
     public void Initialize()
@@ -35,8 +34,10 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
         using (DarkRiftReader reader = message.GetReader())
         {
             ushort clientId;
+            string nickname;
             clientId = reader.ReadUInt16();
-            ConnectedPlayers.Add(clientId);
+            nickname = reader.ReadString();
+            ConnectedPlayers.Add(new ConnectedPlayerData(clientId,nickname));
         }
     }
 
@@ -47,7 +48,8 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
         {
             ushort clientId;
             clientId = reader.ReadUInt16();
-            ConnectedPlayers.Remove(clientId);
+            var disconnectedPlayer = ConnectedPlayers.Find(player => player.ID == clientId);
+            ConnectedPlayers.Remove(disconnectedPlayer);
         }
     }
 }

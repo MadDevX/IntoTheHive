@@ -54,9 +54,9 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
     private void BuildClientsList()
     {
         ReadyPlayers.Clear();
-        foreach (ushort client in _playerManager.ConnectedPlayers)
+        foreach (ConnectedPlayerData client in _playerManager.ConnectedPlayers)
         {
-            ReadyPlayers.Add(client, false);
+            ReadyPlayers.Add(client.ID, false);
         }
     }
 

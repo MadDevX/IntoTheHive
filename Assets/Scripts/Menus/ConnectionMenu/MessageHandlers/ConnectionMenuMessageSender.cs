@@ -7,14 +7,17 @@ using DarkRift.Client.Unity;
 public class ConnectionMenuMessageSender
 {
     private UnityClient _client;
+    private PlayerOptions _playerOptions;
     private SceneMessageSender _sceneMessageSender;
 
     public ConnectionMenuMessageSender(
         UnityClient client,
-        SceneMessageSender sceneMessageSender)
-    {
+        SceneMessageSender sceneMessageSender,
+        PlayerOptions playerOptions)
+    {        
         _client = client;
         _sceneMessageSender = sceneMessageSender;
+        _playerOptions = playerOptions;
     }
 
     /// <summary>
@@ -25,6 +28,7 @@ public class ConnectionMenuMessageSender
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(_client.ID);
+            writer.Write(_playerOptions.Nickname);
             using (Message message = Message.Create(Tags.PlayerJoined, writer))
             {
                 _client.SendMessage(message, SendMode.Reliable);

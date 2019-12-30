@@ -50,7 +50,7 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
             isReady = reader.ReadBoolean();
         }
 
-        _lobbyStateManager.AddPlayerToLobby(id, isReady);
+        _lobbyStateManager.SetReady(id, isReady);
         _lobbyMessageSender.SendUpdateLobbyMessage();
     }
 
@@ -60,16 +60,16 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
     private void HandlePlayerJoined(Message message)
     {
         ushort id;
-        //string name;
+        string name;
 
         //TODO MG CHECKSIZE
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
-            //name = reader.ReadString();
+            name = reader.ReadString();
         }
 
-        _lobbyStateManager.AddPlayerToLobby(id);
+        _lobbyStateManager.AddPlayerToLobby(id,name);
         // TODO MG : add some kind of sceneManager.GetSceneByName
         ushort sceneIndex = (ushort)2;
         _lobbyMessageSender.SendLoadLobbyMessage(id,sceneIndex);
