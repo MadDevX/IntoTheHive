@@ -37,7 +37,12 @@ public class LobbyClientMessageReceiver: IInitializable, IDisposable
             {
                 ushort id = reader.ReadUInt16();
                 bool ready = reader.ReadBoolean();
-                _entryManager.SetReady("Maciej", id, ready);
+                string name;
+                if (id == 0)
+                    name = "Maciej";
+                else
+                    name = "Stefan";
+                _entryManager.SetReady(name, id, ready);
                 // TODO MG : update info on Lobby menu fields to show it to players
             }
         }

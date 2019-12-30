@@ -30,5 +30,8 @@ public enum Identifiers
     PlayerEntryName,
     PlayerEntryReady,
     PlayerEntryNotReady,
-    PlayerEntryPool
+    PlayerEntryPool,
+    MainMenuSetNicknameButton,
+    MainMenuNicknameText,
+    MainMenuCurrentNicknameText
 }
