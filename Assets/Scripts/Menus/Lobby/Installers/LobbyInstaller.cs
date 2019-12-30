@@ -23,6 +23,7 @@ public class LobbyInstaller : MonoInstaller
         InstallLobbyState();
         InstallPlayerList();
         Container.BindInterfacesAndSelfTo<LobbyMenuManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LobbyInitializer>().AsSingle();
     }
 
     /// <summary>

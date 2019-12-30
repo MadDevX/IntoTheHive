@@ -9,6 +9,7 @@ public class LobbyStateManager: IInitializable
     private LobbyState _lobbyState;
     private GlobalHostPlayerManager _playerManager;
     private PlayerEntryManager _entryManager;
+    private ProjectEventManager _eventManager;
     public event Action<bool> AllPlayersReadyChanged;
 
     public LobbyStateManager(
@@ -27,6 +28,7 @@ public class LobbyStateManager: IInitializable
     public void Initialize()
     {
         _playerManager.ConnectedPlayers.ForEach(player => AddPlayerToLobby(player));
+        
     }
 
     /// <summary>
