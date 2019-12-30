@@ -9,25 +9,30 @@ public class PlayerInventoryDataManager : IInitializable, IDisposable
 {
     private NetworkRelay _networkRelay;
     private ItemDatabase _database;
-
+    private ClientInfo _info;
+    private IGameCycle _cycle;
     private Dictionary<ushort, List<ItemData>> _items = new Dictionary<ushort, List<ItemData>>();
 
-    public PlayerInventoryDataManager(NetworkRelay networkRelay, ItemDatabase database)
+    public PlayerInventoryDataManager(NetworkRelay networkRelay, ItemDatabase database, ClientInfo info, IGameCycle cycle)
     {
         _networkRelay = networkRelay;
         _database = database;
+        _info = info;
+        _cycle = cycle;
     }
 
     public void Initialize()
     {
         _networkRelay.Subscribe(Tags.AssignItem, AddItem);
         _networkRelay.Subscribe(Tags.RemoveItem, RemoveItem);
+        _cycle.OnGameEnded += ResetData;
     }
 
     public void Dispose()
     {
         _networkRelay.Unsubscribe(Tags.AssignItem, AddItem);
         _networkRelay.Unsubscribe(Tags.RemoveItem, RemoveItem);
+        _cycle.OnGameEnded -= ResetData;
     }
 
     public List<ItemData> GetData(ushort id)
@@ -44,27 +49,34 @@ public class PlayerInventoryDataManager : IInitializable, IDisposable
 
     private void AddItem(Message message)
     {
-        var info = ReadMessage(message);
+        if (_info.Status == ClientStatus.Host)
+        {
 
-        if (_items.TryGetValue(info.id, out var items))
-        {
-            items.Add(info.data);
-        }
-        else
-        {
-            var newItems = new List<ItemData>();
-            newItems.Add(info.data);
-            _items.Add(info.id, newItems);
+            var info = ReadMessage(message);
+
+            if (_items.TryGetValue(info.id, out var items))
+            {
+                items.Add(info.data);
+            }
+            else
+            {
+                var newItems = new List<ItemData>();
+                newItems.Add(info.data);
+                _items.Add(info.id, newItems);
+            }
         }
     }
 
     private void RemoveItem(Message message)
     {
-        var info = ReadMessage(message);
-
-        if (_items.TryGetValue(info.id, out var items))
+        if (_info.Status == ClientStatus.Host)
         {
-            items.Remove(info.data);
+            var info = ReadMessage(message);
+
+            if (_items.TryGetValue(info.id, out var items))
+            {
+                items.Remove(info.data);
+            }
         }
     }
 

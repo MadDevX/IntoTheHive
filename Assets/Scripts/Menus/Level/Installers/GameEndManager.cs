@@ -9,14 +9,17 @@ public class GameEndManager: IInitializable, IDisposable
     private LivingCharactersRegistry _livingCharactersRegistry;
     private HostSceneManager _sceneManager;
     private ClientInfo _info;
+    private IGameCycleController _cycleController;
     public GameEndManager(
         LivingCharactersRegistry livingCharactersRegistry,
         HostSceneManager sceneManager,
-        ClientInfo info)
+        ClientInfo info,
+        IGameCycleController cycleController)
     {
         _livingCharactersRegistry = livingCharactersRegistry;
         _sceneManager = sceneManager;
         _info = info;
+        _cycleController = cycleController;
     }
 
     public void Initialize()
@@ -34,6 +37,7 @@ public class GameEndManager: IInitializable, IDisposable
     private void EndGame()
     {
         _sceneManager.LoadLobby();
+        _cycleController.RaiseOnGameEnded();
     }
 
 }

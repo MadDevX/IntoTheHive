@@ -14,5 +14,6 @@ public class ProjectInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ScenePostinitializationEvents>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectEventManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerRegistry>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameCycle>().AsSingle();
     }
 }
