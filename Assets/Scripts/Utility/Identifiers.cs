@@ -33,5 +33,7 @@ public enum Identifiers
     PlayerEntryPool,
     MainMenuSetNicknameButton,
     MainMenuNicknameText,
-    MainMenuCurrentNicknameText
+    MainMenuCurrentNicknameText,
+    IP,
+    Port,
 }

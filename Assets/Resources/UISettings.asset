@@ -17,3 +17,6 @@ MonoBehaviour:
   _inventorySlotSettings:
     activeColor: {r: 0.8584906, g: 0.5433507, b: 0.21462265, a: 1}
     inactiveColor: {r: 0.4716981, g: 0.44277322, b: 0.44277322, a: 1}
+  _serverTrackerSettings:
+    ipHeader: 'IP: '
+    portHeader: 'Port: '

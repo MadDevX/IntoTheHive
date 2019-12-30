@@ -2,11 +2,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-
+using TMPro;
 public class PlayerOptionsInstaller: MonoInstaller
 {
 
-    [SerializeField] private Text _currentNickname;
+    [SerializeField] private TextMeshProUGUI _currentNickname;
     [SerializeField] private Text _nicknameTextField;
     [SerializeField] private Button _setNicknameButton;
 
