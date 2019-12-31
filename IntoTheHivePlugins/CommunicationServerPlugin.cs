@@ -65,7 +65,7 @@ namespace ServerPlugins
                 {
                     playerDisconnected.Write(e.Client.ID);
 
-                    using (Message playerDisconnectedBroadcast = Message.Create(Tags.DespawnCharacter, playerDisconnected))
+                    using (Message playerDisconnectedBroadcast = Message.Create(Tags.PlayerDisconnected, playerDisconnected))
                     {
                         foreach (IClient client in clients)
                         {

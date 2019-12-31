@@ -1,5 +1,6 @@
 ﻿using DarkRift;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +8,8 @@ public class LobbyClientMessageReceiver: IInitializable, IDisposable
 {
     private NetworkRelay _networkRelay;
     private LobbyStateManager _lobbyManager;
+
+    private List<ushort> _connectedPlayers = new List<ushort>();
 
     public LobbyClientMessageReceiver(
         NetworkRelay networkRelay,
@@ -30,6 +33,7 @@ public class LobbyClientMessageReceiver: IInitializable, IDisposable
     private void ParseUpdateLobbyMessage(Message message)
     {
         Debug.Log("Updated Lobby");
+        _connectedPlayers.Clear();
         using (DarkRiftReader reader = message.GetReader())
         {
             //TODO MG CHECKSIZE
@@ -38,8 +42,10 @@ public class LobbyClientMessageReceiver: IInitializable, IDisposable
                 ushort id = reader.ReadUInt16();
                 bool ready = reader.ReadBoolean();
                 string nickname = reader.ReadString();
-                _lobbyManager.AddPlayerToLobby(id,nickname,ready);              
+                _lobbyManager.AddPlayerToLobby(id,nickname,ready);
+                _connectedPlayers.Add(id);
             }
+            _lobbyManager.CheckDisconnectedPlayers(_connectedPlayers);
         }
     }
 
