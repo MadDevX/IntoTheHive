@@ -8,14 +8,14 @@ using Zenject;
 public class LobbyInitializer : IInitializable, IDisposable
 {
     private ProjectEventManager _eventManager;
-    private LobbyMessageSender _lobbyMessageSender;
+    private LobbyRefresher _refresher;
 
     public LobbyInitializer(
         ProjectEventManager eventManager,
-        LobbyMessageSender lobbyMessageSender)
+        LobbyRefresher refresher)
     {
         _eventManager = eventManager;
-        _lobbyMessageSender = lobbyMessageSender;
+        _refresher = refresher;
     }
 
     public void Initialize()
@@ -30,6 +30,6 @@ public class LobbyInitializer : IInitializable, IDisposable
 
     private void RefreshLobby()
     {
-        _lobbyMessageSender.SendUpdateLobbyMessage();
+        _refresher.RefreshLobby();
     }
 }

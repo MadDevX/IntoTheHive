@@ -40,8 +40,8 @@ public class PlayerEntryManager
         var facade = _playerEntries.Find(entry => entry.Id == id);
         if(facade != null)
         {
-            facade.Dispose();
             _playerEntries.Remove(facade);
+            facade.Dispose();
         }
     }
 

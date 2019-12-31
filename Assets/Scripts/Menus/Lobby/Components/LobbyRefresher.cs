@@ -30,6 +30,11 @@ public class LobbyRefresher : IInitializable, IDisposable
         _networkRelay.Unsubscribe(Tags.PlayerDisconnected, HandleDisconnected);
     }
 
+    public void RefreshLobby()
+    {
+        _lobbySender.SendUpdateLobbyMessage();
+    }
+
     private void HandleDisconnected(Message obj)
     {
         if (_info.Status == ClientStatus.Host)
@@ -38,7 +43,7 @@ public class LobbyRefresher : IInitializable, IDisposable
             {
                 var clientId = reader.ReadUInt16();
                 _stateManager.RemovePlayerFromLobby(clientId);
-                _lobbySender.SendUpdateLobbyMessage();
+                RefreshLobby();
             }
         }
     }
