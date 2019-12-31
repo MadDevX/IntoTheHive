@@ -35,4 +35,14 @@ public class PlayerEntryManager
         }
     }
 
+    public void RemoveEntry(ushort id)
+    {
+        var facade = _playerEntries.Find(entry => entry.Id == id);
+        if(facade != null)
+        {
+            _playerEntries.Remove(facade);
+            facade.Dispose();
+        }
+    }
+
 }

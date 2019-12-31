@@ -7,6 +7,11 @@ public class ProjectInstaller : MonoInstaller
     [SerializeField] private MonoGameLoop _gameLoop;
     [SerializeField] private Scenes _scenes;
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     public override void InstallBindings()
     {
         Container.Bind<IGameLoop>().FromInstance(_gameLoop).AsSingle();

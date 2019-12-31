@@ -7,6 +7,7 @@ using Zenject;
 public class CharacterSpawner
 {
     public event Action<CharacterFacade> CharacterSpawned;
+    public event Action<CharacterFacade> CharacterDespawned;
 
     private CharacterFacade.Factory _networkFactory;
     private CharacterFacade.Factory _playerFactory;
@@ -81,6 +82,7 @@ public class CharacterSpawner
             var character = _characters[clientID];
             _characters.Remove(clientID);
             character.Dispose();
+            CharacterDespawned?.Invoke(character);
         }
     }
 

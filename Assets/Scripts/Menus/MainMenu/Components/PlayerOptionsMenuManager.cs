@@ -1,11 +1,12 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 public class PlayerOptionsMenuManager: IInitializable, IDisposable
 {
-    private Text _currentNickname;
+    private TextMeshProUGUI _currentNickname;
     private Text _nicknameTextField;
     private Button _setNicknameButton;
 
@@ -13,7 +14,7 @@ public class PlayerOptionsMenuManager: IInitializable, IDisposable
 
     public PlayerOptionsMenuManager(
         [Inject(Id = Identifiers.MainMenuCurrentNicknameText)]
-        Text currentNickname,
+        TextMeshProUGUI currentNickname,
         [Inject(Id = Identifiers.MainMenuNicknameText)]
         Text nicknameTextField,
         [Inject(Id = Identifiers.MainMenuSetNicknameButton)]

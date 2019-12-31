@@ -37,6 +37,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
 
         _networkRelay.Subscribe(Tags.SpawnCharacter, HandleSpawnCharacter);
         _networkRelay.Subscribe(Tags.DespawnCharacter, HandleDespawn);
+        _networkRelay.Subscribe(Tags.PlayerDisconnected, HandleDespawn);
     }
 
     public void Dispose()
@@ -46,6 +47,7 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
 
         _networkRelay.Unsubscribe(Tags.SpawnCharacter, HandleSpawnCharacter);
         _networkRelay.Unsubscribe(Tags.DespawnCharacter, HandleDespawn);
+        _networkRelay.Unsubscribe(Tags.PlayerDisconnected, HandleDespawn);
     }
 
     private void HandleDespawn(Message message)

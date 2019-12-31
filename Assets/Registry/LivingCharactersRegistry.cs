@@ -26,11 +26,18 @@ public class LivingCharactersRegistry: IInitializable, IDisposable
     public void Initialize()
     {
         _characterSpawner.CharacterSpawned += CharacterSpawned;
+        _characterSpawner.CharacterDespawned += CharacterDespawned;
     }
 
     public void Dispose()
     {
         _characterSpawner.CharacterSpawned -= CharacterSpawned;
+        _characterSpawner.CharacterDespawned -= CharacterDespawned;
+    }
+
+    private void CharacterDespawned(CharacterFacade despawnedCharacter)
+    {
+        Remove(despawnedCharacter);
     }
 
     private void CharacterSpawned(CharacterFacade spawnedCharacter)
@@ -45,9 +52,7 @@ public class LivingCharactersRegistry: IInitializable, IDisposable
         if (facade != null)
         {
             facade.OnDeath -= RemoveDeadCharacter;
-            LivingPlayers.Remove(facade);
-            if (LivingPlayersCount == 0)
-                AllPlayersDead?.Invoke();
+            Remove(facade);
         }
     }
 
@@ -57,9 +62,14 @@ public class LivingCharactersRegistry: IInitializable, IDisposable
         if(facade != null)
         {
             facade.OnDeath -= RemoveDeadCharacter;
-            LivingPlayers.Remove(facade);
-            if (LivingPlayersCount == 0)
-                AllPlayersDead?.Invoke();
+            Remove(facade);
         }
+    }
+
+    private void Remove(CharacterFacade facade)
+    {
+        LivingPlayers.Remove(facade);
+        if (LivingPlayersCount == 0)
+            AllPlayersDead?.Invoke();
     }
 }

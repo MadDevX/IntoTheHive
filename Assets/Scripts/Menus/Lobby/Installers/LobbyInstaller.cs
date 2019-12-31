@@ -12,6 +12,8 @@ public class LobbyInstaller : MonoInstaller
     [SerializeField] private Text _startTextNotReady;
     [SerializeField] private PlayerEntryFacade _playerEntryPrefab;
     [SerializeField] private Transform _playerEntryPanel;
+    [SerializeField] private Text _ipText;
+    [SerializeField] private Text _portText;
 
     [SerializeField] private SceneInitializedAnnouncer _sceneInitializedAnnouncer;
 
@@ -24,6 +26,7 @@ public class LobbyInstaller : MonoInstaller
         InstallPlayerList();
         Container.BindInterfacesAndSelfTo<LobbyMenuManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<LobbyInitializer>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LobbyRefresher>().AsSingle();
     }
 
     /// <summary>
@@ -42,6 +45,8 @@ public class LobbyInstaller : MonoInstaller
         Container.BindInstance(_leaveLobbyButton).WithId(Identifiers.LobbyLeaveButton);
         Container.BindInstance(_startTextReady).WithId(Identifiers.StartTextReady);
         Container.BindInstance(_startTextNotReady).WithId(Identifiers.StartTextNotReady);
+        Container.BindInstance(_ipText).WithId(Identifiers.IP);
+        Container.BindInstance(_portText).WithId(Identifiers.Port);
     }
 
     private void InstallMessageHandling()
@@ -58,6 +63,7 @@ public class LobbyInstaller : MonoInstaller
     {
         Container.BindInstance(_sceneInitializedAnnouncer);
         Container.BindInterfacesAndSelfTo<SceneInitializedBaseHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ServerInfoTracker>().AsSingle();
     }
 
     private void InstallPlayerList()
