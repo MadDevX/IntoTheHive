@@ -783,6 +783,8 @@ MonoBehaviour:
   _mainCamera: {fileID: 1583554198}
   _virtualCamera: {fileID: 422250767}
   _announcer: {fileID: 1954509279}
+  _deathSettings:
+    negateDamage: 1
 --- !u!114 &1954509278
 MonoBehaviour:
   m_ObjectHideFlags: 0

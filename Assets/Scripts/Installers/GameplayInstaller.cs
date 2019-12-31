@@ -11,7 +11,7 @@ public class GameplayInstaller : MonoInstaller
     [SerializeField] private Camera _mainCamera; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     [SerializeField] private SceneInitializedAnnouncer _announcer;
-
+    [SerializeField] private DamageManager.Settings _deathSettings;
 
     public override void InstallBindings()
     {       
@@ -19,6 +19,13 @@ public class GameplayInstaller : MonoInstaller
         InstallInitializationHandling();
         InstallSpawning();
         InstallItems();
+        InstallCharacterBehaviour();
+    }
+
+    private void InstallCharacterBehaviour()
+    {
+        Container.BindInstance(_deathSettings).AsSingle();
+        Container.BindInterfacesAndSelfTo<DamageManager>().AsSingle();
     }
 
     private void InstallCameras()
