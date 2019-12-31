@@ -42,6 +42,7 @@ public class CharacterMovement : FixedUpdatableObject
         UpdateMovementVersor(deltaTime);
         CorrectPosition(deltaTime);
         Move(deltaTime);
+        ResetAngularVelocity(); //used because other logic governs object rotation and angular velocity should not affect character rotation
     }
 
     private void CorrectPosition(float deltaTime)
@@ -66,6 +67,11 @@ public class CharacterMovement : FixedUpdatableObject
     private void Move(float deltaTime)
     {
         _rb.velocity = MovementVersor * CalculateSpeedBonus();
+    }
+
+    private void ResetAngularVelocity()
+    {
+        _rb.angularVelocity = 0.0f;
     }
 
     private float CalculateSpeedBonus()

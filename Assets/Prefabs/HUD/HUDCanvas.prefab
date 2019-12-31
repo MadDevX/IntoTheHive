@@ -317,8 +317,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Health: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f7eaffeb6c25d544e863c0a5262c3da2, type: 2}
-  m_sharedMaterial: {fileID: 6227373347877924961, guid: f7eaffeb6c25d544e863c0a5262c3da2,
+  m_fontAsset: {fileID: 11400000, guid: 98333045c5b696c488127f5673881254, type: 2}
+  m_sharedMaterial: {fileID: 3969858465730178069, guid: 98333045c5b696c488127f5673881254,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
