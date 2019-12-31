@@ -13,12 +13,14 @@ public class CharacterDamageable : IDamageable
     private IHealthSetter _health;
     private CharacterInfo _info;
     private UnityClient _client;
+    private DamageManager _damageManager;
 
-    public CharacterDamageable(IHealthSetter health, CharacterInfo info, UnityClient client)
+    public CharacterDamageable(IHealthSetter health, CharacterInfo info, UnityClient client, DamageManager damageManager)
     {
         _health = health;
         _info = info;
         _client = client;
+        _damageManager = damageManager;
     }
 
     /// <summary>
@@ -33,7 +35,10 @@ public class CharacterDamageable : IDamageable
 
         if (_info.IsLocal)
         {
-            _health.Health = healthAfter;
+            if (_damageManager.NegateDamage == false)
+            {
+                _health.Health = healthAfter;
+            }
             OnDamageTaken?.Invoke(new DamageTakenArgs(dmgDealt, _health.Health));
 
             if (_health.Health <= 0.0f)
