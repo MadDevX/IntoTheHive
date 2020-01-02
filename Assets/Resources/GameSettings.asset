@@ -24,7 +24,7 @@ MonoBehaviour:
     timeToLive: 2
   _aiTargetScannerSettings:
     scanDelay: 1
-    scanRadius: 4
+    scanRadius: 20
   _raycasterSettings:
     baseRange: 0.3
   _rayVFXSettings:
@@ -39,7 +39,7 @@ MonoBehaviour:
   _aiShootOnTimerSettings:
     shootDelay: 1
   _directionManagerSettings:
-    RotationLerp: 0.01
+    RotationLerp: 0.1
   _movementManagerSettings:
     LerpFactor: 0.01
     DistanceToPlayerToStop: 3
@@ -47,6 +47,8 @@ MonoBehaviour:
   _inputSenderSettings:
     moveEps: 0.001
     rotationEps: 0.1
+  _roomSpawnSettings:
+    roomSize: 12
   _characterHealthSettings:
     maxHealth: 100
   _characterSpawnerSettings:
@@ -54,8 +56,6 @@ MonoBehaviour:
   _levelAIGraphSettings:
     nodeSize: 0.5
     diameter: 2
-  _roomSpawnSettings:
-    roomSize: 12
   _levelGraphGeneratorSettings:
     MinNumberOfRooms: 20
     MaxNumberOfRooms: 25
