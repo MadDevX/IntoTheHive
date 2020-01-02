@@ -127,21 +127,21 @@ public class SpawnParametersGenerator
         {
             case GraphDirection.North:
                 X = roomSpawnInfo[vertexIndex].X;
-                Y = roomSpawnInfo[vertexIndex].Y + _settings.roomSize / 2;
+                Y = roomSpawnInfo[vertexIndex].Y + _settings.roomSize / 2f - 0.5f;
                 isHorizontal = false;
                 break;
             case GraphDirection.South:
                 X = roomSpawnInfo[vertexIndex].X;
-                Y = roomSpawnInfo[vertexIndex].Y - _settings.roomSize / 2;
+                Y = roomSpawnInfo[vertexIndex].Y - _settings.roomSize / 2f + 0.5f;
                 isHorizontal = false;
                 break;
             case GraphDirection.East:
-                X = roomSpawnInfo[vertexIndex].X + _settings.roomSize / 2;
+                X = roomSpawnInfo[vertexIndex].X + _settings.roomSize / 2f - 0.5f;
                 Y = roomSpawnInfo[vertexIndex].Y;
                 isHorizontal = true;
                 break;
             case GraphDirection.West:
-                X = roomSpawnInfo[vertexIndex].X - _settings.roomSize / 2;
+                X = roomSpawnInfo[vertexIndex].X - _settings.roomSize / 2f + 0.5f;
                 Y = roomSpawnInfo[vertexIndex].Y;
                 isHorizontal = true;
                 break;
