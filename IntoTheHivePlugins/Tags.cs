@@ -43,7 +43,8 @@
 
     public static readonly ushort SpawnPickup = 28;
     public static readonly ushort DespawnPickup = 29;
-    public static readonly ushort AssignItem = 30;
-    public static readonly ushort RemoveItem = 31;
+    public static readonly ushort RequestSpawnPickup = 30;
+    public static readonly ushort AssignItem = 31;
+    public static readonly ushort RemoveItem = 32;
 
 }

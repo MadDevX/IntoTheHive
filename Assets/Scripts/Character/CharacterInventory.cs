@@ -10,6 +10,7 @@ public class CharacterInventory : IItemContainer
 
     public event Action<ItemInstance> OnItemAdded;
     public event Action<ItemInstance> OnItemRemoved;
+    public event Action OnRefresh;
 
     private List<ItemInstance> _items = new List<ItemInstance>();
 
@@ -32,6 +33,11 @@ public class CharacterInventory : IItemContainer
             UpdateItemsView();
             OnItemRemoved?.Invoke(item);
         }
+    }
+
+    public void Refresh()
+    {
+        OnRefresh?.Invoke();
     }
 
     private void UpdateItemsView()

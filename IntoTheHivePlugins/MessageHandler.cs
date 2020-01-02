@@ -103,6 +103,9 @@ public class MessageHandler
 
             if (message.Tag == Tags.RemoveItem)
                 _plugin.BroadcastToHost(message, e);
+
+            if (message.Tag == Tags.RequestSpawnPickup)
+                _plugin.BroadcastToHost(message, e);
             #endregion
 
             if (message.Tag == Tags.LoadLobby)

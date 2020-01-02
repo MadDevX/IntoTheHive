@@ -54,19 +54,30 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     public IItemContainer Inventory { get; private set; }
     public IWeapon Weapon { get; private set; }
 
+    public Vector2 Position => _rb.position;
+    public float Rotation => _rb.rotation;
+
     private IMemoryPool _pool;
     private IHealth _health;
     private IDamageable _damageable;
     private IRespawner<CharacterSpawnParameters> _respawner;
+    private Rigidbody2D _rb;
 
     [Inject]
-    public void Construct(IHealth health, IDamageable damageable, IRespawner<CharacterSpawnParameters> respawner, IItemContainer itemContainer, IWeapon weapon)
+    public void Construct(
+        IHealth health, 
+        IDamageable damageable, 
+        IRespawner<CharacterSpawnParameters> respawner, 
+        IItemContainer itemContainer,
+        IWeapon weapon,
+        Rigidbody2D rb)
     {
         _health = health;
         _damageable = damageable;
         _respawner = respawner;
         Inventory = itemContainer;
         Weapon = weapon;
+        _rb = rb;
     }
 
     public void Dispose()

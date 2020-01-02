@@ -33,7 +33,7 @@ public class AILootCreator : IDisposable
     {
         var index = UnityEngine.Random.Range(0, _database.dataList.Count);
         var data = _database.dataList[index];
-        _pickupManager.SpawnPickup(new PickupSpawnRequestParameters(data, _rb.position));
+        _pickupManager.SpawnPickup(new PickupSpawnRequestParameters(data.itemId, _rb.position));
     }
 
 }

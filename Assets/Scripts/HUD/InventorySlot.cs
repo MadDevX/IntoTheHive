@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
-public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>, IDisposable
+public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>, IDisposable, IPointerClickHandler
 {
     public event Action<ItemInstance> OnClick;
+    public event Action<ItemInstance> OnRightClick;
     public ItemInstance Item { get; set; }
     [SerializeField] private Image _image;
     [SerializeField] private Image _background;
@@ -57,6 +59,14 @@ public class InventorySlot : MonoBehaviour, IPoolable<ItemInstance, IMemoryPool>
         else
         {
             _background.color = _settings.inactiveColor;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnRightClick?.Invoke(Item);
         }
     }
 

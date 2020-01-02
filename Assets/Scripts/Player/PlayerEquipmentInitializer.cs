@@ -70,5 +70,6 @@ public class PlayerEquipmentInitializer : IDisposable
             }
         }
         _weapon.SetModules(_modulesBuffer);
+        _inventory.Refresh();
     }
 }

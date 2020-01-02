@@ -16,12 +16,12 @@ public struct PickupSpawnParameters
 
 public struct PickupSpawnRequestParameters
 {
-    public ItemData data;
+    public short itemId;
     public Vector2 position;
 
-    public PickupSpawnRequestParameters(ItemData data, Vector2 position)
+    public PickupSpawnRequestParameters(short itemId, Vector2 position)
     {
-        this.data = data;
+        this.itemId = itemId;
         this.position = position;
     }
 }

@@ -7,7 +7,7 @@ public abstract class ItemListWindow : MonoBehaviour
 {
     [SerializeField] private bool _showEquippedItems;
 
-    private PlayerRegistry _registry;
+    protected PlayerRegistry _registry;
     private UnassignedItems _unassigned;
     protected InventorySlot.Factory _slotFactory;
     private List<InventorySlot> _slots = new List<InventorySlot>();
@@ -17,38 +17,21 @@ public abstract class ItemListWindow : MonoBehaviour
     {
         _registry = registry;
         _unassigned = unassigned;
+        PreInitialize();
     }
 
-    private void Start()
+    private void PreInitialize()
     {
         _unassigned.OnItemReassigned += OnItemReassigned;
-    }
-
-    private void OnEnable()
-    {
-        InitItems();
-    }
-
-    private void OnDisable()
-    {
-        DisposeItems();
+        _unassigned.OnItemRemoved += RemoveSlot;
+        _unassigned.OnPlayerUnset += DisposeItems;
     }
 
     private void OnDestroy()
     {
         _unassigned.OnItemReassigned -= OnItemReassigned;
-    }
-
-    //TODO: add refreshing based on IItemContainer event
-    private void InitItems()
-    {
-        foreach(var item in _registry.Player.Inventory.Items)
-        {
-            if (item.instance.IsEquipped == _showEquippedItems)
-            {
-                AddSlot(item);
-            }
-        }
+        _unassigned.OnItemRemoved -= RemoveSlot;
+        _unassigned.OnPlayerUnset -= DisposeItems;
     }
 
     private void DisposeItems()
@@ -60,12 +43,20 @@ public abstract class ItemListWindow : MonoBehaviour
         _slots.Clear();
     }
 
-    private void InitSlot(InventorySlot slot)
+    /// <summary>
+    /// Overrides should call base method at the beginning of their logic
+    /// </summary>
+    /// <param name="slot"></param>
+    protected virtual void InitSlot(InventorySlot slot)
     {
         slot.OnClick += OnClick;
     }
 
-    private void DisposeSlot(InventorySlot slot)
+    /// <summary>
+    /// Overrides should call base method at the end of their logic
+    /// </summary>
+    /// <param name="slot"></param>
+    protected virtual void DisposeSlot(InventorySlot slot)
     {
         slot.OnClick -= OnClick;
         slot.Dispose();
@@ -74,31 +65,31 @@ public abstract class ItemListWindow : MonoBehaviour
     private void OnClick(ItemInstance obj)
     {
         obj.instance.UseItem(_registry.Player);
-        if (obj.instance.IsEquipped != _showEquippedItems)
-        {
-            RemoveSlot(obj);
-            _unassigned.RaiseReassigned(obj);
-        }
+        _unassigned.RaiseReassigned(obj);
     }
 
-    private void OnItemReassigned(ItemInstance obj)
+    private void OnItemReassigned(ItemInstance item)
     {
-        if (obj.instance.IsEquipped == _showEquippedItems)
+        if (item.instance.IsEquipped == _showEquippedItems)
         {
-            AddSlot(obj);
+            if (ContainsSlot(item) == false) AddSlot(item);
+        }
+        else
+        {
+            RemoveSlot(item);
         }
     }
 
-    private void AddSlot(ItemInstance obj)
+    protected void AddSlot(ItemInstance obj)
     {
         var slot = _slotFactory.Create(obj);
         _slots.Add(slot);
         InitSlot(slot);
     }
 
-    private void RemoveSlot(ItemInstance obj)
+    protected void RemoveSlot(ItemInstance obj)
     {
-        for (int i = 0; i < _slots.Count; i++)
+        for (int i = _slots.Count - 1; i >= 0; i--)
         {
             if (_slots[i].Item == obj)
             {
@@ -106,5 +97,14 @@ public abstract class ItemListWindow : MonoBehaviour
                 _slots.RemoveAt(i);
             }
         }
+    }
+
+    protected bool ContainsSlot(ItemInstance item)
+    {
+        foreach(var slot in _slots)
+        {
+            if (slot.Item == item) return true;
+        }
+        return false;
     }
 }
