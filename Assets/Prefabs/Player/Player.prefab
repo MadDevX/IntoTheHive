@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94226abf5c3fc1b4b83bdae459f8c330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterSprite: {fileID: 4656559683683487643}
   _rb: {fileID: 4656559682471812276}
   _characterFacade: {fileID: 562093153655815228}
 --- !u!114 &4656559682471812267
