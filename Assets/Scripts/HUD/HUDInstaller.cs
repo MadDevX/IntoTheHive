@@ -12,7 +12,7 @@ public class HUDInstaller : MonoInstaller
     [SerializeField] private Transform _inventorySlotParent;
     [SerializeField] private Transform _equipmentSlotParent;
     [SerializeField] private GameObject _windowParent;
-
+    [SerializeField] private GameObject _overlayParent;
     public override void InstallBindings()
     {
         InstallComponents();
@@ -23,6 +23,7 @@ public class HUDInstaller : MonoInstaller
     private void InstallComponents()
     {
         Container.Bind<TMPro.TextMeshProUGUI>().WithId(Identifiers.Health).FromInstance(_healthText).AsCached();
+        Container.Bind<GameObject>().WithId(Identifiers.Overlay).FromInstance(_overlayParent).AsCached();
         Container.Bind<ItemListWindow>().WithId(Identifiers.Inventory).FromInstance(_inventoryWindow).AsCached();
         Container.Bind<ItemListWindow>().WithId(Identifiers.Equipment).FromInstance(_equipmentWindow).AsCached();
     }
@@ -31,6 +32,7 @@ public class HUDInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<HealthTracker>().AsSingle();
         Container.BindInterfacesAndSelfTo<UnassignedItems>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OverlayManager>().AsSingle();
     }
 
     private void InstallSlots()

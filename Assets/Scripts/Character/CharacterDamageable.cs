@@ -13,9 +13,9 @@ public class CharacterDamageable : IDamageable
     private IHealthSetter _health;
     private CharacterInfo _info;
     private UnityClient _client;
-    private DamageManager _damageManager;
+    private SceneGameplayProperties _damageManager;
 
-    public CharacterDamageable(IHealthSetter health, CharacterInfo info, UnityClient client, DamageManager damageManager)
+    public CharacterDamageable(IHealthSetter health, CharacterInfo info, UnityClient client, SceneGameplayProperties damageManager)
     {
         _health = health;
         _info = info;

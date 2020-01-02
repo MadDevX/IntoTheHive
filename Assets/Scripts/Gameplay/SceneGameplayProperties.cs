@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManager
+public class SceneGameplayProperties
 {
     public bool NegateDamage => _settings.negateDamage;
+    public bool WeaponsEditable => _settings.weaponsEditable;
     private Settings _settings;
 
-    public DamageManager(Settings settings)
+    public SceneGameplayProperties(Settings settings)
     {
         _settings = settings;
     }
@@ -16,5 +17,6 @@ public class DamageManager
     public class Settings
     {
         public bool negateDamage;
+        public bool weaponsEditable;
     }
 }
