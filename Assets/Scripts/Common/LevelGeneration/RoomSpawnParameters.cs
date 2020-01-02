@@ -4,7 +4,7 @@
 /// </summary>
 public class RoomSpawnParameters
 {
-    public RoomSpawnParameters(int id, float X, float Y, ushort roomId, bool isHorizontal = true)
+    public RoomSpawnParameters(int id, float X, float Y, ushort roomId, bool isHorizontal = false)
     {
         this.ID = id;
         this.X = X;
@@ -13,7 +13,7 @@ public class RoomSpawnParameters
         IsHorizontal = isHorizontal;
     }
 
-    public RoomSpawnParameters(float X, float Y, ushort roomId, bool isHorizontal = true)
+    public RoomSpawnParameters(float X, float Y, ushort roomId, bool isHorizontal = false)
     {
         this.X = X;
         this.Y = Y;
@@ -24,7 +24,7 @@ public class RoomSpawnParameters
     public int ID { get; set; }
     public float X { get; set; }
     public float Y { get; set; }
-    public bool IsHorizontal;
+    public bool IsHorizontal = false;
     public ushort RoomId { get; set; }
 
 }
