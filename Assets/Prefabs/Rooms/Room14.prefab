@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 5009875895464623849, guid: bbca7299149bd664996844bb8932804e,
         type: 3}
       propertyPath: m_Name
-      value: FirstRoom
+      value: Room14
       objectReference: {fileID: 0}
     - target: {fileID: 5009875895464623848, guid: bbca7299149bd664996844bb8932804e,
         type: 3}
@@ -135,6 +135,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558931879666393913, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415873569836710053, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156956562263633859, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415873570073590495, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415873570389246423, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415873570885384678, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415873571216102255, guid: bbca7299149bd664996844bb8932804e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbca7299149bd664996844bb8932804e, type: 3}
