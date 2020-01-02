@@ -56,6 +56,7 @@ public class LevelSpawner
 
         foreach(DoorSpawnParameters spawnParameters in _levelSpawnParameters.doorSpawnInfos)
         {
+            spawnParameters.isBasic = false;
             _doorFactory.Create(spawnParameters);
         }
         _doorManager.PrepareEdges();

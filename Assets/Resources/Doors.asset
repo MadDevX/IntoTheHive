@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicDoor: {fileID: 8941693455274307096, guid: 6e026e9f6107c05448d02a15ccbee32e,
     type: 3}
+  ClosedDoor: {fileID: 4437056444666627364, guid: f15f33639ee90604999fa651d845a6aa,
+    type: 3}

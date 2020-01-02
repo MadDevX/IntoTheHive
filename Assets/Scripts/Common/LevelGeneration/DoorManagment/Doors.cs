@@ -7,4 +7,5 @@
 public class Doors : ScriptableObject
 {
     [SerializeField] public Object BasicDoor;
+    [SerializeField] public Object ClosedDoor;
 }

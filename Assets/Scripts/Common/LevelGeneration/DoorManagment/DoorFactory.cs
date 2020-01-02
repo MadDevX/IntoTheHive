@@ -16,7 +16,8 @@ public class DoorFactory: IFactory<DoorSpawnParameters, DoorFacade>
 
     public DoorFacade Create(DoorSpawnParameters param)
     {
-        var doorPrefab = _doors.BasicDoor;
+        
+        var doorPrefab = param.isBasic ? _doors.BasicDoor: _doors.ClosedDoor;
         var instantiatedObject = _container.InstantiatePrefab(doorPrefab);
 
         Transform transform = instantiatedObject.transform;
