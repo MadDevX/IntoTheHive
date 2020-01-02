@@ -2,5 +2,5 @@
 
 public interface IProjectileHit
 {
-    event Action<IDamageable> OnHit;
+    event Action<HitParameters> OnHit;
 }

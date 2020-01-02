@@ -9,6 +9,8 @@ public class TripleShot : BaseModule
 
     public override short Id => 0;
 
+    public override bool IsInheritable => false;
+
     private Factory _factory = new Factory();
 
     protected override void OnAttach()

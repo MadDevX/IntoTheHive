@@ -10,6 +10,8 @@ public class Weapon : IWeapon
     private Settings _settings;
 
     private List<IModule> _modules = new List<IModule>();
+    private List<IModule> _inheritableModules = new List<IModule>();
+
     public IFactory<ProjectileSpawnParameters, IProjectile[]> Factory { get; set; }
 
     private bool _wasSqueezed = false;
@@ -42,7 +44,7 @@ public class Weapon : IWeapon
         {
             _wasSqueezed = true;
             var spawnPos = position + offset.Rotate(rotation);
-            Factory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive, _modules, dummy: _info.IsLocal == false));
+            Factory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive, _modules, _inheritableModules, dummy: _info.IsLocal == false));
         }
         return true;
     }
@@ -51,6 +53,7 @@ public class Weapon : IWeapon
     {
         ResetWeapon();
         _modules.Add(module);
+        if (module.IsInheritable) _inheritableModules.Add(module);
         RefreshWeapon();
     }
 
@@ -58,6 +61,7 @@ public class Weapon : IWeapon
     {
         ResetWeapon();
         _modules.Remove(module);
+        if (module.IsInheritable) _inheritableModules.Remove(module);
         RefreshWeapon();
     }
 

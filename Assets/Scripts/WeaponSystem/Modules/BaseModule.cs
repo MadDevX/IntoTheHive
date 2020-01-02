@@ -10,6 +10,8 @@ public abstract class BaseModule : IModule
 
     public abstract short Id { get; }
 
+    public abstract bool IsInheritable { get; }
+
     public bool IsAttached => _weapon != null;
 
     public bool AttachToWeapon(IWeapon weapon)

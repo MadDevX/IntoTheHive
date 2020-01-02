@@ -579,6 +579,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6754b7d73dec9e345a9f42a2149c43c5, type: 3}
+--- !u!224 &1282622370 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 529139243093935280, guid: 6754b7d73dec9e345a9f42a2149c43c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1282622369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1583554196
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +789,9 @@ MonoBehaviour:
   _mainCamera: {fileID: 1583554198}
   _virtualCamera: {fileID: 422250767}
   _announcer: {fileID: 1954509279}
+  _hud: {fileID: 1282622370}
+  _floatingText: {fileID: 3191296642481488848, guid: be9eada110f32d4428b02e9b17b75814,
+    type: 3}
   _deathSettings:
     negateDamage: 1
     weaponsEditable: 1

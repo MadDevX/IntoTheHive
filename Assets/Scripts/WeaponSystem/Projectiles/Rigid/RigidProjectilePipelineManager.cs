@@ -8,14 +8,12 @@ public class RigidProjectilePipelineManager : IDisposable
     private ProjectilePhasePipeline _pipeline;
     private ProjectileInitializer _initializer;
     private IProjectile _facade;
-    private ProjectilePipelineParameters _parameters;
 
     public RigidProjectilePipelineManager(ProjectilePhasePipeline pipeline, ProjectileInitializer initializer, IProjectile facade)
     {
         _pipeline = pipeline;
         _initializer = initializer;
         _facade = facade;
-        _parameters = new ProjectilePipelineParameters(_facade);
         PreInitialize();
     }
 
@@ -31,13 +29,13 @@ public class RigidProjectilePipelineManager : IDisposable
         _initializer.OnProjectileDestroyed -= OnProjectileDestroyed;
     }
 
-    private void OnProjectileInitialized()
+    private void OnProjectileInitialized(ProjectileSpawnParameters parameters)
     {
-        _pipeline.SetState(ProjectilePhases.Created, _parameters);
+        _pipeline.SetState(ProjectilePhases.Created, new ProjectilePipelineParameters(_facade, parameters));
     }
 
-    private void OnProjectileDestroyed()
+    private void OnProjectileDestroyed(ProjectileSpawnParameters parameters)
     {
-        _pipeline.SetState(ProjectilePhases.Destroyed, _parameters);
+        _pipeline.SetState(ProjectilePhases.Destroyed, new ProjectilePipelineParameters(_facade, parameters));
     }
 }

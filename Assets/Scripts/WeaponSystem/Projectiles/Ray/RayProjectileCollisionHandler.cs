@@ -8,10 +8,12 @@ public class RayProjectileCollisionHandler : IProjectileCollision, IProjectileCo
     public bool IsPiercing { get; set; }
 
     public event Action<Collider2D> OnCollisionEnter;
+    public event Action AfterCollisionEnter;
 
     public void HandleCollision(Collider2D col)
     {
         OnCollisionEnter?.Invoke(col);
+        AfterCollisionEnter?.Invoke();
     }
 
 }

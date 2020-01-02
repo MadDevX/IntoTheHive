@@ -22,16 +22,16 @@ public class Modifier : IComparable
     }
 
     /// <summary>
-    /// Calculates and returns bonus to be added to <paramref name="baseValue"/>
+    /// Calculates and returns value after applying modifier bonus to <paramref name="baseValue"/>
     /// </summary>
     /// <param name="baseValue">Base reference value for bonus calculations</param>
-    /// <returns>Value of a bonus that should be added to <paramref name="baseValue"/></returns>
-    public float Bonus(float baseValue)
+    /// <returns>Value after applying bonus to <paramref name="baseValue"/></returns>
+    public float ApplyModifier(float baseValue)
     {
         //TODO: if another MultiplierType will be added - just change this to polymorphism 
         if (type == ModifierType.Flat)
         {
-            return value;
+            return baseValue + value;
         }
         else if (type == ModifierType.PercentageBase || type == ModifierType.PercentageCumulative)
         {
@@ -90,7 +90,7 @@ public class ModifierList
         var lastIdx = _modifiers.Count - 1;
         for (int i = 0; i < _modifiers.Count; i++)
         {
-            result += _modifiers[i].Bonus(referenceValue);
+            result = _modifiers[i].ApplyModifier(referenceValue);
             if (_modifiers[i].type != _modifiers[Mathf.Min(lastIdx, i + 1)].type)
             {
                 referenceValue = result;

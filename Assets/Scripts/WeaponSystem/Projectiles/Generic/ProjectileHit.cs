@@ -3,9 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct HitParameters
+{
+    public IDamageable damageable;
+    public Transform transform;
+
+    public HitParameters(IDamageable damageable, Transform transform)
+    {
+        this.damageable = damageable;
+        this.transform = transform;
+    }
+}
+
 public class ProjectileHit : IProjectileHit, IDisposable
 {
-    public event Action<IDamageable> OnHit;
+    public event Action<HitParameters> OnHit;
 
     private IProjectileCollision _collision;
     private IProjectileDummy _dummy;
@@ -31,11 +43,11 @@ public class ProjectileHit : IProjectileHit, IDisposable
     {
         if (_dummy.IsDummy == false)
         {
-            var health = obj.GetComponent<IDamageable>();
+            var damageable = obj.GetComponent<IDamageable>();
 
-            if (health != null)
+            if (damageable != null)
             {
-                OnHit?.Invoke(health);
+                OnHit?.Invoke(new HitParameters(damageable, obj.transform));
             }
         }
     }

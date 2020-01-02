@@ -25,7 +25,6 @@ public class CharacterInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CharacterMovement>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterRotation>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterShooting>().AsSingle();
-        Container.BindInterfacesAndSelfTo<CharacterEquipment>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterHealth>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterDamageable>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterRespawnable>().AsSingle();

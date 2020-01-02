@@ -10,6 +10,8 @@ public class TripleSpawnOnDestroyModule : BaseModule
 
     public override short Id => 1;
 
+    public override bool IsInheritable => false;
+
     private float _spreadAngle = 10.0f;
     private IFactory<ProjectileSpawnParameters, IProjectile[]> _factory;
 
@@ -54,7 +56,7 @@ public class TripleSpawnOnDestroyModule : BaseModule
         var velocity = param.projectile.Velocity;
         var baseRotation = velocity.Rotation();
         var spawnPos = param.projectile.Position + Vector2.ClampMagnitude(velocity, Constants.COLLISION_CORRECTION_EPS);
-        var spawnParam = new ProjectileSpawnParameters(spawnPos, baseRotation, velocity.magnitude, 3.0f, null, param.projectile.IsDummy);
+        var spawnParam = new ProjectileSpawnParameters(spawnPos, baseRotation, velocity.magnitude, 3.0f, param.inheritableModules, param.inheritableModules, param.projectile.IsDummy);
         _factory.Create(spawnParam);
         spawnParam.rotation = baseRotation + _spreadAngle;
         _factory.Create(spawnParam);

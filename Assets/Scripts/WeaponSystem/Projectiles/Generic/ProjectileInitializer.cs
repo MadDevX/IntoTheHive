@@ -18,28 +18,31 @@ public class ProjectileInitializer
     /// <summary>
     /// Invoked after resetting projectile state, last step of bullet creation
     /// </summary>
-    public event Action OnProjectileInitialized;
+    public event Action<ProjectileSpawnParameters> OnProjectileInitialized;
 
     /// <summary>
     /// Invoked on projectile destruction, used for last hit behaviour, not disposing logic
     /// </summary>
-    public event Action OnProjectileDestroyed;
+    public event Action<ProjectileSpawnParameters> OnProjectileDestroyed;
 
     /// <summary>
     /// Invoked after despawning projectile, used to cleanup projectile state
     /// </summary>
     public event Action OnProjectileDespawned;
 
+    private ProjectileSpawnParameters _currentParameters;
+
     public void CreateProjectile(ProjectileSpawnParameters parameters)
     {
+        _currentParameters = parameters;
         OnProjectileCreated?.Invoke(parameters);
         OnProjectileDefined?.Invoke();
-        OnProjectileInitialized?.Invoke();
+        OnProjectileInitialized?.Invoke(parameters);
     }
 
     public void DespawnProjectile()
     {
-        OnProjectileDestroyed?.Invoke();
+        OnProjectileDestroyed?.Invoke(_currentParameters);
         OnProjectileDespawned?.Invoke();
     }
 }

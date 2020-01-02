@@ -36,5 +36,6 @@ public enum Identifiers
     MainMenuCurrentNicknameText,
     IP,
     Port,
-    Overlay
+    Overlay,
+    HUD
 }

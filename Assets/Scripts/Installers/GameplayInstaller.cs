@@ -11,6 +11,8 @@ public class GameplayInstaller : MonoInstaller
     [SerializeField] private Camera _mainCamera; 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     [SerializeField] private SceneInitializedAnnouncer _announcer;
+    [SerializeField] private Transform _hud;
+    [SerializeField] private FloatingText _floatingText;
     [SerializeField] private SceneGameplayProperties.Settings _deathSettings;
 
     public override void InstallBindings()
@@ -20,6 +22,7 @@ public class GameplayInstaller : MonoInstaller
         InstallSpawning();
         InstallItems();
         InstallCharacterBehaviour();
+        InstallHUD();
     }
 
     private void InstallCharacterBehaviour()
@@ -57,4 +60,13 @@ public class GameplayInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PickupManager>().AsSingle();
     }
 
+    private void InstallHUD()
+    {
+        Container.Bind<Transform>().WithId(Identifiers.HUD).FromInstance(_hud).AsCached();
+        Container.BindMonoPrefabPool<FloatingText, FloatingTextSpawnParameters, FloatingText.Factory, FloatingTextPool>(Identifiers.HUD, 10, _floatingText, _hud);
+    }
+
+    public class FloatingTextPool : MonoPoolableMemoryPool<FloatingTextSpawnParameters, IMemoryPool, FloatingText>
+    {
+    }
 }

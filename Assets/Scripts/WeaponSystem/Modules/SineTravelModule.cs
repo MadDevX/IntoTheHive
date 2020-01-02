@@ -8,6 +8,8 @@ public class SineTravelModule : BaseModule
 
     public override short Id => 2;
 
+    public override bool IsInheritable => false;
+
     private static float _offset = 2.0f / 3.0f;
     public override void DecorateProjectile(IProjectile projectile)
     {

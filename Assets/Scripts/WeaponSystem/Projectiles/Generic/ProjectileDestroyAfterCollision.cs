@@ -30,13 +30,13 @@ public class ProjectileDestroyAfterCollision : IDisposable
 
     private void PreInitialize()
     {
-        _collision.OnCollisionEnter += OnCollisionEnter;
+        _collision.AfterCollisionEnter += OnCollisionEnter;
         _initializer.OnProjectileDefined += ResetCollisions;
     }
 
     public void Dispose()
     {
-        _collision.OnCollisionEnter -= OnCollisionEnter;
+        _collision.AfterCollisionEnter -= OnCollisionEnter;
         _initializer.OnProjectileDefined -= ResetCollisions;
     }
 
@@ -45,7 +45,7 @@ public class ProjectileDestroyAfterCollision : IDisposable
         _remainingCollisions = CollisionLimit;
     }
 
-    private void OnCollisionEnter(Collider2D collider)
+    private void OnCollisionEnter()
     {
         _remainingCollisions--;
         if(_remainingCollisions < 0)

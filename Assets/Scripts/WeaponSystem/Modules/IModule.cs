@@ -9,6 +9,7 @@ public interface IModule
     /// </summary>
     int Priority { get; }
 
+    bool IsInheritable { get; }
     short Id { get; }
     void DecorateProjectile(IProjectile projectile);
     void RemoveFromProjectile(IProjectile projectile);

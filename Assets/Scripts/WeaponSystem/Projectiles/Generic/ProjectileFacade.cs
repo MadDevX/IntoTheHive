@@ -15,8 +15,11 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
     private IProjectileDummy _dummy;
     private ProjectileDestroyAfterCollision _destroyCollision;
     private IMemoryPool _pool;
+    private ProjectileDamage _damage;
 
     public ProjectilePhasePipeline Pipeline { get; private set; }
+
+    public ModifierList DamageModifiers => _damage.Modifiers;
 
     public Vector2 Position { get => _position.Position; }
 
@@ -36,8 +39,6 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
     public event Action<IProjectile, float> OnFixedUpdateEvt;
     public event Action<IProjectile, Collider2D, int> OnCollisionEnter;
 
-    private ProjectilePipelineParameters _parameters;
-
     [Inject]
     public void Construct(ProjectilePhasePipeline pipeline,
         ProjectileInitializer initializer,
@@ -47,7 +48,8 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
         IProjectileFixedTime fixedTime,
         IProjectileCollision collision,
         IProjectileDummy dummy,
-        ProjectileDestroyAfterCollision destroyCollision)
+        ProjectileDestroyAfterCollision destroyCollision,
+        ProjectileDamage damage)
     {
         Pipeline = pipeline;
         _initializer = initializer;
@@ -58,7 +60,7 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
         _collision = collision;
         _dummy = dummy;
         _destroyCollision = destroyCollision;
-        _parameters = new ProjectilePipelineParameters(this);
+        _damage = damage;
     }
 
 

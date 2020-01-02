@@ -8,6 +8,8 @@ using Zenject;
 public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 {
     public event Action<Collider2D> OnCollisionEnter;
+    public event Action AfterCollisionEnter;
+
     private Collider2D _collider;
     private IRelay _relay;
 
@@ -34,10 +36,12 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
     private void OnTriggerEnterHandler(Collider2D obj)
     {
         OnCollisionEnter?.Invoke(obj);
+        AfterCollisionEnter?.Invoke();
     }
 
     private void OnColEnterHandler(Collision2D obj)
     {
         OnCollisionEnter?.Invoke(obj.collider);
+        AfterCollisionEnter?.Invoke();
     }
 }

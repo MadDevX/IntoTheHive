@@ -3,20 +3,16 @@ using DarkRift.Client.Unity;
 
 class EquipmentMessageSender
 {
-    private CharacterEquipment _characterEquipment;
     private UnityClient _networkManager;
     private CharacterFacade _characterFacade;
 
     public EquipmentMessageSender(
         UnityClient client,
-        CharacterEquipment characterEquipment,
         CharacterFacade characterFacade
         )
     {
         _networkManager = client;
-        _characterEquipment = characterEquipment;
         _characterFacade = characterFacade;
-        _characterEquipment.OnWeaponChanged += SendWeaponChangedMessage;
     }
 
     public void SendWeaponChangedMessage(IWeapon newWeapon)

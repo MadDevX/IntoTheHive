@@ -6,13 +6,13 @@ using UnityEngine;
 public class CharacterShooting : UpdatableObject
 {
     private ControlState _controlState;
-    private CharacterEquipment _characterEquipment;
+    private IWeapon _weapon;
     private Rigidbody2D _rb;
     private Settings _settings;
-    public CharacterShooting(ControlState controlState, CharacterEquipment characterEquipment, Rigidbody2D rb, Settings settings)
+    public CharacterShooting(ControlState controlState, IWeapon weapon, Rigidbody2D rb, Settings settings)
     {
         _controlState = controlState;
-        _characterEquipment = characterEquipment;
+        _weapon = weapon;
         _rb = rb;
         _settings = settings;
     }
@@ -21,14 +21,14 @@ public class CharacterShooting : UpdatableObject
     {
         if(_controlState.PrimaryAction)
         {
-            if (_characterEquipment.Weapon.Shoot(_rb.position, _rb.rotation, _settings.weaponOffset) == false)
+            if (_weapon.Shoot(_rb.position, _rb.rotation, _settings.weaponOffset) == false)
             {
-                _characterEquipment.Weapon.Reload();
+                _weapon.Reload();
             }
         }
         else
         {
-            _characterEquipment.Weapon.ReleaseTrigger();
+            _weapon.ReleaseTrigger();
         }
     }
 

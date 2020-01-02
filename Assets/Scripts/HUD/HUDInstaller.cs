@@ -33,13 +33,14 @@ public class HUDInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<HealthTracker>().AsSingle();
         Container.BindInterfacesAndSelfTo<UnassignedItems>().AsSingle();
         Container.BindInterfacesAndSelfTo<OverlayManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerDamageTracker>().AsSingle();
     }
 
     private void InstallSlots()
     {
-        BindMonoPrefabPool<InventorySlot, ItemInstance, InventorySlot.Factory, InventorySlotPool>
+        Container.BindMonoPrefabPool<InventorySlot, ItemInstance, InventorySlot.Factory, InventorySlotPool>
             (Identifiers.Inventory, 10, _slotPrefab, _inventorySlotParent);
-        BindMonoPrefabPool<InventorySlot, ItemInstance, InventorySlot.Factory, InventorySlotPool>
+        Container.BindMonoPrefabPool<InventorySlot, ItemInstance, InventorySlot.Factory, InventorySlotPool>
             (Identifiers.Equipment, 10, _slotPrefab, _equipmentSlotParent);
     }
 
@@ -49,28 +50,6 @@ public class HUDInstaller : MonoInstaller
         if(Input.GetKeyDown(KeyCode.I))
         {
             _windowParent.SetActive(!_windowParent.activeSelf);
-        }
-    }
-
-
-
-    private void BindMonoPrefabPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, Transform parentTransform, BindingCondition cond = null)
-    where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
-    where TFactory : PlaceholderFactory<TArgs, T>
-    where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
-    {
-        var bind =
-        Container.BindFactory<TArgs, T, TFactory>().
-            WithId(id).
-            FromPoolableMemoryPool<TArgs, T, TPool>
-            (x => x.WithInitialSize(size).
-            ExpandByDoubling().
-            FromComponentInNewPrefab(prefab).
-            UnderTransform(parentTransform));
-
-        if (cond != null)
-        {
-            bind.When(cond);
         }
     }
 

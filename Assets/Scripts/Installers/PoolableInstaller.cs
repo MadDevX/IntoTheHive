@@ -23,93 +23,31 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         //    ByNewContextPrefab(_projectilePrefab).
         //    UnderTransformGroup("Projectiles")).When((x) => x.Container == Container);
         BindingCondition bindCond = (x) => x.Container == Container;
-        BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
+        Container.BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
             (Identifiers.Bullet, 10, _projectilePrefab, "Projectiles", bindCond);
 
-        BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
+        Container.BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
             (Identifiers.Ray, 10, _rayProjectilePrefab, "RayProjectiles", bindCond);
 
-        BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
+        Container.BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
 
-        BindMonoContextPool<ItemPickup, PickupSpawnParameters, ItemPickup.Factory, PickupPool>
+        Container.BindMonoContextPool<ItemPickup, PickupSpawnParameters, ItemPickup.Factory, PickupPool>
             (Identifiers.Inventory, 10, _pickupPrefab, "Pickups");
 
 
         //TODO: all characters should be marked as context prefab
-        BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
+        Container.BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.AI, 10, _AIPrefab, "AI");
 
-        BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
+        Container.BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.Network, 4, _networkedCharacterPrefab, "Characters");
 
-        BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
+        Container.BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.Player, 1, _playerPrefab, "Players");
         
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Bullet).To<RigidProjectileMultiFactory>().AsSingle();
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Ray).To<RayProjectileMultiFactory>().AsSingle();
-    }
-
-    private void BindMonoContextPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, string transformGroupName, BindingCondition cond = null) 
-        where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
-        where TFactory : PlaceholderFactory<TArgs, T>
-        where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
-    {
-        var bind =
-        Container.BindFactory<TArgs, T, TFactory>().
-            WithId(id).
-            FromPoolableMemoryPool<TArgs, T, TPool>
-            (x => x.WithInitialSize(size).
-            ExpandByDoubling().
-            FromSubContainerResolve().
-            ByNewContextPrefab(prefab).
-            UnderTransformGroup(transformGroupName));
-
-        if (cond != null)
-        {
-            bind.When(cond);
-        }
-    }
-
-    private void BindMonoContextPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, Transform parentTransform, BindingCondition cond = null)
-    where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
-    where TFactory : PlaceholderFactory<TArgs, T>
-    where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
-    {
-        var bind =
-        Container.BindFactory<TArgs, T, TFactory>().
-            WithId(id).
-            FromPoolableMemoryPool<TArgs, T, TPool>
-            (x => x.WithInitialSize(size).
-            ExpandByDoubling().
-            FromSubContainerResolve().
-            ByNewContextPrefab(prefab).
-            UnderTransform(parentTransform));
-
-        if (cond != null)
-        {
-            bind.When(cond);
-        }
-    }
-
-    private void BindMonoPrefabPool<T, TArgs, TFactory, TPool>(Identifiers id, int size, T prefab, string transformGroupName, BindingCondition cond = null)
-    where T : MonoBehaviour, IPoolable<TArgs, IMemoryPool>
-    where TFactory : PlaceholderFactory<TArgs, T>
-    where TPool : MonoPoolableMemoryPool<TArgs, IMemoryPool, T>
-    {
-        var bind = 
-        Container.BindFactory<TArgs, T, TFactory>().
-            WithId(id).
-            FromPoolableMemoryPool<TArgs, T, TPool>
-            (x => x.WithInitialSize(size).
-            ExpandByDoubling().
-            FromComponentInNewPrefab(prefab).
-            UnderTransformGroup(transformGroupName));
-
-        if (cond != null)
-        {
-            bind.When(cond);
-        }
     }
 
     public class ProjectilePool : MonoPoolableMemoryPool<ProjectileSpawnParameters, IMemoryPool, ProjectileFacade>

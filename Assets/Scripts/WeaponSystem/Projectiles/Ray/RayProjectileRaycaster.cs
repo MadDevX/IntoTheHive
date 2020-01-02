@@ -47,7 +47,7 @@ public class RayProjectileRaycaster: IDisposable
         _initializer.OnProjectileInitialized -= CastProjectile;
     }
 
-    private void CastProjectile()
+    private void CastProjectile(ProjectileSpawnParameters parameters)
     {
         var prevQuery = Physics2D.queriesHitTriggers;
         Physics2D.queriesHitTriggers = false;
