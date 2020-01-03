@@ -4,8 +4,8 @@ using Zenject;
 [CreateAssetMenu(fileName = "PoolableInstaller", menuName = "Installers/PoolableInstaller")]
 public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
 {
-    [SerializeField] private ProjectileFacade _projectilePrefab;
-    [SerializeField] private ProjectileFacade _rayProjectilePrefab;
+    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private GameObject _rayProjectilePrefab;
     [SerializeField] private LineVFX _lineVFX;
     [SerializeField] private CharacterFacade _playerPrefab;
     [SerializeField] private CharacterFacade _networkedCharacterPrefab;
@@ -50,7 +50,7 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         Container.Bind<IFactory<ProjectileSpawnParameters, ProjectileFacade[]>>().WithId(Identifiers.Ray).To<RayProjectileMultiFactory>().AsSingle();
     }
 
-    public class ProjectilePool : MonoPoolableMemoryPool<ProjectileSpawnParameters, IMemoryPool, ProjectileFacade>
+    public class ProjectilePool : ContextGameObjectMemoryPool<ProjectileSpawnParameters, IMemoryPool, ProjectileFacade>
     {
     }
 

@@ -20,7 +20,7 @@ public class Weapon : IWeapon
 
     public Weapon(
         CharacterInfo info,
-        [Inject(Id = Identifiers.Ray)] IFactory<ProjectileSpawnParameters, ProjectileFacade[]> projectileFactory, 
+        [Inject(Id = Identifiers.Bullet)] IFactory<ProjectileSpawnParameters, ProjectileFacade[]> projectileFactory, 
         Settings settings)
     {
         _info = info;

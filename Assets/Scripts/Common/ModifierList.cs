@@ -22,20 +22,25 @@ public class Modifier : IComparable
     }
 
     /// <summary>
-    /// Calculates and returns value after applying modifier bonus to <paramref name="baseValue"/>
+    /// Calculates and returns value after applying modifier bonus to <paramref name="currentValue"/>
     /// </summary>
-    /// <param name="baseValue">Base reference value for bonus calculations</param>
-    /// <returns>Value after applying bonus to <paramref name="baseValue"/></returns>
-    public float ApplyModifier(float baseValue)
+    /// <param name="currentValue">Current value to which bonus will be added</param>
+    /// <param name="referenceValue">Reference value for bonus calculations</param>
+    /// <returns>Value after applying bonus to <paramref name="currentValue"/></returns>
+    public float ApplyModifier(float currentValue, float referenceValue)
     {
         //TODO: if another MultiplierType will be added - just change this to polymorphism 
         if (type == ModifierType.Flat)
         {
-            return baseValue + value;
+            return currentValue + value;
         }
-        else if (type == ModifierType.PercentageBase || type == ModifierType.PercentageCumulative)
+        else if (type == ModifierType.PercentageBase)
         {
-            return baseValue * value;
+            return currentValue + referenceValue * (value - 1.0f); //-1, so that multipliers like 1.05 will act like 105% of normal damage dealt, and modifiers like -1.0f will negate damage
+        }
+        else if ( type == ModifierType.PercentageCumulative)
+        {
+            return currentValue * value; //like case above, but cumulative percentage does not take referenceValue into consideration, operating always on latest value
         }
         else
         {
@@ -90,7 +95,7 @@ public class ModifierList
         var lastIdx = _modifiers.Count - 1;
         for (int i = 0; i < _modifiers.Count; i++)
         {
-            result = _modifiers[i].ApplyModifier(referenceValue);
+            result = _modifiers[i].ApplyModifier(result, referenceValue);
             if (_modifiers[i].type != _modifiers[Mathf.Min(lastIdx, i + 1)].type)
             {
                 referenceValue = result;

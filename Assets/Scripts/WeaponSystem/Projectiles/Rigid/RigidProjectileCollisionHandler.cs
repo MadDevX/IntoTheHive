@@ -35,13 +35,19 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 
     private void OnTriggerEnterHandler(Collider2D obj)
     {
-        OnCollisionEnter?.Invoke(obj);
-        AfterCollisionEnter?.Invoke();
+        if (obj.isTrigger == false) //TODO: check object layers, this is a hack
+        {
+            OnCollisionEnter?.Invoke(obj);
+            AfterCollisionEnter?.Invoke();
+        }
     }
 
     private void OnColEnterHandler(Collision2D obj)
     {
-        OnCollisionEnter?.Invoke(obj.collider);
-        AfterCollisionEnter?.Invoke();
+        if (obj.collider.isTrigger == false)
+        {
+            OnCollisionEnter?.Invoke(obj.collider);
+            AfterCollisionEnter?.Invoke();
+        }
     }
 }

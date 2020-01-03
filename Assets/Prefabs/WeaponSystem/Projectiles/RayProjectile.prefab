@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: -8605617776989428744}
   - component: {fileID: 2682931874399402399}
   - component: {fileID: -7777512058196483756}
-  - component: {fileID: 9012927215289474397}
   m_Layer: 0
   m_Name: Ray
   m_TagString: Untagged
@@ -65,7 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55dd9ecb5fa994a4a9f2b54f045f35b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _facade: {fileID: 9012927215289474397}
 --- !u!114 &-7777512058196483756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,17 +74,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50ce80d9fa4854d4599adf66cb241e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9012927215289474397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711313583401228945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2700333b7fb7734b9c7e3efdbbc84d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable, IProjectile
+public class ProjectileFacade : IPoolable<ProjectileSpawnParameters, IMemoryPool>, IDisposable, IProjectile, IComponent
 {
     private ProjectileInitializer _initializer;
     private IProjectilePosition _position;
@@ -35,6 +35,10 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
 
     public int CollisionLimit { get => _destroyCollision.CollisionLimit; set => _destroyCollision.CollisionLimit = value; }
 
+    public GameObject GameObject { get; private set; }
+
+    public Transform Transform { get; private set; }
+
     public event Action<IProjectile, float> OnUpdateEvt;
     public event Action<IProjectile, float> OnFixedUpdateEvt;
     public event Action<IProjectile, Collider2D, int> OnCollisionEnter;
@@ -49,7 +53,9 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
         IProjectileCollision collision,
         IProjectileDummy dummy,
         ProjectileDestroyAfterCollision destroyCollision,
-        ProjectileDamage damage)
+        ProjectileDamage damage,
+        Transform transform,
+        GameObject gameObject)
     {
         Pipeline = pipeline;
         _initializer = initializer;
@@ -61,6 +67,8 @@ public class ProjectileFacade : MonoBehaviour, IPoolable<ProjectileSpawnParamete
         _dummy = dummy;
         _destroyCollision = destroyCollision;
         _damage = damage;
+        Transform = transform;
+        GameObject = gameObject;
     }
 
 
