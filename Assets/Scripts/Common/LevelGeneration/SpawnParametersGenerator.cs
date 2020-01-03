@@ -45,7 +45,7 @@ public class SpawnParametersGenerator
         bool[] visited = new bool[vertices.Count];
         Queue<LevelGraphVertex> queue = new Queue<LevelGraphVertex>();       
         
-        vertices.ForEach(vertex => roomSpawnInfo.Add(new RoomSpawnParameters(0, 0, 0, 0)));
+        vertices.ForEach(vertex => roomSpawnInfo.Add(new RoomSpawnParameters(0, 0, 0, vertex.RoomId)));
         //BFS through the graph
         queue.Enqueue(vertices[0]);
 
@@ -69,7 +69,6 @@ public class SpawnParametersGenerator
                     {
                         Setposition(id , vertices[neighbourIndex], (GraphDirection)dir, roomSpawnInfo);
                         queue.Enqueue(vertices[neighbourIndex]);
-                        visited[neighbourIndex] = true;
                     }
                     
                 }
@@ -78,6 +77,7 @@ public class SpawnParametersGenerator
                     SetDoorPosition(id, (GraphDirection)dir, roomSpawnInfo, doorSpawnInfo);
                 }
             }
+            visited[id] = true;
         }
     }
 
@@ -91,7 +91,6 @@ public class SpawnParametersGenerator
     private void Setposition(int vertexIndex, LevelGraphVertex neighbourVertex, GraphDirection direction, List<RoomSpawnParameters> roomSpawnInfo)
     {
 
-        roomSpawnInfo[vertexIndex].RoomId = neighbourVertex.RoomId;
         switch (direction)
         {
             case GraphDirection.North:
