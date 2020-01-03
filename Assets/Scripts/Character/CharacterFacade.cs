@@ -19,9 +19,6 @@ public struct CharacterSpawnParameters
 
 public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters, IMemoryPool>, IDisposable, IHealth, IDamageable
 {
-    //TODO: remove this
-    public List<ItemData> itemsToInitialize;
-
     public event Action<DamageTakenArgs> OnDamageTaken
     {
         add
