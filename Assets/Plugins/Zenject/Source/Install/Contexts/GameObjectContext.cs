@@ -169,7 +169,6 @@ namespace Zenject
                 _container.Bind<MonoKernel>().FromInstance(_kernel).AsSingle().NonLazy();
             }
 
-            InstallSceneBindings(injectableMonoBehaviours);
             InstallInstallers();
         }
     }

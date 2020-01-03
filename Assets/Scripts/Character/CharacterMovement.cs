@@ -9,6 +9,7 @@ public class CharacterMovement : FixedUpdatableObject
     private Rigidbody2D _rb;
     private ControlState _controlState;
     private Settings _settings;
+    private CharacterInfo _info;
     private Vector2 _movementVersor;
 
     public Vector2 MovementVersor
@@ -24,11 +25,12 @@ public class CharacterMovement : FixedUpdatableObject
         }
     }
     
-    public CharacterMovement(Rigidbody2D rb, ControlState controlState, Settings settings)
+    public CharacterMovement(Rigidbody2D rb, ControlState controlState, Settings settings, CharacterInfo info)
     {
         _rb = rb;
         _controlState = controlState;
         _settings = settings;
+        _info = info;
     }
 
     public override void Initialize()
@@ -40,7 +42,7 @@ public class CharacterMovement : FixedUpdatableObject
     public override void OnFixedUpdate(float deltaTime)
     {
         UpdateMovementVersor(deltaTime);
-        CorrectPosition(deltaTime);
+        if(_info.IsLocal == false) CorrectPosition(deltaTime);
         Move(deltaTime);
         ResetAngularVelocity(); //used because other logic governs object rotation and angular velocity should not affect character rotation
     }
