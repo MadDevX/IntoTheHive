@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 2156956562263633859}
   - component: {fileID: 7015248873979094999}
   - component: {fileID: 1247119198714971013}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,7 +1064,7 @@ GameObject:
   - component: {fileID: 1649231141023545084}
   - component: {fileID: 6684335618675841402}
   - component: {fileID: 592934081417619858}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3178,11 +3178,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5009875895464623848}
     m_Modifications:
-    - target: {fileID: 8832549928812650068, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
-        type: 3}
-      propertyPath: m_Name
-      value: RoomEnteredTriggerHost Variant
-      objectReference: {fileID: 0}
     - target: {fileID: 8832549928812650057, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3248,6 +3243,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 10.25
       objectReference: {fileID: 0}
+    - target: {fileID: 8832549928812650068, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
+        type: 3}
+      propertyPath: m_Name
+      value: RoomEnteredTriggerHost Variant
+      objectReference: {fileID: 0}
     - target: {fileID: 8832549928812650059, guid: 9ad7a373f4f9074478ce5aecc888dfbd,
         type: 3}
       propertyPath: m_Color.a
@@ -3273,11 +3273,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5009875895464623848}
     m_Modifications:
-    - target: {fileID: 8273215834782491893, guid: 6e084349b1b58b448abc3a4f4957acd7,
-        type: 3}
-      propertyPath: m_Name
-      value: BasicSpawner
-      objectReference: {fileID: 0}
     - target: {fileID: 8273215834782491899, guid: 6e084349b1b58b448abc3a4f4957acd7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3332,6 +3327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273215834782491893, guid: 6e084349b1b58b448abc3a4f4957acd7,
+        type: 3}
+      propertyPath: m_Name
+      value: BasicSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 8273215834570778241, guid: 6e084349b1b58b448abc3a4f4957acd7,
         type: 3}
