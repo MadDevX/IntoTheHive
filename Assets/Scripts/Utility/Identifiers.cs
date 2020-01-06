@@ -39,5 +39,7 @@ public enum Identifiers
     Overlay,
     HUD,
     MusicSlider,
-    SfxSlider
+    SfxSlider,
+    Fullscreen,
+    ResolutionsDropdown
 }
