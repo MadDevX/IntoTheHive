@@ -14,7 +14,7 @@ public class GameplayInstaller : MonoInstaller
     [SerializeField] private Transform _hud;
     [SerializeField] private FloatingText _floatingText;
     [SerializeField] private SceneGameplayProperties.Settings _deathSettings;
-
+    [SerializeField] private Sprites _sprites;
     public override void InstallBindings()
     {       
         InstallCameras();
@@ -45,6 +45,7 @@ public class GameplayInstaller : MonoInstaller
     }
     private void InstallSpawning()
     {
+        Container.BindInstances(_sprites);
         Container.BindInterfacesAndSelfTo<CharacterSpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharacterAISpawner>().AsSingle();
         Container.BindInterfacesAndSelfTo<NetworkedCharacterSpawner>().AsSingle();

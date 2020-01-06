@@ -14,6 +14,7 @@ public class CharacterSpawner
     private CameraManager _cameraManager;
     private Dictionary<ushort, CharacterFacade> _characters;
     private UnityClient _unityClient;
+    private Sprites _sprites;
 
     [Inject]
     public void Construct(
@@ -21,9 +22,11 @@ public class CharacterSpawner
         [Inject(Id = Identifiers.AI)] CharacterFacade.Factory AIFactory,
         [Inject(Id = Identifiers.Player)] CharacterFacade.Factory playerFactory,
         CameraManager cameraManager,
-        UnityClient unityClient
+        UnityClient unityClient,
+        Sprites sprites
         )
     {
+        _sprites = sprites;
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _unityClient = unityClient;
@@ -55,11 +58,17 @@ public class CharacterSpawner
                 // Networked character 
                 characterFacade = _networkFactory.Create(spawnParameters);
                 characterFacade.Id = playerId;
+
+                var renderer = characterFacade.GetComponentInChildren<SpriteRenderer>();
+                
                 // TODO CHANGE WHEN REPLACING SPRITES
                 if (characterFacade.CharacterType == CharacterType.AICharacter)
                 {
-                    var renderer = characterFacade.GetComponentInChildren<SpriteRenderer>();
-                    renderer.color = Color.green;
+                    renderer.sprite = _sprites.Wasp;
+                }
+                else
+                {
+                    renderer.sprite = _sprites.Human;
                 }
             }
 
