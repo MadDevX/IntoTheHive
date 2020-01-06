@@ -37,5 +37,7 @@ public enum Identifiers
     IP,
     Port,
     Overlay,
-    HUD
+    HUD,
+    MusicSlider,
+    SfxSlider
 }

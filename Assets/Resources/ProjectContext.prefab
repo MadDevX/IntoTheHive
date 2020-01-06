@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: -460502442893764442}
   - component: {fileID: 3667974367811642472}
   - component: {fileID: 2700815338623680161}
+  - component: {fileID: 3512929280502042822}
   - component: {fileID: 5320062946441086026}
   - component: {fileID: 9051328289121468220}
+  - component: {fileID: 5987563102476299766}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -58,6 +60,7 @@ MonoBehaviour:
   - {fileID: -3276942018524210261}
   - {fileID: 2700815338623680161}
   - {fileID: 3667974367811642472}
+  - {fileID: 3512929280502042822}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
@@ -124,6 +127,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _client: {fileID: 5320062946441086026}
+--- !u!114 &3512929280502042822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7614557272970585351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b2e2b809e170641ad1b5d136c28d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: e38c8b16a7397ba4bac6ea8dd7bd790d, type: 2}
+  _audioManager: {fileID: 5987563102476299766}
 --- !u!114 &5320062946441086026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +179,21 @@ MonoBehaviour:
   configuration: {fileID: 4900000, guid: 099e7cad825f1974d95a9256cc70dece, type: 3}
   createOnEnable: 0
   eventsFromDispatcher: 1
+--- !u!114 &5987563102476299766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7614557272970585351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67318714804cd4587e642e1d956ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - Name: 0
+    Clip: {fileID: 8300000, guid: 59ca93664f1593d44ada1f52e4ac591c, type: 3}
+    Loop: 1
+    Type: 0
+    Source: {fileID: 0}
