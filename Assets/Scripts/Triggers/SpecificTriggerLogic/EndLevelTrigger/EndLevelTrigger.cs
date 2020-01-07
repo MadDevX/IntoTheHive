@@ -4,16 +4,16 @@
 /// </summary>
 public class EndLevelTrigger : ITriggerable
 {
-    private HostSceneManager _sceneManager;
+    private WinManager _winManager;
 
     public EndLevelTrigger(
-        HostSceneManager sceneManager)
+        WinManager winManager)
     {
-        _sceneManager = sceneManager;
+        _winManager = winManager;
     }
 
     public void Trigger()
     {
-        _sceneManager.LoadHub();
+        _winManager.IncreaseCounter();
     }
 }

@@ -2,4 +2,5 @@
 {
     void RaiseOnGameStarted();
     void RaiseOnGameEnded();
+    void RaiseOnGameWon();
 }
