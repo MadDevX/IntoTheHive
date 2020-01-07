@@ -14,5 +14,6 @@ public class NetworkedSenderInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<DamageReceiver>().AsSingle();
         Container.BindInterfacesAndSelfTo<HealthUpdateSender>().AsSingle();
         Container.BindInterfacesAndSelfTo<AssignItemHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ShootCommandSender>().AsSingle();
     }
 }

@@ -6,6 +6,8 @@ using Zenject;
 
 public class Weapon : IWeapon
 {
+    public event Action<ProjectileSpawnParameters> OnShoot;
+
     private CharacterInfo _info;
     private Settings _settings;
 
@@ -38,13 +40,20 @@ public class Weapon : IWeapon
         Debug.Log("Reload!");
     }
 
-    public bool Shoot(Vector2 position, float rotation, Vector2 offset)
+    /// <summary>
+    /// Creates projectile with current weapon at given position and with given rotation.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="rotation"></param>
+    /// <returns></returns>
+    public bool Shoot(Vector2 position, float rotation)
     {
         if (_wasSqueezed == false)
         {
             _wasSqueezed = true;
-            var spawnPos = position + offset.Rotate(rotation);
-            Factory.Create(new ProjectileSpawnParameters(spawnPos, rotation, _settings.velocity, _settings.timeToLive, _modules, _inheritableModules, dummy: _info.IsLocal == false));
+            var parameters = new ProjectileSpawnParameters(position, rotation, _settings.velocity, _settings.timeToLive, _modules, _inheritableModules, dummy: _info.IsLocal == false);
+            Factory.Create(parameters);
+            OnShoot?.Invoke(parameters);
         }
         return true;
     }

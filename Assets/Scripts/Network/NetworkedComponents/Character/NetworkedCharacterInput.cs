@@ -52,7 +52,7 @@ public class NetworkedCharacterInput : IInitializable, IDisposable
 
                 _controlState.Vertical = vertical;
                 _controlState.Horizontal = horizontal;
-                _controlState.PrimaryAction = primaryAction; //TODO: shooting should be handled directly, not through ControlState (unfortunately)
+                _controlState.PrimaryAction = false; //TODO: shooting should be handled directly, not through ControlState (unfortunately)
                 _controlState.SecondaryAction = secondaryAction;
                 _controlState.Direction = direction;
                 _controlState.Position = position;

@@ -18,7 +18,7 @@ MonoBehaviour:
     speedMult: 1.5
     correctionLerpFactor: 0.1
   _charShootingSettings:
-    weaponOffset: {x: 0, y: 0.65}
+    weaponOffset: {x: 0, y: 0.8}
   _placeholderWeaponSettings:
     velocity: 15
     timeToLive: 2

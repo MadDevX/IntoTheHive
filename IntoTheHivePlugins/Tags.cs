@@ -47,4 +47,6 @@
     public static readonly ushort AssignItem = 31;
     public static readonly ushort RemoveItem = 32;
 
+    public static readonly ushort SpawnProjectile = 33;
+
 }
