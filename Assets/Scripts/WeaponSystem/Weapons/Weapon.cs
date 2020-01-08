@@ -17,6 +17,8 @@ public class Weapon : IWeapon
     public IFactory<ProjectileSpawnParameters, IProjectile[]> Factory { get; set; }
 
     private bool _wasSqueezed = false;
+    private int _layerMask;
+    private Collider2D[] _castBuffer = new Collider2D[1];
 
     public event Action<List<IModule>> OnWeaponRefreshed;
 
@@ -28,6 +30,7 @@ public class Weapon : IWeapon
         _info = info;
         _settings = settings;
         Factory = projectileFactory;
+        _layerMask = Layers.Interactable.ToMask() + Layers.Environment.ToMask();
     }
 
     public void ReleaseTrigger()
@@ -48,7 +51,7 @@ public class Weapon : IWeapon
     /// <returns></returns>
     public bool Shoot(Vector2 position, float rotation)
     {
-        if (_wasSqueezed == false)
+        if (_wasSqueezed == false && CanShootAtPosition(position))
         {
             _wasSqueezed = true;
             var parameters = new ProjectileSpawnParameters(position, rotation, _settings.velocity, _settings.timeToLive, _modules, _inheritableModules, dummy: _info.IsLocal == false);
@@ -106,10 +109,20 @@ public class Weapon : IWeapon
         return a.Priority.CompareTo(b.Priority);
     }
 
+    private bool CanShootAtPosition(Vector2 position)
+    {
+        var prevQuery = Physics2D.queriesHitTriggers;
+        Physics2D.queriesHitTriggers = false;
+        var result = Physics2D.OverlapCircleNonAlloc(position, _settings.raycastCheckRadius, _castBuffer, _layerMask) == 0;
+        Physics2D.queriesHitTriggers = prevQuery;
+        return result;
+    }
+
     [System.Serializable]
     public class Settings
     {
         public float velocity;
         public float timeToLive;
+        public float raycastCheckRadius;
     }
 }

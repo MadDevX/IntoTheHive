@@ -22,6 +22,7 @@ MonoBehaviour:
   _placeholderWeaponSettings:
     velocity: 15
     timeToLive: 2
+    raycastCheckRadius: 0.13
   _aiTargetScannerSettings:
     scanDelay: 1
     scanRadius: 20
@@ -60,3 +61,5 @@ MonoBehaviour:
     MinNumberOfRooms: 20
     MaxNumberOfRooms: 25
     PercentageChanceOfConnectingExistingRoom: 50
+  _winManagerSettings:
+    levelsToWin: 2
