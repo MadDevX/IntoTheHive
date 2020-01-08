@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26fdc5e29a7323444bb67172e49d6fb8, type: 3}
-  m_Name: Sprites
+  m_Name: AnimationControllers
   m_EditorClassIdentifier: 
-  Human: {fileID: 1820861164966519057, guid: f50389d3b0143944fb992b3f67353642, type: 3}
-  Wasp: {fileID: 8425882471095967626, guid: 1682010b7a9419f4a9faa18d3ed4e803, type: 3}
+  Human: {fileID: 9100000, guid: 7deb48935297ceb4b982e35d0b4e9355, type: 2}
+  Wasp: {fileID: 9100000, guid: 9d688846e6476ac4c936dcff41724ad6, type: 2}

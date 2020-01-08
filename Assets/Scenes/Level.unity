@@ -883,7 +883,8 @@ MonoBehaviour:
   _deathSettings:
     negateDamage: 0
     weaponsEditable: 0
-  _sprites: {fileID: 11400000, guid: 7b9d7749cb48eac4785730290cb99086, type: 2}
+  _animationControllers: {fileID: 11400000, guid: 15b2fc9ed9efcea43bccbe9ed00bad51,
+    type: 2}
 --- !u!114 &1954509278
 MonoBehaviour:
   m_ObjectHideFlags: 0

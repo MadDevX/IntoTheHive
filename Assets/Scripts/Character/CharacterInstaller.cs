@@ -10,6 +10,7 @@ public class CharacterInstaller : MonoInstaller
     [SerializeField] private SpriteRenderer _characterSprite;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private CharacterFacade _characterFacade;
+    [SerializeField] private Animator _animator;
 
     public override void InstallBindings()
     {
@@ -36,6 +37,7 @@ public class CharacterInstaller : MonoInstaller
     private void InstallSpriteManagment()
     {
         Container.BindInterfacesAndSelfTo<CharacterSpriteFixedRotation>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterAnimationManager>().AsSingle();
     }
 
     private void InstallComponents()
@@ -43,6 +45,7 @@ public class CharacterInstaller : MonoInstaller
         Container.Bind<SpriteRenderer>().FromInstance(_characterSprite).AsSingle();
         Container.Bind<Rigidbody2D>().FromInstance(_rb).AsSingle();
         Container.Bind<Transform>().FromInstance(transform).AsSingle();
+        Container.Bind<Animator>().FromInstance(_animator).AsSingle();
         Container.Bind(typeof(CharacterFacade), typeof(IDisposable)).FromInstance(_characterFacade).AsSingle(); //TODO: check if other bindings were required (if they are - there will be errors)
     }
 

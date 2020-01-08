@@ -1,43 +1,43 @@
 fileFormatVersion: 2
-guid: 1682010b7a9419f4a9faa18d3ed4e803
+guid: cba9028f3eaec5e4d8a93e1311a3fae1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8425882471095967626
-    second: wasp_idle (1)_0
+      213: 5637101095515223259
+    second: wasp_idle_0
   - first:
-      213: -2762831981266285937
-    second: wasp_idle (1)_1
+      213: -2751415035348745630
+    second: wasp_idle_1
   - first:
-      213: -8181856827377677278
-    second: wasp_idle (1)_2
+      213: 8358507864668737460
+    second: wasp_idle_2
   - first:
-      213: -6944557176701103135
-    second: wasp_idle (1)_3
+      213: -7091864164245741441
+    second: wasp_idle_3
   - first:
-      213: -6932220685878363733
-    second: wasp_idle (1)_4
+      213: 6972819528679453504
+    second: wasp_idle_4
   - first:
-      213: -1114414937784937170
-    second: wasp_idle (1)_5
+      213: -2738482772809457537
+    second: wasp_idle_5
   - first:
-      213: 3638962509542905109
-    second: wasp_idle (1)_6
+      213: -7106923572088251052
+    second: wasp_idle_6
   - first:
-      213: 4474098242060673483
-    second: wasp_idle (1)_7
+      213: -1605583170433521182
+    second: wasp_idle_7
   - first:
-      213: 1100947602018410364
-    second: wasp_idle (1)_8
+      213: 5282782413398001757
+    second: wasp_idle_8
   - first:
-      213: -1217533922955861189
-    second: wasp_idle (1)_9
+      213: -8403352580263897925
+    second: wasp_idle_9
   - first:
-      213: -1590375099868778283
-    second: wasp_idle (1)_10
+      213: -2139800266258802819
+    second: wasp_idle_10
   - first:
-      213: 3576684331050919196
-    second: wasp_idle (1)_11
+      213: 3031932508609469850
+    second: wasp_idle_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -154,11 +154,23 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wasp_idle (1)_0
+      name: wasp_idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -172,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a672680f2dc86342a1a5f80db6a8ec8
-      internalID: 8425882471095967626
+      spriteID: 801776e7bc316f54c89e37154ffd0764
+      internalID: 5637101095515223259
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_1
+      name: wasp_idle_1
       rect:
         serializedVersion: 2
         x: 160
@@ -193,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f61361e84e8af494795e3fec0be4002d
-      internalID: -2762831981266285937
+      spriteID: a8c8e23a9a549a94e86858e3292d75b6
+      internalID: -2751415035348745630
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_2
+      name: wasp_idle_2
       rect:
         serializedVersion: 2
         x: 320
@@ -214,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44da4778b65b1b041b79fef2d40630b1
-      internalID: -8181856827377677278
+      spriteID: 05bc62922d9bedf4285971ba676e295b
+      internalID: 8358507864668737460
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_3
+      name: wasp_idle_3
       rect:
         serializedVersion: 2
         x: 0
@@ -235,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04dba30e07ea31741aa268b578b91ff8
-      internalID: -6944557176701103135
+      spriteID: ec753026d011fca4e8128f9869c13a97
+      internalID: -7091864164245741441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_4
+      name: wasp_idle_4
       rect:
         serializedVersion: 2
         x: 160
@@ -256,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d6f10cf876b5e84eb795beead65872e
-      internalID: -6932220685878363733
+      spriteID: 8837e82e9c2701344b4d18c84d78e318
+      internalID: 6972819528679453504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_5
+      name: wasp_idle_5
       rect:
         serializedVersion: 2
         x: 320
@@ -277,14 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 189167155f8cd9b49b286ee24755908d
-      internalID: -1114414937784937170
+      spriteID: a754eb34de10a064ba94230e03a12b53
+      internalID: -2738482772809457537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_6
+      name: wasp_idle_6
       rect:
         serializedVersion: 2
         x: 0
@@ -298,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad18123f89ed70e4280f965b8a5672ca
-      internalID: 3638962509542905109
+      spriteID: 55df9d15438ecd440b417a2a4826d5f8
+      internalID: -7106923572088251052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_7
+      name: wasp_idle_7
       rect:
         serializedVersion: 2
         x: 160
@@ -319,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e10a5b08bb152741a46d3cfb7ce702e
-      internalID: 4474098242060673483
+      spriteID: 494bee739809a8c4295548d2c65f8222
+      internalID: -1605583170433521182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_8
+      name: wasp_idle_8
       rect:
         serializedVersion: 2
         x: 320
@@ -340,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1fbebf5f1dc3c2f42a7e59ee3fe2af87
-      internalID: 1100947602018410364
+      spriteID: 69468f0dda6a7074fa915976523fce6a
+      internalID: 5282782413398001757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_9
+      name: wasp_idle_9
       rect:
         serializedVersion: 2
         x: 0
@@ -361,14 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01ea180ce0d904e4a9f9731f99e1daf5
-      internalID: -1217533922955861189
+      spriteID: 3ecd4282bbb093b41bc4f5ab7a3566a8
+      internalID: -8403352580263897925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_10
+      name: wasp_idle_10
       rect:
         serializedVersion: 2
         x: 160
@@ -382,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 846f6bcfd3555044fa6180b650f38bc7
-      internalID: -1590375099868778283
+      spriteID: b59347186d840bf4583a9ca3db58e1ac
+      internalID: -2139800266258802819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wasp_idle (1)_11
+      name: wasp_idle_11
       rect:
         serializedVersion: 2
         x: 320
@@ -403,8 +415,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e093886ea53b1e498b4e505db58abe1
-      internalID: 3576684331050919196
+      spriteID: 19405f3b4dcadaf4097543e59284d55a
+      internalID: 3031932508609469850
       vertices: []
       indices: 
       edges: []
@@ -412,7 +424,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0a9b59e1a34799d4182c93bb8b373ea7
+    spriteID: a66c7f070ef1d9e498858c4cfebfd3f7
     internalID: 0
     vertices: []
     indices: 

@@ -14,7 +14,7 @@ public class CharacterSpawner
     private CameraManager _cameraManager;
     private Dictionary<ushort, CharacterFacade> _characters;
     private UnityClient _unityClient;
-    private Sprites _sprites;
+    private AnimationControllers _controllers;
 
     [Inject]
     public void Construct(
@@ -23,10 +23,10 @@ public class CharacterSpawner
         [Inject(Id = Identifiers.Player)] CharacterFacade.Factory playerFactory,
         CameraManager cameraManager,
         UnityClient unityClient,
-        Sprites sprites
+        AnimationControllers controllers
         )
     {
-        _sprites = sprites;
+        _controllers = controllers;
         _networkFactory = networkFactory;
         _playerFactory = playerFactory;
         _unityClient = unityClient;
@@ -59,16 +59,16 @@ public class CharacterSpawner
                 characterFacade = _networkFactory.Create(spawnParameters);
                 characterFacade.Id = playerId;
 
-                var renderer = characterFacade.GetComponentInChildren<SpriteRenderer>();
+                var animator = characterFacade.GetComponentInChildren<Animator>();
                 
                 // TODO CHANGE WHEN REPLACING SPRITES
                 if (characterFacade.CharacterType == CharacterType.AICharacter)
                 {
-                    renderer.sprite = _sprites.Wasp;
+                    animator.runtimeAnimatorController = (RuntimeAnimatorController)_controllers.Wasp;
                 }
                 else
                 {
-                    renderer.sprite = _sprites.Human;
+                    animator.runtimeAnimatorController = (RuntimeAnimatorController)_controllers.Human;
                 }
             }
 
