@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class ModuleFactory
 {
@@ -11,9 +12,11 @@ public class ModuleFactory
         
     private Dictionary<short, BaseModule> _modules;
 
+    private DiContainer _container;
 
-    public ModuleFactory()
+    public ModuleFactory(DiContainer container)
     {
+        _container = container;
         InitDictionary();
         InitIds();
     }
@@ -51,6 +54,7 @@ public class ModuleFactory
                     }
                     else
                     {
+                        _container.QueueForInject(instance);
                         _modules.Add(instance.Id, instance);
                     }
                 }
