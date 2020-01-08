@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82b311dff19a09a47830944ca8310072, type: 3}
-  m_Name: HealingRounds
+  m_Name: RayProjectile
   m_EditorClassIdentifier: 
   type: 0
-  itemId: 3
-  icon: {fileID: 21300000, guid: fb7d960c7f3dab646b0d3aad4d66c17d, type: 3}
+  itemId: 4
+  icon: {fileID: 21300000, guid: 9962612ff291b0f4d8733c7f82b14648, type: 3}

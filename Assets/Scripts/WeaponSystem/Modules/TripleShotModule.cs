@@ -5,7 +5,7 @@ using Zenject;
 
 public class TripleShot : BaseModule
 {
-    public override int Priority => 0;
+    public override int Priority => 1;
 
     public override short Id => 0;
 

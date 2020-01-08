@@ -80,6 +80,9 @@ public class MessageHandler
 
             if (message.Tag == Tags.UpdateHealth)
                 _plugin.BroadcastToOtherClients(message, e);
+
+            if (message.Tag == Tags.SpawnProjectile)
+                _plugin.BroadcastToOtherClients(message, e);
             #endregion
 
             #region host only

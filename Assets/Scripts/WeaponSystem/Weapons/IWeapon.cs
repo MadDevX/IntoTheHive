@@ -5,7 +5,8 @@ using Zenject;
 
 public interface IWeapon
 {
-    bool Shoot(Vector2 position, float rotation, Vector2 offset);
+    event Action<ProjectileSpawnParameters> OnShoot;
+    bool Shoot(Vector2 position, float rotation);
     void ReleaseTrigger();
     void Reload();
 

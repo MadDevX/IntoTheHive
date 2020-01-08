@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealingRoundsModule : BaseModule
 {
-    public override int Priority => 1;
+    public override int Priority => 2;
 
     public override short Id => 3;
 

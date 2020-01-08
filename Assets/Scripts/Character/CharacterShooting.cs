@@ -1,4 +1,5 @@
 ﻿using GameLoop;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,8 @@ public class CharacterShooting : UpdatableObject
     {
         if(_controlState.PrimaryAction)
         {
-            if (_weapon.Shoot(_rb.position, _rb.rotation, _settings.weaponOffset) == false)
+            var spawnPos = _rb.position + _settings.weaponOffset.Rotate(_rb.rotation);
+            if (_weapon.Shoot(spawnPos, _rb.rotation) == false)
             {
                 _weapon.Reload();
             }
