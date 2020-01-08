@@ -12,12 +12,14 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 
     private Collider2D _collider;
     private IRelay _relay;
+    private ProjectilePhasePipeline _pipeline;
 
     public bool IsPiercing { get => _collider.isTrigger; set => _collider.isTrigger = value; }
 
-    public RigidProjectileCollisionHandler(IRelay relay, Collider2D collider)
+    public RigidProjectileCollisionHandler(IRelay relay, Collider2D collider, ProjectilePhasePipeline pipeline)
     {
         _relay = relay;
+        _pipeline = pipeline;
         PreInitialize();
     }
 
@@ -35,7 +37,7 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 
     private void OnTriggerEnterHandler(Collider2D obj)
     {
-        if (obj.isTrigger == false) //TODO: check object layers, this is a hack
+        if (obj.isTrigger == false && _pipeline.State != ProjectilePhases.Destroyed) //TODO: check object layers, this is a hack
         {
             OnCollisionEnter?.Invoke(obj);
             AfterCollisionEnter?.Invoke();
@@ -44,7 +46,7 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 
     private void OnColEnterHandler(Collision2D obj)
     {
-        if (obj.collider.isTrigger == false)
+        if (obj.collider.isTrigger == false && _pipeline.State != ProjectilePhases.Destroyed)
         {
             OnCollisionEnter?.Invoke(obj.collider);
             AfterCollisionEnter?.Invoke();
