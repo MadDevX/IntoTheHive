@@ -10,7 +10,6 @@ using Random = UnityEngine.Random;
 public class LevelGraphGenerator : IGraphGenerable
 {
     private LevelGraphState _levelGraph;
-    //private Random _random;
     private Settings _settings;
     
     public LevelGraphGenerator(LevelGraphState levelGraph, Settings settings)
@@ -61,7 +60,6 @@ public class LevelGraphGenerator : IGraphGenerable
         Dictionary<int, int> distanceFromStart = new Dictionary<int, int>();
         List<int> possibleRooms = new List<int>();
         Dictionary<int, int> numberOfNeighbors = new Dictionary<int, int>();
-        var realNumberOfNeighbors = new Dictionary<int, int>(); // <- this can be removed, only used for debug
         Dictionary<int, (int, int)> roomToLocation = new Dictionary<int, (int, int)>();
         Dictionary<(int, int), int> locationToRoom = new Dictionary<(int, int), int>();
 
@@ -74,7 +72,6 @@ public class LevelGraphGenerator : IGraphGenerable
 
         distanceFromStart[0] = 0;
         numberOfNeighbors[0] = 0;
-        realNumberOfNeighbors[0] = 0;
         possibleRooms.Add(0);
         
         
@@ -105,7 +102,6 @@ public class LevelGraphGenerator : IGraphGenerable
                 roomToLocation[newRoomId] = potentialRoom;
                 locationToRoom[potentialRoom] = newRoomId;
                 numberOfNeighbors[newRoomId] = 0;
-                realNumberOfNeighbors[newRoomId] = 0;
 
                 graph.AddEdge(roomToConnect, newRoomId, directions[j]);
                 distanceToStart = distanceFromStart[roomToConnect] + 1;
@@ -129,8 +125,6 @@ public class LevelGraphGenerator : IGraphGenerable
                         //No need to random a range to maybe connect it
                         if (roomNumber == roomToConnect)
                         {
-                            realNumberOfNeighbors[roomNumber]++;
-                            realNumberOfNeighbors[newRoomId]++;
                             continue;
                         }
 
@@ -140,8 +134,6 @@ public class LevelGraphGenerator : IGraphGenerable
                             Debug.Log($"Added a connection from room {newRoomId} to {roomNumber} with chance = {_settings.PercentageChanceOfConnectingExistingRoom}");
                             graph.AddEdge(newRoomId, roomNumber, directions[k]);
                             distanceToStart = Math.Min(distanceToStart, distanceFromStart[roomNumber] + 1);
-                            realNumberOfNeighbors[roomNumber]++;
-                            realNumberOfNeighbors[newRoomId]++;
                         }
                     }
                 }
@@ -162,10 +154,6 @@ public class LevelGraphGenerator : IGraphGenerable
             distanceFromStart[newRoomId] = distanceToStart;
         }
 
-        foreach (var room in numberOfNeighbors.Keys)
-        {
-            Debug.Log($"Room {room} has {realNumberOfNeighbors[room]} neighbors");
-        }
 
         var roomsForExit = numberOfNeighbors.Where(x => x.Value == 1).Select(x => x.Key)
             .OrderByDescending(x => distanceFromStart[x]);
