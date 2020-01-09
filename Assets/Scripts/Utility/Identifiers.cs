@@ -41,5 +41,6 @@ public enum Identifiers
     MusicSlider,
     SfxSlider,
     Fullscreen,
-    ResolutionsDropdown
+    ResolutionsDropdown,
+    Explosion
 }

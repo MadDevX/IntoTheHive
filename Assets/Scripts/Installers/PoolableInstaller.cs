@@ -11,18 +11,12 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     [SerializeField] private CharacterFacade _networkedCharacterPrefab;
     [SerializeField] private CharacterFacade _AIPrefab;
     [SerializeField] private ItemPickup _pickupPrefab;
+    [SerializeField] private ExplosionVFX _explosionVFX;
 
     public override void InstallBindings()
     {
-        //Container.BindFactory<ProjectileSpawnParameters, ProjectileFacade, ProjectileFacade.Factory>().
-        //    WithId(Identifiers.Bullet).
-        //    FromPoolableMemoryPool<ProjectileSpawnParameters, ProjectileFacade, ProjectilePool>
-        //    (x => x.WithInitialSize(10).
-        //    ExpandByDoubling().
-        //    FromSubContainerResolve().
-        //    ByNewContextPrefab(_projectilePrefab).
-        //    UnderTransformGroup("Projectiles")).When((x) => x.Container == Container);
         BindingCondition bindCond = (x) => x.Container == Container;
+
         Container.BindMonoContextPool<ProjectileFacade, ProjectileSpawnParameters, ProjectileFacade.Factory, ProjectilePool>
             (Identifiers.Bullet, 10, _projectilePrefab, "Projectiles", bindCond);
 
@@ -31,6 +25,9 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
 
         Container.BindMonoPrefabPool<LineVFX, LineVFXSpawnParameters, LineVFX.Factory, LineVFXPool>
             (Identifiers.Ray, 10, _lineVFX, "LineVFXs");
+
+        Container.BindMonoPrefabPool<ExplosionVFX, Vector3, ExplosionVFX.Factory, ExplosionVFXPool>
+            (Identifiers.Explosion, 10, _explosionVFX, "ExplosionVFXs");
 
         Container.BindMonoContextPool<ItemPickup, PickupSpawnParameters, ItemPickup.Factory, PickupPool>
             (Identifiers.Inventory, 10, _pickupPrefab, "Pickups");
@@ -55,6 +52,10 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     }
 
     public class LineVFXPool : MonoPoolableMemoryPool<LineVFXSpawnParameters, IMemoryPool, LineVFX>
+    {
+    }
+
+    public class ExplosionVFXPool : MonoPoolableMemoryPool<Vector3, IMemoryPool, ExplosionVFX>
     {
     }
 

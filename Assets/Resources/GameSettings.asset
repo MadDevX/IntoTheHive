@@ -63,3 +63,5 @@ MonoBehaviour:
     PercentageChanceOfConnectingExistingRoom: 50
   _winManagerSettings:
     levelsToWin: 2
+  _explosionVfxSettings:
+    animationTriggerName: Play
