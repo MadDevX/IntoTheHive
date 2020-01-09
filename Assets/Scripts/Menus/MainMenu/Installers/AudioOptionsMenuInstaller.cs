@@ -22,7 +22,7 @@ public class AudioOptionsMenuInstaller : MonoInstaller
     }
     public void InstallElements()
     {
-        Container.BindInstance(_musicSlider).WithId(Identifiers.MusicSlider).AsSingle();
-        Container.BindInstance(_sfxSlider).WithId(Identifiers.SfxSlider).AsSingle();
+        Container.BindInstance(_musicSlider).WithId(Identifiers.MusicSlider).AsCached();
+        Container.BindInstance(_sfxSlider).WithId(Identifiers.SfxSlider).AsCached();
     }
 }
