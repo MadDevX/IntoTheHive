@@ -19,8 +19,10 @@ public class AudioManager : MonoBehaviour, IInitializable
     }
     public void Initialize()
     {
+        
         var musicGroup = _mixer.FindMatchingGroups("Master/Music")[0];
         var sfxGroup = _mixer.FindMatchingGroups("Master/SFX")[0];
+        
         for (int i = 0; i < sounds.Length; i++)
         {
             sounds[i].Source = gameObject.AddComponent<AudioSource>();
@@ -30,7 +32,6 @@ public class AudioManager : MonoBehaviour, IInitializable
                 sounds[i].SoundType == SoundType.Music ? musicGroup : sfxGroup;
         }
     }
-
 
 
     public void Play(Sound soundName)
@@ -43,6 +44,18 @@ public class AudioManager : MonoBehaviour, IInitializable
         }
         s.Source.Play();
         
+    }
+
+    public void PlayIfNotPlaying(Sound soundName)
+    {
+        SoundClip s = Array.Find(sounds, item => item.Name == soundName);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + soundName + " not found!");
+            return;
+        }
+        if(!s.Source.isPlaying)
+            s.Source.Play();
     }
 
     public void StopAll(SoundType soundType)

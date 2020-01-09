@@ -1,6 +1,7 @@
 ﻿using Relays;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Music;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,12 @@ public class RigidProjectileInstaller : MonoInstaller
         InstallComponents();
         InstallRelay();
         InstallProjectile();
+        InstallSFX();
+    }
+
+    private void InstallSFX()
+    {
+        Container.BindInterfacesAndSelfTo<RigidSoundProvider>().AsSingle();
     }
 
 

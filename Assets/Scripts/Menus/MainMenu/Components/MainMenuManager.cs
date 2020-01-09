@@ -27,7 +27,7 @@ public class MainMenuManager: IInitializable, IDisposable
     {
         _playButton.onClick.AddListener(LaunchMultiplayer);
         _quitButton.onClick.AddListener(QuitGame);
-        _audioManager.Play(Sound.BushWeek);
+        _audioManager.PlayIfNotPlaying(Sound.BushWeek);
     }
 
     public void Dispose()

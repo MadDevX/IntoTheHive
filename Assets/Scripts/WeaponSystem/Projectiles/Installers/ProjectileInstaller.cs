@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Music;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,12 @@ public class ProjectileInstaller : MonoInstaller
     {
         InstallProjectile();
         InstallComponents();
+        InstallSFX();
+    }
+
+    private void InstallSFX()
+    {
+        Container.BindInterfacesAndSelfTo<SFXPlayer>().AsSingle();
     }
 
     private void InstallComponents()

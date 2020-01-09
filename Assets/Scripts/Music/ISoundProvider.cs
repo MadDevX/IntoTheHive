@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Music
 {
-    public enum Sound
+    interface ISoundProvider
     {
-        BushWeek,
-        BulletShoot,
-        BulletShoot2,
-        LaserShoot2,
-        LaserShoot,
-        BulletHit,
-        Hitmarker
+        void PlayShootSound();
+        void PlayHitSound();
     }
 }

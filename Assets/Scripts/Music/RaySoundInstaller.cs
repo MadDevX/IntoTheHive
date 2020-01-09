@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Music
 {
-    public enum Sound
+    class RaySoundInstaller
     {
-        BushWeek,
-        BulletShoot,
-        BulletShoot2,
-        LaserShoot2,
-        LaserShoot,
-        BulletHit,
-        Hitmarker
     }
 }

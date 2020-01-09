@@ -193,7 +193,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - Name: 0
+    SoundType: 0
     Clip: {fileID: 8300000, guid: 59ca93664f1593d44ada1f52e4ac591c, type: 3}
-    Loop: 1
-    Type: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: 1
+    SoundType: 1
+    Clip: {fileID: 8300000, guid: 3f64367a0c4b2fa4ba683fc3b7fcb7f1, type: 3}
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: 2
+    SoundType: 1
+    Clip: {fileID: 8300000, guid: da1235ef3567eaf45bd386d413d26a9d, type: 3}
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: 3
+    SoundType: 1
+    Clip: {fileID: 8300000, guid: 8027482f0c17a814b9b960511f7836c9, type: 3}
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: 4
+    SoundType: 1
+    Clip: {fileID: 8300000, guid: 1d38bdaa13d73024c83135aa5c935925, type: 3}
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: 5
+    SoundType: 1
+    Clip: {fileID: 8300000, guid: efe5decc058572e4b9b5924294775af1, type: 3}
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: 6
+    SoundType: 1
+    Clip: {fileID: 8300000, guid: fd805633cc183994fb24571ee2296bc1, type: 3}
+    Loop: 0
     Source: {fileID: 0}
