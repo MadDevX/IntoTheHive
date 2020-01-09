@@ -1,5 +1,8 @@
 ﻿using DarkRift.Client.Unity;
+using System;
 using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -13,15 +16,18 @@ public class ClientConnectionInitializer
     private UnityClient _client;
     private InputField _ipAddressInputField;
     private InputField _portNumberInputField;
-    
+    private Text _errorText;
+
     public ClientConnectionInitializer(
         [Inject(Id = Identifiers.ConnetionMenuIpInputField)] InputField ipAddressInputField,
         [Inject(Id = Identifiers.ConnetionMenuPortInputField)] InputField portNumberInputField,
-        UnityClient client)
+        UnityClient client,
+        Text errorText)
     {
         _ipAddressInputField = ipAddressInputField;
         _portNumberInputField = portNumberInputField;
         _client = client;
+        _errorText = errorText;
     }
 
     /// <summary>
@@ -29,10 +35,11 @@ public class ClientConnectionInitializer
     /// </summary>
     public void JoinServer()
     {
+        Debug.Log("JoinServerFired");
         int port;
         IPAddress address;
         bool ipParsed = false;
-
+        _errorText.text = "";
         if (_ipAddressInputField.textComponent.text.ToLower().Equals("localhost"))
         {
             address = IPAddress.Parse("127.0.0.1");
@@ -46,26 +53,60 @@ public class ClientConnectionInitializer
         bool portParsed = int.TryParse(_portNumberInputField.textComponent.text, out port);
 
         if (ipParsed == false)
-        { 
-            Debug.Log("Incorrect Ip - jakies okienko");
-            // TODO MG : add a modal error window
-        }
-
-        if(portParsed == false)
         {
-            Debug.Log("Incorrect port - jakies okienko");
-            // TODO MG : add a modal error window
+             _errorText.text = "Incorrect IP Address";
         }
-
-        if (ipParsed && portParsed)
+        else
         {
-
-            if (_client.ConnectionState != DarkRift.ConnectionState.Connecting)
+            if (portParsed == false)
             {
-                _client.Connect(address, port, DarkRift.IPVersion.IPv4);
-                // Show popup window which closes on cdisconnect or connected
+                _errorText.text = "Incorrect Port Number";
             }
-            // TODO MG do sth if the client didnt connect
+            else
+            {
+                Debug.Log(_client.ConnectionState);
+
+                Debug.Log(_client.ConnectionState);
+                if (_client.ConnectionState != DarkRift.ConnectionState.Connecting)
+                {
+                    try
+                    {
+
+                        var isConnected = Task.Run(() => _client.Connect(address, port, DarkRift.IPVersion.IPv4)).Wait(3000);
+                        if (_client.ConnectionState != DarkRift.ConnectionState.Connected)
+                        {
+                            _client.Disconnect();
+                            _errorText.text = "Couldn't Connect discon";
+                        }
+                        Debug.Log("isConnected = " + isConnected);
+                    }
+                    catch (AggregateException e)
+                    {
+                        Debug.Log(e.Message);
+                        _errorText.text = "Agg";
+                    }
+                    catch (ArgumentException)
+                    {
+                        _errorText.text = "Incorrect Port Number";
+                    }
+                    catch (SocketException)
+                    {
+                        _errorText.text = "Couldn't connect";
+                    }
+
+                    if (_client.ConnectionState != DarkRift.ConnectionState.Connected)
+                    {
+                        // After 3 seconds break the connection
+                        //_errorText.text = "Couldn't connect";
+
+                    }
+
+                }
+                else
+                {
+
+                }
+            }
         }
     }
 }

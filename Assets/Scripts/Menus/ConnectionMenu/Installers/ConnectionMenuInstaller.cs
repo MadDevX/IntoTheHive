@@ -7,6 +7,7 @@ using Zenject;
 
 class ConnectionMenuInstaller : MonoInstaller
 {
+    [SerializeField] private Text _errorText;
     [SerializeField] private Button _serverButton;
     [SerializeField] private Button _joinButton;    
     [SerializeField] private Button _backButton;
@@ -15,6 +16,7 @@ class ConnectionMenuInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        Container.BindInstance(_errorText);
         Container.BindInstance(_ipAddressInputField).WithId(Identifiers.ConnetionMenuIpInputField);
         Container.BindInstance(_portNumberInputField).WithId(Identifiers.ConnetionMenuPortInputField);
         Container.BindInstance(_serverButton).WithId(Identifiers.ConnetionMenuCreateServerButton);
