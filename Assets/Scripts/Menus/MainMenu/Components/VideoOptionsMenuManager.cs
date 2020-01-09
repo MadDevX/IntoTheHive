@@ -40,13 +40,24 @@ public class VideoOptionsMenuManager : IInitializable
         _resolutionDropdown.ClearOptions();
         var options = new List<string>();
         var currentResolution = 0;
+        var numberOfSkippedResolutions = 0;
         for (int i = 0; i < resolutions.Length; i++)
         {
-            options.Add($"{resolutions[i].width} x {resolutions[i].height}");
+            if (resolutions[i].refreshRate < 50)
+            {
+                numberOfSkippedResolutions++;
+                continue;
+            }
+            options.Add($"{resolutions[i].width} x {resolutions[i].height} @{resolutions[i].refreshRate}Hz");
 
-            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
-                currentResolution = i;
+            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height &&
+                resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
+            {
+                currentResolution = i - numberOfSkippedResolutions;
+            }
+            
         }
+
         _resolutionDropdown.AddOptions(options);
         _resolutionDropdown.value = currentResolution;
         _resolutionDropdown.RefreshShownValue();
