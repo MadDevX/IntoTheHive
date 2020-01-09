@@ -31,8 +31,18 @@ public class ClientConnectionInitializer
     {
         int port;
         IPAddress address;
+        bool ipParsed = false;
 
-        bool ipParsed = IPAddress.TryParse(_ipAddressInputField.textComponent.text, out address);
+        if (_ipAddressInputField.textComponent.text.ToLower().Equals("localhost"))
+        {
+            address = IPAddress.Parse("127.0.0.1");
+            ipParsed = true;
+        }
+        else
+        {
+            ipParsed = IPAddress.TryParse(_ipAddressInputField.textComponent.text, out address);
+        }
+
         bool portParsed = int.TryParse(_portNumberInputField.textComponent.text, out port);
 
         if (ipParsed == false)
