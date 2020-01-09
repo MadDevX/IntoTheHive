@@ -35,11 +35,11 @@ public class ClientConnectionInitializer
     /// </summary>
     public void JoinServer()
     {
-        Debug.Log("JoinServerFired");
+        
         int port;
         IPAddress address;
         bool ipParsed = false;
-        _errorText.text = "";
+
         if (_ipAddressInputField.textComponent.text.ToLower().Equals("localhost"))
         {
             address = IPAddress.Parse("127.0.0.1");
@@ -64,49 +64,42 @@ public class ClientConnectionInitializer
             }
             else
             {
-                Debug.Log(_client.ConnectionState);
+                Connect(address, port);               
+            }
+        }
+    }
 
-                Debug.Log(_client.ConnectionState);
-                if (_client.ConnectionState != DarkRift.ConnectionState.Connecting)
+    private void Connect(IPAddress address, int port)
+    {
+        if (_client.ConnectionState != DarkRift.ConnectionState.Connecting)
+        {
+            try
+            {
+                var isConnected = Task.Run(() => _client.Connect(address, port, DarkRift.IPVersion.IPv4)).Wait(3000);
+                if(!isConnected) _errorText.text = "Couldn't connect";
+            }
+            catch (AggregateException e)
+            {
+                _errorText.text = "Couldn't connect";
+                switch (e.InnerException)
                 {
-                    try
-                    {
-
-                        var isConnected = Task.Run(() => _client.Connect(address, port, DarkRift.IPVersion.IPv4)).Wait(3000);
-                        if (_client.ConnectionState != DarkRift.ConnectionState.Connected)
-                        {
-                            _client.Disconnect();
-                            _errorText.text = "Couldn't Connect discon";
-                        }
-                        Debug.Log("isConnected = " + isConnected);
-                    }
-                    catch (AggregateException e)
-                    {
-                        Debug.Log(e.Message);
-                        _errorText.text = "Agg";
-                    }
-                    catch (ArgumentException)
-                    {
+                    case ArgumentException arg:
                         _errorText.text = "Incorrect Port Number";
-                    }
-                    catch (SocketException)
-                    {
+                        break;
+                    case SocketException socket:
                         _errorText.text = "Couldn't connect";
-                    }
-
-                    if (_client.ConnectionState != DarkRift.ConnectionState.Connected)
-                    {
-                        // After 3 seconds break the connection
-                        //_errorText.text = "Couldn't connect";
-
-                    }
-
-                }
-                else
-                {
-
+                        break;
                 }
             }
+        }
+        else
+        {
+            try
+            {
+                _client.Disconnect();
+            }
+            catch (SocketException) { }
+            _errorText.text = "Try Again Later";
         }
     }
 }
