@@ -23,11 +23,13 @@ public struct LineVFXSpawnParameters
 
 public class LineVFX : MonoUpdatableObject, IPoolable<LineVFXSpawnParameters, IMemoryPool>, IDisposable
 {
-    [SerializeField] private LineRenderer _renderer;
+    [SerializeField] private SpriteRenderer _renderer;
+
     private float _timer;
     private float _ttl;
     private float _widthMult;
     private IMemoryPool _pool;
+    private Color _color = Color.white;
 
     public void OnSpawned(LineVFXSpawnParameters parameters, IMemoryPool pool)
     {
@@ -35,8 +37,11 @@ public class LineVFX : MonoUpdatableObject, IPoolable<LineVFXSpawnParameters, IM
         _timer = 0.0f;
         _ttl = parameters.ttl;
         _widthMult = parameters.width;
-        _renderer.SetPosition(0, parameters.from);
-        _renderer.SetPosition(1, parameters.to);
+        transform.position = parameters.from;
+        var dir = parameters.to - parameters.from;
+        var dirMag = dir.magnitude;
+        _renderer.size = new Vector2(_renderer.size.x, dirMag);
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, dir.Rotation());
     }
 
     public void Dispose()
@@ -50,13 +55,10 @@ public class LineVFX : MonoUpdatableObject, IPoolable<LineVFXSpawnParameters, IM
 
     public override void OnUpdate(float deltaTime)
     {
-        var start = _renderer.startColor;
-        var end = _renderer.endColor;
         var timerFrac = (_ttl - _timer) / _ttl;
-        start.a = end.a = timerFrac;
-        _renderer.widthMultiplier = timerFrac * _widthMult;
-        _renderer.startColor = start;
-        _renderer.endColor = end;
+        transform.localScale = new Vector3((timerFrac * 0.75f + 0.25f) * _widthMult, transform.localScale.y, transform.localScale.z);
+        _color.a = timerFrac;
+        _renderer.color = _color;
         _timer += deltaTime;
 
         if(_timer >= _ttl)

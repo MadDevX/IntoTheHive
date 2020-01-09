@@ -26,3 +26,5 @@ MonoBehaviour:
     type: 3}
   _pickupPrefab: {fileID: 4083317056897622193, guid: abb556e2f6a677a41871fc177a29ddfd,
     type: 3}
+  _explosionVFX: {fileID: 3679427644025528417, guid: 33e0836d881a0e5449bfcb8a69dd3d44,
+    type: 3}

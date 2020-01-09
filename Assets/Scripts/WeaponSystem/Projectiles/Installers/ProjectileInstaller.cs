@@ -36,5 +36,6 @@ public class ProjectileInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ProjectileHit>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectileDummy>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectileFloatingText>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ProjectileVFX>().AsSingle();
     }
 }
