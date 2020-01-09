@@ -11,8 +11,8 @@ public class ProjectAudioInstaller : MonoInstaller
     [SerializeField] private AudioManager _audioManager;
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<AudioMixer>().FromInstance(_mixer);
-        Container.BindInterfacesAndSelfTo<AudioManager>().FromInstance(_audioManager);
+        Container.BindInterfacesAndSelfTo<AudioMixer>().FromInstance(_mixer).AsSingle();
+        Container.BindInterfacesAndSelfTo<AudioManager>().FromInstance(_audioManager).AsSingle();
     }
 }
 

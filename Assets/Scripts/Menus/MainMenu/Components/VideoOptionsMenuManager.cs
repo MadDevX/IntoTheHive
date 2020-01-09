@@ -41,6 +41,7 @@ public class VideoOptionsMenuManager : IInitializable
         var options = new List<string>();
         var currentResolution = 0;
         var numberOfSkippedResolutions = 0;
+        var filteredResolutions = new List<Resolution>();
         for (int i = 0; i < resolutions.Length; i++)
         {
             if (resolutions[i].refreshRate < 50)
@@ -55,11 +56,12 @@ public class VideoOptionsMenuManager : IInitializable
             {
                 currentResolution = i - numberOfSkippedResolutions;
             }
-            
+            filteredResolutions.Add(resolutions[i]);
         }
 
         _resolutionDropdown.AddOptions(options);
         _resolutionDropdown.value = currentResolution;
+        resolutions = filteredResolutions.ToArray();
         _resolutionDropdown.RefreshShownValue();
     }
 

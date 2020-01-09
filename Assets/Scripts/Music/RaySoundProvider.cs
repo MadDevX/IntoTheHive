@@ -20,7 +20,7 @@ namespace Assets.Scripts.Music
 
         public void PlayHitSound()
         {
-            _audioManager.Play(Sound.Hitmarker);
+            _audioManager.Play(Sound.LaserHit);
         }
     }
 }

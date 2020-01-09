@@ -14,6 +14,6 @@ namespace Assets.Scripts.Music
         LaserShoot2,
         LaserShoot,
         BulletHit,
-        Hitmarker
+        LaserHit
     }
 }

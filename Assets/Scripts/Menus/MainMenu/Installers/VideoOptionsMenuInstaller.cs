@@ -7,8 +7,8 @@ using Zenject;
 
 public class VideoOptionsMenuInstaller : MonoInstaller
 {
-    [SerializeField] public Toggle FullscreenToggle;
-    [SerializeField] public TMP_Dropdown ResolutionsDropdown;
+    [SerializeField] private Toggle FullscreenToggle;
+    [SerializeField] private TMP_Dropdown ResolutionsDropdown;
     public override void InstallBindings()
     {
         InstallLogic();
@@ -19,10 +19,10 @@ public class VideoOptionsMenuInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<VideoOptionsMenuManager>().AsSingle();
     }
-
+    
     private void InstallLogic()
     {
-        Container.BindInstance(FullscreenToggle).WithId(Identifiers.Fullscreen);
-        Container.BindInstance(ResolutionsDropdown).WithId(Identifiers.ResolutionsDropdown);
+        Container.BindInstance(FullscreenToggle).WithId(Identifiers.Fullscreen).AsSingle();
+        Container.BindInstance(ResolutionsDropdown).WithId(Identifiers.ResolutionsDropdown).AsSingle();
     }
 }

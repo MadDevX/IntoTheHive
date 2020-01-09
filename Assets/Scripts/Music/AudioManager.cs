@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour, IInitializable
     public SoundClip[] sounds;
 
     [Inject]
-    public void InjectMethod(AudioMixer audioMixer)
+    public void Construct(AudioMixer audioMixer)
     {
         _mixer = audioMixer;
         
