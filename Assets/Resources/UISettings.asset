@@ -21,8 +21,10 @@ MonoBehaviour:
     ipHeader: 'IP: '
     portHeader: 'Port: '
   _floatingTextSettings:
-    floatSpeed: 1
+    floatSpeed: 5
     ttl: 0.2
+    angleDiff: 30
+    gravity: 30
     damageColor: {r: 1, g: 0.77647066, b: 0, a: 1}
     healColor: {r: 0.3317784, g: 1, b: 0.2971698, a: 1}
     playerDamageColor: {r: 0.8867924, g: 0.21333212, b: 0.21333212, a: 1}

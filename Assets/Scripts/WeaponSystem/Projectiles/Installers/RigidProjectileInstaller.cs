@@ -47,5 +47,6 @@ public class RigidProjectileInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<RigidProjectileFixedTimer>().AsSingle();
         Container.BindInterfacesAndSelfTo<RigidProjectileVFX>().AsSingle();
         Container.BindInterfacesAndSelfTo<RigidProjectilePipelineManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RigidProjectileDestroyAfterTime>().AsSingle();
     }
 }

@@ -28,8 +28,10 @@ public class FloatingText : MonoUpdatableObject, IPoolable<FloatingTextSpawnPara
     private Settings _settings;
 
     private Vector3 _spawnPosition;
+    private Vector3 _worldPosition;
     private float _timer;
 
+    private Vector3 _velocity;
 
     [Inject]
     public void Construct(Camera camera, Settings settings)
@@ -54,7 +56,9 @@ public class FloatingText : MonoUpdatableObject, IPoolable<FloatingTextSpawnPara
         _text.color = parameters.damage > 0 ? (parameters.isPlayer ? _settings.playerDamageColor : _settings.damageColor) : _settings.healColor;
         _text.text = Mathf.Abs(parameters.damage).ToString();
         _spawnPosition = parameters.position;
-        transform.position = CalculatePosition(GetPosition());
+        _velocity = CalculateInitialVelocity();
+        _worldPosition = GetPosition();
+        transform.position = CalculateCanvasPosition(_worldPosition);
         _timer = 0.0f;
     }
 
@@ -65,14 +69,26 @@ public class FloatingText : MonoUpdatableObject, IPoolable<FloatingTextSpawnPara
             Dispose();
             return;
         }
-        transform.position = CalculatePosition(GetPosition() + Vector3.up * _settings.floatSpeed * _timer);
+        UpdateVelocity(deltaTime);
+        _worldPosition += _velocity * deltaTime;
+        transform.position = CalculateCanvasPosition(_worldPosition);
         _text.alpha = 1.0f - (_timer / _settings.ttl);
         _timer += deltaTime;
     }
 
-    private Vector2 CalculatePosition(Vector2 position)
+    private Vector2 CalculateCanvasPosition(Vector2 position)
     {
         return _camera.WorldToScreenPoint(position);
+    }
+
+    private Vector3 CalculateInitialVelocity()
+    {
+        return Vector2.up.Rotate(UnityEngine.Random.Range(-_settings.angleDiff, _settings.angleDiff)) * _settings.floatSpeed;
+    }
+
+    private void UpdateVelocity(float deltaTime)
+    {
+        _velocity += Vector3.down * _settings.gravity * deltaTime;
     }
 
     private Vector3 GetPosition()
@@ -90,6 +106,8 @@ public class FloatingText : MonoUpdatableObject, IPoolable<FloatingTextSpawnPara
     {
         public float floatSpeed;
         public float ttl;
+        public float angleDiff;
+        public float gravity;
         public Color damageColor;
         public Color healColor;
         public Color playerDamageColor;
