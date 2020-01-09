@@ -1,31 +1,25 @@
 fileFormatVersion: 2
-guid: f50389d3b0143944fb992b3f67353642
+guid: bd8963d507ad06a4280e5dba16acb6d6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1820861164966519057
-    second: 16bitsoldat_0
+      213: -3141664942578695974
+    second: soldat_idle_0
   - first:
-      213: 6112053011568229612
-    second: 16bitsoldat_1
+      213: 7297332480406980872
+    second: soldat_idle_1
   - first:
-      213: -1614989859673082657
-    second: 16bitsoldat_2
+      213: -2433280314991981134
+    second: soldat_idle_2
   - first:
-      213: 8524214721228248280
-    second: 16bitsoldat_3
+      213: -8028777028933352681
+    second: soldat_idle_3
   - first:
-      213: -6447497167077792946
-    second: 16bitsoldat_4
+      213: 3352239402457816645
+    second: soldat_idle_4
   - first:
-      213: 945738299824846621
-    second: 16bitsoldat_5
-  - first:
-      213: 2876065454112960495
-    second: 16bitsoldat_6
-  - first:
-      213: -4158493197563961934
-    second: 16bitsoldat_7
+      213: 833820708253999752
+    second: soldat_idle_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -69,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -142,17 +136,29 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 16bitsoldat_0
+      name: soldat_idle_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 32
-        height: 32
+        y: 320
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d51b42150b344248bae95422ef93e25
-      internalID: 1820861164966519057
+      spriteID: 169e1beeefe87a646ae35fd153e7b352
+      internalID: -3141664942578695974
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 16bitsoldat_1
+      name: soldat_idle_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
+        x: 160
+        y: 320
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,41 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f05e2c30ed3ba7343934bad46b15771d
-      internalID: 6112053011568229612
+      spriteID: 908b02bfd90b3664ab64945783c36986
+      internalID: 7297332480406980872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 16bitsoldat_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 394978eaab8d758439e8680a070c0d0c
-      internalID: -1614989859673082657
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 16bitsoldat_3
+      name: soldat_idle_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 32
-        height: 32
+        y: 160
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40d3beff467b0c8469b9613ab714e30b
-      internalID: 8524214721228248280
+      spriteID: 656ceef9017d75645b9413ae8c89f2d3
+      internalID: -2433280314991981134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 16bitsoldat_4
+      name: soldat_idle_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
+        x: 160
+        y: 160
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,41 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20d10c46316f6664aab98545fa734bfa
-      internalID: -6447497167077792946
+      spriteID: f17db1d95c340804aa55122b3cdb5a3a
+      internalID: -8028777028933352681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 16bitsoldat_5
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6057c25b668f87646b41acb5f48ced50
-      internalID: 945738299824846621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 16bitsoldat_6
+      name: soldat_idle_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 806a5b1e962695b4cbf4ff6d03d18ce9
-      internalID: 2876065454112960495
+      spriteID: 10da6a873a608384eadadbf736cfe242
+      internalID: 3352239402457816645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 16bitsoldat_7
+      name: soldat_idle_5
       rect:
         serializedVersion: 2
-        x: 32
+        x: 160
         y: 0
-        width: 32
-        height: 32
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 686bf398276e5a14aa19a4a031dd25f6
-      internalID: -4158493197563961934
+      spriteID: 49a3c6a0cbcf839478ed5f891fda3d06
+      internalID: 833820708253999752
       vertices: []
       indices: 
       edges: []
@@ -316,7 +280,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 292e3ed1b5e587443a1fe79ccce1dbfd
+    spriteID: 245e792172253fe49b8ed8b94f4346a1
     internalID: 0
     vertices: []
     indices: 
