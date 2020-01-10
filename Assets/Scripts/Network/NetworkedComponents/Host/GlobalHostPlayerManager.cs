@@ -37,7 +37,10 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
             string nickname;
             clientId = reader.ReadUInt16();
             nickname = reader.ReadString();
-            ConnectedPlayers.Add(new ConnectedPlayerData(clientId,nickname));
+            if(ConnectedPlayers.Find(player => player.ID == clientId) == null)
+            {
+                ConnectedPlayers.Add(new ConnectedPlayerData(clientId,nickname));
+            }
         }
     }
 
