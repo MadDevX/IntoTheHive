@@ -71,12 +71,21 @@ public class ClientConnectionInitializer
 
     private void Connect(IPAddress address, int port)
     {
+        // Unfortunately a lot of code has to battle the following problem: https://github.com/DarkRiftNetworking/DarkRift/issues/81
         if (_client.ConnectionState != DarkRift.ConnectionState.Connecting)
         {
             try
             {
                 var isConnected = Task.Run(() => _client.Connect(address, port, DarkRift.IPVersion.IPv4)).Wait(3000);
-                if(!isConnected) _errorText.text = "Couldn't connect";
+                if (!isConnected)
+                {
+                    try
+                    {
+                        _client.Disconnect();
+                    }
+                    catch (SocketException) { }
+                }
+                _errorText.text = "Couldn't connect";
             }
             catch (AggregateException e)
             {
