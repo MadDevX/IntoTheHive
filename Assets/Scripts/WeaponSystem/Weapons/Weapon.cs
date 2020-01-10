@@ -81,7 +81,11 @@ public class Weapon : IWeapon
     {
         ResetWeapon();
         _modules.Clear();
-        for (int i = 0; i < modules.Count; i++) _modules.Add(modules[i]);
+        for (int i = 0; i < modules.Count; i++)
+        {
+            _modules.Add(modules[i]);
+            if (modules[i].IsInheritable) _inheritableModules.Add(modules[i]);
+        }
         RefreshWeapon();
     }
 

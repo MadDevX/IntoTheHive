@@ -17,13 +17,11 @@ namespace Assets.Scripts.Music
         public void PlayShootSound()
         {
             _audioManager.Play(Sound.BulletShoot);
-            Debug.Log("Shoot sound");
         }
 
         public void PlayHitSound()
         {
             _audioManager.Play(Sound.BulletHit);
-            Debug.Log("Hit sound");
         }
     }
 }
