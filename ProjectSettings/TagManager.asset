@@ -50,3 +50,6 @@ TagManager:
   - name: Interactable
     uniqueID: 2260956007
     locked: 0
+  - name: Walls
+    uniqueID: 2058470713
+    locked: 0

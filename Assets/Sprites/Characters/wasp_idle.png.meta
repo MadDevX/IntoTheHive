@@ -81,7 +81,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 160
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -99,7 +99,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,7 +111,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -147,7 +147,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -174,9 +174,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 480
-        width: 160
-        height: 160
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,7 +184,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 801776e7bc316f54c89e37154ffd0764
+      spriteID: 9cff226ec292ee34c9fc1e293340f696
       internalID: 5637101095515223259
       vertices: []
       indices: 
@@ -194,10 +194,10 @@ TextureImporter:
       name: wasp_idle_1
       rect:
         serializedVersion: 2
-        x: 160
-        y: 480
-        width: 160
-        height: 160
+        x: 16
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,7 +205,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8c8e23a9a549a94e86858e3292d75b6
+      spriteID: 04a0fd513e05a874ea2c05e4f6f19612
       internalID: -2751415035348745630
       vertices: []
       indices: 
@@ -215,10 +215,10 @@ TextureImporter:
       name: wasp_idle_2
       rect:
         serializedVersion: 2
-        x: 320
-        y: 480
-        width: 160
-        height: 160
+        x: 32
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,7 +226,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05bc62922d9bedf4285971ba676e295b
+      spriteID: aebb928baa4c1c5419c565d84c32011a
       internalID: 8358507864668737460
       vertices: []
       indices: 
@@ -237,9 +237,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 320
-        width: 160
-        height: 160
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,7 +247,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec753026d011fca4e8128f9869c13a97
+      spriteID: 5bc0f4afab173c44d8d6ab54671014fe
       internalID: -7091864164245741441
       vertices: []
       indices: 
@@ -257,10 +257,10 @@ TextureImporter:
       name: wasp_idle_4
       rect:
         serializedVersion: 2
-        x: 160
-        y: 320
-        width: 160
-        height: 160
+        x: 16
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,7 +268,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8837e82e9c2701344b4d18c84d78e318
+      spriteID: e898b7ea6a7c509438efa48e8d13b894
       internalID: 6972819528679453504
       vertices: []
       indices: 
@@ -278,10 +278,10 @@ TextureImporter:
       name: wasp_idle_5
       rect:
         serializedVersion: 2
-        x: 320
-        y: 320
-        width: 160
-        height: 160
+        x: 32
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,7 +289,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a754eb34de10a064ba94230e03a12b53
+      spriteID: bb92b725c996b0243b2514955dbb2466
       internalID: -2738482772809457537
       vertices: []
       indices: 
@@ -300,9 +300,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
-        width: 160
-        height: 160
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -310,7 +310,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55df9d15438ecd440b417a2a4826d5f8
+      spriteID: b9b9e217d4e6bf040ba1178c0678cae7
       internalID: -7106923572088251052
       vertices: []
       indices: 
@@ -320,10 +320,10 @@ TextureImporter:
       name: wasp_idle_7
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
-        width: 160
-        height: 160
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -331,7 +331,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 494bee739809a8c4295548d2c65f8222
+      spriteID: b7b2fcd455b9a0944964ef27c73b83b6
       internalID: -1605583170433521182
       vertices: []
       indices: 
@@ -341,10 +341,10 @@ TextureImporter:
       name: wasp_idle_8
       rect:
         serializedVersion: 2
-        x: 320
-        y: 160
-        width: 160
-        height: 160
+        x: 32
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -352,7 +352,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69468f0dda6a7074fa915976523fce6a
+      spriteID: dc11dde4207025d44ac0590d0faa3002
       internalID: 5282782413398001757
       vertices: []
       indices: 
@@ -364,8 +364,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
-        height: 160
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -373,7 +373,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ecd4282bbb093b41bc4f5ab7a3566a8
+      spriteID: 172cc03bbacb71847b6ac160d1e5a286
       internalID: -8403352580263897925
       vertices: []
       indices: 
@@ -383,10 +383,10 @@ TextureImporter:
       name: wasp_idle_10
       rect:
         serializedVersion: 2
-        x: 160
+        x: 16
         y: 0
-        width: 160
-        height: 160
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -394,7 +394,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b59347186d840bf4583a9ca3db58e1ac
+      spriteID: cee221a2d41f71c42899b30c7f893bca
       internalID: -2139800266258802819
       vertices: []
       indices: 
@@ -404,10 +404,10 @@ TextureImporter:
       name: wasp_idle_11
       rect:
         serializedVersion: 2
-        x: 320
+        x: 32
         y: 0
-        width: 160
-        height: 160
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -415,7 +415,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19405f3b4dcadaf4097543e59284d55a
+      spriteID: cae8cf840b08beb41bc63fac0181659e
       internalID: 3031932508609469850
       vertices: []
       indices: 

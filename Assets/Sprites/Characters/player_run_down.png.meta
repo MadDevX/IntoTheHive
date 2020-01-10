@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 160
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +87,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -99,7 +99,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -135,7 +135,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -162,9 +162,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 320
-        width: 160
-        height: 160
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,7 +172,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f751c82bc473684b9b6cc752d0a36a8
+      spriteID: af2ba19e7a6c16f4dbb7b81df2192c99
       internalID: -3586937968074950596
       vertices: []
       indices: 
@@ -182,10 +182,10 @@ TextureImporter:
       name: player_run_down_1
       rect:
         serializedVersion: 2
-        x: 160
-        y: 320
-        width: 160
-        height: 160
+        x: 16
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,7 +193,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13bc19110f0eef642abe78bdc37a1e19
+      spriteID: cfd09a5a0118f884a8d2f86a99549098
       internalID: 7245392736481523595
       vertices: []
       indices: 
@@ -203,10 +203,10 @@ TextureImporter:
       name: player_run_down_2
       rect:
         serializedVersion: 2
-        x: 320
-        y: 320
-        width: 160
-        height: 160
+        x: 32
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -214,7 +214,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d5af7736ddb72546a9e06942e1cb38f
+      spriteID: 5a9ed292983814f4597c04e64a180b1c
       internalID: -1643518850277727491
       vertices: []
       indices: 
@@ -225,9 +225,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
-        width: 160
-        height: 160
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,7 +235,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3367c92240cb35f4cb1c6dafc67ae4f3
+      spriteID: 423a7c12727df3f438dee62d760e43a2
       internalID: -1829089444790173674
       vertices: []
       indices: 
@@ -245,10 +245,10 @@ TextureImporter:
       name: player_run_down_4
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
-        width: 160
-        height: 160
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,7 +256,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecdd8b3f4a7021c45840ef5360ad17dc
+      spriteID: e7be508339d3f7240b29b8de75e9c7a7
       internalID: 1779023189895330657
       vertices: []
       indices: 
@@ -266,10 +266,10 @@ TextureImporter:
       name: player_run_down_5
       rect:
         serializedVersion: 2
-        x: 320
-        y: 160
-        width: 160
-        height: 160
+        x: 32
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,7 +277,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0eae47ac6599ef4b90ef0cd867d465e
+      spriteID: 97c4bcb870b2e6a4c9f30535449a4715
       internalID: 575890877508120800
       vertices: []
       indices: 
@@ -289,8 +289,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
-        height: 160
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -298,7 +298,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e191f8e02233994c8f21103ceb07525
+      spriteID: 920e61b8af1c9a6499bdd36ee823ba6e
       internalID: -2904082172282227254
       vertices: []
       indices: 
@@ -308,10 +308,10 @@ TextureImporter:
       name: player_run_down_7
       rect:
         serializedVersion: 2
-        x: 160
+        x: 16
         y: 0
-        width: 160
-        height: 160
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -319,7 +319,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 143e91584e51c994fb1bfc0ed7c5896e
+      spriteID: 6afa7a117adde5443b5525c9c897c006
       internalID: 5415876571562120662
       vertices: []
       indices: 

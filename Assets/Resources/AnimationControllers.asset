@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fdc5e29a7323444bb67172e49d6fb8, type: 3}
   m_Name: AnimationControllers
   m_EditorClassIdentifier: 
-  Human: {fileID: 9100000, guid: 7deb48935297ceb4b982e35d0b4e9355, type: 2}
+  Human: {fileID: 9100000, guid: 5e2add25afb1b9a4e98c2c0527e27714, type: 2}
   Wasp: {fileID: 9100000, guid: 9d688846e6476ac4c936dcff41724ad6, type: 2}

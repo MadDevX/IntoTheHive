@@ -16,12 +16,12 @@ GameObject:
   - component: {fileID: -1888666375359167843}
   - component: {fileID: 4656559682471812277}
   - component: {fileID: 4656559682471812276}
-  - component: {fileID: 312695927642587827}
   - component: {fileID: 5075098387381504744}
   - component: {fileID: -5907521224373670503}
   - component: {fileID: -3224232866765772967}
   - component: {fileID: 7211818929575144110}
   - component: {fileID: -2800263950978464175}
+  - component: {fileID: -7313000465418725494}
   m_Layer: 9
   m_Name: EnemyFollowStrategy
   m_TagString: Untagged
@@ -155,22 +155,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &312695927642587827
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656559682471812272}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &5075098387381504744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +258,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dc1e4e33d79774da261ba3c589679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &-7313000465418725494
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656559682471812272}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 7a687d278d2557343b6a0d2433531069, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4
 --- !u!1 &4656559682613055192
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2034011289
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8425882471095967626, guid: 1682010b7a9419f4a9faa18d3ed4e803,
     type: 3}
