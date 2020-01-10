@@ -9,10 +9,10 @@ public class CharacterHealth : IHealth, IHealthSetter, IDisposable
     public float MaxHealth { get; private set; }
     public float Health { get; set; }
 
-    private Settings _settings;
+    private IHealthSettings _settings;
     private IRespawnable<CharacterSpawnParameters> _respawnable;
 
-    public CharacterHealth(Settings settings, IRespawnable<CharacterSpawnParameters> respawnable)
+    public CharacterHealth(IHealthSettings settings, IRespawnable<CharacterSpawnParameters> respawnable)
     {
         _settings = settings;
         _respawnable = respawnable;
@@ -21,7 +21,7 @@ public class CharacterHealth : IHealth, IHealthSetter, IDisposable
 
     public void PreInitialize()
     {
-        MaxHealth = _settings.maxHealth;
+        MaxHealth = _settings.MaxHealth;
         _respawnable.OnSpawn += OnSpawned;
     }
     public void Dispose()
@@ -41,8 +41,15 @@ public class CharacterHealth : IHealth, IHealthSetter, IDisposable
     }
 
     [System.Serializable]
-    public class Settings
+    public class Settings : IHealthSettings
     {
         public float maxHealth;
+
+        public float MaxHealth => maxHealth;
     }
+}
+
+public interface IHealthSettings
+{
+    float MaxHealth { get; }
 }

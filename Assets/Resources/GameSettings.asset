@@ -65,3 +65,5 @@ MonoBehaviour:
     levelsToWin: 2
   _explosionVfxSettings:
     animationTriggerName: Play
+  _aiHealthSettings:
+    baseMaxHealth: 30

@@ -26,6 +26,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private LevelGraphGenerator.Settings _levelGraphGeneratorSettings;
     [SerializeField] private WinManager.Settings _winManagerSettings;
     [SerializeField] private ExplosionVFX.Settings _explosionVfxSettings;
+    [SerializeField] private AIHPScalingSettings.Settings _aiHealthSettings;
     public override void InstallBindings()
     {
         Container.BindInstance(_roomSpawnSettings).AsSingle();
@@ -43,10 +44,11 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_directionManagerSettings).AsSingle();
         Container.BindInstance(_movementManagerSettings).AsSingle();
         Container.BindInstance(_levelGraphGeneratorSettings).AsSingle();
-        Container.BindInstance(_characterHealthSettings).AsSingle();
+        Container.BindInterfacesAndSelfTo<CharacterHealth.Settings>().FromInstance(_characterHealthSettings).AsSingle();
         Container.BindInstance(_characterSpawnerSettings).AsSingle();
         Container.BindInstance(_levelAIGraphSettings).AsSingle();
         Container.BindInstance(_winManagerSettings).AsSingle();
         Container.BindInstance(_explosionVfxSettings).AsSingle();
+        Container.BindInstance(_aiHealthSettings).AsSingle();
     }
 }

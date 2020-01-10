@@ -1,38 +1,59 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Zenject;
 
-public class WinManager
+public class WinManager : IInitializable, IDisposable
 {
-    private int counter = 0;
+    public int CurrentLevel => _completedLevels + 1;
+    private int _completedLevels = 0;
     private Settings _settings;
     private HostSceneManager _sceneManager;
-    private IGameCycleController _gameCycle;
+    private IGameCycleController _gameCycleController;
+    private IGameCycle _gameCycle;
 
     public WinManager(
         Settings settings,
         HostSceneManager sceneManager,
-        IGameCycleController gameCycle
+        IGameCycleController gameCycleController,
+        IGameCycle gameCycle
         )
     {
         _settings = settings;
         _sceneManager = sceneManager;
+        _gameCycleController = gameCycleController;
         _gameCycle = gameCycle;
+    }
+
+    public void Initialize()
+    {
+        _gameCycle.OnGameEnded += ResetCounter;
+    }
+
+    public void Dispose()
+    {
+        _gameCycle.OnGameEnded -= ResetCounter;
     }
 
     public void IncreaseCounter()
     {
-        counter = counter + 1;
-        Debug.Log("ctr= " + counter);
+        _completedLevels = _completedLevels + 1;
+        Debug.Log("ctr= " + _completedLevels);
         Debug.Log("sett= " + _settings.levelsToWin);
-        if(counter >= _settings.levelsToWin)
+        if(_completedLevels >= _settings.levelsToWin)
         {
             _sceneManager.LoadLobby();
-            _gameCycle.RaiseOnGameWon();
+            _gameCycleController.RaiseOnGameWon();
         }
         else
         {
             _sceneManager.LoadHub();
 
         }
+    }
+
+    private void ResetCounter()
+    {
+        _completedLevels = 0;
     }
 
     [System.Serializable]
