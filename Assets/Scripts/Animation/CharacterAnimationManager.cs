@@ -26,6 +26,8 @@ public class CharacterAnimationManager : FixedUpdatableObject
     public override void OnFixedUpdate(float deltaTime)
     {
         _animator?.SetFloat("Speed", _rb.velocity.magnitude);
+        _animator?.SetFloat("VerticalSpeed", _rb.velocity.y);
+        _animator?.SetBool("RunsBackwards", _controlState.Direction.x * _rb.velocity.x < 0);
         _characterRenderer.flipX = _controlState.Direction.x > 0;
 
     }

@@ -1,25 +1,31 @@
 fileFormatVersion: 2
-guid: bd8963d507ad06a4280e5dba16acb6d6
+guid: ee3df7ee9eb660a41a31b5a9f0de421d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3141664942578695974
-    second: soldat_idle_0
+      213: -3039921449427619912
+    second: player_run_backwards2_0
   - first:
-      213: 7297332480406980872
-    second: soldat_idle_1
+      213: 7301517604168385919
+    second: player_run_backwards2_1
   - first:
-      213: -2433280314991981134
-    second: soldat_idle_2
+      213: 2687232061955120853
+    second: player_run_backwards2_2
   - first:
-      213: -8028777028933352681
-    second: soldat_idle_3
+      213: 8966414991526218692
+    second: player_run_backwards2_3
   - first:
-      213: 3352239402457816645
-    second: soldat_idle_4
+      213: -6771694106966839723
+    second: player_run_backwards2_4
   - first:
-      213: 833820708253999752
-    second: soldat_idle_5
+      213: -8036566020510336547
+    second: player_run_backwards2_5
+  - first:
+      213: 6146964732944042031
+    second: player_run_backwards2_6
+  - first:
+      213: 2475287458517653930
+    second: player_run_backwards2_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -152,7 +158,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: soldat_idle_0
+      name: player_run_backwards2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -166,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 169e1beeefe87a646ae35fd153e7b352
-      internalID: -3141664942578695974
+      spriteID: 89dbf7f131bdf424cb91e07f3df311da
+      internalID: -3039921449427619912
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldat_idle_1
+      name: player_run_backwards2_1
       rect:
         serializedVersion: 2
         x: 160
@@ -187,14 +193,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 908b02bfd90b3664ab64945783c36986
-      internalID: 7297332480406980872
+      spriteID: 4330d023b1b605d4c9d610fa9d35cb9f
+      internalID: 7301517604168385919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldat_idle_2
+      name: player_run_backwards2_2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84ae9fc4d0b314a4faf5471cace39b1b
+      internalID: 2687232061955120853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_run_backwards2_3
       rect:
         serializedVersion: 2
         x: 0
@@ -208,14 +235,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 656ceef9017d75645b9413ae8c89f2d3
-      internalID: -2433280314991981134
+      spriteID: 4891791d4cb2fd04e81fc63b496ff800
+      internalID: 8966414991526218692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldat_idle_3
+      name: player_run_backwards2_4
       rect:
         serializedVersion: 2
         x: 160
@@ -229,14 +256,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f17db1d95c340804aa55122b3cdb5a3a
-      internalID: -8028777028933352681
+      spriteID: 78f2bdaee727bfa49a0281499bb13680
+      internalID: -6771694106966839723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldat_idle_4
+      name: player_run_backwards2_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 160
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0be8e5d451828184ab2b958092cadea1
+      internalID: -8036566020510336547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_run_backwards2_6
       rect:
         serializedVersion: 2
         x: 0
@@ -250,14 +298,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10da6a873a608384eadadbf736cfe242
-      internalID: 3352239402457816645
+      spriteID: 7d2ea2d2edab0f34b8f201ab9ca95f50
+      internalID: 6146964732944042031
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldat_idle_5
+      name: player_run_backwards2_7
       rect:
         serializedVersion: 2
         x: 160
@@ -271,8 +319,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49a3c6a0cbcf839478ed5f891fda3d06
-      internalID: 833820708253999752
+      spriteID: 995824fb98a34274aaa4b98025c48b11
+      internalID: 2475287458517653930
       vertices: []
       indices: 
       edges: []
@@ -280,7 +328,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 245e792172253fe49b8ed8b94f4346a1
+    spriteID: a86e4b730a84ca5439c377847709ebb8
     internalID: 0
     vertices: []
     indices: 
