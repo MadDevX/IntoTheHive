@@ -28,29 +28,32 @@ namespace ServerPlugins
         private void HandleClientConnected(object sender, ClientConnectedEventArgs e)
         {
             e.Client.MessageReceived += _messageHandler.Client_MessageReceived;
-            _clients.Add(e.Client.ID, e.Client);
-            if (_host == null)
+            if(_clients.ContainsKey(e.Client.ID) == false)
             {
-                _host = e.Client;
-            }
-
-            using (DarkRiftWriter writer = DarkRiftWriter.Create())
-            {
-                if(e.Client.ID == _host.ID)
+                _clients.Add(e.Client.ID, e.Client);
+                if (_host == null)
                 {
-                    writer.Write(ClientStatus.Host);
-                }
-                else
-                {
-                    writer.Write(ClientStatus.Client);
+                    _host = e.Client;
                 }
 
-                using (Message message = Message.Create(Tags.ConnectionInfo, writer))
+                using (DarkRiftWriter writer = DarkRiftWriter.Create())
                 {
-                    
-                    e.Client.SendMessage(message, SendMode.Reliable);
+                    if (e.Client.ID == _host.ID)
+                    {
+                        writer.Write(ClientStatus.Host);
+                    }
+                    else
+                    {
+                        writer.Write(ClientStatus.Client);
+                    }
+
+                    using (Message message = Message.Create(Tags.ConnectionInfo, writer))
+                    {
+
+                        e.Client.SendMessage(message, SendMode.Reliable);
+                    }
                 }
-            }
+            }         
         }
 
         private void HandleClientDisconnected(object sender, ClientDisconnectedEventArgs e)
