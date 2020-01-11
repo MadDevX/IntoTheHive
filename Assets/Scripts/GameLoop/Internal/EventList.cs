@@ -31,6 +31,8 @@ public class EventList<T>
 
 public class QuickList<T> : List<T>
 {
+    public QuickList(int capacity) : base(capacity) { }
+
     public new void RemoveAt(int index)
     {
         var t = this[index];
