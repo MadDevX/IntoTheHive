@@ -10,4 +10,5 @@ public class Scenes : ScriptableObject
     public SceneReference Lobby;
     public SceneReference Level;
     public SceneReference Hub;
+    public SceneReference EndGameMenu;
 }

@@ -49,4 +49,5 @@
 
     public static readonly ushort SpawnProjectile = 33;
 
+    public static readonly ushort UpdateGameState = 34;
 }

@@ -52,7 +52,7 @@ public class ClientInfo: IInitializable, IDisposable
                 if(handler == (Action<ushort>)function)
                 {
                     StatusChanged -= handler;
-                }
+                 }
             }
     }
 

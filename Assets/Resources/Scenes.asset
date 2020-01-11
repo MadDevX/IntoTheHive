@@ -27,3 +27,6 @@ MonoBehaviour:
   Hub:
     sceneAsset: {fileID: 102900000, guid: 767d8cebf4f182747893818a86bce07a, type: 3}
     scenePath: Assets/Scenes/Hub.unity
+  EndGameMenu:
+    sceneAsset: {fileID: 102900000, guid: 886a0b74f04d83a419d10d8310a6ce6f, type: 3}
+    scenePath: Assets/Scenes/GameEndedMenu.unity

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: ThaleahFat_TTF SDF_Raster
   m_EditorClassIdentifier: 
-  hashCode: -1830451546
+  hashCode: 579757530
   material: {fileID: -2492695709918804296}
   materialHashCode: 1283270765
   m_Version: 1.1.0
