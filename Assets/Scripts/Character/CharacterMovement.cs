@@ -49,14 +49,18 @@ public class CharacterMovement : FixedUpdatableObject
 
     private void CorrectPosition(float deltaTime)
     {
-        //Debug.Log("rb: " + _rb.position.x + " " + _rb.position.y);
-        //Debug.Log("cs pos: " + _controlState.Position.x + " " + _controlState.Position.y);
-        //Debug.Log("cs dir: " + _controlState.Direction.x + " " + _controlState.Direction.y);
         var positionDifference = (_rb.position-_controlState.Position).sqrMagnitude;
-        //Debug.Log("position diff = " + positionDifference);
-        if (positionDifference >= _settings.positionEps * _settings.positionEps)
+
+        if (positionDifference >= _settings.positionEps* _settings.positionEps)
         {
-            _rb.MovePosition(Vector2.Lerp(_rb.position, _controlState.Position,_settings.correctionLerpFactor));
+            _rb.position = _controlState.Position;
+        }
+        else
+        {
+            if (positionDifference >= _settings.positionEps * _settings.positionEps)
+            {
+                _rb.MovePosition(Vector2.Lerp(_rb.position, _controlState.Position,_settings.correctionLerpFactor));
+            }       
         }
         
     }
@@ -85,6 +89,7 @@ public class CharacterMovement : FixedUpdatableObject
     public class Settings
     {
         public float positionEps;
+        public float teleportEps;
         public float baseSpeed;
         public float speedMult;
         public float correctionLerpFactor;

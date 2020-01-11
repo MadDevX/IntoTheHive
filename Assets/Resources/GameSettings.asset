@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _charMovementSettings:
     positionEps: 0.1
+    teleportEps: 3
     baseSpeed: 4
     speedMult: 1.5
     correctionLerpFactor: 0.1
