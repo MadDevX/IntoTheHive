@@ -8,8 +8,7 @@ using Zenject;
 /// This class handles message receival for host side of the lobby
 /// </summary>
 public class LobbyHostMessageReceiver: IInitializable, IDisposable
-{
-    
+{    
     private NetworkRelay _relay;
     private LobbyStateManager _lobbyStateManager;
     private LobbyMessageSender _lobbyMessageSender;

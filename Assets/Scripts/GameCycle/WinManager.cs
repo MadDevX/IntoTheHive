@@ -10,18 +10,20 @@ public class WinManager : IInitializable, IDisposable
     private HostSceneManager _sceneManager;
     private IGameCycleController _gameCycleController;
     private IGameCycle _gameCycle;
-
+    private GameState _state;
     public WinManager(
         Settings settings,
         HostSceneManager sceneManager,
         IGameCycleController gameCycleController,
-        IGameCycle gameCycle
+        IGameCycle gameCycle,
+        GameState state
         )
     {
         _settings = settings;
         _sceneManager = sceneManager;
         _gameCycleController = gameCycleController;
         _gameCycle = gameCycle;
+        _state = state;
     }
 
     public void Initialize()
@@ -41,13 +43,13 @@ public class WinManager : IInitializable, IDisposable
         Debug.Log("sett= " + _settings.levelsToWin);
         if(_completedLevels >= _settings.levelsToWin)
         {
-            _sceneManager.LoadLobby();
+            _state.State = GameplayState.Win;
+            _sceneManager.LoadGameEndedMenu();
             _gameCycleController.RaiseOnGameWon();
         }
         else
         {
             _sceneManager.LoadHub();
-
         }
     }
 

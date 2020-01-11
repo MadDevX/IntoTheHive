@@ -33,6 +33,11 @@ public class HostSceneManager
         _synchronizedSceneManager.SendSceneChanged(2, _eventManager.FireLobbyInitializedHost);
     }
 
+    public void LoadGameEndedMenu()
+    {
+        // Add here a custom message (GameEndedMessage) which tells you wheter the game was won or not
+        _synchronizedSceneManager.SendSceneChanged(5, _eventManager.FireGameEndedMenuInitializedHost);
+    }
 
     public void LoadMenu()
     {

@@ -42,5 +42,9 @@ public enum Identifiers
     SfxSlider,
     Fullscreen,
     ResolutionsDropdown,
-    Explosion
+    Explosion,
+    GameEndedWinText,
+    GameEndedLoseText,
+    GameEndedLeaveServerButton,
+    GameEndedHostOkButton
 }

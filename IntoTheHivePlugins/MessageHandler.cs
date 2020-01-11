@@ -57,6 +57,9 @@ public class MessageHandler
 
             if (message.Tag == Tags.WeaponChanged)
                 _plugin.BroadcastToAllClients(message, e);
+
+            if (message.Tag == Tags.UpdateGameState)
+                _plugin.BroadcastToAllClients(message, e);
             #endregion
 
             #region other clients

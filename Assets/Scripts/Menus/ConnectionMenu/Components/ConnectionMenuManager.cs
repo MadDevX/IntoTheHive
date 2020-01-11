@@ -70,7 +70,6 @@ public class ConnectionMenuManager : IInitializable, IDisposable
 
     public void JoinButtonClicked()
     {
-
         // 1. Subscribe to ClientInfo status update
         // 2. Join the server
         // 3. Get the client status

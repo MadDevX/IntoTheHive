@@ -10,16 +10,20 @@ public class GameEndManager: IInitializable, IDisposable
     private HostSceneManager _sceneManager;
     private ClientInfo _info;
     private IGameCycleController _cycleController;
+    private GameState _state;
+
     public GameEndManager(
         LivingCharactersRegistry livingCharactersRegistry,
         HostSceneManager sceneManager,
         ClientInfo info,
-        IGameCycleController cycleController)
+        IGameCycleController cycleController,
+        GameState state)
     {
         _livingCharactersRegistry = livingCharactersRegistry;
         _sceneManager = sceneManager;
         _info = info;
         _cycleController = cycleController;
+        _state = state;
     }
 
     public void Initialize()
@@ -36,7 +40,8 @@ public class GameEndManager: IInitializable, IDisposable
 
     private void EndGame()
     {
-        _sceneManager.LoadLobby();
+        _state.State = GameplayState.Lose;
+        _sceneManager.LoadGameEndedMenu();
         _cycleController.RaiseOnGameEnded();
     }
 
