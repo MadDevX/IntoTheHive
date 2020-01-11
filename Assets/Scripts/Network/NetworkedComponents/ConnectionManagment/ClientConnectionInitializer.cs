@@ -18,12 +18,17 @@ public class ClientConnectionInitializer
     private InputField _ipAddressInputField;
     private InputField _portNumberInputField;
     private Text _errorText;
-    private Button _joinServerButton;
     private Text _buttonText;
+    private Button _joinServerButton;
+    private Button _createServerButton;
+    private Button _backButton;
+
     public ClientConnectionInitializer(
         [Inject(Id = Identifiers.ConnetionMenuIpInputField)] InputField ipAddressInputField,
         [Inject(Id = Identifiers.ConnetionMenuPortInputField)] InputField portNumberInputField,
         [Inject(Id = Identifiers.ConnetionMenuJoinServerButton)] Button joinServerButton,
+        [Inject(Id = Identifiers.ConnetionMenuCreateServerButton)] Button createServerButton,
+        [Inject(Id = Identifiers.ConnetionMenuBackButton)] Button backButton,
         UnityClient client,
         Text errorText)
     {
@@ -32,6 +37,8 @@ public class ClientConnectionInitializer
         _client = client;
         _errorText = errorText;
         _joinServerButton = joinServerButton;
+        _createServerButton = createServerButton;
+        _backButton = backButton;
         _buttonText = _joinServerButton.GetComponentInChildren<Text>();
     }
 
@@ -74,6 +81,11 @@ public class ClientConnectionInitializer
         }
     }
 
+    /// <summary>
+    /// Connects with a given Ip address on a given port. Disables buttons until the connection times out or connects.
+    /// </summary>
+    /// <param name="address"> IP address of the server </param>
+    /// <param name="port"> Port of the server </param>
     private async void Connect(IPAddress address, int port)
     {
         // Unfortunately a lot of code has to battle the following problem: https://github.com/DarkRiftNetworking/DarkRift/issues/81
@@ -86,13 +98,17 @@ public class ClientConnectionInitializer
             catch (SocketException) { }
         }
 
-        _joinServerButton.interactable = false;
+        SwitchButtonsInteractable(false);
         _buttonText.text = "Connecting...";
 
         await Task.Run(() => _client.ConnectInBackground(address, port, DarkRift.IPVersion.IPv4, (Exception e) => { HandleConnectionCompleted(e); }));
         
     }
 
+    /// <summary>
+    /// Handles completion of ConnectInBackground method from DarkRift
+    /// </summary>
+    /// <param name="e">Exception that occured, if any.</param>
     private void HandleConnectionCompleted(Exception e)
     {
         if(e != null)        
@@ -101,9 +117,13 @@ public class ClientConnectionInitializer
         }
 
         _buttonText.text = "Join server";
-        _joinServerButton.interactable = true;
+        SwitchButtonsInteractable(true);
     }
 
+    /// <summary>
+    /// Handle expception thrown during connection.
+    /// </summary>
+    /// <param name="e">Exception that was thrown.</param>
     private void HandleConnectionException(Exception e)
     {
         switch (e)
@@ -115,5 +135,16 @@ public class ClientConnectionInitializer
                 _errorText.text = "Couldn't connect";
                 break;
         }
+    }
+
+    /// <summary>
+    /// Makes the buttons interactable or not.
+    /// </summary>
+    /// <param name="isActive">Whether the buttons should be active.</param>
+    private void SwitchButtonsInteractable(bool isActive)
+    {
+        _joinServerButton.interactable = isActive;
+        _createServerButton.interactable = isActive;
+        _backButton.interactable = isActive;
     }
 }

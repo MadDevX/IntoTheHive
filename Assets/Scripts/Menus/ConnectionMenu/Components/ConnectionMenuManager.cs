@@ -64,19 +64,20 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         // 6. JoinedServerAsX fires
         // 7. Scene is loaded and the event is unsubscribed
         _serverManager.CreateServer();
-        _clientInfo.StatusChanged += JoinedServerAsHost;
+        _clientInfo.SubscribeOnStatusChanged(JoinedServerAsHost);
         _serverManager.JoinAsHost();
     }
 
     public void JoinButtonClicked()
     {
+
         // 1. Subscribe to ClientInfo status update
         // 2. Join the server
         // 3. Get the client status
         // 4. Update the ClientInfo status and fire JoinedServerAsClient
         // 4. Send request for scene update
         // 5. Handle the response in Networked Scene Manager
-        _clientInfo.StatusChanged += JoinedServerAsClient;
+        _clientInfo.SubscribeOnStatusChanged(JoinedServerAsClient);
         _initializer.JoinServer();
     }
 
@@ -104,7 +105,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         {
             Debug.Log("Unable to join the server. Try again");
         }
-        _clientInfo.StatusChanged -= JoinedServerAsClient;
+        _clientInfo.UnsubscribeOnStatusChanged(JoinedServerAsClient);
     }
 
     /// <summary>
@@ -127,7 +128,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
             Debug.Log("Server setup unsuccessful. Try again");
             _serverManager.CloseServer();
         }
-        _clientInfo.StatusChanged -= JoinedServerAsHost;
+        _clientInfo.UnsubscribeOnStatusChanged(JoinedServerAsHost);
     }
 
 }

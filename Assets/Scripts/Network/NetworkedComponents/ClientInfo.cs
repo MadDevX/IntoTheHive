@@ -37,6 +37,37 @@ public class ClientInfo: IInitializable, IDisposable
         Status = ClientStatus.None;
     }
 
+    public void SubscribeOnStatusChanged(Action<ushort> handler)
+    {
+        ClearSubscribedHandlers();
+        StatusChanged += handler;
+    }
+
+    public void UnsubscribeOnStatusChanged(Action<ushort> handler)
+    {
+        var invocationList = StatusChanged?.GetInvocationList();
+        if (StatusChanged?.GetInvocationList() != null)
+            foreach (var function in invocationList)
+            {
+                if(handler == (Action<ushort>)function)
+                {
+                    StatusChanged -= handler;
+                }
+            }
+    }
+
+    private void ClearSubscribedHandlers()
+    {        
+        if(StatusChanged?.GetInvocationList() != null)
+        {
+            if(StatusChanged.GetInvocationList().Length != 0)        
+                foreach (var handler in StatusChanged.GetInvocationList())
+                {
+                    StatusChanged -= (Action<ushort>)handler;
+                }
+        }
+    }
+
     private void HandleConnectionInfo(Message message)
     {
         using (DarkRiftReader reader = message.GetReader())
