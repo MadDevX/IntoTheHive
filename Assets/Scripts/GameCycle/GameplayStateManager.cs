@@ -16,13 +16,13 @@ public class GameplayStateManager: IInitializable, IDisposable
 
     public void Initialize()
     {
-        _gameCycle.OnGameEnded += resetGameState;    
+        _gameCycle.OnGameStarted += resetGameState;    
     }
 
 
     public void Dispose()
     {
-        _gameCycle.OnGameEnded -= resetGameState;
+        _gameCycle.OnGameStarted -= resetGameState;
     }
     private void resetGameState()
     {
