@@ -23,5 +23,6 @@ public class ProjectInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<WinManager>().AsSingle();           
         Container.BindInterfacesAndSelfTo<GameState>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameplayStateManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GLCoroutinePool>().AsSingle();
     }
 }

@@ -12,7 +12,7 @@ namespace GameLoop.Internal
         void HandleCoroutineStop(GLCoroutine cor);
     }
 
-    public class GLCoroutinePool : ICoroutinePool
+    public class GLCoroutinePool : ICoroutinePool, ICoroutineManager
     {
         private IGameLoop _gameLoop;
         private IRelay _relay;
@@ -20,51 +20,50 @@ namespace GameLoop.Internal
         private QuickList<GLCoroutine> _activeCoroutines = new QuickList<GLCoroutine>(20);
         private QuickList<GLCoroutine> _pendingCoroutines = new QuickList<GLCoroutine>(20);
 
-        public GLCoroutinePool(IGameLoop gameLoop, IRelay relay)
+        public GLCoroutinePool(IGameLoop gameLoop)
         {
             _gameLoop = gameLoop;
-            _relay = relay;
         }
 
-        public GLCoroutine StartCoroutine(Action<float> action)
-        {
-            var cor = GetPendingCoroutine();
-            cor.Start(action);
-            return cor;
-        }
-
-        public GLCoroutine StartCoroutine(Action<float> action, float stopAfterTime)
+        public ICoroutine StartCoroutine(Action<float> action, float stopAfterTime)
         {
             var cor = GetPendingCoroutine();
             cor.Start(action, stopAfterTime);
             return cor;
         }
 
-        private GLCoroutine GetPendingCoroutine()
+        public ICoroutine StartCoroutine(Action<float> action)
         {
-            if (_pendingCoroutines.Count > 0)
-            {
-                var idx = _pendingCoroutines.Count - 1;
-                var cor = _pendingCoroutines[idx];
-                _pendingCoroutines.RemoveAt(idx);
-                return cor;
-            }
-            else
-            {
-                var cor = new GLCoroutine(this, _gameLoop, _relay);
-                return cor;
-            }
+            var cor = GetPendingCoroutine();
+            cor.Start(action);
+            return cor;
         }
 
         public void HandleCoroutineStart(GLCoroutine cor)
         {
+            _pendingCoroutines.Remove(cor);
             _activeCoroutines.Add(cor);
         }
 
         public void HandleCoroutineStop(GLCoroutine cor)
         {
             _activeCoroutines.Remove(cor);
+            _pendingCoroutines.Add(cor);
         }
-    
+
+        private GLCoroutine GetPendingCoroutine()
+        {
+            if (_pendingCoroutines.Count > 0)
+            {
+                return _pendingCoroutines[0];
+            }
+            else
+            {
+                var cor = new GLCoroutine(this, _gameLoop, null);
+                return cor;
+            }
+        }
+
+
     }
 }

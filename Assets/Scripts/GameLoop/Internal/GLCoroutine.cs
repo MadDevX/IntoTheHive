@@ -6,11 +6,6 @@ using UnityEngine;
 
 namespace GameLoop.Internal
 {
-    public interface ICoroutine
-    {
-        void Stop();
-    }
-
     public class GLCoroutine : UpdatableObject, ICoroutine
     {
         private Action<float> _action;
