@@ -10,27 +10,37 @@ using UnityEngine;
 /// </summary>
 public class ServerManager: IDisposable
 {
-    private XmlUnityServer _server;
-    private UnityClient _client;
+    public event Action OnServerCreated;
+    public event Action OnServerClosed;
 
+    private CmdServer _server;
+    private UnityClient _client;
+    
     public ServerManager(
-        XmlUnityServer server,
+        CmdServer server,
         UnityClient client)
     {
         _server = server;
         _client = client;
     }
    
-    public void CreateServer()
+    public bool CreateServer()
     {
-        //_server.Create();
+        if (_server.Create())
+        {
+            OnServerCreated?.Invoke();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void CloseServer()
     {
-        // TODO MG is it necessary to disconnect all players manually?
-        //_server.Close();
-        //Debug.Log("Server is not closing properly");
+        _server.Close();
+        OnServerClosed?.Invoke();
     }
 
     /// <summary>

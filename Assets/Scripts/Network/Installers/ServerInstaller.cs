@@ -10,6 +10,7 @@ class ServerInstaller : MonoInstaller
     {
         Container.Bind<XmlUnityServer>().FromInstance(_server).AsSingle();
         Container.BindInterfacesAndSelfTo<ServerManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CmdServer>().AsSingle();
     }
 }
 

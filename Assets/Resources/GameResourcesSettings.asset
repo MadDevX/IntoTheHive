@@ -10,6 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c542d4b23ded7046a8a0aff276d379e, type: 3}
-  m_Name: GameResourcesInstaller
+  m_Name: GameResourcesSettings
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 673d940416f858443b75c47bba77c1b6, type: 2}
+  _serverSettings:
+    serverFileName: DarkRift.Server.Console.exe

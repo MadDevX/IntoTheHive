@@ -9,11 +9,14 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
 {
     public List<ConnectedPlayerData> ConnectedPlayers = new List<ConnectedPlayerData>();
 
+    private ServerManager _serverManager;
     private NetworkRelay _relay;
 
     public GlobalHostPlayerManager(
+        ServerManager serverManager,
         NetworkRelay relay)
     {
+        _serverManager = serverManager;
         _relay = relay;
     }
 
@@ -21,11 +24,14 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
     {
         _relay.Subscribe(Tags.PlayerJoined, HandlePlayerJoined);
         _relay.Subscribe(Tags.PlayerDisconnected, HandlePlayerDisconnected);
+        _serverManager.OnServerClosed += ClearData;
+
     }
     public void Dispose()
     {
         _relay.Unsubscribe(Tags.PlayerJoined, HandlePlayerJoined);
         _relay.Unsubscribe(Tags.PlayerDisconnected, HandlePlayerDisconnected);
+        _serverManager.OnServerClosed -= ClearData;
     }
 
     private void HandlePlayerJoined(Message message)
@@ -55,5 +61,11 @@ public class GlobalHostPlayerManager: IInitializable, IDisposable
             ConnectedPlayers.Remove(disconnectedPlayer);
         }
     }
+
+    private void ClearData()
+    {
+        ConnectedPlayers.Clear();
+    }
+
 }
 

@@ -12,6 +12,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     private Button _serverButton;
     private Button _joinButton;
     private Button _backButton;
+    private Text _serverButtonText;
 
     private ClientInfo _clientInfo;
     private ServerManager _serverManager; 
@@ -35,6 +36,8 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         _serverManager = serverManager;
         _initializer = connectionInitializer;
         _connectionMenuMessageSender = connectionMenuMessageSender;
+
+        _serverButtonText = _serverButton.GetComponentInChildren<Text>();
     }
 
     public void Initialize()
@@ -63,9 +66,17 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         // 5. ClientInfo updates its status
         // 6. JoinedServerAsX fires
         // 7. Scene is loaded and the event is unsubscribed
-        _serverManager.CreateServer();
-        _clientInfo.SubscribeOnStatusChanged(JoinedServerAsHost);
-        _serverManager.JoinAsHost();
+        if (_serverManager.CreateServer())
+        {
+            _clientInfo.SubscribeOnStatusChanged(JoinedServerAsHost);
+            _serverManager.JoinAsHost();
+        }
+        else
+        {
+            _serverButtonText.text = "Port busy!";
+            _serverButton.interactable = false;
+            //TODO: use coroutine to bring back functionality after 3 seconds
+        }
     }
 
     public void JoinButtonClicked()
