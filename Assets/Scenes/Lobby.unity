@@ -1066,7 +1066,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Port: 4296'
+  m_Text: 'Port: 0000'
 --- !u!222 &713998786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1811,7 +1811,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'IP: 127.0.0.1'
+  m_Text: 'IP: 0.0.0.0'
 --- !u!222 &1699049366
 CanvasRenderer:
   m_ObjectHideFlags: 0
