@@ -35,7 +35,7 @@ public class ServerInfoTracker : IInitializable
         if (_info.Status == ClientStatus.Host)
         {
             _ipText.text = _settings.ipHeader + GetLocalIPAddress();
-            _portText.text = _settings.portHeader + _server.Server.ClientManager.Port.ToString();
+            _portText.text = _settings.portHeader + _info.Client.Port.ToString();
         }
         else if (_info.Status == ClientStatus.Client)
         {

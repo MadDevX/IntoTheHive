@@ -23,14 +23,14 @@ public class ServerManager: IDisposable
    
     public void CreateServer()
     {
-        _server.Create();
+        //_server.Create();
     }
 
     public void CloseServer()
     {
         // TODO MG is it necessary to disconnect all players manually?
-        _server.Close();
-        Debug.Log("Server is not closing properly");
+        //_server.Close();
+        //Debug.Log("Server is not closing properly");
     }
 
     /// <summary>

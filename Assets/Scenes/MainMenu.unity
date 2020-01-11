@@ -6252,7 +6252,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 94.15
+  m_fontSize: 74.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8314,7 +8314,6 @@ GameObject:
   - component: {fileID: 1909045805}
   - component: {fileID: 1909045804}
   - component: {fileID: 1909045806}
-  - component: {fileID: 1909045807}
   m_Layer: 5
   m_Name: MusicVolumeSlider
   m_TagString: Untagged
@@ -8422,18 +8421,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909045802}
   m_CullTransparentMesh: 0
---- !u!114 &1909045807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909045802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a61c2ef51dc7243a3fe01339163a8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1962060280
 GameObject:
   m_ObjectHideFlags: 0
