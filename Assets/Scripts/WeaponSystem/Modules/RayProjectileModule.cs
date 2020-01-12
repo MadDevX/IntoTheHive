@@ -14,6 +14,7 @@ public class RayProjectileModule : BaseModule
     private IFactory<ProjectileSpawnParameters, ProjectileFacade[]> _factory;
 
     private IFactory<ProjectileSpawnParameters, IProjectile[]> _weaponFactory;
+    private IFactory<ProjectileSpawnParameters, IProjectile[]> _weaponBaseFactory;
 
     [Inject]
     public void Construct([Inject(Id = Identifiers.Ray)] IFactory<ProjectileSpawnParameters, ProjectileFacade[]> factory)
@@ -23,14 +24,19 @@ public class RayProjectileModule : BaseModule
 
     protected override void OnAttach()
     {
+        //Retain previous weapon state
         _weaponFactory = _weapon.Factory;
-        _weapon.Factory = _factory;
+        _weaponBaseFactory = _weapon.BaseFactory;
+        //Override factories
+        _weapon.BaseFactory = _weapon.Factory = _factory;
     }
 
     protected override void OnDetach()
     {
+        _weapon.BaseFactory = _weaponBaseFactory;
         _weapon.Factory = _weaponFactory;
         _weaponFactory = null;
+        _weaponBaseFactory = null;
     }
 
     public override IModule Clone()

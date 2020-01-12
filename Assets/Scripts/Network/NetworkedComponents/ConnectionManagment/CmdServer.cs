@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using UnityEngine;
 
-public class CmdServer
+public class CmdServer : IDisposable
 {
     private Settings _settings;
     private Process _serverProcess = null;
@@ -83,6 +83,11 @@ public class CmdServer
             }
         }
         return isAvailable;
+    }
+
+    public void Dispose()
+    {
+        Close();
     }
 
     [System.Serializable]

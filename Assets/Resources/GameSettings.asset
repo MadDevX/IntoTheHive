@@ -71,3 +71,9 @@ MonoBehaviour:
     baseMaxHealth: 30
   _networkedInputSettings:
     stopExtrapolationDelay: 0.15
+  _moduleSettings:
+    tripleSpawnOnDestroySettings:
+      ttl: 0.3
+      spreadAngle: 10
+    tripleShotSettings:
+      spreadAngle: 30

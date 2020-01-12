@@ -15,6 +15,7 @@ public class Weapon : IWeapon
     private List<IModule> _inheritableModules = new List<IModule>();
 
     public IFactory<ProjectileSpawnParameters, IProjectile[]> Factory { get; set; }
+    public IFactory<ProjectileSpawnParameters, IProjectile[]> BaseFactory { get; set; }
 
     private bool _wasSqueezed = false;
     private int _layerMask;
@@ -29,7 +30,7 @@ public class Weapon : IWeapon
     {
         _info = info;
         _settings = settings;
-        Factory = projectileFactory;
+        BaseFactory = Factory = projectileFactory;
         _layerMask = Layers.Interactable.ToMask() + Layers.Environment.ToMask();
     }
 

@@ -6,6 +6,13 @@ using Zenject;
 [CreateAssetMenu(menuName = "GameResources/GameSettings")]
 public class GameSettingsInstaller : ScriptableObjectInstaller
 {
+    [System.Serializable]
+    public class ModuleSettings
+    {
+        public TripleSpawnOnDestroyModule.Settings tripleSpawnOnDestroySettings;
+        public TripleShot.Settings tripleShotSettings;
+    }
+
     [SerializeField] private CharacterMovement.Settings _charMovementSettings;
     [SerializeField] private CharacterShooting.Settings _charShootingSettings;
     [SerializeField] private Weapon.Settings _placeholderWeaponSettings;
@@ -28,6 +35,8 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private ExplosionVFX.Settings _explosionVfxSettings;
     [SerializeField] private AIHPScalingSettings.Settings _aiHealthSettings;
     [SerializeField] private NetworkedCharacterInput.Settings _networkedInputSettings;
+    [SerializeField] private ModuleSettings _moduleSettings;
+
     public override void InstallBindings()
     {
         Container.BindInstance(_roomSpawnSettings).AsSingle();
@@ -52,5 +61,13 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_explosionVfxSettings).AsSingle();
         Container.BindInstance(_aiHealthSettings).AsSingle();
         Container.BindInstance(_networkedInputSettings).AsSingle();
+
+        InstallModuleSettings();
+    }
+
+    private void InstallModuleSettings()
+    {
+        Container.BindInstance(_moduleSettings.tripleSpawnOnDestroySettings).AsSingle();
+        Container.BindInstance(_moduleSettings.tripleShotSettings).AsSingle();
     }
 }

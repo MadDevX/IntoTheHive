@@ -11,7 +11,15 @@ public class TripleShot : BaseModule
 
     public override bool IsInheritable => false;
 
-    private Factory _factory = new Factory();
+    private Settings _settings;
+    private Factory _factory;
+
+    [Inject]
+    public void Construct(Settings settings)
+    {
+        _settings = settings;
+        _factory = new Factory(_settings);
+    }
 
     protected override void OnAttach()
     {
@@ -26,24 +34,38 @@ public class TripleShot : BaseModule
 
     public override IModule Clone()
     {
-        return new TripleShot();
+        var clone = new TripleShot();
+        clone.Construct(_settings);
+        return clone;
     }
 
     public class Factory : IFactory<ProjectileSpawnParameters, IProjectile[]>
     {
         private List<IProjectile> _objects = new List<IProjectile>();
-        private float _spreadAngle = 30.0f;
+        private Settings _settings;
+
+        public Factory(Settings settings)
+        {
+            _settings = settings;
+        }
+
         public IFactory<ProjectileSpawnParameters, IProjectile[]> DecoratedFactory { get; set; }
         public IProjectile[] Create(ProjectileSpawnParameters param)
         {
             _objects.Clear();
             var initRotation = param.rotation;
             _objects.AddRange(DecoratedFactory.Create(param));
-            param.rotation = initRotation + _spreadAngle;
+            param.rotation = initRotation + _settings.spreadAngle;
             _objects.AddRange(DecoratedFactory.Create(param));
-            param.rotation = initRotation - _spreadAngle;
+            param.rotation = initRotation - _settings.spreadAngle;
             _objects.AddRange(DecoratedFactory.Create(param));
             return _objects.ToArray();
         }
+    }
+
+    [System.Serializable]
+    public class Settings
+    {
+        public float spreadAngle;
     }
 }
