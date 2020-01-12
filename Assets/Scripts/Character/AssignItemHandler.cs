@@ -38,7 +38,7 @@ public class AssignItemHandler : IDisposable
             if(_info.Type == CharacterType.Player && _info.IsLocal && _info.Id == facadeId)
             {
                 var itemId = reader.ReadInt16();
-                var instance = _factory.Create(ItemType.Module, itemId); //TODO: handle other types of items
+                var instance = _factory.Create(ItemType.Module, itemId);
                 _inventory.AddItem(instance);
             }
         }

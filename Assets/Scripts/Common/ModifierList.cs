@@ -29,7 +29,6 @@ public class Modifier : IComparable
     /// <returns>Value after applying bonus to <paramref name="currentValue"/></returns>
     public float ApplyModifier(float currentValue, float referenceValue)
     {
-        //TODO: if another MultiplierType will be added - just change this to polymorphism 
         if (type == ModifierType.Flat)
         {
             return currentValue + value;

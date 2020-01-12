@@ -51,7 +51,6 @@ public class HostTriggerCounter: IDisposable
             _counter++;
             if (_livingPlayersManager.LivingPlayersCount <= _counter)
             {
-                //TODO MG REMOVE THIS IF AND SPAWN triggers with logic only on the host side
                 if (_status.Status == ClientStatus.Host)
                     _triggerHandler.Trigger();
             }

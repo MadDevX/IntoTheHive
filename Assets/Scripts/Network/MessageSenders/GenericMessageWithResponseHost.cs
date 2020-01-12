@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-// TODO MG : Future idea - generalize class to provide a mechanism for any message type
-
 /// <summary>
 /// This class sends a SceneChanged message to all clients and executes a given action when all of the clients respond with a SceneReady message.
 /// </summary>

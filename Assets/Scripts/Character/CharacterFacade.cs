@@ -44,7 +44,7 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     }
 
     public ushort Id;
-    public CharacterType CharacterType { get; set; } //TODO: forward CharacterInfo property
+    public CharacterType CharacterType { get; set; } 
     
     public float MaxHealth => _health.MaxHealth;
     public float Health => _health.Health;
@@ -93,7 +93,6 @@ public class CharacterFacade: MonoBehaviour, IPoolable<CharacterSpawnParameters,
     {
         Id = parameters.Id;
         CharacterType = parameters.CharacterType;
-        //_health = parameters.health; TODO: read health data from spawn parameters
         _pool = pool;
         _respawner.Spawn(parameters);
     }

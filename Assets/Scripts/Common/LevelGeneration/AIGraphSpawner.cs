@@ -43,7 +43,6 @@ public class AIGraphSpawner
             { 
                 collisionSettings.use2D = true;
                 collisionSettings.collisionCheck = true;
-                //TODO MG : figure out something more... clean
                 collisionSettings.mask = LayerMask.GetMask("Environment");
                 collisionSettings.diameter = _settings.diameter;
             }

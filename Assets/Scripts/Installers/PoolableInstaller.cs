@@ -32,8 +32,6 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
         Container.BindMonoContextPool<ItemPickup, PickupSpawnParameters, ItemPickup.Factory, PickupPool>
             (Identifiers.Inventory, 10, _pickupPrefab, "Pickups");
 
-
-        //TODO: all characters should be marked as context prefab
         Container.BindMonoPrefabPool<CharacterFacade, CharacterSpawnParameters, CharacterFacade.Factory, CharacterPool>
             (Identifiers.AI, 10, _AIPrefab, "AI");
 
@@ -59,12 +57,12 @@ public class PoolableInstaller : ScriptableObjectInstaller<PoolableInstaller>
     {
     }
 
-    public class RigidProjectileMultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade> //TODO: possibly move into separate file and define multiple factories for every projectile prefab (rigid, ray, etc)
+    public class RigidProjectileMultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade>
     {
         public RigidProjectileMultiFactory([Inject(Id = Identifiers.Bullet)] ProjectileFacade.Factory factory) : base(factory) { }
     }
 
-    public class RayProjectileMultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade> //TODO: possibly move into separate file and define multiple factories for every projectile prefab (rigid, ray, etc)
+    public class RayProjectileMultiFactory : MultiFactory<ProjectileSpawnParameters, ProjectileFacade>
     {
         public RayProjectileMultiFactory([Inject(Id = Identifiers.Ray)] ProjectileFacade.Factory factory) : base(factory) { }
     }

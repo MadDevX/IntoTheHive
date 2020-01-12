@@ -52,7 +52,7 @@ namespace Networking.Items
             using (var writer = DarkRiftWriter.Create())
             {
                 writer.Write(facade.Id);
-                writer.Write(_facade.Item.itemId); //TODO: handle different types of items, now only modules can be pickups
+                writer.Write(_facade.Item.itemId);
                 using (var message = Message.Create(Tags.AssignItem, writer))
                 {
                     _info.Client.SendMessage(message, SendMode.Reliable);

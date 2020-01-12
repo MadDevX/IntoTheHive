@@ -44,7 +44,6 @@ public class HUDInstaller : MonoInstaller
             (Identifiers.Equipment, 10, _slotPrefab, _equipmentSlotParent);
     }
 
-    //TODO: remove this
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.I))

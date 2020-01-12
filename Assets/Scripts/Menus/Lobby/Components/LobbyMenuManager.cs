@@ -108,9 +108,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     {
         if (_clientInfo.Status == ClientStatus.Host)
         {
-            // TODO MG : Send host left the game message 
             _serverManager.CloseServer();
-            // Should this also disconnect the host client or should he react to "disconnected event"?
         }
 
         if (_clientInfo.Status == ClientStatus.Client)

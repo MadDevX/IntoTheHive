@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO: rethink if pipeline is invoked in the correct order respecting Raycaster logic
 public class RayProjectilePipelineManager : IDisposable
 {
     private ProjectilePhasePipeline _pipeline;

@@ -6,7 +6,6 @@ public struct ProjectilePipelineParameters
     public List<IModule> modules;
     public List<IModule> inheritableModules;
 
-    //TODO: collision information (CastHit)
     public ProjectilePipelineParameters(IProjectile projectile, List<IModule> modules, List<IModule> inheritableModules)
     {
         this.projectile = projectile;

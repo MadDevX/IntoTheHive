@@ -25,9 +25,7 @@ public class LevelGenerationInstaller: MonoInstaller
     }
 
     private void InstallComponents()
-    {
-        //TODO MG : make some mechanic that allows for interscene communication without. Maybe a signal bus?
-        //Also move classes from ProjectNetworkInstaller here 
+    {        
         Container.Bind<Rooms>().FromInstance(_rooms).AsSingle();
         Container.Bind<Triggers>().FromInstance(_triggers).AsSingle();
         Container.Bind<Doors>().FromInstance(_doors).AsSingle();

@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO: you already have OnParticleInitialized event. why not create separate class that controls pipeline during this event?
 public class RayProjectileRaycaster: IDisposable
 {
-    public event Action<Vector2, Vector2> OnRayExecuted; //TODO: rework this, should also contain info about modules
+    public event Action<Vector2, Vector2> OnRayExecuted;
 
     private IProjectile _facade;
     private ProjectileInitializer _initializer;
@@ -58,7 +57,6 @@ public class RayProjectileRaycaster: IDisposable
         Vector2 lastPos = _position.Position + _velocity.Velocity * _settings.baseRange;
         for(int i = 0; i < hit.Length; i++)
         {
-            //TODO: check bullet state to avoid excess collisions
             if (_pipeline.State == ProjectilePhases.Destroyed) break;
             _velocity.Velocity = Vector2.Reflect(_velocity.Velocity, hit[i].normal);
             _position.Position = hit[i].point;

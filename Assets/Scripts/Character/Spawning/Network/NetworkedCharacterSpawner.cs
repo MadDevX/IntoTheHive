@@ -31,7 +31,6 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
 
     public void Initialize()
     {
-        // TODO MG: SET TYPE OF CHARACTERS SPAWNED IN THIS WAY AI
         _networkRelay.Subscribe(Tags.SpawnAI, HandleSpawnAiNetworkedCharacter);
         _networkRelay.Subscribe(Tags.DespawnAI, HandleDespawn);
 
@@ -185,7 +184,6 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     private List<PlayerSpawnData> PrepareSpawnPositions()
     {
 
-        //TODO MG: REMOVE ASAP: implement other method of determining positions.
         List<PlayerSpawnData> spawnPosisionsList = new List<PlayerSpawnData>();
         if (_globalHostPlayerManager.ConnectedPlayers.Count >= 1)
         {

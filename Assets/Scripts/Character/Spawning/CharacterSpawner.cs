@@ -61,7 +61,6 @@ public class CharacterSpawner
 
                 var animator = characterFacade.GetComponentInChildren<Animator>();
                 
-                // TODO CHANGE WHEN REPLACING SPRITES
                 if (characterFacade.CharacterType == CharacterType.AICharacter)
                 {
                     animator.runtimeAnimatorController = (RuntimeAnimatorController)_controllers.Wasp;
@@ -94,9 +93,6 @@ public class CharacterSpawner
             CharacterDespawned?.Invoke(character);
         }
     }
-
-    //TODO MG FIGURE OUT IF THIS SHOULD BE HERE 
-    // IS USED IN NETWORKEDAISPAWNER TO GET AI Ids
 
     [System.Serializable]
     public class Settings

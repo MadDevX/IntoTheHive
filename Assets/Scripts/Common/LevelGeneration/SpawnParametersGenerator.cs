@@ -146,7 +146,6 @@ public class SpawnParametersGenerator
                 break;
         }
 
-        //TODO MG: DELETE THIS HARDCODED DOOR "ROOMID" AND MAKE A BETTER SOLUTION FOR THIS
         doorSpawnInfo.Add(new DoorSpawnParameters(X, Y, isHorizontal));
     }
 

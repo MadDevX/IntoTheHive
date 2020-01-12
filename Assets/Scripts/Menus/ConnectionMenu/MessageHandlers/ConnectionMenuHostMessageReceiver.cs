@@ -44,9 +44,7 @@ public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
             string name = reader.ReadString();
         }
         
-        // TODO MG : add some kind of sceneManager.GetSceneByName                    
         ushort sceneIndex = 2;
-        // TODO MG : currently loadLobby is a crypto ChangeSceneWithReply to specific player, so that could be moved to a seperate class
         _sender.SendLoadLobbyMessage(id, sceneIndex);
     }
 

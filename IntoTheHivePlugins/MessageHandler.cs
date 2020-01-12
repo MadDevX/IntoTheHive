@@ -118,8 +118,6 @@ public class MessageHandler
             {
                 using (DarkRiftReader reader = message.GetReader())
                 {
-                    //checksize
-                    //TODO change to sombe kind of load scene
                     ushort id = reader.ReadUInt16();
                     _plugin.BroadcastToClient(message, e,id);
                 }

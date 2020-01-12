@@ -6,7 +6,6 @@ using Zenject;
 
 public class ClientInfo: IInitializable, IDisposable
 {
-    // TODO MG: UnityClient is probably unnecessary here
     public UnityClient Client;
     public ushort Status = ClientStatus.None;
 

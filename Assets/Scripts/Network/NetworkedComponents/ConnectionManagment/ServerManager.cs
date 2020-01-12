@@ -48,7 +48,6 @@ public class ServerManager: IDisposable
     /// </summary>
     public void JoinAsHost()
     {
-        // TODO MG extract this data from configuration file
         IPAddress serverAddress = IPAddress.Parse("127.0.0.1");
         int port = 4296;
 

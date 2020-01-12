@@ -593,7 +593,6 @@ namespace Pathfinding {
 				tr.position = currentPosition;
 				controller.Move((nextPosition - currentPosition) + accumulatedMovementDelta);
 				// Grab the position after the movement to be able to take physics into account
-				// TODO: Add this into the clampedPosition calculation below to make RVO better respond to physics
 				currentPosition = tr.position;
 				if (controller.isGrounded) verticalVelocity = 0;
 			} else {
