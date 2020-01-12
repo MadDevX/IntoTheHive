@@ -42,7 +42,12 @@ public class AudioManager : MonoBehaviour, IInitializable
             Debug.LogWarning("Sound: " + soundName + " not found!");
             return;
         }
-        s.Source.Play();
+        if(s.SoundType == SoundType.Music)
+            s.Source.Play();
+        else
+        {
+            s.Source.PlayOneShot(s.Clip);
+        }
         
     }
 
