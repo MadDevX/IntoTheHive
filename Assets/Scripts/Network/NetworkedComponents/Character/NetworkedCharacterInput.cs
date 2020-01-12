@@ -1,32 +1,52 @@
 ﻿using System;
 using DarkRift;
+using GameLoop;
 using UnityEngine;
 using Zenject;
 
-public class NetworkedCharacterInput : IInitializable, IDisposable
+public class NetworkedCharacterInput : FixedUpdatableObject
 {
     private ControlState _controlState;
     private CharacterFacade _characterFacade;
     private NetworkRelay _networkRelay;
+    private Settings _settings;
+    private CharacterMovement _movement;
+
+    private float _timer;
 
     public NetworkedCharacterInput(
         ControlState controlState,
         CharacterFacade characterFacade,
-        NetworkRelay relay)
+        NetworkRelay relay,
+        Settings settings,
+        CharacterMovement movement)
     {
         _controlState = controlState;
         _characterFacade = characterFacade;
         _networkRelay = relay;
+        _settings = settings;
+        _movement = movement;
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
+        base.Initialize();
         _networkRelay.Subscribe(Tags.UpdateCharacterState, ParseMessage);
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         _networkRelay.Unsubscribe(Tags.UpdateCharacterState, ParseMessage);
+    }
+
+    public override void OnFixedUpdate(float deltaTime)
+    {
+        _timer += deltaTime;
+        if (_timer < _settings.stopExtrapolationDelay)
+        {
+            _controlState.Position = _movement.UpdatePosition(_controlState.Position, deltaTime);
+        }
     }
 
     public void ParseMessage(Message message)
@@ -58,6 +78,12 @@ public class NetworkedCharacterInput : IInitializable, IDisposable
                 _controlState.Position = position;
             }
         }
+        _timer = 0.0f;
     }
-    
+
+    [System.Serializable]
+    public class Settings
+    {
+        public float stopExtrapolationDelay;
+    }
 }

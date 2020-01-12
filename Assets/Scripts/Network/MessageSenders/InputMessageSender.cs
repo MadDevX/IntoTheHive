@@ -15,6 +15,8 @@ class InputMessageSender : UpdatableObject
     private bool _previousPAction;
     private bool _previousSAction;
 
+    private float _timeSinceLastSend;
+
     public InputMessageSender(
         UnityClient client,
         ControlState controlState,
@@ -35,14 +37,17 @@ class InputMessageSender : UpdatableObject
         float moveDifference = (_controlState.Position - _previousPosition).sqrMagnitude;
         float rotationDifference = (_controlState.Direction - _previousRotation).sqrMagnitude;
 
-        if (moveDifference >= _settings.moveEps * _settings.moveEps
-           || rotationDifference >= _settings.rotationEps * _settings.rotationEps
+        if ((_timeSinceLastSend >= _settings.messageSenderDelay &&  
+               (moveDifference >= _settings.moveEps * _settings.moveEps
+                || rotationDifference >= _settings.rotationEps * _settings.rotationEps))
            || _controlState.PrimaryAction != _previousPAction
            || _controlState.SecondaryAction != _previousSAction)
         {
+            _timeSinceLastSend = 0.0f;
             SendControlStateChangedMessage();
+            UpdatePreviousStates();
         }
-        UpdatePreviousStates();
+        _timeSinceLastSend += deltaTime;
     }
 
     public void SendControlStateChangedMessage()
@@ -76,7 +81,7 @@ class InputMessageSender : UpdatableObject
         _previousPosition = _controlState.Position;
         _previousRotation = _controlState.Direction;
         _previousPAction = _controlState.PrimaryAction;
-        _previousPAction = _controlState.SecondaryAction;
+        _previousSAction = _controlState.SecondaryAction;
     }
 
     [System.Serializable]
@@ -84,6 +89,7 @@ class InputMessageSender : UpdatableObject
     {
         public float moveEps = 0.001f;
         public float rotationEps = 0.1f;
+        public float messageSenderDelay = 0.1f;
     }
 
 }

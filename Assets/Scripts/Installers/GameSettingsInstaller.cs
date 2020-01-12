@@ -27,6 +27,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private WinManager.Settings _winManagerSettings;
     [SerializeField] private ExplosionVFX.Settings _explosionVfxSettings;
     [SerializeField] private AIHPScalingSettings.Settings _aiHealthSettings;
+    [SerializeField] private NetworkedCharacterInput.Settings _networkedInputSettings;
     public override void InstallBindings()
     {
         Container.BindInstance(_roomSpawnSettings).AsSingle();
@@ -50,5 +51,6 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_winManagerSettings).AsSingle();
         Container.BindInstance(_explosionVfxSettings).AsSingle();
         Container.BindInstance(_aiHealthSettings).AsSingle();
+        Container.BindInstance(_networkedInputSettings).AsSingle();
     }
 }

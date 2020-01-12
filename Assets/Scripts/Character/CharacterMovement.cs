@@ -12,6 +12,11 @@ public class CharacterMovement : FixedUpdatableObject
     private CharacterInfo _info;
     private Vector2 _movementVersor;
 
+    /// <summary>
+    /// This property represents movement direction and speed. 
+    /// It automatically clamps its magnitude to avoid exceeding 
+    /// speed limits by moving diagonally.
+    /// </summary>
     public Vector2 MovementVersor
     {
         get
@@ -51,7 +56,7 @@ public class CharacterMovement : FixedUpdatableObject
     {
         var positionDifference = (_rb.position-_controlState.Position).sqrMagnitude;
 
-        if (positionDifference >= _settings.positionEps* _settings.positionEps)
+        if (positionDifference >= _settings.teleportEps * _settings.teleportEps)
         {
             _rb.position = _controlState.Position;
         }
@@ -63,6 +68,17 @@ public class CharacterMovement : FixedUpdatableObject
             }       
         }
         
+    }
+
+    /// <summary>
+    /// Updates <paramref name="basePosition"/> based on current ControlState and <paramref name="deltaTime"/>
+    /// </summary>
+    /// <param name="basePosition">Position to translate</param>
+    /// <param name="deltaTime">How much time needs to be simulated</param>
+    /// <returns></returns>
+    public Vector2 UpdatePosition(Vector2 basePosition, float deltaTime)
+    {
+        return basePosition + MovementVersor * CalculateSpeedBonus() * deltaTime;
     }
 
     private void UpdateMovementVersor(float deltaTime)

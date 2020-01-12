@@ -26,6 +26,6 @@ public class PlayerInput : UpdatableObject
             _controlState.PrimaryAction = Input.GetButton(nameof(_controlState.PrimaryAction));
             _controlState.SecondaryAction = Input.GetButton(nameof(_controlState.SecondaryAction));
         }
-        _controlState.Direction = (_mainCamera.ScreenToWorldPoint(Input.mousePosition) - _transform.position).normalized;
+        _controlState.Direction = ((Vector2)(_mainCamera.ScreenToWorldPoint(Input.mousePosition) - _transform.position)).normalized;
     }
 }

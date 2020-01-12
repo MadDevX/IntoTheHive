@@ -6,10 +6,12 @@ public class ProjectInstaller : MonoInstaller
 {
     [SerializeField] private MonoGameLoop _gameLoop;
     [SerializeField] private Scenes _scenes;
+    [SerializeField] private Texture2D _cursor;
 
     private void Awake()
     {
         Application.targetFrameRate = 60;
+        Cursor.SetCursor(_cursor, new Vector2(_cursor.width/2.0f, _cursor.height/2.0f), CursorMode.ForceSoftware);
     }
 
     public override void InstallBindings()

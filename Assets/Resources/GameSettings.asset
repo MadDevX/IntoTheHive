@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _charMovementSettings:
-    positionEps: 0.1
+    positionEps: 0.05
     teleportEps: 3
     baseSpeed: 4
     speedMult: 1.5
-    correctionLerpFactor: 0.1
+    correctionLerpFactor: 0.6
   _charShootingSettings:
-    weaponOffset: {x: 0, y: 0.8}
+    weaponOffset: {x: 0, y: 0.85}
   _placeholderWeaponSettings:
     velocity: 15
     timeToLive: 3
@@ -49,6 +49,7 @@ MonoBehaviour:
   _inputSenderSettings:
     moveEps: 0.001
     rotationEps: 0.1
+    messageSenderDelay: 0.1
   _roomSpawnSettings:
     roomSize: 14
   _characterHealthSettings:
@@ -68,3 +69,5 @@ MonoBehaviour:
     animationTriggerName: Play
   _aiHealthSettings:
     baseMaxHealth: 30
+  _networkedInputSettings:
+    stopExtrapolationDelay: 0.15

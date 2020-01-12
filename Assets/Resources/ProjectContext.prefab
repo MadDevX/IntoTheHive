@@ -89,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameLoop: {fileID: -460502442893764442}
   _scenes: {fileID: 11400000, guid: eeffb752278984d4d8c4bf5a0992baee, type: 2}
+  _cursor: {fileID: 2800000, guid: 6e5dac59ce458e54cbe050e03614f48a, type: 3}
 --- !u!114 &-460502442893764442
 MonoBehaviour:
   m_ObjectHideFlags: 0
