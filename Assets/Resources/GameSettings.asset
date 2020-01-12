@@ -73,7 +73,7 @@ MonoBehaviour:
     stopExtrapolationDelay: 0.15
   _moduleSettings:
     tripleSpawnOnDestroySettings:
-      ttl: 0.3
+      ttl: 0.15
       spreadAngle: 10
     tripleShotSettings:
       spreadAngle: 30

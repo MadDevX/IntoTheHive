@@ -64,10 +64,13 @@ public class Weapon : IWeapon
 
     public void AttachModule(IModule module)
     {
-        ResetWeapon();
-        _modules.Add(module);
-        if (module.IsInheritable) _inheritableModules.Add(module);
-        RefreshWeapon();
+        if (_modules.Exists(x => x.Id == module.Id) == false)
+        {
+            ResetWeapon();
+            _modules.Add(module);
+            if (module.IsInheritable) _inheritableModules.Add(module);
+            RefreshWeapon();
+        }
     }
 
     public void DetachModule(IModule module)
