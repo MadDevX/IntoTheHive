@@ -36,7 +36,6 @@ public class LobbyClientMessageReceiver: IInitializable, IDisposable
         _connectedPlayers.Clear();
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             while (reader.Position < reader.Length)
             {
                 ushort id = reader.ReadUInt16();

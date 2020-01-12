@@ -30,14 +30,11 @@ public class ConnectionMenuHostMessageReceiver: IInitializable, IDisposable
         _relay.Unsubscribe(Tags.PlayerJoined, HandleHostJoined);
     }
     
-    // A similiar method is located in LobbyHostMessageReceiver. 
-    // If you want to change this class make sure if those changes apply there also.    
     private void HandleHostJoined(Message message)
     {
         // Host is added to the LobbyState in LobbyStateManager Initialize based on the connected players
         ushort id;
         //string name;
-        // TODO MG CHECKSIZE
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();

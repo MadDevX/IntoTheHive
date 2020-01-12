@@ -53,7 +53,6 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             ushort clientID = reader.ReadUInt16();
             _characterSpawner.Despawn(clientID);
         }
@@ -63,7 +62,6 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             while (reader.Position < reader.Length)
             {
                 ushort id = reader.ReadUInt16();
@@ -101,7 +99,6 @@ public class NetworkedCharacterSpawner: IInitializable, IDisposable
     {  
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             while (reader.Position < reader.Length)
             {
                 ushort id = reader.ReadUInt16();

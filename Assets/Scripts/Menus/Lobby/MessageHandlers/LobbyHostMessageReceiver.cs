@@ -42,7 +42,6 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
         ushort id;
         bool isReady;
 
-        //TODO MG CHECKSIZE
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();
@@ -58,7 +57,6 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
         ushort id;
         string name;
 
-        //TODO MG CHECKSIZE
         using (DarkRiftReader reader = message.GetReader())
         {
             id = reader.ReadUInt16();

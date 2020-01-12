@@ -62,8 +62,6 @@ public class GenericMessageWithResponseHost : IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            
-            //TODO MG CHECKSIZE
             ushort id = reader.ReadUInt16();
             
             if (ReadyPlayers.ContainsKey(id))

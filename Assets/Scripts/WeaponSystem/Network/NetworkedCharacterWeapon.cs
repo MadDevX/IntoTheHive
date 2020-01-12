@@ -42,7 +42,6 @@ public class NetworkedCharacterWeapon: IDisposable
         List<short> moduleIds = new List<short>();
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             ushort playerId = reader.ReadUInt16();            
             if(playerId == _characterFacade.Id)
             {                
