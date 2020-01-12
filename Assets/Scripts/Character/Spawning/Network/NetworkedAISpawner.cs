@@ -17,7 +17,6 @@ public class NetworkedAISpawner
                 writer.Write(spawnData.SpawnParameters.X);
                 writer.Write(spawnData.SpawnParameters.Y);
                 
-                //TODO: ai weapon randomization
                 //Item count followed by item Id's
                 short itemCount = 0;
                 writer.Write(itemCount);

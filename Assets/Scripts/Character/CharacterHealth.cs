@@ -36,7 +36,6 @@ public class CharacterHealth : IHealth, IHealthSetter, IDisposable
 
     private void OnSpawned(CharacterSpawnParameters parameters)
     {
-        //TODO: read health from params
         ResetHealth();
     }
 

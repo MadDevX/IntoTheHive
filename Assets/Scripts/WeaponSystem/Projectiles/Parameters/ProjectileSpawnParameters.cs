@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
-//TODO: it's a large struct - check if class would be more performant
-
 public struct ProjectileSpawnParameters
 {
     public Vector2 position;

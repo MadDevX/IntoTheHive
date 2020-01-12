@@ -56,7 +56,6 @@ public class TripleSpawnOnDestroyModule : BaseModule
         var velocity = param.projectile.Velocity;
         var baseRotation = velocity.Rotation();
         var spawnPos = param.projectile.Position + Vector2.ClampMagnitude(velocity, Constants.COLLISION_CORRECTION_EPS);
-        //TODO: remove magic number representing projectile TimeToLive
         var spawnParam = new ProjectileSpawnParameters(spawnPos, baseRotation, velocity.magnitude, 3.0f, param.inheritableModules, param.inheritableModules, param.projectile.IsDummy);
         _factory.Create(spawnParam);
         spawnParam.rotation = baseRotation + _spreadAngle;

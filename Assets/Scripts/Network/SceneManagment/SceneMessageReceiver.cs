@@ -10,18 +10,13 @@ public class SceneMessageReceiver: IInitializable,IDisposable
     private Scenes _scenes;
     private NetworkRelay _relay;
 
-    // TODO MG figure out if this scenes should be stored here somehow
-    private Dictionary<ushort, SceneReference> _sceneReferences;
-
     public SceneMessageReceiver(
         Scenes scenes,
-        NetworkRelay relay,
-        SceneMessageSender messageSender
+        NetworkRelay relay
         )
     {
         _scenes = scenes;
         _relay = relay;
-        _sceneReferences = new Dictionary<ushort, SceneReference>();
     }
 
     public void Initialize()

@@ -20,10 +20,7 @@ class EquipmentMessageSender
         using(DarkRiftWriter writer = DarkRiftWriter.Create())
         {
             writer.Write(_characterFacade.Id);
-            // Write message contents
-            // TODO MG: decide how should the modules be "serialized"
-            // 5 ushorts with '0' for empty slot?
-
+            
             using (Message message = Message.Create(Tags.UpdateCharacterEquipment, writer))
             {
                 _networkManager.SendMessage(message,SendMode.Reliable);

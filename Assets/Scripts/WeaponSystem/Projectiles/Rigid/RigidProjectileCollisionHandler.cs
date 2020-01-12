@@ -37,7 +37,7 @@ public class RigidProjectileCollisionHandler : IDisposable, IProjectileCollision
 
     private void OnTriggerEnterHandler(Collider2D obj)
     {
-        if (obj.isTrigger == false && _pipeline.State != ProjectilePhases.Destroyed) //TODO: check object layers, this is a hack
+        if (obj.isTrigger == false && _pipeline.State != ProjectilePhases.Destroyed)
         {
             OnCollisionEnter?.Invoke(obj);
             AfterCollisionEnter?.Invoke();

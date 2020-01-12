@@ -17,7 +17,6 @@ public class LevelGraphMessageSender
     public Message GenerateLevelGraphMessage()
     {
         _graphGenerator.GenerateLevelGraph();
-        //TODO MG: add some kind of validation to generated graph        
         var rawGraphData = _levelGraphState.graph.GetSendableFormat();
         using (DarkRiftWriter writer = DarkRiftWriter.Create())
         {

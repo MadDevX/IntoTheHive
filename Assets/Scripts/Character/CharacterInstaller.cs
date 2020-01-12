@@ -46,7 +46,7 @@ public class CharacterInstaller : MonoInstaller
         Container.Bind<Rigidbody2D>().FromInstance(_rb).AsSingle();
         Container.Bind<Transform>().FromInstance(transform).AsSingle();
         Container.Bind<Animator>().FromInstance(_animator).AsSingle();
-        Container.Bind(typeof(CharacterFacade), typeof(IDisposable)).FromInstance(_characterFacade).AsSingle(); //TODO: check if other bindings were required (if they are - there will be errors)
+        Container.Bind(typeof(CharacterFacade), typeof(IDisposable)).FromInstance(_characterFacade).AsSingle();
     }
 
     private void InstallWeapon()

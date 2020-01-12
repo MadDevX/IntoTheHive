@@ -52,10 +52,7 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
         _lobbyStateManager.SetReady(id, isReady);
         _lobbyMessageSender.SendUpdateLobbyMessage();
     }
-
-    // TODO MG : make some universal method to use in both classes
-    // A similiar method is located in ConnectionMenuHostMessageReceiver. 
-    // If you want to change this class make sure if those changes apply there also.
+    
     private void HandlePlayerJoined(Message message)
     {
         ushort id;
@@ -69,7 +66,6 @@ public class LobbyHostMessageReceiver: IInitializable, IDisposable
         }
 
         _lobbyStateManager.AddPlayerToLobby(id,name);
-        // TODO MG : add some kind of sceneManager.GetSceneByName
         ushort sceneIndex = (ushort)2;
         _lobbyMessageSender.SendLoadLobbyMessage(id,sceneIndex);
     }
