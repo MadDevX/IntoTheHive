@@ -42,7 +42,6 @@ public class ConnectionMenuClientMessageReceiver: IInitializable, IDisposable
         int sceneBuildIndex;
         using (DarkRiftReader reader = message.GetReader())
         {
-            // TODO MG CHECKSIZE
             //read client id
             reader.ReadInt16();
             //read scene id

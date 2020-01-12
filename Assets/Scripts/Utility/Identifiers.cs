@@ -46,5 +46,6 @@ public enum Identifiers
     GameEndedWinText,
     GameEndedLoseText,
     GameEndedLeaveServerButton,
-    GameEndedHostOkButton
+    GameEndedHostOkButton,
+    PauseExitButton
 }

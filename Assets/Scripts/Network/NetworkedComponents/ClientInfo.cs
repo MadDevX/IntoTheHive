@@ -71,7 +71,6 @@ public class ClientInfo: IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             ushort status = reader.ReadUInt16();
 
             if(Status == ClientStatus.None)

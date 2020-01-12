@@ -35,7 +35,6 @@ public class LevelGraphMessageReceiver: IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             _graphState.graph.Reset();
             
             _graphState.graph.TriggerId = reader.ReadUInt16();

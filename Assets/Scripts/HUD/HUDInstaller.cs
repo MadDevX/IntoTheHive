@@ -11,8 +11,9 @@ public class HUDInstaller : MonoInstaller
     [SerializeField] private InventorySlot _slotPrefab;
     [SerializeField] private Transform _inventorySlotParent;
     [SerializeField] private Transform _equipmentSlotParent;
-    [SerializeField] private GameObject _windowParent;
+    [SerializeField] private GameObject _inventoryParent;
     [SerializeField] private GameObject _overlayParent;
+    [SerializeField] private GameObject _pauseMenu;
     public override void InstallBindings()
     {
         InstallComponents();
@@ -46,9 +47,21 @@ public class HUDInstaller : MonoInstaller
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I) && _pauseMenu.activeSelf == false)
         {
-            _windowParent.SetActive(!_windowParent.activeSelf);
+            _inventoryParent.SetActive(!_inventoryParent.activeSelf);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (_inventoryParent.activeSelf)
+            {
+                _inventoryParent.SetActive(false);
+            }
+            else
+            {
+                _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+            }
         }
     }
 

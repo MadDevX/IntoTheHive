@@ -39,7 +39,6 @@ public class ClientDoorManager: IInitializable, IDisposable
     {        
         using(DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             ushort roomId = reader.ReadUInt16();
             _doorManager.CloseAllDoorsInRoom(roomId);
             _sender.SendClientReady();
@@ -50,7 +49,6 @@ public class ClientDoorManager: IInitializable, IDisposable
     {
         using (DarkRiftReader reader = message.GetReader())
         {
-            //TODO MG CHECKSIZE
             ushort roomId = reader.ReadUInt16();
             _doorManager.OpenAllDoorsInRoom(roomId);
             _sender.SendClientReady();
