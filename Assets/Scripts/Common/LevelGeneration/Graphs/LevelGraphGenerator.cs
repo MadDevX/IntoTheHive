@@ -39,6 +39,7 @@ public class LevelGraphGenerator : IGraphGenerable
                 throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
     }
+    
     private void Shuffle(GraphDirection[] array)
     {
         var length = array.Length;
@@ -51,20 +52,32 @@ public class LevelGraphGenerator : IGraphGenerable
         }
     }
 
+    /// <summary>
+    /// Function for generating level graph.
+    /// Uses minimal number of rooms, maximal number of rooms and chance to connect neighbor rooms from settings
+    /// Returns graph of one level floor
+    /// </summary>
     public void GenerateLevelGraph()
     {
+        //Possible directions in which room can be connected to other ones
         GraphDirection[] directions = { GraphDirection.East, GraphDirection.West, GraphDirection.North, GraphDirection.South};
 
         LevelGraph graph = _levelGraph.graph;
-        int numberOfRooms = Random.Range(_settings.MinNumberOfRooms, _settings.MaxNumberOfRooms);
+        //number of rooms between given room and starting room
         Dictionary<int, int> distanceFromStart = new Dictionary<int, int>();
-        List<int> possibleRooms = new List<int>();
+        //Rooms that can have more neighbors (number of neighbors is less than 4)
+        List<int> possibleNeighborRooms = new List<int>();
+        //Number of neighbors of a given room
         Dictionary<int, int> numberOfNeighbors = new Dictionary<int, int>();
+
+        //Bidirectional dictionaries mapping rooms and locations of them on a xy plane
         Dictionary<int, (int, int)> roomToLocation = new Dictionary<int, (int, int)>();
         Dictionary<(int, int), int> locationToRoom = new Dictionary<(int, int), int>();
 
-        //Add first room [Starting one]
-        Debug.Log($"Added room number 0");
+        //Number of rooms in the currently generated levelGraph
+        int numberOfRooms = Random.Range(_settings.MinNumberOfRooms, _settings.MaxNumberOfRooms);
+
+        //Add first room [Starting one] in (0, 0)
         graph.AddVertex(Rooms.GetStartingRoom());
 
         roomToLocation[0] = (0, 0);
@@ -72,32 +85,27 @@ public class LevelGraphGenerator : IGraphGenerable
 
         distanceFromStart[0] = 0;
         numberOfNeighbors[0] = 0;
-        possibleRooms.Add(0);
+        possibleNeighborRooms.Add(0);
         
         
         for (int newRoomId = 1; newRoomId < numberOfRooms; newRoomId++)
         {
-            Debug.Log($"Added room number {newRoomId}");
-
+            //Shuffle the possible directions in which we try to add the new room
             Shuffle(directions);
             graph.AddVertex(Rooms.GetRandomRoom());
+            
             //Choose an existing room to which you can connect the newly created one
-            var roomToConnect = possibleRooms[Random.Range(0, possibleRooms.Count - 1)];
-            Debug.Log($"Found room of id {roomToConnect}");
-            Debug.Log($"Size of RoomToLocation = {roomToLocation.Count}");
-            Debug.Log($"Size of LocationToRoom = {locationToRoom.Count}");
+            var roomToConnect = possibleNeighborRooms[Random.Range(0, possibleNeighborRooms.Count - 1)];
             var location = roomToLocation[roomToConnect];
             var distanceToStart = Int32.MaxValue;
             //Go in the random direction in which you could add the room
             for (int j = 0; j < directions.Length; j++)
             {
                 var potentialRoom = GetRoomLocationAfterMove(location, directions[j]);
+
                 //If there is a room already there, just continue in another direction
-                //Debug.Log($"Potential Room = {potentialRoom}");
-                //Debug.Log($"Size of LocationToRoom = {locationToRoom.Count}");
                 if (locationToRoom.ContainsKey(potentialRoom)) continue;
-                //Debug.Log($"Wasn't in this place");
-                //Debug.Log($"Size of LocationToRoom = {locationToRoom.Count}");
+
                 //Set room in free spot
                 roomToLocation[newRoomId] = potentialRoom;
                 locationToRoom[potentialRoom] = newRoomId;
@@ -115,23 +123,24 @@ public class LevelGraphGenerator : IGraphGenerable
                         var roomNumber = locationToRoom[potentialNeighbor];
                         numberOfNeighbors[roomNumber]++;
                         numberOfNeighbors[newRoomId]++;
-                        // Our room has no free spot for a new rooms
+
+                        // Our selected room has no free spot for a new rooms
                         if (numberOfNeighbors[roomNumber] == 4)
                         {
-                            possibleRooms.Remove(roomNumber);
+                            possibleNeighborRooms.Remove(roomNumber);
                         }
 
                         //if we check the room we chose to be connected to, we know there will be an edge
-                        //No need to random a range to maybe connect it
+                        //No need to check if we want to connect it
                         if (roomNumber == roomToConnect)
                         {
                             continue;
                         }
 
-                        //If we want to add the connection and we  
+                        //Check if we add a connection between those rooms 
                         if (Random.Range(1, 100) <= _settings.PercentageChanceOfConnectingExistingRoom)
                         {
-                            Debug.Log($"Added a connection from room {newRoomId} to {roomNumber} with chance = {_settings.PercentageChanceOfConnectingExistingRoom}");
+                            //Debug.Log($"Added a connection from room {newRoomId} to {roomNumber} with chance = {_settings.PercentageChanceOfConnectingExistingRoom}");
                             graph.AddEdge(newRoomId, roomNumber, directions[k]);
                             distanceToStart = Math.Min(distanceToStart, distanceFromStart[roomNumber] + 1);
                         }
@@ -148,9 +157,9 @@ public class LevelGraphGenerator : IGraphGenerable
             //        X -- X -- X
             // X - existing rooms
             // N - new room we just added
-            //In this case, our new room can't be a potential room, as it already has 4 neighbors
+            //In this case, new room can't be a potential room, as it already has 4 neighbors
             if(numberOfNeighbors[newRoomId] != 4)
-                possibleRooms.Add(newRoomId);
+                possibleNeighborRooms.Add(newRoomId);
             distanceFromStart[newRoomId] = distanceToStart;
         }
 
@@ -158,7 +167,7 @@ public class LevelGraphGenerator : IGraphGenerable
         var roomsForExit = numberOfNeighbors.Where(x => x.Value == 1).Select(x => x.Key)
             .OrderByDescending(x => distanceFromStart[x]);
 
-        //there is a room with exactly one neighbour -> will become the exit room
+        //there is a room with exactly one neighbor -> will become the exit room
         if (roomsForExit.Any())
         {
             var exitRoom = roomsForExit.First();
@@ -166,11 +175,14 @@ public class LevelGraphGenerator : IGraphGenerable
         }
         else
         {
+            Shuffle(directions);
+            //if there is no room with exactly one neighbor, create a new one and place it furthest from spawn
             var roomId = graph.AddVertex(Rooms.GetExitRoom());
-            //should i create another room?
+            
             var roomNumber = numberOfNeighbors.Where(x => x.Value != 4).OrderByDescending(x => distanceFromStart[x.Key])
                 .First().Key;
             var location = roomToLocation[roomNumber];
+            //Check where we can place the new room
             for (int i = 0; i < directions.Length; i++)
             {
                 var potentialSpace = GetRoomLocationAfterMove(location, directions[i]);
@@ -178,7 +190,11 @@ public class LevelGraphGenerator : IGraphGenerable
                 if (!locationToRoom.ContainsKey(potentialSpace))
                 {
                     graph.AddEdge(roomNumber, roomId, directions[i]);
+                    return;
                 }
+
+                //Don't try to add more connections to the exit room, we want to have exactly one entrance
+                //Last room, so no need to keep the dictionaries updated
             }
         }
 
