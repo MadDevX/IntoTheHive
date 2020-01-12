@@ -31,7 +31,7 @@ public class Weapon : IWeapon
         _info = info;
         _settings = settings;
         BaseFactory = Factory = projectileFactory;
-        _layerMask = Layers.Interactable.ToMask() + Layers.Environment.ToMask();
+        _layerMask = Layers.Environment.ToMask();
     }
 
     public void ReleaseTrigger()
