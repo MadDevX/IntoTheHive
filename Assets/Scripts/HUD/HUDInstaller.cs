@@ -48,14 +48,21 @@ public class HUDInstaller : MonoInstaller
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I) && _pauseMenu.activeSelf == false)
         {
             _inventoryParent.SetActive(!_inventoryParent.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+            if (_inventoryParent.activeSelf)
+            {
+                _inventoryParent.SetActive(false);
+            }
+            else
+            {
+                _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+            }
         }
     }
 
