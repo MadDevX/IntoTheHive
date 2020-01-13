@@ -196,7 +196,7 @@ MonoBehaviour:
   - Name: 0
     SoundType: 0
     Clip: {fileID: 8300000, guid: 59ca93664f1593d44ada1f52e4ac591c, type: 3}
-    Loop: 0
+    Loop: 1
     Source: {fileID: 0}
   - Name: 1
     SoundType: 1
