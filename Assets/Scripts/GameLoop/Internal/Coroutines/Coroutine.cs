@@ -1,51 +1,36 @@
-﻿using Relays;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameLoop.Internal
 {
-    public class GLCoroutine : UpdatableObject, ICoroutine
+    public class Coroutine : BaseCoroutine
     {
         private Action<float> _action;
-
         private float _stopAfterTime;
-        private float _timer = 0.0f;
         private bool _automaticTermination = false;
 
-        private ICoroutinePool _pool;
-
-        public GLCoroutine(ICoroutinePool pool, IGameLoop loop, IRelay relay)
+        public Coroutine(ICoroutinePool pool, IGameLoop loop) : base(pool, loop)
         {
-            _pool = pool;
-            Construct(loop, relay);
         }
-
-        protected override bool DefaultSubscribe => false;
 
         public void Start(Action<float> action, float stopAfterTime)
         {
-            _stopAfterTime = stopAfterTime;
-            _timer = 0.0f;
-            _automaticTermination = true;
-
-            Start(action);
+            StartInternal(action, true, stopAfterTime);
         }
 
         public void Start(Action<float> action)
         {
-            _action = action;
-            SubscribeLoop();
-            _pool.HandleCoroutineStart(this);
+            StartInternal(action, false);
         }
 
-        public void Stop()
+        private void StartInternal(Action<float> action, bool automaticTermination, float stopAfterTime = 0.0f)
         {
-            _action = null;
-            _automaticTermination = false;
-            UnsubscribeLoop();
-            _pool.HandleCoroutineStop(this);
+            _action = action;
+            _automaticTermination = automaticTermination;
+            _stopAfterTime = stopAfterTime;
+            Start();
         }
 
         public override void OnUpdate(float deltaTime)
@@ -55,7 +40,7 @@ namespace GameLoop.Internal
             AutomaticTermination(deltaTime);
         }
 
-        protected void AutomaticTermination(float deltaTime)
+        private void AutomaticTermination(float deltaTime)
         {
             if (_automaticTermination)
             {
