@@ -60,8 +60,8 @@ MonoBehaviour:
     nodeSize: 0.5
     diameter: 2
   _levelGraphGeneratorSettings:
-    MinNumberOfRooms: 20
-    MaxNumberOfRooms: 25
+    MinNumberOfRooms: 8
+    MaxNumberOfRooms: 10
     PercentageChanceOfConnectingExistingRoom: 50
   _winManagerSettings:
     levelsToWin: 2
