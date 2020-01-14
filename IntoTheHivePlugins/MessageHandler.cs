@@ -20,10 +20,22 @@ public class MessageHandler
                 _plugin.BroadcastToAllClients(message, e);
 
             if (message.Tag == Tags.ChangeSceneWithReply)
-                _plugin.BroadcastToAllClients(message, e);            
+            {
+                _plugin.BroadcastToAllClients(message, e);
+
+                using (DarkRiftReader reader = message.GetReader())
+                {
+                    ushort sceneId = reader.ReadUInt16();
+                    if(sceneId == 2)
+                        _plugin.gameInProgress = false;
+                }
+            }
 
             if (message.Tag == Tags.GameStarted)
+            {
+                _plugin.gameInProgress = true;
                 _plugin.BroadcastToAllClients(message, e);
+            }
 
             if (message.Tag == Tags.UpdateLobby)
                 _plugin.BroadcastToAllClients(message, e);
