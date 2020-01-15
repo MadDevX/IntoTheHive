@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 2700815338623680161}
   - component: {fileID: 3512929280502042822}
   - component: {fileID: 5320062946441086026}
-  - component: {fileID: 9051328289121468220}
   - component: {fileID: 5987563102476299766}
   m_Layer: 0
   m_Name: ProjectContext
@@ -114,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b931a7576d2d4fa3e34a40f458048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _server: {fileID: 9051328289121468220}
+  _server: {fileID: 0}
 --- !u!114 &2700815338623680161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,21 +164,6 @@ MonoBehaviour:
   maxCachedMessages: 8
   maxCachedSocketAsyncEventArgs: 32
   maxCachedActionDispatcherTasks: 16
---- !u!114 &9051328289121468220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7614557272970585351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4adc319de44073349ab168522e64c4fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  configuration: {fileID: 4900000, guid: 099e7cad825f1974d95a9256cc70dece, type: 3}
-  createOnEnable: 0
-  eventsFromDispatcher: 1
 --- !u!114 &5987563102476299766
 MonoBehaviour:
   m_ObjectHideFlags: 0

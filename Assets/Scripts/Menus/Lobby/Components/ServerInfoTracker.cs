@@ -11,20 +11,17 @@ using Zenject;
 public class ServerInfoTracker : IInitializable
 {
     private ClientInfo _info;
-    private XmlUnityServer _server;
     private Text _ipText;
     private Text _portText;
     private Settings _settings;
 
     public ServerInfoTracker(
         ClientInfo info,
-        XmlUnityServer server,
         [Inject(Id = Identifiers.IP)]Text ipText,
         [Inject(Id = Identifiers.Port)]Text portText,
         Settings settings)
     {
         _info = info;
-        _server = server;
         _ipText = ipText;
         _portText = portText;
         _settings = settings;

@@ -15,7 +15,8 @@ public class CmdServer : IDisposable
     public CmdServer(Settings settings)
     {
         _settings = settings;
-        InitializeServerProcessSettings();;
+        InitializeServerProcessSettings();
+        Application.quitting += Close;
     }
 
     public bool Create()
@@ -88,6 +89,7 @@ public class CmdServer : IDisposable
     public void Dispose()
     {
         Close();
+        Application.quitting -= Close;
     }
 
     [System.Serializable]
