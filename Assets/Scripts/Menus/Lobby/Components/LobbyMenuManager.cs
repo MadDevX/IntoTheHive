@@ -91,6 +91,7 @@ public class LobbyMenuManager: IInitializable, IDisposable
     /// </summary>
     public void StartGame()
     {
+        _messageSender.SendStartGameMessage();
         _sceneManager.LoadNextLevel();
         _cycleController.RaiseOnGameStarted();
     }

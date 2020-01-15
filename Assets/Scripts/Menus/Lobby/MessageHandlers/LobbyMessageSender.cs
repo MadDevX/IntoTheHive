@@ -71,5 +71,17 @@ public class LobbyMessageSender
             }
         }
     }
+
+
+    public void SendStartGameMessage()
+    {
+        using(var writer = DarkRiftWriter.Create())
+        {
+            using (var message = Message.Create(Tags.GameStarted, writer))
+            {
+                _client.SendMessage(message, SendMode.Reliable);
+            }
+        }
+    }
 }
 
