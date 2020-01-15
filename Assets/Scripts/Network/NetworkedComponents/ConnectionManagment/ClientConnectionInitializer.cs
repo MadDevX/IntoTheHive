@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -100,9 +101,17 @@ public class ClientConnectionInitializer
 
         SwitchButtonsInteractable(false);
         _buttonText.text = "Connecting...";
-
-        await Task.Run(() => _client.ConnectInBackground(address, port, DarkRift.IPVersion.IPv4, (Exception e) => { HandleConnectionCompleted(e); }));
-        
+        var tokenSource = new CancellationTokenSource();
+        try
+        {
+            await Task.Run(() => _client.ConnectInBackground(address, port, DarkRift.IPVersion.IPv4, (Exception e) => { HandleConnectionCompleted(e); }), tokenSource.Token);
+        }
+        catch(ArgumentException e)
+        {
+            _errorText.text = "Incorrect Port Number";
+            tokenSource.Cancel();
+            HandleConnectionCompleted(null);
+        }
     }
 
     /// <summary>

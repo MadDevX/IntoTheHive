@@ -15,7 +15,8 @@ namespace ServerPlugins
         private Dictionary<ushort, IClient> _clients;
         private MessageHandler _messageHandler;
         private IClient _host;
-
+        public bool gameInProgress = false;
+        private int maxPlayersCount = 4;
         public CommunicationServerPlugin(PluginLoadData pluginLoadData) : base(pluginLoadData)
         {
             _clients = new Dictionary<ushort, IClient>();
@@ -30,6 +31,12 @@ namespace ServerPlugins
             e.Client.MessageReceived += _messageHandler.Client_MessageReceived;
             if(_clients.ContainsKey(e.Client.ID) == false)
             {
+                if(_clients.Count == maxPlayersCount || gameInProgress)
+                {
+                    e.Client.Disconnect();
+                    return;
+                }
+
                 _clients.Add(e.Client.ID, e.Client);
                 if (_host == null)
                 {

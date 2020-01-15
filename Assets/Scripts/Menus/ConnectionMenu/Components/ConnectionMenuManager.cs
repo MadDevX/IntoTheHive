@@ -22,7 +22,6 @@ public class ConnectionMenuManager : IInitializable, IDisposable
     private ICoroutineManager _coroutineManager;
 
     private float _timer;
-    private ICoroutine _cor;
 
     public ConnectionMenuManager(
         [Inject(Id = Identifiers.ConnetionMenuCreateServerButton)] Button serverButton,
@@ -81,11 +80,7 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         {
             _serverButtonText.text = "Port busy!";
             _serverButton.interactable = false;
-            if (_cor == null)
-            {
-                _timer = 0.0f;
-                _cor = _coroutineManager.StartCoroutine(ResetCreateButton);
-            }
+            _coroutineManager.ExecuteAfterDelay(ResetCreateButton, 1.5f);
         }
     }
 
@@ -151,17 +146,10 @@ public class ConnectionMenuManager : IInitializable, IDisposable
         _clientInfo.UnsubscribeOnStatusChanged(JoinedServerAsHost);
     }
 
-    private void ResetCreateButton(float deltaTime)
+    private void ResetCreateButton()
     {
-        _timer += deltaTime;
-
-        if(_timer >= 1.5f)
-        {
-            if(_serverButtonText != null) _serverButtonText.text = "Create server";
-            if(_serverButton != null) _serverButton.interactable = true;
-            _cor.Stop();
-            _cor = null;
-        }
+        if(_serverButtonText != null) _serverButtonText.text = "Create server";
+        if(_serverButton != null) _serverButton.interactable = true;
     }
 
 }
