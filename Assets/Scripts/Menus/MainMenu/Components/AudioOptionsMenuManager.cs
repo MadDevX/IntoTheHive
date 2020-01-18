@@ -1,38 +1,45 @@
-﻿using System;
+﻿using Assets.Scripts.Music;
+using GameLoop;
+using System;
 using System.Media;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using Zenject;
 
-public class AudioOptionsMenuManager : IInitializable
+public class AudioOptionsMenuManager : UpdatableObject
 {
     public AudioMixer _mixer;
     public Slider _musicSlider;
     public Slider _sfxSlider;
 
+    private AudioManager _audioManager;
+
+    protected override bool DefaultSubscribe => false;
+
     public AudioOptionsMenuManager(AudioMixer mixer, [Inject(Id = Identifiers.MusicSlider)] Slider musicSlider,
-        [Inject(Id = Identifiers.SfxSlider)] Slider sfxSlider)
+        [Inject(Id = Identifiers.SfxSlider)] Slider sfxSlider,
+        AudioManager audioManager)
     {
         _mixer = mixer;
         _musicSlider = musicSlider;
         _sfxSlider = sfxSlider;
-
+        _audioManager = audioManager;
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
+        base.Initialize();
         SetSlidersValue();
         _musicSlider.onValueChanged.AddListener(SetMusicLevel);
         _sfxSlider.onValueChanged.AddListener(SetSFXLevel);
-
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         _musicSlider.onValueChanged.RemoveListener(SetMusicLevel);
         _sfxSlider.onValueChanged.RemoveListener(SetSFXLevel);
-        
     }
 
     public float CalculateSoundVolume(float sliderValue)
@@ -60,12 +67,21 @@ public class AudioOptionsMenuManager : IInitializable
     public void SetSFXLevel(float sliderValue)
     {
         _mixer.SetFloat("SFXVolume",CalculateSoundVolume(sliderValue));
+        SubscribeLoop();
     }
     public void SetMusicLevel(float sliderValue)
     {
         _mixer.SetFloat("MusicVolume", CalculateSoundVolume(sliderValue));
     }
 
+    public override void OnUpdate(float deltaTime)
+    {
+        if(Input.GetMouseButtonUp(0))
+        {
+            _audioManager.Play(Sound.BulletShoot);
+            UnsubscribeLoop();
+        }
+    }
 }
 
 

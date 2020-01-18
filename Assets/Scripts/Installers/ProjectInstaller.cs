@@ -1,10 +1,13 @@
 ﻿using GameLoop.Internal;
+using Relays;
+using Relays.Internal;
 using UnityEngine;
 using Zenject;
 
 public class ProjectInstaller : MonoInstaller
 {
     [SerializeField] private MonoGameLoop _gameLoop;
+    [SerializeField] private MonoRelay _backupRelay;
     [SerializeField] private Scenes _scenes;
     [SerializeField] private Texture2D _cursor;
 
@@ -17,6 +20,7 @@ public class ProjectInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<IGameLoop>().FromInstance(_gameLoop).AsSingle();
+        Container.Bind<IRelay>().FromInstance(_backupRelay).AsSingle();
         Container.Bind<Scenes>().FromInstance(_scenes).AsSingle();
         Container.BindInterfacesAndSelfTo<ScenePostinitializationEvents>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectEventManager>().AsSingle();
