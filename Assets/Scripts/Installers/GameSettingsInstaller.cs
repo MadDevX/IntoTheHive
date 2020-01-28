@@ -36,6 +36,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
     [SerializeField] private AIHPScalingSettings.Settings _aiHealthSettings;
     [SerializeField] private NetworkedCharacterInput.Settings _networkedInputSettings;
     [SerializeField] private ModuleSettings _moduleSettings;
+    [SerializeField] private AILootCreator.Settings _aiLootCreatorSettings;
 
     public override void InstallBindings()
     {
@@ -61,7 +62,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller
         Container.BindInstance(_explosionVfxSettings).AsSingle();
         Container.BindInstance(_aiHealthSettings).AsSingle();
         Container.BindInstance(_networkedInputSettings).AsSingle();
-
+        Container.BindInstance(_aiLootCreatorSettings).AsSingle();
         InstallModuleSettings();
     }
 

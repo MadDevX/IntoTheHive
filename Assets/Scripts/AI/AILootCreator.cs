@@ -9,13 +9,14 @@ public class AILootCreator : IDisposable
     private PickupManager _pickupManager;
     private ItemDatabase _database;
     private Rigidbody2D _rb;
-
-    public AILootCreator(IRespawnable<CharacterSpawnParameters> respawnable, PickupManager pickupManager, ItemDatabase database, Rigidbody2D rb)
-    {
+    private Settings _settings;
+    public AILootCreator(IRespawnable<CharacterSpawnParameters> respawnable, PickupManager pickupManager, ItemDatabase database, Rigidbody2D rb, Settings settings)
+    {        
         _respawnable = respawnable;
         _pickupManager = pickupManager;
         _database = database;
         _rb = rb;
+        _settings = settings;
         PreInitialize();
     }
 
@@ -31,9 +32,19 @@ public class AILootCreator : IDisposable
 
     private void OnDespawn()
     {
-        var index = UnityEngine.Random.Range(0, _database.dataList.Count);
-        var data = _database.dataList[index];
-        _pickupManager.SpawnPickup(new PickupSpawnRequestParameters(data.itemId, _rb.position));
+        float generatedNumber = UnityEngine.Random.Range(0f, 1f);
+        if(generatedNumber<= _settings.lootDropChance)
+        {
+            var index = UnityEngine.Random.Range(0, _database.dataList.Count);
+            var data = _database.dataList[index];
+            _pickupManager.SpawnPickup(new PickupSpawnRequestParameters(data.itemId, _rb.position));
+        }
+    }
+
+    [System.Serializable] 
+    public class Settings
+    {
+        public float lootDropChance = 0.3f;
     }
 
 }
