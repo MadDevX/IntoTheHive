@@ -322,8 +322,6 @@ namespace Zenject
                 decoratorContext.InstallDecoratorSceneBindings();
             }
 
-            InstallSceneBindings(injectableMonoBehaviours);
-
             _container.Bind(typeof(SceneKernel), typeof(MonoKernel))
                 .To<SceneKernel>().FromNewComponentOn(gameObject).AsSingle().NonLazy();
 

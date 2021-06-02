@@ -381,8 +381,14 @@ namespace DarkRift.Client.Unity
         {
             Client.MessageReceived -= Client_MessageReceived;
             Client.Disconnected -= Client_Disconnected;
+            try
+            {
+                Client.Dispose();
+                
+            }
+            catch(SocketException)
+            {}
 
-            Client.Dispose();
             Dispatcher.Dispose();
         }
 	}

@@ -18,34 +18,16 @@ namespace GameLoop.Internal
 
         public void Subscribe(IBaseUpdatable updatable)
         {
-            switch(updatable)
-            {
-                case IUpdatable up1:
-                    _updatablesDirty.Subscribe(up1);
-                    break;
-                case IFixedUpdatable up2:
-                    _fixedUpdatablesDirty.Subscribe(up2);
-                    break;
-                case ILateUpdatable up3:
-                    _lateUpdatablesDirty.Subscribe(up3);
-                    break;
-            }
+            if (updatable is IUpdatable) _updatablesDirty.Subscribe(updatable as IUpdatable);
+            if (updatable is IFixedUpdatable) _fixedUpdatablesDirty.Subscribe(updatable as IFixedUpdatable);
+            if (updatable is ILateUpdatable) _lateUpdatablesDirty.Subscribe(updatable as ILateUpdatable);
         }
 
         public void Unsubscribe(IBaseUpdatable updatable)
         {
-            switch (updatable)
-            {
-                case IUpdatable up1:
-                    _updatablesDirty.Unsubscribe(up1);
-                    break;
-                case IFixedUpdatable up2:
-                    _fixedUpdatablesDirty.Unsubscribe(up2);
-                    break;
-                case ILateUpdatable up3:
-                    _lateUpdatablesDirty.Unsubscribe(up3);
-                    break;
-            }
+            if (updatable is IUpdatable) _updatablesDirty.Unsubscribe(updatable as IUpdatable);
+            if (updatable is IFixedUpdatable) _fixedUpdatablesDirty.Unsubscribe(updatable as IFixedUpdatable);
+            if (updatable is ILateUpdatable) _lateUpdatablesDirty.Unsubscribe(updatable as ILateUpdatable);
         }
 
         private void Update()

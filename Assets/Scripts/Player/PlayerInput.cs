@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerInput : UpdatableObject
 {
@@ -20,8 +21,11 @@ public class PlayerInput : UpdatableObject
     {
         _controlState.Horizontal = Input.GetAxis(nameof(_controlState.Horizontal));
         _controlState.Vertical = Input.GetAxis(nameof(_controlState.Vertical));
-        _controlState.PrimaryAction = Input.GetButton(nameof(_controlState.PrimaryAction));
-        _controlState.SecondaryAction = Input.GetButton(nameof(_controlState.SecondaryAction));
-        _controlState.Direction = (_mainCamera.ScreenToWorldPoint(Input.mousePosition) - _transform.position).normalized;
+        if (EventSystem.current.IsPointerOverGameObject() == false)
+        {
+            _controlState.PrimaryAction = Input.GetButton(nameof(_controlState.PrimaryAction));
+            _controlState.SecondaryAction = Input.GetButton(nameof(_controlState.SecondaryAction));
+        }
+        _controlState.Direction = ((Vector2)(_mainCamera.ScreenToWorldPoint(Input.mousePosition) - _transform.position)).normalized;
     }
 }

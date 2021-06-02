@@ -13,10 +13,69 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _charMovementSettings:
+    positionEps: 0.05
+    teleportEps: 3
     baseSpeed: 4
     speedMult: 1.5
+    correctionLerpFactor: 0.6
   _charShootingSettings:
-    weaponOffset: {x: 0, y: 0.75}
+    weaponOffset: {x: 0, y: 0.85}
   _placeholderWeaponSettings:
     velocity: 15
-    timeToLive: 2
+    timeToLive: 3
+    raycastCheckRadius: 0.13
+  _aiTargetScannerSettings:
+    scanDelay: 1
+    scanRadius: 20
+  _raycasterSettings:
+    baseRange: 0.3
+  _rayVFXSettings:
+    vfxDuration: 0.15
+    widthMult: 1
+  _projectileDamageSettings:
+    baseDamage: 10
+  _aiShooterScannerSettings:
+    shootDelay: 1
+  _aiTargetInSightSettings:
+    castRadius: 0.5
+  _aiShootOnTimerSettings:
+    shootDelay: 1
+  _directionManagerSettings:
+    RotationLerp: 0.1
+  _movementManagerSettings:
+    LerpFactor: 0.01
+    DistanceToPlayerToStop: 3
+    DistanceToPlayerToStartSlowing: 3.5
+  _inputSenderSettings:
+    moveEps: 0.001
+    rotationEps: 0.1
+    messageSenderDelay: 0.1
+  _roomSpawnSettings:
+    roomSize: 14
+  _characterHealthSettings:
+    maxHealth: 100
+  _characterSpawnerSettings:
+    maxPlayers: 4
+  _levelAIGraphSettings:
+    nodeSize: 0.5
+    diameter: 2
+  _levelGraphGeneratorSettings:
+    MinNumberOfRooms: 10
+    MaxNumberOfRooms: 15
+    PercentageChanceOfConnectingExistingRoom: 50
+  _winManagerSettings:
+    levelsToWin: 2
+  _explosionVfxSettings:
+    animationTriggerName: Play
+  _aiHealthSettings:
+    baseMaxHealth: 30
+  _networkedInputSettings:
+    stopExtrapolationDelay: 0.15
+  _moduleSettings:
+    tripleSpawnOnDestroySettings:
+      ttl: 0.15
+      spreadAngle: 10
+    tripleShotSettings:
+      spreadAngle: 30
+  _aiLootCreatorSettings:
+    lootDropChance: 0.3

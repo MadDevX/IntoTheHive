@@ -16,6 +16,17 @@ public static class Extensions
         return v;
     }
 
+    public static float Rotation(this Vector2 v)
+    {
+        return Vector2.SignedAngle(Vector2.up, v);
+    }
+
+    public static Vector2 ReflectionVector(Vector2 towardsProjectile, Vector2 surfaceNormal)
+    {
+        var angle = Vector2.SignedAngle(towardsProjectile, surfaceNormal);
+        return towardsProjectile.Rotate(2.0f * angle - 180.0f);
+    }
+
     public static int ToMask(this int i)
     {
         return 1 << i;

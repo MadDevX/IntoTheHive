@@ -16,7 +16,7 @@ TagManager:
   - PostProcessing
   - Interactable
   - Projectile
-  - 
+  - Environment
   - 
   - 
   - 
@@ -41,6 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Triggers
+    uniqueID: 1964711885
+    locked: 0
+  - name: Pickups
+    uniqueID: 1679714433
+    locked: 0
   - name: Interactable
     uniqueID: 2260956007
+    locked: 0
+  - name: Walls
+    uniqueID: 2058470713
     locked: 0

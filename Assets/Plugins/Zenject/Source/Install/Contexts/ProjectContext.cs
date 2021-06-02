@@ -290,7 +290,6 @@ namespace Zenject
 
             _container.Bind<SceneContextRegistry>().AsSingle();
 
-            InstallSceneBindings(injectableMonoBehaviours);
 
             InstallInstallers();
 
